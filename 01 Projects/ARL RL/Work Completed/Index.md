@@ -7,6 +7,11 @@ created: 2025-09-29
 # Work Completed — ARL RL
 
 ## Logs
+- [[2025-10-25 E3 PER exploration and parking decision]]
+- [[2025-10-25 E2 dueling validation and config freeze]]
+- [[2025-10-24 E2 validation completed - frozen config established]]
+- [[2025-10-23 E2 TUF sweep (200 vs 400) preliminary results]]
+- [[2025-10-22 E2 dueling head implemented and smoke runs submitted]]
 - [[2025-10-21 E1 aggregation and decision]]
 - [[2025-10-21 Stage E1 2h standby chunks 800eps seeds 4 6 8]]
 - [[2025-10-21 Queue stall fix - normal QoS resubmission]]

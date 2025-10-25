@@ -39,20 +39,22 @@ Improve SC2 FindAndDefeatZerglings win rate with a staged RL roadmap under HPC c
   - Environment: conda init without modules; activate env by path
   - Logging & artifacts: config.json + eval/test_results.json + CSV aggregation
 
-## Current state
-- 2h standby chunks completed for seeds 4/6/8 (~800 eps each): see [[Work Completed/2025-10-21 Stage E1 2h standby chunks 800eps seeds 4 6 8]]
-- Normal QoS submissions are experiencing long waits; using standby micro‑chunks to progress
-- Mixed-precision masking bug fixed (FP16 overflow → dtype-safe masking): [[Work Completed/2025-10-11 FP16 masking overflow fix]]
+## Current state (2025-10-25)
+- **Stage E2 confirmed**: Dueling DQN achieves 91.3% mean win rate (seeds 4/6/8: 92%/95%/87%) with 4.0 pp stdev
+- **Stage E3 PER parked**: Tested α∈{0.4,0.5,0.6} with β annealing; all configs underperformed E2 baseline
+- **Frozen E2 config**: LR=5e-5, EPS_DECAY=100k, Batch=4, Replay=100k, Res=32, StepMul=16, TUF=400, Dueling enabled
 - SLURM integration complete; docs and wrapper in place
+- Mixed-precision masking bug fixed (FP16 overflow → dtype-safe masking)
 - Status: [[Status]]
 
 ## Next steps (roll-up)
-- Submit additional 200–400 episode chunks per seed on standby to reach ≥1000 episodes/seed today
-- If GPUs available, run jobs in parallel (independent submissions or arrays) to minimize wall time
-- After ≥1000 eps/seed: aggregate results, update Experiments and Status, and decide:
-  - Proceed to E2 (Dueling) if mean win rate acceptable and variance manageable
-  - Otherwise, adjust E1 hyperparams (e.g., TUF from 300→200 or 400) and rerun short chunks
-- Optional infrastructure: auto-resume from latest checkpoint; add deadline guard to save before SLURM timeout
+- **E2 production runs**: Submit 2k-4k episode runs per seed (seeds 4, 6, 8) with frozen E2 config on normal QoS (sbagchi account)
+- **Validation**: Aggregate results to confirm long-term stability and performance at scale
+- **Post-production options**:
+  - Resolution scaling: Test 64×64 if E2 production is stable
+  - Stage E4: Design and test N-step returns (n=3) with E2 as baseline
+  - Revisit PER after architecture/resolution changes if warranted
+- **Infrastructure**: Optional auto-resume and deadline guards for long runs
 
 ## Links to detailed plans/sources
 - Experiments Plan (detailed phases E1–E4): [[Experiments/Plan]]

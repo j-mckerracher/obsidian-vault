@@ -34,26 +34,27 @@ Use this hub to track all changes we make, what results we observe, and relevant
 || 2025-10-21 21:30 | [[20251021_212042_E1_seed4]] | (not tracked) | E1 top-up: +200 eps @32×32; LR=5e-5, Decay=100k, TUF=300, Batch=4, StepMul=16 | 59.00% | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251021_212042_E1_seed4` | 100-ep test |
 || 2025-10-21 21:41 | [[20251021_212805_E1_seed8]] | (not tracked) | E1 top-up: +200 eps @32×32; LR=5e-5, Decay=100k, TUF=300, Batch=4, StepMul=16 | 73.00% | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251021_212805_E1_seed8` | 100-ep test |
 || 2025-10-21 21:42 | [[20251021_212805_E1_seed6]] | (not tracked) | E1 top-up: +200 eps @32×32; LR=5e-5, Decay=100k, TUF=300, Batch=4, StepMul=16 | 0.00% | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251021_212805_E1_seed6` | 100-ep test |
-|| 2025-10-19 15:12 | [[20251019_151225_E1_seed8]] | (not tracked) | Stage E1 (E1 recipe, 300 eps smoke): LR=5e-5, Decay=100k, TUF=300 | 20.00% | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251019_151225_E1_seed8` | Smoke run — seed 8 (300 eps) |
+|| 2025-10-25 | [[20251025_E2_TUF_sweep_alt3]] | (not tracked) | E2 TUF-sweep-alt-3: Dueling DQN, TUF=400, 500 eps (seeds 4,6,8) | 52.7% (mean) | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/TUF-sweep-alt-3/` | E2 gate passed |
+|| 2025-10-25 | [[20251025_E2_run6_confirm_1k]] | (not tracked) | E2 run-6: 1k-ep confirmatory, Dueling DQN, TUF=400 (seeds 4,6,8) | 91.3% (mean) | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/run-6/` | **E2 CONFIRMED** |
+|| 2025-10-25 | [[20251025_E3_PER_smoke]] | (not tracked) | E3 PER smoke: α=0.6, β=0.4→1.0, 500 eps (seeds 4,6,8) | Mixed (below E2) | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/E3-smoke/` | Seed 8 unstable |
+|| 2025-10-25 | [[20251025_E3_PER_run2_alpha_sweep]] | (not tracked) | E3 PER run-2: α∈{0.4,0.5}, β=0.6→1.0 sweep (seeds 4,6,8) | Below E2 baseline | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/run-2/` | **PER parked** |
 
-## Aggregated results (2025-10-21)
+## Aggregated results
+
+**Stage E1 Final (2025-10-21)**
 - Seeds: 4=59.0%, 6=0.0%, 8=73.0% (100-ep tests after top-ups)
 - Mean: 44.0%; StdDev: 38.7 pp
-- Decision (per criteria): Proceed to E2 (mean ≥ 40% and StdDev < 40 pp)
+- Decision: Proceed to E2 (gate passed: mean ≥ 40% and StdDev < 40 pp)
 
-**Stage E1 1k-Episode Runs (Normal QoS - 2025-10-21, active)**
-- Job IDs: 9795192 (seed 4), 9795193 (seed 6), 9795194 (seed 8)
-- QoS: normal (higher priority, independent runs, no dependency chain)
-- Submitted: 2025-10-21 04:29 UTC
-- Configuration: 1,000 episodes per seed, 32×32 resolution, 4h wall time, Stage E1 recipe (Double DQN + LR scheduling)
-- Expected start: within hours (normal QoS)
-- Monitoring: `squeue -j 9795192,9795193,9795194`; results will aggregate in `e1_results.csv`
-- Note: Replaced canceled standby chain (9774460–9774462, 2+ day queue) for faster execution
+**Stage E2 Confirmation (2025-10-25)**
+- TUF-sweep-alt-3 (500 eps): Seeds 4=56.0%, 6=68.0%, 8=34.0% → Mean=52.7%, StdDev=35.9 pp (gate passed)
+- run-6 (1k eps): Seeds 4=92.0%, 6=95.0%, 8=87.0% → **Mean=91.3%, StdDev=4.0 pp**
+- **E2 CONFIRMED**: Frozen configuration (Dueling DQN, TUF=400, LR=5e-5, Decay=100k, Batch=4, Replay=100k, Res=32, StepMul=16)
 
-**Stage E1 1k-Episode Runs (Standby QoS - 2025-10-19, canceled)**  
-- ~~Job chain: 9774460 (seed 4) → 9774461 (seed 6) → 9774462 (seed 8)~~
-- ~~Submitted: 2h standby chunks with dependencies~~
-- **Canceled 2025-10-21 due to long queue wait (2+ days); replaced with normal QoS jobs**
+**Stage E3 PER Exploration (2025-10-25)**
+- Smoke (α=0.6, β=0.4→1.0): Mixed results, seed 8 unstable, below E2 baseline
+- Alpha sweep (α=0.4,0.5, β=0.6→1.0): All configurations below E2 baseline
+- **Decision: Park PER** — does not improve over E2; proceed with E2 production runs
 
 Tip: For each run, create a dedicated page in `Experiments/` from the template below and link it here.
 

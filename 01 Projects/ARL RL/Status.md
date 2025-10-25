@@ -6,37 +6,32 @@ created: 2025-10-05
 
 # Status — ARL RL
 
-## Overall status (2025-10-21)
-|- **Queue stall resolved**: Canceled long-pending standby chain (9774460–9774462, 2+ days queued) and resubmitted as independent normal QoS jobs.
-|- **New jobs submitted (normal QoS)**: Seeds 4/6/8, 1k episodes each, 4h wall time, job IDs 9795192/9795193/9795194.
-|- **Expected faster turnaround**: Normal QoS priority (vs. standby backfill); independent runs remove dependency chain overhead.
-|- **Stage E1 smoke runs completed**: Conducted validation runs at 32×32 with 300 episodes per seed (seeds 4, 6, 8).
-|- **Smoke results**: High variance observed (seed 4 = 80%, seed 6 = 0%, seed 8 = 20%; mean 33.3%).
+## Overall status (2025-10-25)
+|- **Stage E2 CONFIRMED**: Dueling DQN with frozen configuration achieves 91.3% mean win rate (seeds 4/6/8: 92%/95%/87%) with 4.0 pp stdev.
+|- **Stage E3 PER parked**: Prioritized Experience Replay tested with α∈{0.4,0.5,0.6} and β annealing; all configurations underperformed E2 baseline. Decision: park PER, proceed with E2 production.
+|- **Frozen E2 configuration**: LR=5e-5, EPS_DECAY=100k, Batch=4, Replay=100k, Res=32, StepMul=16, TUF=400, Dueling DQN enabled.
+|- **Next step**: E2 production runs (2k-4k episodes per seed) to validate long-term stability and performance.
 |- SLURM Integration: Complete job submission pipeline with wrapper scripts, documentation, and troubleshooting guides.
-|- Stage E1 (Double DQN + LR scheduler) implemented with production-ready SLURM automation.
 |- NO_OP behavior fix: Action selection prioritization reduces idling during training.
 
-## Stage E1 Validation & Production Runs (2025-10-21)
-**Smoke validation (300 episodes, 32×32, standby QoS - completed):**
-- Seed 4 (job 9765383): win_rate=80.0%, avg_reward=2.0
-- Seed 6 (job 9766884): win_rate=0.0%, avg_reward=0.0
-- Seed 8 (job 9767893): win_rate=20.0%, avg_reward=0.0
-- Mean: 33.3% (high variance indicates parameter sensitivity or seed initialization effects)
+## Stage progression summary
 
-**Production 1k-episode runs (normal QoS, independent jobs - in progress):**
-- Job IDs: 9795192 (seed 4), 9795193 (seed 6), 9795194 (seed 8)
-- Configuration: 1,000 episodes per seed, 32×32 resolution, Stage E1 recipe (Double DQN + LR scheduler)
-- Wall time: 4 hours per job (normal QoS, expected start within hours)
-- Execution: Independent (no dependencies); parallel execution possible if GPUs available
-- Note: Canceled prior standby chain (9774460–9774462, 2+ day queue wait) and resubmitted for faster turnaround
-- Artifacts will aggregate in: `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/e1_results.csv`
-
-**Completed 2h standby chunks (2025-10-21):** seed4=20%, seed6=40%, seed8=20% (5‑episode tests, ~800 eps each)
-
-**Final 100-episode tests after top-ups (2025-10-21):**
-- seed4=59.0%, seed6=0.0%, seed8=73.0%
+**Stage E1 Final (2025-10-21 - completed)**
+- 100-episode tests: seed4=59.0%, seed6=0.0%, seed8=73.0%
 - Mean=44.0%, StdDev=38.7 pp
-- Decision: Proceed to Stage E2 (criteria met: mean ≥ 40% and StdDev < 40 pp)
+- Gate passed: mean ≥ 40% and StdDev < 40 pp
+- Decision: Proceed to Stage E2
+
+**Stage E2 Dueling DQN (2025-10-25 - confirmed)**
+- TUF-sweep-alt-3 (500 eps): Mean=52.7%, StdDev=35.9 pp (gate passed)
+- run-6 (1k eps): Seeds 4=92.0%, 6=95.0%, 8=87.0% → Mean=91.3%, StdDev=4.0 pp
+- **E2 CONFIRMED**: Outstanding performance and stability
+- Configuration frozen for production
+
+**Stage E3 PER Exploration (2025-10-25 - parked)**
+- Smoke (α=0.6): Mixed results, seed 8 unstable, below E2 baseline
+- Alpha sweep (α=0.4,0.5): All configurations below E2 baseline
+- Decision: Park PER; does not improve over E2
 
 ## Recent results (short sweeps)
 - Learning rate (Sweep A, 32×32):
@@ -56,11 +51,15 @@ Notes:
 - LR and decay/TUF sweeps were not all run under the final chosen LR/decay combos; confirm runs have now validated the combined choice at 32×32.
 - Confirm runs (32×32): seeds 4 → 37.0%, 6 → 29.0%, 8 → 7.0% (mean ≈ 24.3%).
 
-## Current best parameter set (validated at 32×32; mean ≈ 33%)
-- LR: 0.00005 (from Sweep A)
-- EPS_DECAY: 20000 (from Sweep B)
-- TARGET_UPDATE_FREQ: 200 (from Sweep C)
-- Other: batch 8, replay 50k, resolution 32×32, step_mul 8
+## Frozen E2 configuration (validated at 32×32; mean = 91.3%)
+- DUELING_DQN: enabled
+- LR: 5e-5
+- EPS_DECAY: 100000
+- TARGET_UPDATE_FREQ: 400
+- BATCH_SIZE: 4
+- REPLAY_MEMORY_SIZE: 100000
+- SCREEN_RESOLUTION / MINIMAP_RESOLUTION: 32
+- STEP_MUL: 16
 
 ## SLURM Job Submission (2025-10-11)
 **Infrastructure**: Complete SLURM integration with multiple submission methods  
@@ -81,9 +80,11 @@ Notes:
 - **Memory optimized**: Mixed precision + CUDA memory management
 
 ## Next actions
-- Proceed to E2 (Dueling DQN): implement dueling head on non-spatial branch, keep hyperparams fixed; minimal code diff, then run 300–500‑ep smoke per seed on standby.
-- Parallel quick check: submit a short 300‑ep rerun for seed 6 under E1 to sanity‑check the 0% outlier (non‑blocking).
-- After E2 smoke: if mean ≥ E1 mean, schedule 1k‑ep confirms per seed via standby chunks; otherwise, consider minor E1 tweak (e.g., TUF 300→200 or 400).
+- **E2 production runs**: Submit 2k-4k episode runs per seed (seeds 4, 6, 8) with frozen E2 config to validate long-term stability
+- **Resource allocation**: Use normal QoS on sbagchi account for production runs
+- **Optional exploration**: Consider resolution scaling (64×64) after E2 production validation
+- **E4 preparation**: Begin design for N-step returns (n=3) if E2 production results are stable
+- **Documentation**: Keep experiments log and frozen config decision up-to-date
 
 ## Risks and watchouts
 - GPU contention on shared A30 node can affect training speed/stability.
