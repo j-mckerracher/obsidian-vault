@@ -1,9 +1,10 @@
 # Backlog — ARL RL
 
 ## High Priority
-- [ ] Submit E2 production runs (2k-4k episodes per seed, seeds 4/6/8, frozen E2 config)
-- [ ] Monitor and aggregate E2 production results
-- [ ] Validate long-term stability and performance
+- [x] Submit E2 production runs (3k episodes per seed) - **COMPLETE** (94.3% mean win rate)
+- [x] Monitor and aggregate E2 production results - **COMPLETE**
+- [x] Validate long-term stability and performance - **COMPLETE** (excellent scaling)
+- [ ] **Choose next exploration**: Resolution scaling (64×64), E4 (N-step), or extended validation (4k-5k eps)
 
 ## Medium Priority
 - [ ] Document final E2 production results in Experiments
