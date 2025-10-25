@@ -13,26 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01 Projects/NSF Site Visit Demo/Planning/Detailed/AGILE3D Interactive Demo - Phase 2 Detailed Plan with Pseudocode.md",
+                "file": "01 Projects/NSF Site Visit Demo/Planning/Stream-From-Model-Output/AGILE3D-Full-Stack-General-Plan.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AGILE3D Interactive Demo - Phase 2 Detailed Plan with Pseudocode"
+              "title": "AGILE3D-Full-Stack-General-Plan"
             }
           },
           {
-            "id": "8147f492bbcffe7f",
+            "id": "cdd76e176570165f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01 Projects/NSF Site Visit Demo/Planning/Detailed/AGILE3D Interactive Demo - Phase 3 Detailed Plan with Pseudocode.md",
+                "file": "01 Projects/NSF Site Visit Demo/Planning/Stream-From-Model-Output/AGILE3D-WebSocket-Stream-Feature.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AGILE3D Interactive Demo - Phase 3 Detailed Plan with Pseudocode"
+              "title": "AGILE3D-WebSocket-Stream-Feature"
             }
           }
         ],
@@ -181,44 +181,45 @@
       "bases:Create new base": false
     }
   },
-  "active": "8147f492bbcffe7f",
+  "active": "cdd76e176570165f",
   "lastOpenFiles": [
-    "01 Projects/NSF Site Visit Demo/Planning/Detailed/AGILE3D Interactive Demo - Phase 2 Detailed Plan with Pseudocode.md",
+    "01 Projects/NSF Site Visit Demo/Planning/Stream-From-Model-Output/AGILE3D-Full-Stack-General-Plan.md",
+    "01 Projects/NSF Site Visit Demo/Planning/Stream-From-Model-Output/AGILE3D-WebSocket-Stream-Feature.md",
+    "01 Projects/NSF Site Visit Demo/Agent Prompts/Software Engineer.md",
+    "01 Projects/NSF Site Visit Demo/Planning/Stream-From-Model-Output",
     "01 Projects/NSF Site Visit Demo/Agent Prompts/Work Package Coordinator.md",
-    "01-Projects/NSF Site Visit Demo/Work Notes/2025-01-16 04-49 - WP-1.2.1 - Paper Data Extraction.md",
-    "01 Projects/NSF Site Visit Demo/Work Notes/2025-10-20 00-21 - WP-2.3.3 - Historical Trend Line.md",
-    "01-Projects/NSF Site Visit Demo/Backlog.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-11 Normal QoS 12h 4k episodes submission.md",
-    "01 Projects/ARL RL/Work Completed",
-    "01 Projects/ARL RL",
-    "01-Projects/NSF Site Visit Demo/Don't Forget.md",
-    "01-Projects/NSF Site Visit Demo/Home.md",
-    "01-Projects/NSF Site Visit Demo/To Do.md",
-    "01-Projects/NSF Site Visit Demo/Untitled.md",
-    "01-Projects/Agile3D-Demo/To Do.md",
-    "01-Projects/Agile3D-Demo/Home.md",
-    "01-Projects/Agile3D-Demo/Don't Forget.md",
-    "01-Projects/Agile3D-Demo/Backlog.md",
-    "01-Projects/NSF Site Visit Demo/Planning/AGILE3D Interactive Demo - Phase 2 Detailed Plan with Pseudocode.md",
-    "01-Projects/NSF Site Visit Demo/Planning/AGILE3D Interactive Demo - Phase 3 Detailed Plan with Pseudocode.md",
-    "Dashboard.md",
-    "01-Projects/NSF Site Visit Demo/Agent Prompts/PR Review.md",
-    "01 Projects/NSF Site Visit Demo/Work Notes/ad-hoc/2025-10-15 Missing UI Components Action Plan - Phase 1 Completion.md",
-    "01 Projects/NSF Site Visit Demo/Work Notes/ad-hoc",
-    "01 Projects/NSF Site Visit Demo/Work Notes/WP-1.3.2-Layout-Shell-Summary.md",
-    "01 Projects/NSF Site Visit Demo/Work Notes/2025-10-20 05-50 - WP-2.3.2 Completion Summary.md",
-    "01 Projects/NSF Site Visit Demo/Work Notes/2025-10-19 19-00 - WP-2.3.2 - Instrumentation, Error Handling & QA Hooks.md",
-    "01 Projects/NSF Site Visit Demo/Work Notes/2025-10-19 - WP-2.1.4 - Performance Guardrails and Auto-Fallback.md",
-    "01 Projects/NSF Site Visit Demo/Work Notes/2025-10-19 - Phase 2 Work Package Status Summary.md",
-    "01 Projects/NSF Site Visit Demo/Work Notes/2025-10-18 21-59 - WP-2.2.4 - Current Configuration Display Component.md",
-    "01 Projects/NSF Site Visit Demo/Work Notes/2025-10-18 21-45 - WP-2.2.3 - SimulationService - Branch Selection & Metrics.md",
-    "01 Projects/NSF Site Visit Demo/Work Notes",
-    "01 Projects/NSF Site Visit Demo/SQA Reviews/WP-1.3.1 Visual Design System and Theme 2025-10-17/evidence/logs/unit-tests.txt",
-    "01 Projects/NSF Site Visit Demo/SQA Reviews/WP-1.3.1 Visual Design System and Theme 2025-10-17/evidence/logs/unit-tests-2025-10-17T20-26-46Z.txt",
-    "01 Projects/NSF Site Visit Demo/SQA Reviews/WP-1.3.1 Visual Design System and Theme 2025-10-17/evidence/logs/lint.txt",
-    "01 Projects/NSF Site Visit Demo/SQA Reviews/WP-1.3.1 Visual Design System and Theme 2025-10-17/evidence/logs/lint-2025-10-17T20-26-46Z.txt",
-    "01 Projects/NSF Site Visit Demo/SQA Reviews/WP-1.3.1 Visual Design System and Theme 2025-10-17/evidence/logs",
-    "01 Projects/NSF Site Visit Demo/SQA Reviews/WP-1.3.1 Visual Design System and Theme 2025-10-17/evidence",
+    "01 Projects/NSF Site Visit Demo/Agent Prompts/SQA Agent.md",
+    "01 Projects/NSF Site Visit Demo/Planning/Detailed/AGILE3D Interactive Demo - Phase 3 Detailed Plan with Pseudocode.md",
+    "04-Agent-Reference-Files/Gilbreth-SLURM/Get Docs Script.md",
+    "04-Agent-Reference-Files/Gilbreth-SLURM",
+    "04-Agent-Reference-Files",
+    "03-Agent-Prompts/Gilbreth SLURM Expert.md",
+    "03-Agent-Prompts",
+    "02-Meetings/Saurabh/10.10.2025.md",
+    "02-Meetings/Saurabh",
+    "02-Meetings",
+    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D Interactive Demo - Phase 3 Meso-Level Plan.md",
+    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D Interactive Demo - Phase 3 Detailed Plan with Pseudocode.md",
+    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D Interactive Demo - Phase 2 Meso-Level Plan.md",
+    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D Interactive Demo - Phase 2 Detailed Plan with Pseudocode.md",
+    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D Interactive Demo - Phase 1 Meso-Level Plan.md",
+    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D Interactive Demo - Phase 1 Detailed Plan with Pseudocode.md",
+    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D Interactive Demo - Macro Level Plan.md",
+    "01 Projects/Agile3D Demo/To Do.md",
+    "01 Projects/Agile3D Demo/Home.md",
+    "01 Projects/Agile3D Demo/Don't Forget.md",
+    "01 Projects/Agile3D Demo/Backlog.md",
+    "01 Projects/Agile3D Demo",
+    "01 Projects/ARL RL/Work Completed/2025-10-24 E2 validation completed - frozen config established.md",
+    "01 Projects/ARL RL/Work Completed/2025-10-23 E2 TUF sweep (200 vs 400) preliminary results.md",
+    "01 Projects/ARL RL/Work Completed/2025-10-22 E2 dueling head implemented and smoke runs submitted.md",
+    "01 Projects/ARL RL/Work Completed/2025-10-21 Stage E1 2h standby chunks 800eps seeds 4 6 8.md",
+    "01 Projects/ARL RL/Work Completed/2025-10-21 Queue stall fix - normal QoS resubmission.md",
+    "01 Projects/ARL RL/Work Completed/2025-10-21 E1 aggregation and decision.md",
+    "01 Projects/ARL RL/Run-Logs/run.out.and.err.files/e1_training_9799884.out",
+    "01 Projects/ARL RL/Run-Logs/run.out.and.err.files/e1_training_9799884.err",
+    "01 Projects/ARL RL/Run-Logs/run.out.and.err.files/e1_training_9799882.out",
+    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D-Poster.png",
     "01-Projects/NSF Site Visit Demo/Planning/AGILE3D-Poster.png"
   ]
 }
