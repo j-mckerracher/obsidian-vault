@@ -48,18 +48,53 @@ Improve SC2 FindAndDefeatZerglings win rate with a staged RL roadmap under HPC c
 - Mixed-precision masking bug fixed (FP16 overflow → dtype-safe masking)
 - Status: [[Status]]
 
-## Next steps (roll-up)
-**E2 production complete (94.3% at 3k episodes). Choose next direction:**
+## Milestones
 
-1. **Resolution scaling (64×64)**: Test frozen E2 at higher res; 500-1k eps smoke per seed; ~4x resources
-2. **Stage E4 (N-step returns)**: Add n=3 bootstrapping to E2; 500-1k eps smoke per seed; similar resources
-3. **Extended validation**: Push E2 to 4k-5k episodes to test convergence limits
-4. **Deployment prep**: Archive checkpoints, prepare best model (seed 8 ep3000) for demos/production
+| Milestone | Owner | Target Date | Status | Links |
+|---|---|---|---|---|
+| E1 Baseline (Double DQN + LR scheduler) | josh | 2025-10-21 | ✅ Done | [[Experiments#expt-20251025-e2-tuf-sweep]] |
+| E2 Validation (Dueling DQN gate) | josh | 2025-10-25 | ✅ Done | [[Experiments#expt-20251025-e2-confirm-1k]] |
+| E2 Production (3k episodes) | josh | 2025-10-25 | ✅ Done | [[Experiments#expt-20251025-e2-prod-3k]] (94.3%) |
+| E3 PER Exploration (frozen E2) | josh | 2025-10-25 | ✅ Parked | [[Decisions/2025-10-25 Park Stage E3 PER]] |
+| Resolution Scaling (64×64) | josh | 2025-10-26 | 🔄 In Progress | [[Experiments]] — awaiting results |
+| E4 N-step Returns (design) | josh | 2025-10-28 | ⏸ Blocked | Pending 64×64 results |
+| Documentation Restructuring Phase 1 | josh | 2025-10-25 | ✅ Done | [[RESTRUCTURING_SUMMARY_2025-10-25]] |
+| Documentation Phase 2 (legacy) | josh | 2025-10-26 | 🔄 In Progress | [[Work Completed/2025-10/2025-10-25]] |
 
-**Infrastructure improvements (optional)**:
-- Auto-resume from checkpoint
-- Deadline guards for SLURM timeouts
-- Checkpoint cleanup scripts
+## Tasks
+
+### In Progress
+- Resolution scaling 64×64 smoke runs (E2 config, 500 eps per seed) — jobs queued on Gilbreth
+- Phase 2 documentation consolidation (job notes, daily logs, legacy experiments)
+
+### Backlog
+- E4 N-step returns design and smoke tests
+- Extended validation (4k-5k episodes)
+- Checkpoint cleanup and deployment prep
+- Obsidian dataview queries for experiment filtering
+- KPI dashboard setup
+
+### Done
+- E1 baseline establishment and validation
+- E2 implementation and production validation (94.3% mean)
+- E3 PER exploration and parking decision
+- Documentation Phase 1 (5 canonical experiments, standardized hub)
+
+## Risks & Mitigation
+
+| Risk | Impact | Mitigation | Status |
+|---|---|---|---|
+| 64×64 runs exceed memory | High | Use 80GB memory allocation; monitor GPU usage | ✅ Mitigated |
+| E2 performance degrades with resolution | Medium | Have fallback to 48×48 or revert to 32×32 | ✅ Planned |
+| PER fundamentally incompatible | Medium | Already explored and parked; focus on other improvements | ✅ Resolved |
+| Legacy experiment consolidation takes too long | Low | Phase 2 deferred; Phase 1 critical path complete | ✅ Accepted |
+| Gilbreth queue congestion delays experiments | Medium | Use standby QoS as backup; submit micro-chunks | ✅ Plan in place |
+
+## Next 3 Actions
+
+1. **Monitor 64×64 resolution scaling jobs** — Track job progress on Gilbreth; document results in new experiment note (expt-20251025-e2-res64)
+2. **Continue Phase 2 documentation** — Batch-migrate legacy 23 E1 experiments; create remaining job submission notes
+3. **Prepare E4 design** — Start N-step returns investigation; draft smoke test plan for 500 episodes
 
 ## Links to detailed plans/sources
 - Experiments Plan (detailed phases E1–E4): [[Experiments/Plan]]
