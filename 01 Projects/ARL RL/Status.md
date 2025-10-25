@@ -6,12 +6,16 @@ created: 2025-10-05
 
 # Status — ARL RL
 
-## Overall status (2025-10-25)
-|- **Stage E2 VALIDATED AT SCALE**: 3k-episode production runs achieve **94.3% mean win rate** (seeds 4/6/8: 97%/88%/98%) with 5.7 pp stdev.
-|- **E2 performance progression**: 500 eps (52.7%) → 1k eps (91.3%) → 3k eps (94.3%) — robust improvement with scale.
-|- **Stage E3 PER parked**: Prioritized Experience Replay tested with α∈{0.4,0.5,0.6} and β annealing; all configurations underperformed E2 baseline.
-|- **Frozen E2 configuration**: LR=5e-5, EPS_DECAY=100k, Batch=4, Replay=100k, Res=32, StepMul=16, TUF=400, Dueling DQN enabled.
-|- **Next options**: Resolution scaling (64×64), Stage E4 (N-step returns), or extended validation (4k-5k eps).
+## Overall Status
+**Status**: 🞫 GREEN — Excellent progress on E2 validation; PER exploration completed and parked.
+
+**Last updated**: 2025-10-25T16:44:16Z
+
+### Summary
+- **E2 Production Validated**: 3k episodes achieve **94.3% mean win rate** (97%/88%/98%), excellent scaling from 1k (91.3%) and 500 (52.7%)
+- **E2 Configuration Frozen**: Dueling DQN with LR=5e-5, TUF=400, locked for production use
+- **E3 PER Parked**: Tested α∈{0.4, 0.5, 0.6} with β annealing; no configuration improved over E2 baseline
+- **Next Phase**: Resolution scaling (64×64) or E4 (N-step returns) exploration pending user choice
 |- SLURM Integration: Complete job submission pipeline with wrapper scripts, documentation, and troubleshooting guides.
 |- NO_OP behavior fix: Action selection prioritization reduces idling during training.
 
