@@ -1,14 +1,24 @@
 ---
-project: ARL RL
-tags: [project/arl-rl]
-created: 2025-10-03
+title: "Experiments — ARL RL"
+last_updated: "2025-10-25T16:44:16Z"
+tags: ["project/arl-rl", "experiments-index"]
 ---
 
 # Experiments — ARL RL
 
-Use this hub to track all changes we make, what results we observe, and relevant metadata for reproducibility (commit, seed, resources, paths).
+Canonical hub tracking all experiments, results, and reproductibility metadata. Experiments are stored as canonical notes under `Documents/Experiments/` with detailed YAML and structured sections.
 
-## Summary table
+## Key Experiments (Canonical)
+
+| ID | Date | Stage | Title | Algo | Params | Seeds | Episodes | Mean Win Rate | Status | Link |
+|---|---|---|---|---|---|---|---|---|---|---|
+| expt-20251025-e2-prod-3k | 2025-10-25 | E2 | Production — 3k Validation | Dueling DQN | LR=5e-5, TUF=400, Batch=4 | 4,6,8 | 3000 | **94.3%** ✓ | completed | [[Documents/Experiments/expt-20251025-e2-prod-3k]] |
+| expt-20251025-e2-confirm-1k | 2025-10-25 | E2 | Confirmation — 1k Runs | Dueling DQN | LR=5e-5, TUF=400, Batch=4 | 4,6,8 | 1000 | 91.3% | completed | [[Documents/Experiments/expt-20251025-e2-confirm-1k]] |
+| expt-20251025-e2-tuf-sweep | 2025-10-25 | E2 | TUF Sweep — 500ep Gate | Dueling DQN | LR=5e-5, TUF=400, Batch=4 | 4,6,8 | 500 | 52.7% | completed | [[Documents/Experiments/expt-20251025-e2-tuf-sweep]] |
+| expt-20251025-e3-per-smoke | 2025-10-25 | E3 | PER Smoke (α=0.6) | DQN+PER | LR=5e-5, α=0.6, TUF=400 | 4,6,8 | 500 | <E2 baseline | completed | [[Documents/Experiments/expt-20251025-e3-per-smoke]] |
+| expt-20251025-e3-per-sweep | 2025-10-25 | E3 | PER Alpha Sweep | DQN+PER | LR=5e-5, α∈{0.4,0.5}, TUF=400 | 4,6,8 | 300-500 | <E2 baseline | completed | [[Documents/Experiments/expt-20251025-e3-per-sweep]] |
+
+## Legacy Experiments Summary
 
 | Date/Time (UTC) | Run ID | Commit | Param changes vs baseline | 100-ep Win Rate | Artifacts Path | Notes |
 |---|---|---|---|---|---|---|
