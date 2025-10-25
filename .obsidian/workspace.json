@@ -1,0 +1,218 @@
+{
+  "main": {
+    "id": "aa25073b0b068bf6",
+    "type": "split",
+    "children": [
+      {
+        "id": "10ca9a3716ae3865",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1dc067156679b3f4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "01 Projects/ARL RL/Status.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Status"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d77130e200a53bb7",
+    "type": "split",
+    "children": [
+      {
+        "id": "db1a5f751ee9f908",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "aef185152c49203f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "33fe0ad0e8b06df0",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "3da4012e4c28e64d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 425.5
+  },
+  "right": {
+    "id": "798bc80d22f9f14d",
+    "type": "split",
+    "children": [
+      {
+        "id": "ee4b812218f355fb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f328e37ee0d729e5",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "81f769fe80e1fd5d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "ae6275ecf2c6e12f",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "190881b1e4ec10b4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "aef185152c49203f",
+  "lastOpenFiles": [
+    "01 Projects/ARL RL/Experiments/20251021_212805_E1_seed8.md",
+    "01 Projects/ARL RL/Experiments/20251021_212805_E1_seed6.md",
+    "01 Projects/ARL RL/Experiments/20251021_212042_E1_seed4.md",
+    "01 Projects/ARL RL/Work Completed/2025-10-21 E1 aggregation and decision.md",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep100.pth",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep100.pth.filepart",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/eval/test_results.json",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/eval",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/training_curves.png",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/training_curves.png.filepart",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/train.log",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/train.log.filepart",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep200.pth",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep200.pth.filepart",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/config.json",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed6/training_curves.png",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212042_E1_seed4/training_curves.png",
+    "01 Projects/ARL RL/Plan.md",
+    "01 Projects/ARL RL/Work Completed/2025-10-21 Stage E1 2h standby chunks 800eps seeds 4 6 8.md",
+    "01 Projects/ARL RL/Work Completed/2025-10-19 Stage E1 smoke runs seeds 6 and 8.md",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-2/20251021_205055_E1_seed6/training_curves.png",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-2/20251021_205055_E1_seed4/training_curves.png",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-2/20251021_205033_E1_seed8/training_curves.png",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-1/20251021_164435_E1_seed8/training_curves.png",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-1/20251021_164433_E1_seed4/training_curves.png",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-1/20251021_164432_E1_seed6/training_curves.png",
+    "01 Projects/ARL RL/Experiments/20251021_164435_E1_seed8.md",
+    "01 Projects/ARL RL/Experiments/20251021_164432_E1_seed6.md",
+    "01 Projects/ARL RL/Experiments/20251021_164433_E1_seed4.md",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/10212025.md",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_164435_E1_seed8/training_curves.png",
+    "01 Projects/ARL RL/Work Completed/2025-10-19 Stage E1 chained 1k eps seeds 4 6 8.md",
+    "01 Projects/ARL RL/Work Completed/2025-10-21 Queue stall fix - normal QoS resubmission.md",
+    "01 Projects/ARL RL/Work Completed/2025-10-19 Stage E1 smoke run 300eps seed4.md",
+    "01 Projects/ARL RL/Home.md",
+    "01 Projects/ARL RL/Experiments.md",
+    "01 Projects/ARL RL/Status.md",
+    "01 Projects/ARL RL/References/LLM Collaboration Guide.md",
+    "01 Projects/ARL RL/Experiments/20251019_151225_E1_seed8.md",
+    "01 Projects/ARL RL/Experiments/20251019_041819_E1_seed6.md",
+    "01 Projects/ARL RL/Experiments/20251019_033706_E1_seed4.md",
+    "01 Projects/ARL RL/Script-Modification-Explainer.md",
+    "01 Projects/ARL RL/To Do.md",
+    "01 Projects/ARL RL/Don't Forget.md",
+    "01 Projects/ARL RL/Job-Submission-Commands/Chained Commands.md",
+    "01 Projects/ARL RL/Experiments/Plan.md"
+  ]
+}
