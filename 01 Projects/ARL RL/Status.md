@@ -7,10 +7,11 @@ created: 2025-10-05
 # Status — ARL RL
 
 ## Overall status (2025-10-25)
-|- **Stage E2 CONFIRMED**: Dueling DQN with frozen configuration achieves 91.3% mean win rate (seeds 4/6/8: 92%/95%/87%) with 4.0 pp stdev.
-|- **Stage E3 PER parked**: Prioritized Experience Replay tested with α∈{0.4,0.5,0.6} and β annealing; all configurations underperformed E2 baseline. Decision: park PER, proceed with E2 production.
+|- **Stage E2 VALIDATED AT SCALE**: 3k-episode production runs achieve **94.3% mean win rate** (seeds 4/6/8: 97%/88%/98%) with 5.7 pp stdev.
+|- **E2 performance progression**: 500 eps (52.7%) → 1k eps (91.3%) → 3k eps (94.3%) — robust improvement with scale.
+|- **Stage E3 PER parked**: Prioritized Experience Replay tested with α∈{0.4,0.5,0.6} and β annealing; all configurations underperformed E2 baseline.
 |- **Frozen E2 configuration**: LR=5e-5, EPS_DECAY=100k, Batch=4, Replay=100k, Res=32, StepMul=16, TUF=400, Dueling DQN enabled.
-|- **Next step**: E2 production runs (2k-4k episodes per seed) to validate long-term stability and performance.
+|- **Next options**: Resolution scaling (64×64), Stage E4 (N-step returns), or extended validation (4k-5k eps).
 |- SLURM Integration: Complete job submission pipeline with wrapper scripts, documentation, and troubleshooting guides.
 |- NO_OP behavior fix: Action selection prioritization reduces idling during training.
 
@@ -22,11 +23,12 @@ created: 2025-10-05
 - Gate passed: mean ≥ 40% and StdDev < 40 pp
 - Decision: Proceed to Stage E2
 
-**Stage E2 Dueling DQN (2025-10-25 - confirmed)**
+**Stage E2 Dueling DQN (2025-10-25 - validated at scale)**
 - TUF-sweep-alt-3 (500 eps): Mean=52.7%, StdDev=35.9 pp (gate passed)
 - run-6 (1k eps): Seeds 4=92.0%, 6=95.0%, 8=87.0% → Mean=91.3%, StdDev=4.0 pp
-- **E2 CONFIRMED**: Outstanding performance and stability
-- Configuration frozen for production
+- **Production (3k eps)**: Seeds 4=97.0%, 6=88.0%, 8=98.0% → **Mean=94.3%, StdDev=5.7 pp**
+- **E2 VALIDATED**: Excellent performance at scale with continued improvement
+- Configuration frozen and production-ready
 
 **Stage E3 PER Exploration (2025-10-25 - parked)**
 - Smoke (α=0.6): Mixed results, seed 8 unstable, below E2 baseline
@@ -80,11 +82,29 @@ Notes:
 - **Memory optimized**: Mixed precision + CUDA memory management
 
 ## Next actions
-- **E2 production runs**: Submit 2k-4k episode runs per seed (seeds 4, 6, 8) with frozen E2 config to validate long-term stability
-- **Resource allocation**: Use normal QoS on sbagchi account for production runs
-- **Optional exploration**: Consider resolution scaling (64×64) after E2 production validation
-- **E4 preparation**: Begin design for N-step returns (n=3) if E2 production results are stable
-- **Documentation**: Keep experiments log and frozen config decision up-to-date
+**Choose next exploration direction:**
+
+**Option 1: Resolution scaling (64×64)**
+- Test frozen E2 config at higher resolution
+- Expected: Better spatial awareness, potentially higher win rate
+- Resource: ~4x memory/compute vs 32×32
+- Timeline: 500-1k episode smoke runs per seed
+
+**Option 2: Stage E4 (N-step returns, n=3)**
+- Add multi-step bootstrapping to E2 baseline
+- Expected: Improved credit assignment, potentially faster learning
+- Resource: Similar to E2 baseline
+- Timeline: 500-1k episode smoke runs per seed
+
+**Option 3: Extended validation (4k-5k episodes)**
+- Push E2 even further to test convergence limits
+- Expected: Marginal improvements or plateau confirmation
+- Resource: 6-8h per seed on normal QoS
+
+**Option 4: Checkpoint cleanup & deployment prep**
+- Archive strategic checkpoints, delete intermediates
+- Prepare best model (seed 8 ep3000, 98% win rate) for deployment/demos
+- Document final E2 configuration for paper/reports
 
 ## Risks and watchouts
 - GPU contention on shared A30 node can affect training speed/stability.

@@ -38,6 +38,7 @@ Use this hub to track all changes we make, what results we observe, and relevant
 || 2025-10-25 | [[20251025_E2_run6_confirm_1k]] | (not tracked) | E2 run-6: 1k-ep confirmatory, Dueling DQN, TUF=400 (seeds 4,6,8) | 91.3% (mean) | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/run-6/` | **E2 CONFIRMED** |
 || 2025-10-25 | [[20251025_E3_PER_smoke]] | (not tracked) | E3 PER smoke: α=0.6, β=0.4→1.0, 500 eps (seeds 4,6,8) | Mixed (below E2) | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/E3-smoke/` | Seed 8 unstable |
 || 2025-10-25 | [[20251025_E3_PER_run2_alpha_sweep]] | (not tracked) | E3 PER run-2: α∈{0.4,0.5}, β=0.6→1.0 sweep (seeds 4,6,8) | Below E2 baseline | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/run-2/` | **PER parked** |
+|| 2025-10-25 | [[20251025_E2_production_3k]] | (not tracked) | E2 production: 3k eps, frozen config (seeds 4,6,8) | **94.3% (mean)** | `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251025_021201_E1_seed{4,6,8}/` | **E2 at scale** |
 
 ## Aggregated results
 
@@ -48,8 +49,9 @@ Use this hub to track all changes we make, what results we observe, and relevant
 
 **Stage E2 Confirmation (2025-10-25)**
 - TUF-sweep-alt-3 (500 eps): Seeds 4=56.0%, 6=68.0%, 8=34.0% → Mean=52.7%, StdDev=35.9 pp (gate passed)
-- run-6 (1k eps): Seeds 4=92.0%, 6=95.0%, 8=87.0% → **Mean=91.3%, StdDev=4.0 pp**
-- **E2 CONFIRMED**: Frozen configuration (Dueling DQN, TUF=400, LR=5e-5, Decay=100k, Batch=4, Replay=100k, Res=32, StepMul=16)
+- run-6 (1k eps): Seeds 4=92.0%, 6=95.0%, 8=87.0% → Mean=91.3%, StdDev=4.0 pp
+- **Production (3k eps)**: Seeds 4=97.0%, 6=88.0%, 8=98.0% → **Mean=94.3%, StdDev=5.7 pp**
+- **E2 VALIDATED AT SCALE**: Frozen configuration performs excellently at 3k episodes (Dueling DQN, TUF=400, LR=5e-5, Decay=100k, Batch=4, Replay=100k, Res=32, StepMul=16)
 
 **Stage E3 PER Exploration (2025-10-25)**
 - Smoke (α=0.6, β=0.4→1.0): Mixed results, seed 8 unstable, below E2 baseline

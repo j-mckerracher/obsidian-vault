@@ -40,7 +40,8 @@ Improve SC2 FindAndDefeatZerglings win rate with a staged RL roadmap under HPC c
   - Logging & artifacts: config.json + eval/test_results.json + CSV aggregation
 
 ## Current state (2025-10-25)
-- **Stage E2 confirmed**: Dueling DQN achieves 91.3% mean win rate (seeds 4/6/8: 92%/95%/87%) with 4.0 pp stdev
+- **Stage E2 validated at scale**: 3k-episode production runs achieve 94.3% mean win rate (seeds 4/6/8: 97%/88%/98%) with 5.7 pp stdev
+- **E2 progression**: 500 eps (52.7%) → 1k eps (91.3%) → 3k eps (94.3%) — robust scaling
 - **Stage E3 PER parked**: Tested α∈{0.4,0.5,0.6} with β annealing; all configs underperformed E2 baseline
 - **Frozen E2 config**: LR=5e-5, EPS_DECAY=100k, Batch=4, Replay=100k, Res=32, StepMul=16, TUF=400, Dueling enabled
 - SLURM integration complete; docs and wrapper in place
@@ -48,13 +49,17 @@ Improve SC2 FindAndDefeatZerglings win rate with a staged RL roadmap under HPC c
 - Status: [[Status]]
 
 ## Next steps (roll-up)
-- **E2 production runs**: Submit 2k-4k episode runs per seed (seeds 4, 6, 8) with frozen E2 config on normal QoS (sbagchi account)
-- **Validation**: Aggregate results to confirm long-term stability and performance at scale
-- **Post-production options**:
-  - Resolution scaling: Test 64×64 if E2 production is stable
-  - Stage E4: Design and test N-step returns (n=3) with E2 as baseline
-  - Revisit PER after architecture/resolution changes if warranted
-- **Infrastructure**: Optional auto-resume and deadline guards for long runs
+**E2 production complete (94.3% at 3k episodes). Choose next direction:**
+
+1. **Resolution scaling (64×64)**: Test frozen E2 at higher res; 500-1k eps smoke per seed; ~4x resources
+2. **Stage E4 (N-step returns)**: Add n=3 bootstrapping to E2; 500-1k eps smoke per seed; similar resources
+3. **Extended validation**: Push E2 to 4k-5k episodes to test convergence limits
+4. **Deployment prep**: Archive checkpoints, prepare best model (seed 8 ep3000) for demos/production
+
+**Infrastructure improvements (optional)**:
+- Auto-resume from checkpoint
+- Deadline guards for SLURM timeouts
+- Checkpoint cleanup scripts
 
 ## Links to detailed plans/sources
 - Experiments Plan (detailed phases E1–E4): [[Experiments/Plan]]
