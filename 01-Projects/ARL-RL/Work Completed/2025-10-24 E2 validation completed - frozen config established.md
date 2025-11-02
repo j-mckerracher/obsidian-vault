@@ -9,7 +9,7 @@ created: 2025-10-24
 ## Summary
 - Completed 1,000‑episode confirm runs at 32×32 with E2 dueling + TUF=400 and locked E1 hyperparams.
 - Results: seed4=86%, seed6=99%, seed8=89% (mean=91.3%, low variance).
-- Decision: E2 confirmed; configuration frozen for downstream stages (see [[Decisions/E2 Config Freeze]]).
+- Decision: E2 confirmed; configuration frozen for downstream stages (see [[E2 Config Freeze]]).
 
 ## Configuration (frozen)
 - USE_DUELING_DQN=true (non-spatial head); USE_DOUBLE_DQN=true; LR_SCHEDULER=cosine

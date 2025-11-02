@@ -21,6 +21,6 @@ Per criteria (proceed to E2 unless mean < 40% or StdDev > 40 pp):
 ## Notes
 - High variance persists but below the >40 pp threshold; move forward while keeping runs short and parallel to respect queue limits.
 - See per-run pages:
-  - [[Experiments/20251021_212042_E1_seed4]]
-  - [[Experiments/20251021_212805_E1_seed6]]
-  - [[Experiments/20251021_212805_E1_seed8]]
+  - [[20251021_212042_E1_seed4]]
+  - [[20251021_212805_E1_seed6]]
+  - [[20251021_212805_E1_seed8]]

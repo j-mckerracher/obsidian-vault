@@ -33,8 +33,8 @@ timestamp_utc,run_id,seed,lr,eps_decay,target_update,win_rate,avg_reward,artifac
 ```
 
 ## Artifacts
-- [[Experiments/20251019_041819_E1_seed6]]
-- [[Experiments/20251019_151225_E1_seed8]]
+- [[20251019_041819_E1_seed6]]
+- [[20251019_151225_E1_seed8]]
 - Aggregation CSV: `/depot/<group>/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/e1_results.csv`
 
 ## Notes

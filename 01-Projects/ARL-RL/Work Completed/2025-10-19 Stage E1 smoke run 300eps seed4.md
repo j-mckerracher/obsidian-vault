@@ -45,7 +45,7 @@ Job completed successfully!
 - Stage E1 recipe defaults (Double DQN + LR scheduler), 32×32, small batch and larger `step_mul` for fast smoke validation.
 
 ## Links
-- [[Experiments/20251019_033706_E1_seed4]]
+- [[20251019_033706_E1_seed4]]
 - [[Work Completed/Index]]
 
 ## Next

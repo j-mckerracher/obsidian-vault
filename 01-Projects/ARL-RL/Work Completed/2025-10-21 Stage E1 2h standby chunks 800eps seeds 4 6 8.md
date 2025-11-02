@@ -10,9 +10,9 @@ created: 2025-10-21
 Completed 2-hour standby runs at 32×32 for seeds 4, 6, and 8. Each run reached ~800 episodes and produced test evaluations over 5 episodes.
 
 ## Results
-- Seed 4 — Run [[Experiments/20251021_164433_E1_seed4]]: win_rate 20.0%, avg_reward 1.0
-- Seed 6 — Run [[Experiments/20251021_164432_E1_seed6]]: win_rate 40.0%, avg_reward 0.4
-- Seed 8 — Run [[Experiments/20251021_164435_E1_seed8]]: win_rate 20.0%, avg_reward 0.2
+- Seed 4 — Run [[20251021_164433_E1_seed4]]: win_rate 20.0%, avg_reward 1.0
+- Seed 6 — Run [[20251021_164432_E1_seed6]]: win_rate 40.0%, avg_reward 0.4
+- Seed 8 — Run [[20251021_164435_E1_seed8]]: win_rate 20.0%, avg_reward 0.2
 
 Artifacts (local): `01 Projects/ARL RL/Experiment-Results/10-21-2025/`
 

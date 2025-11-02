@@ -72,6 +72,6 @@ done
 4. Decide on Stage E2 or parameter adjustment based on E1 convergence
 
 ## Related
-- [[Work Completed/2025-10-19 Stage E1 chained 1k eps seeds 4 6 8]] (canceled)
-- [[Work Completed/2025-10-19 Stage E1 smoke runs seeds 6 and 8]]
-- [[Work Completed/2025-10-19 Stage E1 smoke run 300eps seed4]]
+- [[2025-10-19 Stage E1 chained 1k eps seeds 4 6 8]] (canceled)
+- [[2025-10-19 Stage E1 smoke runs seeds 6 and 8]]
+- [[2025-10-19 Stage E1 smoke run 300eps seed4]]
