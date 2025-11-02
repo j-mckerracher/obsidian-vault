@@ -1,9 +1,12 @@
 ---
-tags: [assignment, uow, agent/work-assigner]
-unit_id: "U10"
+tags:
+  - assignment
+  - uow
+  - agent/work-assigner
+unit_id: U10
 project: "[[01-Projects/AGILE3D-Demo]]"
-status: "ready"
-created: "2025-11-01"
+status: done
+created: 2025-11-01
 links:
   se_work_log: "[[SE-Log-U10]]"
 ---

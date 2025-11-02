@@ -2,8 +2,9 @@
 tags: [assignment, uow, agent/work-assigner]
 unit_id: "U06"
 project: "[[01-Projects/AGILE3D-Demo]]"
-status: "ready"
+status: "completed"
 created: "2025-11-01"
+completed: "2025-11-01"
 links:
   se_work_log: "[[SE-Log-U06]]"
 ---
