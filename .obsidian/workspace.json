@@ -4,21 +4,35 @@
     "type": "split",
     "children": [
       {
-        "id": "10ca9a3716ae3865",
+        "id": "ccd42704083bde8c",
         "type": "tabs",
         "children": [
           {
-            "id": "1dc067156679b3f4",
+            "id": "5cc161a71261e71f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01 Projects/ARL RL/Status.md",
+                "file": "01-Projects/AGILE3D-Demo/Current-State-Vs-Overall-Plan.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Status"
+              "title": "Current-State-Vs-Overall-Plan"
+            }
+          },
+          {
+            "id": "f04cbea839b89ff9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "04-Agent-Reference-Files/File-Locations.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "File-Locations"
             }
           }
         ]
@@ -166,53 +180,45 @@
       "bases:Create new base": false
     }
   },
-  "active": "aef185152c49203f",
+  "active": "5cc161a71261e71f",
   "lastOpenFiles": [
-    "01 Projects/ARL RL/Experiments/20251021_212805_E1_seed8.md",
-    "01 Projects/ARL RL/Experiments/20251021_212805_E1_seed6.md",
-    "01 Projects/ARL RL/Experiments/20251021_212042_E1_seed4.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-21 E1 aggregation and decision.md",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep100.pth",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep100.pth.filepart",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/eval/test_results.json",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/eval",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/training_curves.png.filepart",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/train.log",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/train.log.filepart",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep200.pth",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep200.pth.filepart",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/config.json",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed6/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212042_E1_seed4/training_curves.png",
-    "01 Projects/ARL RL/Plan.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-21 Stage E1 2h standby chunks 800eps seeds 4 6 8.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-19 Stage E1 smoke runs seeds 6 and 8.md",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-2/20251021_205055_E1_seed6/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-2/20251021_205055_E1_seed4/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-2/20251021_205033_E1_seed8/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-1/20251021_164435_E1_seed8/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-1/20251021_164433_E1_seed4/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-1/20251021_164432_E1_seed6/training_curves.png",
-    "01 Projects/ARL RL/Experiments/20251021_164435_E1_seed8.md",
-    "01 Projects/ARL RL/Experiments/20251021_164432_E1_seed6.md",
-    "01 Projects/ARL RL/Experiments/20251021_164433_E1_seed4.md",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/10212025.md",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_164435_E1_seed8/training_curves.png",
-    "01 Projects/ARL RL/Work Completed/2025-10-19 Stage E1 chained 1k eps seeds 4 6 8.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-21 Queue stall fix - normal QoS resubmission.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-19 Stage E1 smoke run 300eps seed4.md",
-    "01 Projects/ARL RL/Home.md",
-    "01 Projects/ARL RL/Experiments.md",
-    "01 Projects/ARL RL/Status.md",
-    "01 Projects/ARL RL/References/LLM Collaboration Guide.md",
-    "01 Projects/ARL RL/Experiments/20251019_151225_E1_seed8.md",
-    "01 Projects/ARL RL/Experiments/20251019_041819_E1_seed6.md",
-    "01 Projects/ARL RL/Experiments/20251019_033706_E1_seed4.md",
-    "01 Projects/ARL RL/Script-Modification-Explainer.md",
-    "01 Projects/ARL RL/To Do.md",
-    "01 Projects/ARL RL/Don't Forget.md",
-    "01 Projects/ARL RL/Job-Submission-Commands/Chained Commands.md",
-    "01 Projects/ARL RL/Experiments/Plan.md"
+    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/macro-level-plan.md",
+    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/infrastructure-plan.md",
+    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/aws-setup-commands.sh",
+    "01-Projects/AGILE3D-Demo/Current-State-Vs-Overall-Plan.md",
+    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/Work-Decomposer-Output.md",
+    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/infrastructure-plan",
+    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/meso-level-plan.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U18.md",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U19-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U21-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U20-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U18-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U18.md.tmp.114230.1762027759842",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U15-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U17.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U16.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U15.md.tmp.57240.1762011338014",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U15.md.tmp.57240.1762011333260",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U15.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U15.md.tmp.57240.1762009951960",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U11-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U14.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U14.md.tmp.57240.1762008086832",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U13.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U13.md.tmp.57240.1762007734054",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U12.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U12.md.tmp.57240.1762007363269",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U10-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U11.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U11.md.tmp.57240.1762006987960",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U17-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U16-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U14-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U13-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Assignments/UoW-U12-Assignment.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U10.md",
+    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D-Poster.png",
+    "01-Projects/NSF Site Visit Demo/Planning/AGILE3D-Poster.png"
   ]
 }
