@@ -1,0 +1,647 @@
+2025-10-19 00:18:55,507Z | INFO | Logging initialized. Log file: /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/logs/20251019_041819_E1_seed6.log
+2025-10-19 00:18:55,507Z | INFO | Run starting. Saving effective config and env snapshot.
+2025-10-19 00:18:55,507Z | INFO | DoubleDQN: True; Scheduler: cosine (T_max=300, min_lr=1e-06)
+2025-10-19 00:18:55,625Z | INFO | Config saved to /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251019_041819_E1_seed6/config.json
+2025-10-19 00:19:34,852Z | INFO | Preallocating optimizer state to avoid OOM...
+2025-10-19 00:19:35,784Z | INFO | Optimizer state preallocation complete.
+2025-10-19 00:19:35,784Z | INFO | No checkpoint found at /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251019_041819_E1_seed6/model_ep300.pth; starting training from scratch.
+2025-10-19 00:19:35,785Z | INFO | Training for 300 episodes on device: cuda...
+2025-10-19 00:19:35,786Z | INFO | Launching SC2: /home/jmckerra/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 40305 -dataDir /home/jmckerra/StarCraftII/ -tempDir /tmp/sc-1ktsjo6l/
+2025-10-19 00:19:35,829Z | INFO | Connecting to: ws://127.0.0.1:40305/sc2api, attempt: 0, running: True
+2025-10-19 00:19:36,926Z | INFO | Connecting to: ws://127.0.0.1:40305/sc2api, attempt: 1, running: True
+2025-10-19 00:19:37,927Z | INFO | Connecting to: ws://127.0.0.1:40305/sc2api, attempt: 2, running: True
+2025-10-19 00:19:42,739Z | INFO | Environment is ready
+2025-10-19 00:19:44,123Z | INFO | Starting episode 1: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:19:46,744Z | INFO | Episode 1 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:19:46,771Z | INFO | Starting episode 2: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:19:47,485Z | INFO | Episode 2 finished after 896 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:19:47,510Z | INFO | Starting episode 3: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:19:49,769Z | INFO | Episode 3 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+2025-10-19 00:19:49,790Z | INFO | Starting episode 4: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:19:51,854Z | INFO | Episode 4 finished after 2624 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:19:51,877Z | INFO | Starting episode 5: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:19:53,229Z | INFO | Episode 5 finished after 1728 game steps. Outcome: [-1], reward: [-1], score: [9]
+2025-10-19 00:19:53,251Z | INFO | Starting episode 6: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:19:55,667Z | INFO | Episode 6 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:19:55,694Z | INFO | Starting episode 7: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:19:56,975Z | INFO | Episode 7 finished after 1456 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:19:57,011Z | INFO | Starting episode 8: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:19:58,406Z | INFO | Episode 8 finished after 1664 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:19:58,430Z | INFO | Starting episode 9: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:00,009Z | INFO | Episode 9 finished after 1920 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:20:00,032Z | INFO | Starting episode 10: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:02,434Z | INFO | Episode 10 finished after 2880 game steps. Outcome: [1], reward: [1], score: [11]
+2025-10-19 00:20:02,475Z | INFO | Starting episode 11: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:04,908Z | INFO | Episode 11 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+2025-10-19 00:20:04,931Z | INFO | Starting episode 12: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:06,808Z | INFO | Episode 12 finished after 2336 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:20:06,830Z | INFO | Starting episode 13: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:07,948Z | INFO | Episode 13 finished after 1360 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:20:07,969Z | INFO | Starting episode 14: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:10,290Z | INFO | Episode 14 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:20:10,312Z | INFO | Starting episode 15: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:11,805Z | INFO | Episode 15 finished after 1856 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:20:11,826Z | INFO | Starting episode 16: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:14,140Z | INFO | Episode 16 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:20:14,163Z | INFO | Starting episode 17: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:16,489Z | INFO | Episode 17 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:20:16,511Z | INFO | Starting episode 18: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:18,829Z | INFO | Episode 18 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:20:18,858Z | INFO | Starting episode 19: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:21,355Z | INFO | Episode 19 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:20:21,702Z | INFO | Starting episode 20: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:23,475Z | INFO | Episode 20 finished after 2032 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:20:23,499Z | INFO | Starting episode 21: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:24,171Z | INFO | Episode 21 finished after 752 game steps. Outcome: [-1], reward: [-1], score: [2]
+2025-10-19 00:20:24,201Z | INFO | Starting episode 22: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:26,541Z | INFO | Episode 22 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+2025-10-19 00:20:26,565Z | INFO | Starting episode 23: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:28,805Z | INFO | Episode 23 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:20:28,828Z | INFO | Starting episode 24: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:31,229Z | INFO | Episode 24 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+2025-10-19 00:20:31,253Z | INFO | Starting episode 25: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:33,795Z | INFO | Episode 25 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:20:33,818Z | INFO | Starting episode 26: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:35,680Z | INFO | Episode 26 finished after 2192 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:20:35,703Z | INFO | Starting episode 27: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:38,062Z | INFO | Episode 27 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:20:38,084Z | INFO | Starting episode 28: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:40,682Z | INFO | Episode 28 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:20:40,710Z | INFO | Starting episode 29: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:43,275Z | INFO | Episode 29 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:20:43,300Z | INFO | Starting episode 30: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:45,680Z | INFO | Episode 30 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+2025-10-19 00:20:45,703Z | INFO | Starting episode 31: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:48,136Z | INFO | Episode 31 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+2025-10-19 00:20:48,167Z | INFO | Starting episode 32: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:50,615Z | INFO | Episode 32 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:20:50,643Z | INFO | Starting episode 33: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:53,288Z | INFO | Episode 33 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:20:53,313Z | INFO | Starting episode 34: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:55,888Z | INFO | Episode 34 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:20:55,913Z | INFO | Starting episode 35: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:20:58,389Z | INFO | Episode 35 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+2025-10-19 00:20:58,413Z | INFO | Starting episode 36: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:00,829Z | INFO | Episode 36 finished after 2880 game steps. Outcome: [1], reward: [-1], score: [7]
+2025-10-19 00:21:00,853Z | INFO | Starting episode 37: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:01,893Z | INFO | Episode 37 finished after 1248 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:21:01,916Z | INFO | Starting episode 38: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:04,320Z | INFO | Episode 38 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:21:04,360Z | INFO | Starting episode 39: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:06,762Z | INFO | Episode 39 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+2025-10-19 00:21:06,788Z | INFO | Starting episode 40: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:09,078Z | INFO | Episode 40 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:21:09,100Z | INFO | Starting episode 41: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:11,694Z | INFO | Episode 41 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+2025-10-19 00:21:11,717Z | INFO | Starting episode 42: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:14,248Z | INFO | Episode 42 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:21:14,277Z | INFO | Starting episode 43: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:16,814Z | INFO | Episode 43 finished after 2880 game steps. Outcome: [1], reward: [1], score: [13]
+2025-10-19 00:21:16,838Z | INFO | Starting episode 44: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:19,299Z | INFO | Episode 44 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:21:19,323Z | INFO | Starting episode 45: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:20,892Z | INFO | Episode 45 finished after 1888 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:21:20,913Z | INFO | Starting episode 46: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:22,134Z | INFO | Episode 46 finished after 1488 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:21:22,156Z | INFO | Starting episode 47: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:24,664Z | INFO | Episode 47 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+2025-10-19 00:21:24,687Z | INFO | Starting episode 48: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:25,860Z | INFO | Episode 48 finished after 1312 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:21:25,883Z | INFO | Starting episode 49: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:28,474Z | INFO | Episode 49 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:21:28,504Z | INFO | Starting episode 50: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:31,072Z | INFO | Episode 50 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:21:31,082Z | INFO | Ep 50: reward=499.82 avg_loss=0.4823 wins=2
+2025-10-19 00:21:31,096Z | INFO | Starting episode 51: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:33,731Z | INFO | Episode 51 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+2025-10-19 00:21:33,755Z | INFO | Starting episode 52: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:36,271Z | INFO | Episode 52 finished after 2880 game steps. Outcome: [1], reward: [0], score: [15]
+2025-10-19 00:21:36,302Z | INFO | Starting episode 53: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:38,708Z | INFO | Episode 53 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:21:38,731Z | INFO | Starting episode 54: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:41,366Z | INFO | Episode 54 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:21:41,389Z | INFO | Starting episode 55: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:42,398Z | INFO | Episode 55 finished after 1120 game steps. Outcome: [-1], reward: [-1], score: [2]
+2025-10-19 00:21:42,421Z | INFO | Starting episode 56: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:44,187Z | INFO | Episode 56 finished after 1936 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:21:44,210Z | INFO | Starting episode 57: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:46,632Z | INFO | Episode 57 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:21:46,656Z | INFO | Starting episode 58: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:48,210Z | INFO | Episode 58 finished after 1840 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:21:48,265Z | INFO | Starting episode 59: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:50,805Z | INFO | Episode 59 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:21:50,840Z | INFO | Starting episode 60: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:52,958Z | INFO | Episode 60 finished after 2416 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:21:52,984Z | INFO | Starting episode 61: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:55,600Z | INFO | Episode 61 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:21:55,626Z | INFO | Starting episode 62: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:57,198Z | INFO | Episode 62 finished after 1728 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:21:57,228Z | INFO | Starting episode 63: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:21:59,009Z | INFO | Episode 63 finished after 2000 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:21:59,033Z | INFO | Starting episode 64: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:01,576Z | INFO | Episode 64 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:22:01,602Z | INFO | Starting episode 65: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:04,137Z | INFO | Episode 65 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:22:04,161Z | INFO | Starting episode 66: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:05,001Z | INFO | Episode 66 finished after 976 game steps. Outcome: [-1], reward: [-2], score: [6]
+2025-10-19 00:22:05,024Z | INFO | Starting episode 67: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:05,654Z | INFO | Episode 67 finished after 736 game steps. Outcome: [-1], reward: [-1], score: [1]
+2025-10-19 00:22:05,678Z | INFO | Starting episode 68: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:08,141Z | INFO | Episode 68 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:22:08,164Z | INFO | Starting episode 69: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:10,599Z | INFO | Episode 69 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:22:10,643Z | INFO | Starting episode 70: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:13,212Z | INFO | Episode 70 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:22:13,237Z | INFO | Starting episode 71: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:15,674Z | INFO | Episode 71 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:22:15,699Z | INFO | Starting episode 72: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:17,998Z | INFO | Episode 72 finished after 2752 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:22:18,031Z | INFO | Starting episode 73: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:20,507Z | INFO | Episode 73 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:22:20,532Z | INFO | Starting episode 74: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:22,989Z | INFO | Episode 74 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:22:23,013Z | INFO | Starting episode 75: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:25,328Z | INFO | Episode 75 finished after 2688 game steps. Outcome: [-1], reward: [-1], score: [9]
+2025-10-19 00:22:25,352Z | INFO | Starting episode 76: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:27,670Z | INFO | Episode 76 finished after 2752 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:22:27,694Z | INFO | Starting episode 77: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:30,081Z | INFO | Episode 77 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:22:30,104Z | INFO | Starting episode 78: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:31,840Z | INFO | Episode 78 finished after 2064 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:22:31,863Z | INFO | Starting episode 79: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:32,780Z | INFO | Episode 79 finished after 1088 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:22:32,803Z | INFO | Starting episode 80: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:35,258Z | INFO | Episode 80 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:22:35,301Z | INFO | Starting episode 81: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:37,691Z | INFO | Episode 81 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:22:37,713Z | INFO | Starting episode 82: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:40,322Z | INFO | Episode 82 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:22:40,345Z | INFO | Starting episode 83: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:42,095Z | INFO | Episode 83 finished after 1984 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:22:42,117Z | INFO | Starting episode 84: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:43,478Z | INFO | Episode 84 finished after 1488 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:22:43,508Z | INFO | Starting episode 85: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:46,125Z | INFO | Episode 85 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+2025-10-19 00:22:46,149Z | INFO | Starting episode 86: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:48,762Z | INFO | Episode 86 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+2025-10-19 00:22:48,786Z | INFO | Starting episode 87: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:50,796Z | INFO | Episode 87 finished after 2224 game steps. Outcome: [-1], reward: [-1], score: [9]
+2025-10-19 00:22:50,819Z | INFO | Starting episode 88: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:53,399Z | INFO | Episode 88 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:22:53,422Z | INFO | Starting episode 89: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:55,023Z | INFO | Episode 89 finished after 1696 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:22:55,046Z | INFO | Starting episode 90: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:22:57,626Z | INFO | Episode 90 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+2025-10-19 00:22:57,649Z | INFO | Starting episode 91: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:00,307Z | INFO | Episode 91 finished after 2880 game steps. Outcome: [1], reward: [-1], score: [10]
+2025-10-19 00:23:00,330Z | INFO | Starting episode 92: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:02,900Z | INFO | Episode 92 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:23:02,923Z | INFO | Starting episode 93: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:05,567Z | INFO | Episode 93 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:23:05,597Z | INFO | Starting episode 94: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:06,496Z | INFO | Episode 94 finished after 960 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:23:06,521Z | INFO | Starting episode 95: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:08,341Z | INFO | Episode 95 finished after 2032 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:23:08,364Z | INFO | Starting episode 96: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:11,038Z | INFO | Episode 96 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:23:11,060Z | INFO | Starting episode 97: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:13,569Z | INFO | Episode 97 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:23:13,599Z | INFO | Starting episode 98: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:16,060Z | INFO | Episode 98 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:23:16,082Z | INFO | Starting episode 99: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:17,189Z | INFO | Episode 99 finished after 1312 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:23:17,212Z | INFO | Starting episode 100: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:19,909Z | INFO | Episode 100 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:23:19,918Z | INFO | Ep 100: reward=649.82 avg_loss=0.5516 wins=2
+2025-10-19 00:23:19,918Z | INFO | LR scheduler step: episode=100, lr=3.775000e-05
+2025-10-19 00:23:21,062Z | INFO | Starting episode 101: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:21,527Z | INFO | Episode 101 finished after 512 game steps. Outcome: [-1], reward: [-1], score: [-1]
+2025-10-19 00:23:21,550Z | INFO | Starting episode 102: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:24,012Z | INFO | Episode 102 finished after 2880 game steps. Outcome: [1], reward: [0], score: [5]
+2025-10-19 00:23:24,035Z | INFO | Starting episode 103: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:26,763Z | INFO | Episode 103 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:23:26,786Z | INFO | Starting episode 104: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:29,308Z | INFO | Episode 104 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:23:29,338Z | INFO | Starting episode 105: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:31,697Z | INFO | Episode 105 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:23:31,719Z | INFO | Starting episode 106: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:33,374Z | INFO | Episode 106 finished after 2016 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:23:33,397Z | INFO | Starting episode 107: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:35,986Z | INFO | Episode 107 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:23:38,696Z | INFO | Starting episode 108: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:41,244Z | INFO | Episode 108 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:23:41,270Z | INFO | Starting episode 109: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:43,876Z | INFO | Episode 109 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:23:43,900Z | INFO | Starting episode 110: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:46,440Z | INFO | Episode 110 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:23:46,471Z | INFO | Starting episode 111: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:48,961Z | INFO | Episode 111 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:23:48,985Z | INFO | Starting episode 112: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:51,436Z | INFO | Episode 112 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:23:51,462Z | INFO | Starting episode 113: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:53,877Z | INFO | Episode 113 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:23:53,900Z | INFO | Starting episode 114: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:54,951Z | INFO | Episode 114 finished after 1232 game steps. Outcome: [-1], reward: [-1], score: [1]
+2025-10-19 00:23:54,973Z | INFO | Starting episode 115: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:57,028Z | INFO | Episode 115 finished after 2256 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:23:57,053Z | INFO | Starting episode 116: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:23:59,544Z | INFO | Episode 116 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:23:59,569Z | INFO | Starting episode 117: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:02,128Z | INFO | Episode 117 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:24:02,157Z | INFO | Starting episode 118: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:04,498Z | INFO | Episode 118 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:24:04,522Z | INFO | Starting episode 119: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:06,702Z | INFO | Episode 119 finished after 2400 game steps. Outcome: [-1], reward: [-1], score: [10]
+2025-10-19 00:24:06,725Z | INFO | Starting episode 120: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:08,566Z | INFO | Episode 120 finished after 1968 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:24:08,590Z | INFO | Starting episode 121: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:09,462Z | INFO | Episode 121 finished after 944 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:24:09,484Z | INFO | Starting episode 122: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:12,234Z | INFO | Episode 122 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:24:12,264Z | INFO | Starting episode 123: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:14,944Z | INFO | Episode 123 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:24:14,969Z | INFO | Starting episode 124: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:17,644Z | INFO | Episode 124 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+2025-10-19 00:24:17,669Z | INFO | Starting episode 125: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:20,414Z | INFO | Episode 125 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:24:20,439Z | INFO | Starting episode 126: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:22,550Z | INFO | Episode 126 finished after 2288 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:24:22,573Z | INFO | Starting episode 127: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:23,733Z | INFO | Episode 127 finished after 1280 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:24:23,759Z | INFO | Starting episode 128: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:25,885Z | INFO | Episode 128 finished after 2320 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:24:25,911Z | INFO | Starting episode 129: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:28,466Z | INFO | Episode 129 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+2025-10-19 00:24:28,500Z | INFO | Starting episode 130: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:30,630Z | INFO | Episode 130 finished after 2336 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:24:30,657Z | INFO | Starting episode 131: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:31,729Z | INFO | Episode 131 finished after 1136 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:24:31,752Z | INFO | Starting episode 132: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:32,779Z | INFO | Episode 132 finished after 1168 game steps. Outcome: [-1], reward: [-1], score: [2]
+2025-10-19 00:24:32,805Z | INFO | Starting episode 133: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:35,650Z | INFO | Episode 133 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:24:35,679Z | INFO | Starting episode 134: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:35,886Z | INFO | Episode 134 finished after 224 game steps. Outcome: [-1], reward: [-1], score: [-2]
+2025-10-19 00:24:35,911Z | INFO | Starting episode 135: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:38,437Z | INFO | Episode 135 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:24:38,468Z | INFO | Starting episode 136: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:39,255Z | INFO | Episode 136 finished after 896 game steps. Outcome: [-1], reward: [-1], score: [1]
+2025-10-19 00:24:39,280Z | INFO | Starting episode 137: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:40,764Z | INFO | Episode 137 finished after 1696 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:24:40,788Z | INFO | Starting episode 138: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:43,257Z | INFO | Episode 138 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+2025-10-19 00:24:43,281Z | INFO | Starting episode 139: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:45,801Z | INFO | Episode 139 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:24:45,825Z | INFO | Starting episode 140: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:48,341Z | INFO | Episode 140 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:24:48,374Z | INFO | Starting episode 141: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:49,405Z | INFO | Episode 141 finished after 1216 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:24:49,430Z | INFO | Starting episode 142: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:51,426Z | INFO | Episode 142 finished after 2352 game steps. Outcome: [-1], reward: [0], score: [8]
+2025-10-19 00:24:51,450Z | INFO | Starting episode 143: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:53,294Z | INFO | Episode 143 finished after 2112 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:24:53,319Z | INFO | Starting episode 144: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:55,734Z | INFO | Episode 144 finished after 2592 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:24:55,768Z | INFO | Starting episode 145: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:57,651Z | INFO | Episode 145 finished after 2048 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:24:57,674Z | INFO | Starting episode 146: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:24:58,776Z | INFO | Episode 146 finished after 1296 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:24:58,800Z | INFO | Starting episode 147: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:01,365Z | INFO | Episode 147 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:25:01,388Z | INFO | Starting episode 148: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:04,099Z | INFO | Episode 148 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:25:04,126Z | INFO | Starting episode 149: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:04,620Z | INFO | Episode 149 finished after 480 game steps. Outcome: [-1], reward: [-1], score: [-2]
+2025-10-19 00:25:04,645Z | INFO | Starting episode 150: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:05,662Z | INFO | Episode 150 finished after 1072 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:25:05,672Z | INFO | Ep 150: reward=299.93 avg_loss=0.3848 wins=2
+2025-10-19 00:25:05,693Z | INFO | Starting episode 151: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:06,814Z | INFO | Episode 151 finished after 1168 game steps. Outcome: [-1], reward: [-1], score: [1]
+2025-10-19 00:25:06,846Z | INFO | Starting episode 152: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:08,153Z | INFO | Episode 152 finished after 1312 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:25:08,177Z | INFO | Starting episode 153: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:09,845Z | INFO | Episode 153 finished after 1776 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:25:09,870Z | INFO | Starting episode 154: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:10,460Z | INFO | Episode 154 finished after 672 game steps. Outcome: [-1], reward: [-1], score: [2]
+2025-10-19 00:25:10,483Z | INFO | Starting episode 155: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:11,382Z | INFO | Episode 155 finished after 1024 game steps. Outcome: [-1], reward: [-1], score: [2]
+2025-10-19 00:25:11,405Z | INFO | Starting episode 156: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:12,020Z | INFO | Episode 156 finished after 736 game steps. Outcome: [-1], reward: [-1], score: [1]
+2025-10-19 00:25:12,042Z | INFO | Starting episode 157: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:14,484Z | INFO | Episode 157 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:25:14,514Z | INFO | Starting episode 158: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:17,061Z | INFO | Episode 158 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:25:17,085Z | INFO | Starting episode 159: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:18,376Z | INFO | Episode 159 finished after 1312 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:25:18,401Z | INFO | Starting episode 160: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:19,232Z | INFO | Episode 160 finished after 928 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:25:19,255Z | INFO | Starting episode 161: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:20,646Z | INFO | Episode 161 finished after 1552 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:25:20,676Z | INFO | Starting episode 162: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:23,259Z | INFO | Episode 162 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:25:23,293Z | INFO | Starting episode 163: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:25,614Z | INFO | Episode 163 finished after 2656 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:25:25,639Z | INFO | Starting episode 164: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:27,297Z | INFO | Episode 164 finished after 1920 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:25:27,340Z | INFO | Starting episode 165: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:27,985Z | INFO | Episode 165 finished after 736 game steps. Outcome: [-1], reward: [-1], score: [0]
+2025-10-19 00:25:28,012Z | INFO | Starting episode 166: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:29,660Z | INFO | Episode 166 finished after 1904 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:25:29,684Z | INFO | Starting episode 167: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:30,329Z | INFO | Episode 167 finished after 688 game steps. Outcome: [-1], reward: [-1], score: [1]
+2025-10-19 00:25:30,355Z | INFO | Starting episode 168: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:31,382Z | INFO | Episode 168 finished after 992 game steps. Outcome: [-1], reward: [-1], score: [0]
+2025-10-19 00:25:31,408Z | INFO | Starting episode 169: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:34,068Z | INFO | Episode 169 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:25:34,104Z | INFO | Starting episode 170: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:35,307Z | INFO | Episode 170 finished after 1264 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:25:35,332Z | INFO | Starting episode 171: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:36,319Z | INFO | Episode 171 finished after 1120 game steps. Outcome: [-1], reward: [-1], score: [-1]
+2025-10-19 00:25:36,343Z | INFO | Starting episode 172: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:38,173Z | INFO | Episode 172 finished after 1952 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:25:38,200Z | INFO | Starting episode 173: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:39,223Z | INFO | Episode 173 finished after 1120 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:25:39,249Z | INFO | Starting episode 174: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:41,840Z | INFO | Episode 174 finished after 2880 game steps. Outcome: [1], reward: [0], score: [15]
+2025-10-19 00:25:41,863Z | INFO | Starting episode 175: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:43,366Z | INFO | Episode 175 finished after 1760 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:25:43,389Z | INFO | Starting episode 176: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:44,985Z | INFO | Episode 176 finished after 1824 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:25:45,027Z | INFO | Starting episode 177: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:46,813Z | INFO | Episode 177 finished after 2064 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:25:46,840Z | INFO | Starting episode 178: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:47,637Z | INFO | Episode 178 finished after 896 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:25:47,661Z | INFO | Starting episode 179: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:50,307Z | INFO | Episode 179 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+2025-10-19 00:25:50,331Z | INFO | Starting episode 180: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:52,819Z | INFO | Episode 180 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:25:52,851Z | INFO | Starting episode 181: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:54,804Z | INFO | Episode 181 finished after 2240 game steps. Outcome: [-1], reward: [-1], score: [9]
+2025-10-19 00:25:54,826Z | INFO | Starting episode 182: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:25:57,316Z | INFO | Episode 182 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:25:57,345Z | INFO | Starting episode 183: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:00,083Z | INFO | Episode 183 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:26:00,110Z | INFO | Starting episode 184: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:02,708Z | INFO | Episode 184 finished after 2720 game steps. Outcome: [-1], reward: [-1], score: [9]
+2025-10-19 00:26:02,733Z | INFO | Starting episode 185: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:05,333Z | INFO | Episode 185 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:26:05,362Z | INFO | Starting episode 186: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:06,890Z | INFO | Episode 186 finished after 1760 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:26:06,914Z | INFO | Starting episode 187: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:07,418Z | INFO | Episode 187 finished after 592 game steps. Outcome: [-1], reward: [-1], score: [1]
+2025-10-19 00:26:07,440Z | INFO | Starting episode 188: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:09,954Z | INFO | Episode 188 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:26:09,978Z | INFO | Starting episode 189: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:10,879Z | INFO | Episode 189 finished after 880 game steps. Outcome: [-1], reward: [-1], score: [1]
+2025-10-19 00:26:10,904Z | INFO | Starting episode 190: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:13,478Z | INFO | Episode 190 finished after 2592 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:26:13,502Z | INFO | Starting episode 191: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:14,685Z | INFO | Episode 191 finished after 1248 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:26:14,709Z | INFO | Starting episode 192: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:15,721Z | INFO | Episode 192 finished after 1008 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:26:15,746Z | INFO | Starting episode 193: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:18,316Z | INFO | Episode 193 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:26:18,340Z | INFO | Starting episode 194: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:20,985Z | INFO | Episode 194 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:26:21,015Z | INFO | Starting episode 195: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:23,726Z | INFO | Episode 195 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:26:23,751Z | INFO | Starting episode 196: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:26,497Z | INFO | Episode 196 finished after 2880 game steps. Outcome: [1], reward: [0], score: [5]
+2025-10-19 00:26:26,522Z | INFO | Starting episode 197: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:27,952Z | INFO | Episode 197 finished after 1600 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:26:27,980Z | INFO | Starting episode 198: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:30,503Z | INFO | Episode 198 finished after 2688 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:26:30,542Z | INFO | Starting episode 199: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:32,989Z | INFO | Episode 199 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:26:33,014Z | INFO | Starting episode 200: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:35,587Z | INFO | Episode 200 finished after 2880 game steps. Outcome: [1], reward: [1], score: [11]
+2025-10-19 00:26:35,597Z | INFO | Ep 200: reward=574.82 avg_loss=0.5245 wins=3
+2025-10-19 00:26:35,597Z | INFO | LR scheduler step: episode=200, lr=1.325000e-05
+2025-10-19 00:26:36,557Z | INFO | Starting episode 201: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:36,852Z | INFO | Episode 201 finished after 320 game steps. Outcome: [-1], reward: [-1], score: [-2]
+2025-10-19 00:26:36,875Z | INFO | Starting episode 202: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:39,611Z | INFO | Episode 202 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:26:39,638Z | INFO | Starting episode 203: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:42,280Z | INFO | Episode 203 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:26:42,312Z | INFO | Starting episode 204: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:42,845Z | INFO | Episode 204 finished after 608 game steps. Outcome: [-1], reward: [-1], score: [0]
+2025-10-19 00:26:42,881Z | INFO | Starting episode 205: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:45,498Z | INFO | Episode 205 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+2025-10-19 00:26:45,527Z | INFO | Starting episode 206: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:48,174Z | INFO | Episode 206 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:26:48,199Z | INFO | Starting episode 207: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:49,254Z | INFO | Episode 207 finished after 1008 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:26:49,288Z | INFO | Starting episode 208: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:50,753Z | INFO | Episode 208 finished after 1568 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:26:50,780Z | INFO | Starting episode 209: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:53,423Z | INFO | Episode 209 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:26:53,451Z | INFO | Starting episode 210: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:54,864Z | INFO | Episode 210 finished after 1568 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:26:54,888Z | INFO | Starting episode 211: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:57,240Z | INFO | Episode 211 finished after 2784 game steps. Outcome: [-1], reward: [-1], score: [8]
+2025-10-19 00:26:57,264Z | INFO | Starting episode 212: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:26:58,507Z | INFO | Episode 212 finished after 1456 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:26:58,530Z | INFO | Starting episode 213: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:01,059Z | INFO | Episode 213 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:27:01,083Z | INFO | Starting episode 214: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:03,596Z | INFO | Episode 214 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:27:03,641Z | INFO | Starting episode 215: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:04,524Z | INFO | Episode 215 finished after 992 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:27:04,547Z | INFO | Starting episode 216: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:05,154Z | INFO | Episode 216 finished after 672 game steps. Outcome: [-1], reward: [-1], score: [0]
+2025-10-19 00:27:05,177Z | INFO | Starting episode 217: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:07,647Z | INFO | Episode 217 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:27:07,670Z | INFO | Starting episode 218: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:09,756Z | INFO | Episode 218 finished after 2384 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:27:09,778Z | INFO | Starting episode 219: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:10,556Z | INFO | Episode 219 finished after 880 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:27:10,584Z | INFO | Starting episode 220: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:11,508Z | INFO | Episode 220 finished after 1056 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:27:11,531Z | INFO | Starting episode 221: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:14,504Z | INFO | Episode 221 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:27:14,530Z | INFO | Starting episode 222: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:17,202Z | INFO | Episode 222 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:27:17,226Z | INFO | Starting episode 223: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:19,152Z | INFO | Episode 223 finished after 2080 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:27:19,177Z | INFO | Starting episode 224: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:22,098Z | INFO | Episode 224 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:27:22,120Z | INFO | Starting episode 225: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:24,507Z | INFO | Episode 225 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:27:24,530Z | INFO | Starting episode 226: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:27,012Z | INFO | Episode 226 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:27:27,042Z | INFO | Starting episode 227: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:29,947Z | INFO | Episode 227 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:27:29,973Z | INFO | Starting episode 228: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:32,666Z | INFO | Episode 228 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:27:32,689Z | INFO | Starting episode 229: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:35,332Z | INFO | Episode 229 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:27:35,363Z | INFO | Starting episode 230: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:37,343Z | INFO | Episode 230 finished after 2144 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:27:37,369Z | INFO | Starting episode 231: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:39,960Z | INFO | Episode 231 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:27:42,623Z | INFO | Starting episode 232: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:45,152Z | INFO | Episode 232 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:27:45,176Z | INFO | Starting episode 233: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:47,884Z | INFO | Episode 233 finished after 2880 game steps. Outcome: [1], reward: [0], score: [15]
+2025-10-19 00:27:47,908Z | INFO | Starting episode 234: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:50,445Z | INFO | Episode 234 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:27:50,469Z | INFO | Starting episode 235: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:53,305Z | INFO | Episode 235 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:27:53,335Z | INFO | Starting episode 236: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:56,064Z | INFO | Episode 236 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:27:56,087Z | INFO | Starting episode 237: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:27:58,938Z | INFO | Episode 237 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:27:58,962Z | INFO | Starting episode 238: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:01,696Z | INFO | Episode 238 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:28:01,721Z | INFO | Starting episode 239: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:04,415Z | INFO | Episode 239 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:28:04,438Z | INFO | Starting episode 240: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:06,972Z | INFO | Episode 240 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:28:06,997Z | INFO | Starting episode 241: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:08,926Z | INFO | Episode 241 finished after 2144 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:28:08,949Z | INFO | Starting episode 242: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:10,993Z | INFO | Episode 242 finished after 2064 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:28:11,017Z | INFO | Starting episode 243: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:13,512Z | INFO | Episode 243 finished after 2608 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:28:13,544Z | INFO | Starting episode 244: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:16,345Z | INFO | Episode 244 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:28:16,371Z | INFO | Starting episode 245: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:18,338Z | INFO | Episode 245 finished after 2032 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:28:18,364Z | INFO | Starting episode 246: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:19,026Z | INFO | Episode 246 finished after 720 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:28:19,048Z | INFO | Starting episode 247: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:20,100Z | INFO | Episode 247 finished after 1168 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:28:20,123Z | INFO | Starting episode 248: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:21,275Z | INFO | Episode 248 finished after 1328 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:28:21,303Z | INFO | Starting episode 249: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:24,099Z | INFO | Episode 249 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:28:24,130Z | INFO | Starting episode 250: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:26,796Z | INFO | Episode 250 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:28:26,806Z | INFO | Ep 250: reward=449.82 avg_loss=0.5181 wins=3
+2025-10-19 00:28:26,822Z | INFO | Starting episode 251: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:28,889Z | INFO | Episode 251 finished after 2256 game steps. Outcome: [-1], reward: [-1], score: [8]
+2025-10-19 00:28:28,914Z | INFO | Starting episode 252: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:31,461Z | INFO | Episode 252 finished after 2880 game steps. Outcome: [1], reward: [0], score: [5]
+2025-10-19 00:28:31,487Z | INFO | Starting episode 253: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:33,983Z | INFO | Episode 253 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:28:34,012Z | INFO | Starting episode 254: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:36,685Z | INFO | Episode 254 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:28:36,711Z | INFO | Starting episode 255: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:37,528Z | INFO | Episode 255 finished after 896 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:28:37,551Z | INFO | Starting episode 256: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:40,063Z | INFO | Episode 256 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:28:40,087Z | INFO | Starting episode 257: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:41,862Z | INFO | Episode 257 finished after 2016 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:28:41,892Z | INFO | Starting episode 258: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:44,388Z | INFO | Episode 258 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:28:44,415Z | INFO | Starting episode 259: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:46,933Z | INFO | Episode 259 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:28:46,957Z | INFO | Starting episode 260: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:49,716Z | INFO | Episode 260 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:28:49,744Z | INFO | Starting episode 261: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:52,353Z | INFO | Episode 261 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:28:52,378Z | INFO | Starting episode 262: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:55,102Z | INFO | Episode 262 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:28:55,127Z | INFO | Starting episode 263: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:28:57,815Z | INFO | Episode 263 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:28:57,847Z | INFO | Starting episode 264: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:00,337Z | INFO | Episode 264 finished after 2768 game steps. Outcome: [-1], reward: [-1], score: [9]
+2025-10-19 00:29:00,362Z | INFO | Starting episode 265: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:02,903Z | INFO | Episode 265 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+2025-10-19 00:29:02,927Z | INFO | Starting episode 266: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:05,455Z | INFO | Episode 266 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:29:05,477Z | INFO | Starting episode 267: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:07,419Z | INFO | Episode 267 finished after 2208 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:29:07,447Z | INFO | Starting episode 268: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:08,390Z | INFO | Episode 268 finished after 1072 game steps. Outcome: [-1], reward: [-1], score: [4]
+2025-10-19 00:29:08,414Z | INFO | Starting episode 269: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:09,748Z | INFO | Episode 269 finished after 1536 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:29:09,770Z | INFO | Starting episode 270: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:12,272Z | INFO | Episode 270 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:29:12,296Z | INFO | Starting episode 271: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:14,777Z | INFO | Episode 271 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+2025-10-19 00:29:14,799Z | INFO | Starting episode 272: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:16,842Z | INFO | Episode 272 finished after 2400 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:29:16,864Z | INFO | Starting episode 273: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:19,336Z | INFO | Episode 273 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:29:19,358Z | INFO | Starting episode 274: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:21,845Z | INFO | Episode 274 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:29:21,867Z | INFO | Starting episode 275: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:24,319Z | INFO | Episode 275 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+2025-10-19 00:29:24,346Z | INFO | Starting episode 276: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:26,190Z | INFO | Episode 276 finished after 2160 game steps. Outcome: [-1], reward: [-1], score: [9]
+2025-10-19 00:29:26,214Z | INFO | Starting episode 277: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:28,635Z | INFO | Episode 277 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:29:28,657Z | INFO | Starting episode 278: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:31,070Z | INFO | Episode 278 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:29:31,092Z | INFO | Starting episode 279: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:33,227Z | INFO | Episode 279 finished after 2480 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:29:33,249Z | INFO | Starting episode 280: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:35,147Z | INFO | Episode 280 finished after 2240 game steps. Outcome: [-1], reward: [-2], score: [4]
+2025-10-19 00:29:35,175Z | INFO | Starting episode 281: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:37,606Z | INFO | Episode 281 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:29:37,631Z | INFO | Starting episode 282: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:40,048Z | INFO | Episode 282 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:29:40,070Z | INFO | Starting episode 283: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:41,548Z | INFO | Episode 283 finished after 1744 game steps. Outcome: [-1], reward: [-1], score: [6]
+2025-10-19 00:29:41,570Z | INFO | Starting episode 284: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:43,548Z | INFO | Episode 284 finished after 2352 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:29:43,570Z | INFO | Starting episode 285: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:45,352Z | INFO | Episode 285 finished after 2112 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:29:45,373Z | INFO | Starting episode 286: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:47,822Z | INFO | Episode 286 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:29:47,844Z | INFO | Starting episode 287: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:50,304Z | INFO | Episode 287 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:29:50,326Z | INFO | Starting episode 288: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:50,877Z | INFO | Episode 288 finished after 640 game steps. Outcome: [-1], reward: [-1], score: [-1]
+2025-10-19 00:29:50,899Z | INFO | Starting episode 289: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:52,764Z | INFO | Episode 289 finished after 2224 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:29:52,785Z | INFO | Starting episode 290: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:55,181Z | INFO | Episode 290 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:29:55,203Z | INFO | Starting episode 291: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:57,594Z | INFO | Episode 291 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+2025-10-19 00:29:57,616Z | INFO | Starting episode 292: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:29:58,642Z | INFO | Episode 292 finished after 1200 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:29:58,672Z | INFO | Starting episode 293: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:01,121Z | INFO | Episode 293 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:30:01,144Z | INFO | Starting episode 294: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:02,068Z | INFO | Episode 294 finished after 1024 game steps. Outcome: [-1], reward: [-1], score: [3]
+2025-10-19 00:30:02,092Z | INFO | Starting episode 295: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:03,961Z | INFO | Episode 295 finished after 1888 game steps. Outcome: [-1], reward: [-1], score: [5]
+2025-10-19 00:30:03,984Z | INFO | Starting episode 296: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:06,095Z | INFO | Episode 296 finished after 2192 game steps. Outcome: [-1], reward: [-1], score: [7]
+2025-10-19 00:30:06,119Z | INFO | Starting episode 297: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:07,321Z | INFO | Episode 297 finished after 1264 game steps. Outcome: [-1], reward: [-1], score: [8]
+2025-10-19 00:30:07,344Z | INFO | Starting episode 298: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:10,223Z | INFO | Episode 298 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:30:10,246Z | INFO | Starting episode 299: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:12,983Z | INFO | Episode 299 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+2025-10-19 00:30:13,007Z | INFO | Starting episode 300: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:15,701Z | INFO | Episode 300 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+2025-10-19 00:30:15,710Z | INFO | Ep 300: reward=599.82 avg_loss=0.5446 wins=3
+2025-10-19 00:30:15,711Z | INFO | LR scheduler step: episode=300, lr=1.000000e-06
+2025-10-19 00:30:16,533Z | INFO | Environment Close
+2025-10-19 00:30:16,635Z | INFO | Shutdown gracefully.
+2025-10-19 00:30:16,635Z | INFO | Shutdown with return code: -15
+2025-10-19 00:30:17,726Z | INFO | Launching SC2: /home/jmckerra/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 40541 -dataDir /home/jmckerra/StarCraftII/ -tempDir /tmp/sc-om9un7fx/
+2025-10-19 00:30:17,886Z | INFO | Connecting to: ws://127.0.0.1:40541/sc2api, attempt: 0, running: True
+2025-10-19 00:30:18,888Z | INFO | Connecting to: ws://127.0.0.1:40541/sc2api, attempt: 1, running: True
+2025-10-19 00:30:19,890Z | INFO | Connecting to: ws://127.0.0.1:40541/sc2api, attempt: 2, running: True
+2025-10-19 00:30:24,685Z | INFO | Environment is ready
+2025-10-19 00:30:24,686Z | INFO | Starting episode 1: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:25,799Z | INFO | Episode 1 finished after 2880 game steps. Outcome: [1], reward: [0], score: [0]
+2025-10-19 00:30:25,814Z | INFO | Starting episode 2: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:26,834Z | INFO | Episode 2 finished after 2880 game steps. Outcome: [1], reward: [0], score: [0]
+2025-10-19 00:30:26,850Z | INFO | Starting episode 3: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:27,876Z | INFO | Episode 3 finished after 2880 game steps. Outcome: [1], reward: [0], score: [0]
+2025-10-19 00:30:27,908Z | INFO | Starting episode 4: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:28,878Z | INFO | Episode 4 finished after 2880 game steps. Outcome: [1], reward: [0], score: [0]
+2025-10-19 00:30:28,894Z | INFO | Starting episode 5: [terran, zerg] on FindAndDefeatZerglings
+2025-10-19 00:30:29,844Z | INFO | Episode 5 finished after 2880 game steps. Outcome: [1], reward: [0], score: [0]
+2025-10-19 00:30:29,845Z | INFO | Environment Close
+2025-10-19 00:30:29,946Z | INFO | Shutdown gracefully.
+2025-10-19 00:30:29,946Z | INFO | Shutdown with return code: -15
+2025-10-19 00:30:29,947Z | INFO | Test completed: win_rate=0.00% avg_reward=0.00 wins=0/5
+2025-10-19 00:30:29,952Z | INFO | Wrote test results JSON to /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251019_041819_E1_seed6/eval/test_results.json
+2025-10-19 00:30:29,952Z | INFO | Environment Close
+2025-10-19 00:30:30,895Z | INFO | Environment Close

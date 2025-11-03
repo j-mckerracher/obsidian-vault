@@ -1,0 +1,1078 @@
+====== SLURM Job Information ======
+Job ID: 9799880
+Running on nodes: gilbreth-b004
+Submitted from: gilbreth-fe03.rcac.purdue.edu
+Submit directory: /home/jmckerra/Code/ARL-RL
+=====================================
+[INFO] Initializing conda (no module load)...
+[INFO] Activating conda environment: /depot/sbagchi/data/preeti/anaconda3/envs/gpu
+[INFO] Python path: /depot/sbagchi/data/preeti/anaconda3/envs/gpu/bin/python
+[INFO] Python version: Python 3.9.23
+[INFO] PyTorch available: 2.7.0+cu126
+[INFO] CUDA available: True
+[INFO] GPU devices: 1
+[INFO] Performing pre-flight checks...
+[INFO] GPU Status:
+0, NVIDIA A30, 24168, 24576
+[INFO] Pre-flight checks completed successfully
+[CFG] E1 run: RES=32 EPISODES=500 BATCH=4 REPLAY=100k LR=5e-5 EPS=(0.9→0.01 @100k) TUF=300 STEP_MUL=16
+[INFO] Seeds: 4
+[INFO] Starting E1 seed=4 -> 20251022_033709_E1_seed4 (RES=32)
+pygame 2.6.1 (SDL 2.28.4, Python 3.9.23)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+2025-10-21 23:37:35,218Z | INFO | Logging initialized. Log file: /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/logs/20251022_033709_E1_seed4.log
+2025-10-21 23:37:35,218Z | INFO | Run starting. Saving effective config and env snapshot.
+2025-10-21 23:37:35,218Z | INFO | DoubleDQN: True; Dueling: True; Scheduler: cosine (T_max=500, min_lr=1e-06)
+2025-10-21 23:37:35,249Z | INFO | Config saved to /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251022_033709_E1_seed4/config.json
+2025-10-21 23:38:05,195Z | INFO | Preallocating optimizer state to avoid OOM...
+2025-10-21 23:38:10,095Z | INFO | Optimizer state preallocation complete.
+No checkpoint found at /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251022_033709_E1_seed4/model_ep500.pth; starting training from scratch.
+2025-10-21 23:38:10,096Z | INFO | No checkpoint found at /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251022_033709_E1_seed4/model_ep500.pth; starting training from scratch.
+Training for 500 episodes on device: cuda...
+2025-10-21 23:38:10,097Z | INFO | Training for 500 episodes on device: cuda...
+2025-10-21 23:38:10,098Z | INFO | Launching SC2: /home/jmckerra/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 37771 -dataDir /home/jmckerra/StarCraftII/ -tempDir /tmp/sc-07j5pa1v/
+2025-10-21 23:38:10,169Z | INFO | Connecting to: ws://127.0.0.1:37771/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jmckerra/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 37771 -dataDir /home/jmckerra/StarCraftII/ -tempDir /tmp/sc-07j5pa1v/'
+Starting up...
+Startup Phase 1 complete
+2025-10-21 23:38:11,183Z | INFO | Connecting to: ws://127.0.0.1:37771/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Creating stub renderer...
+Listening on: 127.0.0.1:37771
+Startup Phase 3 complete. Ready for commands.
+2025-10-21 23:38:12,184Z | INFO | Connecting to: ws://127.0.0.1:37771/sc2api, attempt: 2, running: True
+ConnectHandler: Request from 127.0.0.1:54330 accepted
+ReadyHandler: 127.0.0.1:54330 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface enabled
+Configure: score interface enabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jmckerra/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+2025-10-21 23:38:17,076Z | INFO | Environment is ready
+Train Episodes:   0%|          | 0/500 [00:00<?, ?it/s]2025-10-21 23:38:17,084Z | INFO | Starting episode 1: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:19,975Z | INFO | Episode 1 finished after 2112 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:   0%|          | 0/500 [00:02<?, ?it/s, Reward=499.87, AvgLoss=0.9650, Wins=0]Train Episodes:   0%|          | 1/500 [00:02<24:07,  2.90s/it, Reward=499.87, AvgLoss=0.9650, Wins=0]Game has started.
+2025-10-21 23:38:20,003Z | INFO | Starting episode 2: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:21,637Z | INFO | Episode 2 finished after 1712 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:   0%|          | 1/500 [00:04<24:07,  2.90s/it, Reward=399.89, AvgLoss=0.7232, Wins=0]Train Episodes:   0%|          | 2/500 [00:04<18:01,  2.17s/it, Reward=399.89, AvgLoss=0.7232, Wins=0]Game has started.
+2025-10-21 23:38:21,661Z | INFO | Starting episode 3: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:24,448Z | INFO | Episode 3 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:   0%|          | 2/500 [00:07<18:01,  2.17s/it, Reward=599.82, AvgLoss=0.7353, Wins=0]Train Episodes:   1%|          | 3/500 [00:07<20:24,  2.46s/it, Reward=599.82, AvgLoss=0.7353, Wins=0]Game has started.
+2025-10-21 23:38:24,473Z | INFO | Starting episode 4: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:27,246Z | INFO | Episode 4 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:   1%|          | 3/500 [00:10<20:24,  2.46s/it, Reward=649.82, AvgLoss=0.6897, Wins=0]Train Episodes:   1%|          | 4/500 [00:10<21:27,  2.60s/it, Reward=649.82, AvgLoss=0.6897, Wins=0]Game has started.
+2025-10-21 23:38:27,277Z | INFO | Starting episode 5: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:29,941Z | INFO | Episode 5 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:   1%|          | 4/500 [00:12<21:27,  2.60s/it, Reward=549.82, AvgLoss=0.4620, Wins=0]Train Episodes:   1%|          | 5/500 [00:12<21:42,  2.63s/it, Reward=549.82, AvgLoss=0.4620, Wins=0]Game has started.
+2025-10-21 23:38:29,966Z | INFO | Starting episode 6: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:32,757Z | INFO | Episode 6 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:   1%|          | 5/500 [00:15<21:42,  2.63s/it, Reward=549.82, AvgLoss=0.4969, Wins=0]Train Episodes:   1%|          | 6/500 [00:15<22:11,  2.69s/it, Reward=549.82, AvgLoss=0.4969, Wins=0]Game has started.
+2025-10-21 23:38:32,787Z | INFO | Starting episode 7: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:34,570Z | INFO | Episode 7 finished after 1888 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:   1%|          | 6/500 [00:17<22:11,  2.69s/it, Reward=449.88, AvgLoss=0.4893, Wins=0]Train Episodes:   1%|▏         | 7/500 [00:17<19:46,  2.41s/it, Reward=449.88, AvgLoss=0.4893, Wins=0]Game has started.
+2025-10-21 23:38:34,596Z | INFO | Starting episode 8: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:37,260Z | INFO | Episode 8 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:   1%|▏         | 7/500 [00:20<19:46,  2.41s/it, Reward=549.82, AvgLoss=0.5362, Wins=0]Train Episodes:   2%|▏         | 8/500 [00:20<20:28,  2.50s/it, Reward=549.82, AvgLoss=0.5362, Wins=0]Game has started.
+2025-10-21 23:38:37,285Z | INFO | Starting episode 9: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:39,861Z | INFO | Episode 9 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:   2%|▏         | 8/500 [00:22<20:28,  2.50s/it, Reward=499.82, AvgLoss=0.5106, Wins=0]Train Episodes:   2%|▏         | 9/500 [00:22<20:41,  2.53s/it, Reward=499.82, AvgLoss=0.5106, Wins=0]Game has started.
+2025-10-21 23:38:39,885Z | INFO | Starting episode 10: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:42,475Z | INFO | Episode 10 finished after 2880 game steps. Outcome: [1], reward: [0], score: [15]
+Train Episodes:   2%|▏         | 9/500 [00:25<20:41,  2.53s/it, Reward=799.82, AvgLoss=0.4784, Wins=0]Train Episodes:   2%|▏         | 10/500 [00:25<20:52,  2.56s/it, Reward=799.82, AvgLoss=0.4784, Wins=0]Game has started.
+2025-10-21 23:38:42,499Z | INFO | Starting episode 11: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:45,054Z | INFO | Episode 11 finished after 2816 game steps. Outcome: [-1], reward: [-1], score: [10]
+Train Episodes:   2%|▏         | 10/500 [00:27<20:52,  2.56s/it, Reward=649.82, AvgLoss=0.4339, Wins=0]Train Episodes:   2%|▏         | 11/500 [00:27<20:53,  2.56s/it, Reward=649.82, AvgLoss=0.4339, Wins=0]Game has started.
+2025-10-21 23:38:45,083Z | INFO | Starting episode 12: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:46,581Z | INFO | Episode 12 finished after 1648 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:   2%|▏         | 11/500 [00:29<20:53,  2.56s/it, Reward=449.90, AvgLoss=0.4170, Wins=0]Train Episodes:   2%|▏         | 12/500 [00:29<18:16,  2.25s/it, Reward=449.90, AvgLoss=0.4170, Wins=0]Game has started.
+2025-10-21 23:38:46,605Z | INFO | Starting episode 13: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:49,020Z | INFO | Episode 13 finished after 2704 game steps. Outcome: [-1], reward: [-1], score: [9]
+Train Episodes:   2%|▏         | 12/500 [00:31<18:16,  2.25s/it, Reward=599.83, AvgLoss=0.4790, Wins=0]Train Episodes:   3%|▎         | 13/500 [00:31<18:42,  2.31s/it, Reward=599.83, AvgLoss=0.4790, Wins=0]Game has started.
+2025-10-21 23:38:49,044Z | INFO | Starting episode 14: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:51,601Z | INFO | Episode 14 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:   3%|▎         | 13/500 [00:34<18:42,  2.31s/it, Reward=549.82, AvgLoss=0.3241, Wins=0]Train Episodes:   3%|▎         | 14/500 [00:34<19:20,  2.39s/it, Reward=549.82, AvgLoss=0.3241, Wins=0]Game has started.
+2025-10-21 23:38:51,624Z | INFO | Starting episode 15: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:54,187Z | INFO | Episode 15 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+Train Episodes:   3%|▎         | 14/500 [00:37<19:20,  2.39s/it, Reward=699.82, AvgLoss=0.4529, Wins=0]Train Episodes:   3%|▎         | 15/500 [00:37<19:47,  2.45s/it, Reward=699.82, AvgLoss=0.4529, Wins=0]Game has started.
+2025-10-21 23:38:54,216Z | INFO | Starting episode 16: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:56,764Z | INFO | Episode 16 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:   3%|▎         | 15/500 [00:39<19:47,  2.45s/it, Reward=549.82, AvgLoss=0.4610, Wins=0]Train Episodes:   3%|▎         | 16/500 [00:39<20:03,  2.49s/it, Reward=549.82, AvgLoss=0.4610, Wins=0]Game has started.
+2025-10-21 23:38:56,787Z | INFO | Starting episode 17: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:38:59,350Z | INFO | Episode 17 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:   3%|▎         | 16/500 [00:42<20:03,  2.49s/it, Reward=449.82, AvgLoss=0.4721, Wins=0]Train Episodes:   3%|▎         | 17/500 [00:42<20:15,  2.52s/it, Reward=449.82, AvgLoss=0.4721, Wins=0]Game has started.
+2025-10-21 23:38:59,374Z | INFO | Starting episode 18: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:01,946Z | INFO | Episode 18 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:   3%|▎         | 17/500 [00:44<20:15,  2.52s/it, Reward=649.82, AvgLoss=0.4846, Wins=0]Train Episodes:   4%|▎         | 18/500 [00:44<20:24,  2.54s/it, Reward=649.82, AvgLoss=0.4846, Wins=0]Game has started.
+2025-10-21 23:39:01,969Z | INFO | Starting episode 19: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:04,546Z | INFO | Episode 19 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:   4%|▎         | 18/500 [00:47<20:24,  2.54s/it, Reward=449.82, AvgLoss=0.4568, Wins=0]Train Episodes:   4%|▍         | 19/500 [00:47<20:30,  2.56s/it, Reward=449.82, AvgLoss=0.4568, Wins=0]Game has started.
+2025-10-21 23:39:04,569Z | INFO | Starting episode 20: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:07,176Z | INFO | Episode 20 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:   4%|▍         | 19/500 [00:50<20:30,  2.56s/it, Reward=599.82, AvgLoss=0.3416, Wins=0]Train Episodes:   4%|▍         | 20/500 [00:50<20:38,  2.58s/it, Reward=599.82, AvgLoss=0.3416, Wins=0]Game has started.
+2025-10-21 23:39:07,200Z | INFO | Starting episode 21: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:09,794Z | INFO | Episode 21 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:   4%|▍         | 20/500 [00:52<20:38,  2.58s/it, Reward=549.82, AvgLoss=0.4454, Wins=0]Train Episodes:   4%|▍         | 21/500 [00:52<20:41,  2.59s/it, Reward=549.82, AvgLoss=0.4454, Wins=0]Game has started.
+2025-10-21 23:39:09,824Z | INFO | Starting episode 22: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:12,282Z | INFO | Episode 22 finished after 2720 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:   4%|▍         | 21/500 [00:55<20:41,  2.59s/it, Reward=449.83, AvgLoss=0.4556, Wins=0]Train Episodes:   4%|▍         | 22/500 [00:55<20:23,  2.56s/it, Reward=449.83, AvgLoss=0.4556, Wins=0]Game has started.
+2025-10-21 23:39:12,307Z | INFO | Starting episode 23: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:14,886Z | INFO | Episode 23 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:   4%|▍         | 22/500 [00:57<20:23,  2.56s/it, Reward=449.82, AvgLoss=0.4579, Wins=0]Train Episodes:   5%|▍         | 23/500 [00:57<20:27,  2.57s/it, Reward=449.82, AvgLoss=0.4579, Wins=0]Game has started.
+2025-10-21 23:39:14,916Z | INFO | Starting episode 24: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:17,500Z | INFO | Episode 24 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:   5%|▍         | 23/500 [01:00<20:27,  2.57s/it, Reward=549.82, AvgLoss=0.4751, Wins=0]Train Episodes:   5%|▍         | 24/500 [01:00<20:30,  2.59s/it, Reward=549.82, AvgLoss=0.4751, Wins=0]Game has started.
+2025-10-21 23:39:17,524Z | INFO | Starting episode 25: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:20,136Z | INFO | Episode 25 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:   5%|▍         | 24/500 [01:03<20:30,  2.59s/it, Reward=549.82, AvgLoss=0.4909, Wins=0]Train Episodes:   5%|▌         | 25/500 [01:03<20:35,  2.60s/it, Reward=549.82, AvgLoss=0.4909, Wins=0]Game has started.
+2025-10-21 23:39:20,160Z | INFO | Starting episode 26: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:22,778Z | INFO | Episode 26 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:   5%|▌         | 25/500 [01:05<20:35,  2.60s/it, Reward=649.82, AvgLoss=0.4633, Wins=0]Train Episodes:   5%|▌         | 26/500 [01:05<20:38,  2.61s/it, Reward=649.82, AvgLoss=0.4633, Wins=0]Game has started.
+2025-10-21 23:39:22,808Z | INFO | Starting episode 27: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:25,393Z | INFO | Episode 27 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:   5%|▌         | 26/500 [01:08<20:38,  2.61s/it, Reward=499.82, AvgLoss=0.4767, Wins=0]Train Episodes:   5%|▌         | 27/500 [01:08<20:36,  2.61s/it, Reward=499.82, AvgLoss=0.4767, Wins=0]Game has started.
+2025-10-21 23:39:25,417Z | INFO | Starting episode 28: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:26,561Z | INFO | Episode 28 finished after 1248 game steps. Outcome: [-1], reward: [-1], score: [3]
+Train Episodes:   5%|▌         | 27/500 [01:09<20:36,  2.61s/it, Reward=299.92, AvgLoss=0.3989, Wins=0]Train Episodes:   6%|▌         | 28/500 [01:09<17:08,  2.18s/it, Reward=299.92, AvgLoss=0.3989, Wins=0]Game has started.
+2025-10-21 23:39:26,585Z | INFO | Starting episode 29: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:29,155Z | INFO | Episode 29 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:   6%|▌         | 28/500 [01:12<17:08,  2.18s/it, Reward=399.82, AvgLoss=0.4691, Wins=0]Train Episodes:   6%|▌         | 29/500 [01:12<18:05,  2.30s/it, Reward=399.82, AvgLoss=0.4691, Wins=0]Game has started.
+2025-10-21 23:39:29,179Z | INFO | Starting episode 30: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:31,570Z | INFO | Episode 30 finished after 2672 game steps. Outcome: [-1], reward: [-1], score: [8]
+Train Episodes:   6%|▌         | 29/500 [01:14<18:05,  2.30s/it, Reward=549.83, AvgLoss=0.5137, Wins=0]Train Episodes:   6%|▌         | 30/500 [01:14<18:18,  2.34s/it, Reward=549.83, AvgLoss=0.5137, Wins=0]Game has started.
+2025-10-21 23:39:31,594Z | INFO | Starting episode 31: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:34,150Z | INFO | Episode 31 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:   6%|▌         | 30/500 [01:17<18:18,  2.34s/it, Reward=599.82, AvgLoss=0.4101, Wins=0]Train Episodes:   6%|▌         | 31/500 [01:17<18:50,  2.41s/it, Reward=599.82, AvgLoss=0.4101, Wins=0]Game has started.
+2025-10-21 23:39:34,173Z | INFO | Starting episode 32: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:35,843Z | INFO | Episode 32 finished after 1856 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:   6%|▌         | 31/500 [01:18<18:50,  2.41s/it, Reward=449.88, AvgLoss=0.5858, Wins=0]Train Episodes:   6%|▋         | 32/500 [01:18<17:07,  2.19s/it, Reward=449.88, AvgLoss=0.5858, Wins=0]Game has started.
+2025-10-21 23:39:35,873Z | INFO | Starting episode 33: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:38,443Z | INFO | Episode 33 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:   6%|▋         | 32/500 [01:21<17:07,  2.19s/it, Reward=549.82, AvgLoss=0.4518, Wins=0]Train Episodes:   7%|▋         | 33/500 [01:21<18:01,  2.32s/it, Reward=549.82, AvgLoss=0.4518, Wins=0]Game has started.
+2025-10-21 23:39:38,466Z | INFO | Starting episode 34: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:41,021Z | INFO | Episode 34 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:   7%|▋         | 33/500 [01:23<18:01,  2.32s/it, Reward=549.82, AvgLoss=0.4735, Wins=0]Train Episodes:   7%|▋         | 34/500 [01:23<18:35,  2.39s/it, Reward=549.82, AvgLoss=0.4735, Wins=0]Game has started.
+2025-10-21 23:39:41,044Z | INFO | Starting episode 35: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:43,799Z | INFO | Episode 35 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:   7%|▋         | 34/500 [01:26<18:35,  2.39s/it, Reward=599.82, AvgLoss=0.4623, Wins=0]Train Episodes:   7%|▋         | 35/500 [01:26<19:27,  2.51s/it, Reward=599.82, AvgLoss=0.4623, Wins=0]Game has started.
+2025-10-21 23:39:43,830Z | INFO | Starting episode 36: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:45,428Z | INFO | Episode 36 finished after 1712 game steps. Outcome: [-1], reward: [-1], score: [9]
+Train Episodes:   7%|▋         | 35/500 [01:28<19:27,  2.51s/it, Reward=599.89, AvgLoss=0.4136, Wins=0]Train Episodes:   7%|▋         | 36/500 [01:28<17:22,  2.25s/it, Reward=599.89, AvgLoss=0.4136, Wins=0]Game has started.
+2025-10-21 23:39:45,452Z | INFO | Starting episode 37: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:47,117Z | INFO | Episode 37 finished after 1776 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:   7%|▋         | 36/500 [01:30<17:22,  2.25s/it, Reward=399.89, AvgLoss=0.4431, Wins=0]Train Episodes:   7%|▋         | 37/500 [01:30<16:02,  2.08s/it, Reward=399.89, AvgLoss=0.4431, Wins=0]Game has started.
+2025-10-21 23:39:47,140Z | INFO | Starting episode 38: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:48,369Z | INFO | Episode 38 finished after 1328 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:   7%|▋         | 37/500 [01:31<16:02,  2.08s/it, Reward=449.92, AvgLoss=0.5302, Wins=0]Train Episodes:   8%|▊         | 38/500 [01:31<14:05,  1.83s/it, Reward=449.92, AvgLoss=0.5302, Wins=0]Game has started.
+2025-10-21 23:39:48,392Z | INFO | Starting episode 39: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:50,992Z | INFO | Episode 39 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:   8%|▊         | 38/500 [01:33<14:05,  1.83s/it, Reward=549.82, AvgLoss=0.4991, Wins=0]Train Episodes:   8%|▊         | 39/500 [01:33<15:53,  2.07s/it, Reward=549.82, AvgLoss=0.4991, Wins=0]Game has started.
+2025-10-21 23:39:51,016Z | INFO | Starting episode 40: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:53,621Z | INFO | Episode 40 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:   8%|▊         | 39/500 [01:36<15:53,  2.07s/it, Reward=499.82, AvgLoss=0.4367, Wins=0]Train Episodes:   8%|▊         | 40/500 [01:36<17:08,  2.24s/it, Reward=499.82, AvgLoss=0.4367, Wins=0]Game has started.
+2025-10-21 23:39:53,645Z | INFO | Starting episode 41: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:56,266Z | INFO | Episode 41 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:   8%|▊         | 40/500 [01:39<17:08,  2.24s/it, Reward=649.82, AvgLoss=0.5076, Wins=0]Train Episodes:   8%|▊         | 41/500 [01:39<18:02,  2.36s/it, Reward=649.82, AvgLoss=0.5076, Wins=0]Game has started.
+2025-10-21 23:39:56,290Z | INFO | Starting episode 42: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:39:58,889Z | INFO | Episode 42 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:   8%|▊         | 41/500 [01:41<18:02,  2.36s/it, Reward=649.82, AvgLoss=0.5546, Wins=0]Train Episodes:   8%|▊         | 42/500 [01:41<18:36,  2.44s/it, Reward=649.82, AvgLoss=0.5546, Wins=0]Game has started.
+2025-10-21 23:39:58,919Z | INFO | Starting episode 43: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:01,533Z | INFO | Episode 43 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:   8%|▊         | 42/500 [01:44<18:36,  2.44s/it, Reward=599.82, AvgLoss=0.4508, Wins=0]Train Episodes:   9%|▊         | 43/500 [01:44<19:02,  2.50s/it, Reward=599.82, AvgLoss=0.4508, Wins=0]Game has started.
+2025-10-21 23:40:01,556Z | INFO | Starting episode 44: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:02,602Z | INFO | Episode 44 finished after 1136 game steps. Outcome: [-1], reward: [-1], score: [4]
+Train Episodes:   9%|▊         | 43/500 [01:45<19:02,  2.50s/it, Reward=349.93, AvgLoss=0.6219, Wins=0]Train Episodes:   9%|▉         | 44/500 [01:45<15:44,  2.07s/it, Reward=349.93, AvgLoss=0.6219, Wins=0]Game has started.
+2025-10-21 23:40:02,632Z | INFO | Starting episode 45: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:05,369Z | INFO | Episode 45 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:   9%|▉         | 44/500 [01:48<15:44,  2.07s/it, Reward=549.82, AvgLoss=0.4382, Wins=0]Train Episodes:   9%|▉         | 45/500 [01:48<17:17,  2.28s/it, Reward=549.82, AvgLoss=0.4382, Wins=0]Game has started.
+2025-10-21 23:40:05,397Z | INFO | Starting episode 46: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:08,083Z | INFO | Episode 46 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:   9%|▉         | 45/500 [01:51<17:17,  2.28s/it, Reward=649.82, AvgLoss=0.4313, Wins=0]Train Episodes:   9%|▉         | 46/500 [01:51<18:14,  2.41s/it, Reward=649.82, AvgLoss=0.4313, Wins=0]Game has started.
+2025-10-21 23:40:08,110Z | INFO | Starting episode 47: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:10,821Z | INFO | Episode 47 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:   9%|▉         | 46/500 [01:53<18:14,  2.41s/it, Reward=499.82, AvgLoss=0.4237, Wins=0]Train Episodes:   9%|▉         | 47/500 [01:53<18:56,  2.51s/it, Reward=499.82, AvgLoss=0.4237, Wins=0]Game has started.
+2025-10-21 23:40:10,866Z | INFO | Starting episode 48: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:13,666Z | INFO | Episode 48 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:   9%|▉         | 47/500 [01:56<18:56,  2.51s/it, Reward=549.82, AvgLoss=0.3892, Wins=0]Train Episodes:  10%|▉         | 48/500 [01:56<19:39,  2.61s/it, Reward=549.82, AvgLoss=0.3892, Wins=0]Game has started.
+2025-10-21 23:40:13,691Z | INFO | Starting episode 49: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:16,370Z | INFO | Episode 49 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  10%|▉         | 48/500 [01:59<19:39,  2.61s/it, Reward=449.82, AvgLoss=0.5125, Wins=0]Train Episodes:  10%|▉         | 49/500 [01:59<19:49,  2.64s/it, Reward=449.82, AvgLoss=0.5125, Wins=0]Game has started.
+2025-10-21 23:40:16,393Z | INFO | Starting episode 50: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:19,030Z | INFO | Episode 50 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  10%|▉         | 49/500 [02:01<19:49,  2.64s/it, Reward=599.82, AvgLoss=0.4346, Wins=0]2025-10-21 23:40:19,041Z | INFO | Ep 50: reward=599.82 avg_loss=0.4346 wins=0
+Train Episodes:  10%|█         | 50/500 [02:01<19:50,  2.64s/it, Reward=599.82, AvgLoss=0.4346, Wins=0]Game has started.
+2025-10-21 23:40:19,055Z | INFO | Starting episode 51: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:21,674Z | INFO | Episode 51 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  10%|█         | 50/500 [02:04<19:50,  2.64s/it, Reward=449.82, AvgLoss=0.4489, Wins=0]Train Episodes:  10%|█         | 51/500 [02:04<19:47,  2.64s/it, Reward=449.82, AvgLoss=0.4489, Wins=0]Game has started.
+2025-10-21 23:40:21,698Z | INFO | Starting episode 52: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:24,330Z | INFO | Episode 52 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  10%|█         | 51/500 [02:07<19:47,  2.64s/it, Reward=649.82, AvgLoss=0.4852, Wins=0]Train Episodes:  10%|█         | 52/500 [02:07<19:46,  2.65s/it, Reward=649.82, AvgLoss=0.4852, Wins=0]Game has started.
+2025-10-21 23:40:24,354Z | INFO | Starting episode 53: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:27,113Z | INFO | Episode 53 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  10%|█         | 52/500 [02:10<19:46,  2.65s/it, Reward=549.82, AvgLoss=0.4712, Wins=0]Train Episodes:  11%|█         | 53/500 [02:10<20:01,  2.69s/it, Reward=549.82, AvgLoss=0.4712, Wins=0]Game has started.
+2025-10-21 23:40:27,147Z | INFO | Starting episode 54: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:29,939Z | INFO | Episode 54 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  11%|█         | 53/500 [02:12<20:01,  2.69s/it, Reward=549.82, AvgLoss=0.4087, Wins=0]Train Episodes:  11%|█         | 54/500 [02:12<20:17,  2.73s/it, Reward=549.82, AvgLoss=0.4087, Wins=0]Game has started.
+2025-10-21 23:40:29,966Z | INFO | Starting episode 55: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:32,782Z | INFO | Episode 55 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  11%|█         | 54/500 [02:15<20:17,  2.73s/it, Reward=649.82, AvgLoss=0.3977, Wins=0]Train Episodes:  11%|█         | 55/500 [02:15<20:29,  2.76s/it, Reward=649.82, AvgLoss=0.3977, Wins=0]Game has started.
+2025-10-21 23:40:32,816Z | INFO | Starting episode 56: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:35,567Z | INFO | Episode 56 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  11%|█         | 55/500 [02:18<20:29,  2.76s/it, Reward=699.82, AvgLoss=0.4698, Wins=0]Train Episodes:  11%|█         | 56/500 [02:18<20:29,  2.77s/it, Reward=699.82, AvgLoss=0.4698, Wins=0]Game has started.
+2025-10-21 23:40:35,594Z | INFO | Starting episode 57: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:38,090Z | INFO | Episode 57 finished after 2640 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  11%|█         | 56/500 [02:21<20:29,  2.77s/it, Reward=499.84, AvgLoss=0.4756, Wins=0]Train Episodes:  11%|█▏        | 57/500 [02:21<19:54,  2.70s/it, Reward=499.84, AvgLoss=0.4756, Wins=0]Game has started.
+2025-10-21 23:40:38,134Z | INFO | Starting episode 58: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:40,970Z | INFO | Episode 58 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  11%|█▏        | 57/500 [02:23<19:54,  2.70s/it, Reward=649.82, AvgLoss=0.4865, Wins=0]Train Episodes:  12%|█▏        | 58/500 [02:23<20:16,  2.75s/it, Reward=649.82, AvgLoss=0.4865, Wins=0]Game has started.
+2025-10-21 23:40:40,996Z | INFO | Starting episode 59: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:43,723Z | INFO | Episode 59 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  12%|█▏        | 58/500 [02:26<20:16,  2.75s/it, Reward=599.82, AvgLoss=0.4340, Wins=0]Train Episodes:  12%|█▏        | 59/500 [02:26<20:13,  2.75s/it, Reward=599.82, AvgLoss=0.4340, Wins=0]Game has started.
+2025-10-21 23:40:43,749Z | INFO | Starting episode 60: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:46,599Z | INFO | Episode 60 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  12%|█▏        | 59/500 [02:29<20:13,  2.75s/it, Reward=449.82, AvgLoss=0.5065, Wins=0]Train Episodes:  12%|█▏        | 60/500 [02:29<20:27,  2.79s/it, Reward=449.82, AvgLoss=0.5065, Wins=0]Game has started.
+2025-10-21 23:40:46,626Z | INFO | Starting episode 61: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:49,492Z | INFO | Episode 61 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  12%|█▏        | 60/500 [02:32<20:27,  2.79s/it, Reward=399.82, AvgLoss=0.5186, Wins=0]Train Episodes:  12%|█▏        | 61/500 [02:32<20:38,  2.82s/it, Reward=399.82, AvgLoss=0.5186, Wins=0]Game has started.
+2025-10-21 23:40:49,519Z | INFO | Starting episode 62: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:52,179Z | INFO | Episode 62 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  12%|█▏        | 61/500 [02:35<20:38,  2.82s/it, Reward=649.82, AvgLoss=0.4320, Wins=0]Train Episodes:  12%|█▏        | 62/500 [02:35<20:17,  2.78s/it, Reward=649.82, AvgLoss=0.4320, Wins=0]Game has started.
+2025-10-21 23:40:52,203Z | INFO | Starting episode 63: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:55,053Z | INFO | Episode 63 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  12%|█▏        | 62/500 [02:37<20:17,  2.78s/it, Reward=549.82, AvgLoss=0.4717, Wins=0]Train Episodes:  13%|█▎        | 63/500 [02:37<20:27,  2.81s/it, Reward=549.82, AvgLoss=0.4717, Wins=0]Game has started.
+2025-10-21 23:40:55,088Z | INFO | Starting episode 64: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:57,926Z | INFO | Episode 64 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  13%|█▎        | 63/500 [02:40<20:27,  2.81s/it, Reward=449.82, AvgLoss=0.4773, Wins=0]Train Episodes:  13%|█▎        | 64/500 [02:40<20:32,  2.83s/it, Reward=449.82, AvgLoss=0.4773, Wins=0]Game has started.
+2025-10-21 23:40:57,954Z | INFO | Starting episode 65: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:40:59,839Z | INFO | Episode 65 finished after 1984 game steps. Outcome: [-1], reward: [-1], score: [8]
+Train Episodes:  13%|█▎        | 64/500 [02:42<20:32,  2.83s/it, Reward=549.88, AvgLoss=0.3530, Wins=0]Train Episodes:  13%|█▎        | 65/500 [02:42<18:30,  2.55s/it, Reward=549.88, AvgLoss=0.3530, Wins=0]Game has started.
+2025-10-21 23:40:59,866Z | INFO | Starting episode 66: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:01,599Z | INFO | Episode 66 finished after 1840 game steps. Outcome: [-1], reward: [-1], score: [4]
+Train Episodes:  13%|█▎        | 65/500 [02:44<18:30,  2.55s/it, Reward=349.89, AvgLoss=0.3892, Wins=0]Train Episodes:  13%|█▎        | 66/500 [02:44<16:44,  2.31s/it, Reward=349.89, AvgLoss=0.3892, Wins=0]Game has started.
+2025-10-21 23:41:01,642Z | INFO | Starting episode 67: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:04,342Z | INFO | Episode 67 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  13%|█▎        | 66/500 [02:47<16:44,  2.31s/it, Reward=599.82, AvgLoss=0.5028, Wins=0]Train Episodes:  13%|█▎        | 67/500 [02:47<17:37,  2.44s/it, Reward=599.82, AvgLoss=0.5028, Wins=0]Game has started.
+2025-10-21 23:41:04,365Z | INFO | Starting episode 68: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:07,257Z | INFO | Episode 68 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  13%|█▎        | 67/500 [02:50<17:37,  2.44s/it, Reward=599.82, AvgLoss=0.4800, Wins=0]Train Episodes:  14%|█▎        | 68/500 [02:50<18:36,  2.59s/it, Reward=599.82, AvgLoss=0.4800, Wins=0]Game has started.
+2025-10-21 23:41:07,284Z | INFO | Starting episode 69: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:08,801Z | INFO | Episode 69 finished after 1520 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:  14%|█▎        | 68/500 [02:51<18:36,  2.59s/it, Reward=449.91, AvgLoss=0.4610, Wins=0]Train Episodes:  14%|█▍        | 69/500 [02:51<16:19,  2.27s/it, Reward=449.91, AvgLoss=0.4610, Wins=0]Game has started.
+2025-10-21 23:41:08,829Z | INFO | Starting episode 70: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:10,579Z | INFO | Episode 70 finished after 1696 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  14%|█▍        | 69/500 [02:53<16:19,  2.27s/it, Reward=499.89, AvgLoss=0.3995, Wins=0]Train Episodes:  14%|█▍        | 70/500 [02:53<15:13,  2.12s/it, Reward=499.89, AvgLoss=0.3995, Wins=0]Game has started.
+2025-10-21 23:41:10,604Z | INFO | Starting episode 71: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:13,450Z | INFO | Episode 71 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  14%|█▍        | 70/500 [02:56<15:13,  2.12s/it, Reward=499.82, AvgLoss=0.4690, Wins=0]Train Episodes:  14%|█▍        | 71/500 [02:56<16:47,  2.35s/it, Reward=499.82, AvgLoss=0.4690, Wins=0]Game has started.
+2025-10-21 23:41:13,474Z | INFO | Starting episode 72: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:15,936Z | INFO | Episode 72 finished after 2400 game steps. Outcome: [-1], reward: [-2], score: [6]
+Train Episodes:  14%|█▍        | 71/500 [02:58<16:47,  2.35s/it, Reward=449.85, AvgLoss=0.5227, Wins=0]Train Episodes:  14%|█▍        | 72/500 [02:58<17:02,  2.39s/it, Reward=449.85, AvgLoss=0.5227, Wins=0]Game has started.
+2025-10-21 23:41:15,961Z | INFO | Starting episode 73: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:18,706Z | INFO | Episode 73 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  14%|█▍        | 72/500 [03:01<17:02,  2.39s/it, Reward=599.82, AvgLoss=0.4850, Wins=0]Train Episodes:  15%|█▍        | 73/500 [03:01<17:48,  2.50s/it, Reward=599.82, AvgLoss=0.4850, Wins=0]Game has started.
+2025-10-21 23:41:18,729Z | INFO | Starting episode 74: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:21,346Z | INFO | Episode 74 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  15%|█▍        | 73/500 [03:04<17:48,  2.50s/it, Reward=449.82, AvgLoss=0.4704, Wins=0]Train Episodes:  15%|█▍        | 74/500 [03:04<18:03,  2.54s/it, Reward=449.82, AvgLoss=0.4704, Wins=0]Game has started.
+2025-10-21 23:41:21,377Z | INFO | Starting episode 75: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:23,992Z | INFO | Episode 75 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  15%|█▍        | 74/500 [03:06<18:03,  2.54s/it, Reward=499.82, AvgLoss=0.4487, Wins=0]Train Episodes:  15%|█▌        | 75/500 [03:06<18:14,  2.58s/it, Reward=499.82, AvgLoss=0.4487, Wins=0]Game has started.
+2025-10-21 23:41:24,017Z | INFO | Starting episode 76: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:25,997Z | INFO | Episode 76 finished after 2144 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:  15%|█▌        | 75/500 [03:08<18:14,  2.58s/it, Reward=399.87, AvgLoss=0.4532, Wins=0]Train Episodes:  15%|█▌        | 76/500 [03:08<16:59,  2.40s/it, Reward=399.87, AvgLoss=0.4532, Wins=0]Game has started.
+2025-10-21 23:41:26,020Z | INFO | Starting episode 77: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:28,636Z | INFO | Episode 77 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  15%|█▌        | 76/500 [03:11<16:59,  2.40s/it, Reward=649.82, AvgLoss=0.4887, Wins=0]Train Episodes:  15%|█▌        | 77/500 [03:11<17:26,  2.47s/it, Reward=649.82, AvgLoss=0.4887, Wins=0]Game has started.
+2025-10-21 23:41:28,666Z | INFO | Starting episode 78: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:31,266Z | INFO | Episode 78 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  15%|█▌        | 77/500 [03:14<17:26,  2.47s/it, Reward=649.82, AvgLoss=0.5006, Wins=0]Train Episodes:  16%|█▌        | 78/500 [03:14<17:43,  2.52s/it, Reward=649.82, AvgLoss=0.5006, Wins=0]Game has started.
+2025-10-21 23:41:31,289Z | INFO | Starting episode 79: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:33,973Z | INFO | Episode 79 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  16%|█▌        | 78/500 [03:16<17:43,  2.52s/it, Reward=549.82, AvgLoss=0.4499, Wins=0]Train Episodes:  16%|█▌        | 79/500 [03:16<18:04,  2.58s/it, Reward=549.82, AvgLoss=0.4499, Wins=0]Game has started.
+2025-10-21 23:41:34,000Z | INFO | Starting episode 80: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:36,674Z | INFO | Episode 80 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  16%|█▌        | 79/500 [03:19<18:04,  2.58s/it, Reward=549.82, AvgLoss=0.4840, Wins=0]Train Episodes:  16%|█▌        | 80/500 [03:19<18:17,  2.61s/it, Reward=549.82, AvgLoss=0.4840, Wins=0]Game has started.
+2025-10-21 23:41:36,699Z | INFO | Starting episode 81: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:39,352Z | INFO | Episode 81 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  16%|█▌        | 80/500 [03:22<18:17,  2.61s/it, Reward=499.82, AvgLoss=0.4221, Wins=0]Train Episodes:  16%|█▌        | 81/500 [03:22<18:23,  2.63s/it, Reward=499.82, AvgLoss=0.4221, Wins=0]Game has started.
+2025-10-21 23:41:39,377Z | INFO | Starting episode 82: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:41,517Z | INFO | Episode 82 finished after 2336 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:  16%|█▌        | 81/500 [03:24<18:23,  2.63s/it, Reward=449.85, AvgLoss=0.5167, Wins=0]Train Episodes:  16%|█▋        | 82/500 [03:24<17:22,  2.49s/it, Reward=449.85, AvgLoss=0.5167, Wins=0]Game has started.
+2025-10-21 23:41:41,543Z | INFO | Starting episode 83: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:44,185Z | INFO | Episode 83 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  16%|█▋        | 82/500 [03:27<17:22,  2.49s/it, Reward=599.82, AvgLoss=0.4660, Wins=0]Train Episodes:  17%|█▋        | 83/500 [03:27<17:41,  2.55s/it, Reward=599.82, AvgLoss=0.4660, Wins=0]Game has started.
+2025-10-21 23:41:44,209Z | INFO | Starting episode 84: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:46,816Z | INFO | Episode 84 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  17%|█▋        | 83/500 [03:29<17:41,  2.55s/it, Reward=499.82, AvgLoss=0.4274, Wins=0]Train Episodes:  17%|█▋        | 84/500 [03:29<17:49,  2.57s/it, Reward=499.82, AvgLoss=0.4274, Wins=0]Game has started.
+2025-10-21 23:41:46,846Z | INFO | Starting episode 85: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:47,761Z | INFO | Episode 85 finished after 992 game steps. Outcome: [-1], reward: [-1], score: [4]
+Train Episodes:  17%|█▋        | 84/500 [03:30<17:49,  2.57s/it, Reward=349.94, AvgLoss=0.5471, Wins=0]Train Episodes:  17%|█▋        | 85/500 [03:30<14:24,  2.08s/it, Reward=349.94, AvgLoss=0.5471, Wins=0]Game has started.
+2025-10-21 23:41:47,784Z | INFO | Starting episode 86: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:49,275Z | INFO | Episode 86 finished after 1632 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:  17%|█▋        | 85/500 [03:32<14:24,  2.08s/it, Reward=449.90, AvgLoss=0.4521, Wins=0]Train Episodes:  17%|█▋        | 86/500 [03:32<13:11,  1.91s/it, Reward=449.90, AvgLoss=0.4521, Wins=0]Game has started.
+2025-10-21 23:41:49,299Z | INFO | Starting episode 87: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:51,873Z | INFO | Episode 87 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  17%|█▋        | 86/500 [03:34<13:11,  1.91s/it, Reward=449.82, AvgLoss=0.4325, Wins=0]Train Episodes:  17%|█▋        | 87/500 [03:34<14:34,  2.12s/it, Reward=449.82, AvgLoss=0.4325, Wins=0]Game has started.
+2025-10-21 23:41:51,896Z | INFO | Starting episode 88: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:54,493Z | INFO | Episode 88 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  17%|█▋        | 87/500 [03:37<14:34,  2.12s/it, Reward=549.82, AvgLoss=0.4852, Wins=0]Train Episodes:  18%|█▊        | 88/500 [03:37<15:34,  2.27s/it, Reward=549.82, AvgLoss=0.4852, Wins=0]Game has started.
+2025-10-21 23:41:54,523Z | INFO | Starting episode 89: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:57,110Z | INFO | Episode 89 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  18%|█▊        | 88/500 [03:40<15:34,  2.27s/it, Reward=599.82, AvgLoss=0.4489, Wins=0]Train Episodes:  18%|█▊        | 89/500 [03:40<16:15,  2.37s/it, Reward=599.82, AvgLoss=0.4489, Wins=0]Game has started.
+2025-10-21 23:41:57,133Z | INFO | Starting episode 90: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:41:59,706Z | INFO | Episode 90 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  18%|█▊        | 89/500 [03:42<16:15,  2.37s/it, Reward=499.82, AvgLoss=0.3297, Wins=0]Train Episodes:  18%|█▊        | 90/500 [03:42<16:40,  2.44s/it, Reward=499.82, AvgLoss=0.3297, Wins=0]Game has started.
+2025-10-21 23:41:59,730Z | INFO | Starting episode 91: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:02,173Z | INFO | Episode 91 finished after 2672 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:  18%|█▊        | 90/500 [03:45<16:40,  2.44s/it, Reward=449.83, AvgLoss=0.4079, Wins=0]Train Episodes:  18%|█▊        | 91/500 [03:45<16:41,  2.45s/it, Reward=449.83, AvgLoss=0.4079, Wins=0]Game has started.
+2025-10-21 23:42:02,199Z | INFO | Starting episode 92: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:04,855Z | INFO | Episode 92 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  18%|█▊        | 91/500 [03:47<16:41,  2.45s/it, Reward=599.82, AvgLoss=0.4797, Wins=0]Train Episodes:  18%|█▊        | 92/500 [03:47<17:07,  2.52s/it, Reward=599.82, AvgLoss=0.4797, Wins=0]Game has started.
+2025-10-21 23:42:04,880Z | INFO | Starting episode 93: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:07,977Z | INFO | Episode 93 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  18%|█▊        | 92/500 [03:50<17:07,  2.52s/it, Reward=549.82, AvgLoss=0.4479, Wins=0]Train Episodes:  19%|█▊        | 93/500 [03:50<18:18,  2.70s/it, Reward=549.82, AvgLoss=0.4479, Wins=0]Game has started.
+2025-10-21 23:42:08,003Z | INFO | Starting episode 94: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:10,857Z | INFO | Episode 94 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+Train Episodes:  19%|█▊        | 93/500 [03:53<18:18,  2.70s/it, Reward=699.82, AvgLoss=0.4236, Wins=0]Train Episodes:  19%|█▉        | 94/500 [03:53<18:38,  2.75s/it, Reward=699.82, AvgLoss=0.4236, Wins=0]Game has started.
+2025-10-21 23:42:10,884Z | INFO | Starting episode 95: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:13,794Z | INFO | Episode 95 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  19%|█▉        | 94/500 [03:56<18:38,  2.75s/it, Reward=449.82, AvgLoss=0.4401, Wins=0]Train Episodes:  19%|█▉        | 95/500 [03:56<18:58,  2.81s/it, Reward=449.82, AvgLoss=0.4401, Wins=0]Game has started.
+2025-10-21 23:42:13,826Z | INFO | Starting episode 96: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:16,617Z | INFO | Episode 96 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  19%|█▉        | 95/500 [03:59<18:58,  2.81s/it, Reward=699.82, AvgLoss=0.5131, Wins=0]Train Episodes:  19%|█▉        | 96/500 [03:59<18:56,  2.81s/it, Reward=699.82, AvgLoss=0.5131, Wins=0]Game has started.
+2025-10-21 23:42:16,646Z | INFO | Starting episode 97: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:18,538Z | INFO | Episode 97 finished after 2032 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:  19%|█▉        | 96/500 [04:01<18:56,  2.81s/it, Reward=449.87, AvgLoss=0.3810, Wins=0]Train Episodes:  19%|█▉        | 97/500 [04:01<17:05,  2.54s/it, Reward=449.87, AvgLoss=0.3810, Wins=0]Game has started.
+2025-10-21 23:42:18,564Z | INFO | Starting episode 98: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:19,735Z | INFO | Episode 98 finished after 1216 game steps. Outcome: [-1], reward: [-1], score: [3]
+Train Episodes:  19%|█▉        | 97/500 [04:02<17:05,  2.54s/it, Reward=299.92, AvgLoss=0.4440, Wins=0]Train Episodes:  20%|█▉        | 98/500 [04:02<14:20,  2.14s/it, Reward=299.92, AvgLoss=0.4440, Wins=0]Game has started.
+2025-10-21 23:42:19,763Z | INFO | Starting episode 99: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:22,821Z | INFO | Episode 99 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  20%|█▉        | 98/500 [04:05<14:20,  2.14s/it, Reward=599.82, AvgLoss=0.3838, Wins=0]Train Episodes:  20%|█▉        | 99/500 [04:05<16:12,  2.42s/it, Reward=599.82, AvgLoss=0.3838, Wins=0]Game has started.
+2025-10-21 23:42:22,848Z | INFO | Starting episode 100: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:24,568Z | INFO | Episode 100 finished after 1600 game steps. Outcome: [-1], reward: [-1], score: [3]
+Train Episodes:  20%|█▉        | 99/500 [04:07<16:12,  2.42s/it, Reward=299.90, AvgLoss=0.4684, Wins=0]2025-10-21 23:42:24,581Z | INFO | Ep 100: reward=299.90 avg_loss=0.4684 wins=0
+2025-10-21 23:42:24,581Z | INFO | LR scheduler step: episode=100, lr=4.532092e-05
+Train Episodes:  20%|██        | 100/500 [04:08<16:18,  2.45s/it, Reward=299.90, AvgLoss=0.4684, Wins=0]Game has started.
+2025-10-21 23:42:25,349Z | INFO | Starting episode 101: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:27,954Z | INFO | Episode 101 finished after 2560 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  20%|██        | 100/500 [04:10<16:18,  2.45s/it, Reward=499.84, AvgLoss=0.4198, Wins=0]Train Episodes:  20%|██        | 101/500 [04:10<16:38,  2.50s/it, Reward=499.84, AvgLoss=0.4198, Wins=0]Unable to do fast restart because gameLoop 264252 >= restartGameLoop 262144
+Performing a full restart of the game.
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+2025-10-21 23:42:30,707Z | INFO | Starting episode 102: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:33,464Z | INFO | Episode 102 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  20%|██        | 101/500 [04:16<16:38,  2.50s/it, Reward=499.82, AvgLoss=0.4949, Wins=0]Train Episodes:  20%|██        | 102/500 [04:16<22:35,  3.40s/it, Reward=499.82, AvgLoss=0.4949, Wins=0]Game has started.
+2025-10-21 23:42:33,489Z | INFO | Starting episode 103: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:36,212Z | INFO | Episode 103 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+Train Episodes:  20%|██        | 102/500 [04:19<22:35,  3.40s/it, Reward=699.82, AvgLoss=0.3997, Wins=0]Train Episodes:  21%|██        | 103/500 [04:19<21:13,  3.21s/it, Reward=699.82, AvgLoss=0.3997, Wins=0]Game has started.
+2025-10-21 23:42:36,236Z | INFO | Starting episode 104: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:39,174Z | INFO | Episode 104 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  21%|██        | 103/500 [04:22<21:13,  3.21s/it, Reward=549.82, AvgLoss=0.4194, Wins=0]Train Episodes:  21%|██        | 104/500 [04:22<20:41,  3.13s/it, Reward=549.82, AvgLoss=0.4194, Wins=0]Game has started.
+2025-10-21 23:42:39,205Z | INFO | Starting episode 105: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:40,799Z | INFO | Episode 105 finished after 1616 game steps. Outcome: [-1], reward: [-1], score: [8]
+Train Episodes:  21%|██        | 104/500 [04:23<20:41,  3.13s/it, Reward=549.90, AvgLoss=0.4577, Wins=0]Train Episodes:  21%|██        | 105/500 [04:23<17:39,  2.68s/it, Reward=549.90, AvgLoss=0.4577, Wins=0]Game has started.
+2025-10-21 23:42:40,829Z | INFO | Starting episode 106: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:43,771Z | INFO | Episode 106 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  21%|██        | 105/500 [04:26<17:39,  2.68s/it, Reward=599.82, AvgLoss=0.4770, Wins=0]Train Episodes:  21%|██        | 106/500 [04:26<18:10,  2.77s/it, Reward=599.82, AvgLoss=0.4770, Wins=0]Game has started.
+2025-10-21 23:42:43,800Z | INFO | Starting episode 107: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:46,716Z | INFO | Episode 107 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  21%|██        | 106/500 [04:29<18:10,  2.77s/it, Reward=499.82, AvgLoss=0.4364, Wins=0]Train Episodes:  21%|██▏       | 107/500 [04:29<18:28,  2.82s/it, Reward=499.82, AvgLoss=0.4364, Wins=0]Game has started.
+2025-10-21 23:42:46,753Z | INFO | Starting episode 108: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:49,664Z | INFO | Episode 108 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  21%|██▏       | 107/500 [04:32<18:28,  2.82s/it, Reward=649.82, AvgLoss=0.4526, Wins=0]Train Episodes:  22%|██▏       | 108/500 [04:32<18:40,  2.86s/it, Reward=649.82, AvgLoss=0.4526, Wins=0]Game has started.
+2025-10-21 23:42:49,692Z | INFO | Starting episode 109: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:52,421Z | INFO | Episode 109 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  22%|██▏       | 108/500 [04:35<18:40,  2.86s/it, Reward=499.82, AvgLoss=0.4760, Wins=0]Train Episodes:  22%|██▏       | 109/500 [04:35<18:25,  2.83s/it, Reward=499.82, AvgLoss=0.4760, Wins=0]Game has started.
+2025-10-21 23:42:52,445Z | INFO | Starting episode 110: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:54,236Z | INFO | Episode 110 finished after 1728 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  22%|██▏       | 109/500 [04:37<18:25,  2.83s/it, Reward=499.89, AvgLoss=0.4554, Wins=0]Train Episodes:  22%|██▏       | 110/500 [04:37<16:24,  2.53s/it, Reward=499.89, AvgLoss=0.4554, Wins=0]Game has started.
+2025-10-21 23:42:54,265Z | INFO | Starting episode 111: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:42:57,136Z | INFO | Episode 111 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  22%|██▏       | 110/500 [04:40<16:24,  2.53s/it, Reward=399.82, AvgLoss=0.4106, Wins=0]Train Episodes:  22%|██▏       | 111/500 [04:40<17:05,  2.64s/it, Reward=399.82, AvgLoss=0.4106, Wins=0]Game has started.
+2025-10-21 23:42:57,162Z | INFO | Starting episode 112: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:00,070Z | INFO | Episode 112 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  22%|██▏       | 111/500 [04:42<17:05,  2.64s/it, Reward=399.82, AvgLoss=0.4215, Wins=0]Train Episodes:  22%|██▏       | 112/500 [04:42<17:37,  2.73s/it, Reward=399.82, AvgLoss=0.4215, Wins=0]Game has started.
+2025-10-21 23:43:00,096Z | INFO | Starting episode 113: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:03,036Z | INFO | Episode 113 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  22%|██▏       | 112/500 [04:45<17:37,  2.73s/it, Reward=549.82, AvgLoss=0.5424, Wins=0]Train Episodes:  23%|██▎       | 113/500 [04:45<18:02,  2.80s/it, Reward=549.82, AvgLoss=0.5424, Wins=0]Game has started.
+2025-10-21 23:43:03,069Z | INFO | Starting episode 114: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:06,041Z | INFO | Episode 114 finished after 2880 game steps. Outcome: [1], reward: [1], score: [10]
+Train Episodes:  23%|██▎       | 113/500 [04:48<18:02,  2.80s/it, Reward=524.82, AvgLoss=0.4677, Wins=1]Train Episodes:  23%|██▎       | 114/500 [04:48<18:24,  2.86s/it, Reward=524.82, AvgLoss=0.4677, Wins=1]Game has started.
+2025-10-21 23:43:06,072Z | INFO | Starting episode 115: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:08,872Z | INFO | Episode 115 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  23%|██▎       | 114/500 [04:51<18:24,  2.86s/it, Reward=499.82, AvgLoss=0.5304, Wins=1]Train Episodes:  23%|██▎       | 115/500 [04:51<18:17,  2.85s/it, Reward=499.82, AvgLoss=0.5304, Wins=1]Game has started.
+2025-10-21 23:43:08,901Z | INFO | Starting episode 116: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:11,782Z | INFO | Episode 116 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  23%|██▎       | 115/500 [04:54<18:17,  2.85s/it, Reward=599.82, AvgLoss=0.3901, Wins=1]Train Episodes:  23%|██▎       | 116/500 [04:54<18:21,  2.87s/it, Reward=599.82, AvgLoss=0.3901, Wins=1]Game has started.
+2025-10-21 23:43:11,807Z | INFO | Starting episode 117: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:14,914Z | INFO | Episode 117 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  23%|██▎       | 116/500 [04:57<18:21,  2.87s/it, Reward=499.82, AvgLoss=0.4144, Wins=1]Train Episodes:  23%|██▎       | 117/500 [04:57<18:49,  2.95s/it, Reward=499.82, AvgLoss=0.4144, Wins=1]Game has started.
+2025-10-21 23:43:14,941Z | INFO | Starting episode 118: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:17,843Z | INFO | Episode 118 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  23%|██▎       | 117/500 [05:00<18:49,  2.95s/it, Reward=399.82, AvgLoss=0.4636, Wins=1]Train Episodes:  24%|██▎       | 118/500 [05:00<18:43,  2.94s/it, Reward=399.82, AvgLoss=0.4636, Wins=1]Game has started.
+2025-10-21 23:43:17,871Z | INFO | Starting episode 119: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:20,778Z | INFO | Episode 119 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  24%|██▎       | 118/500 [05:03<18:43,  2.94s/it, Reward=699.82, AvgLoss=0.4801, Wins=1]Train Episodes:  24%|██▍       | 119/500 [05:03<18:40,  2.94s/it, Reward=699.82, AvgLoss=0.4801, Wins=1]Game has started.
+2025-10-21 23:43:20,806Z | INFO | Starting episode 120: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:23,634Z | INFO | Episode 120 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  24%|██▍       | 119/500 [05:06<18:40,  2.94s/it, Reward=549.82, AvgLoss=0.4565, Wins=1]Train Episodes:  24%|██▍       | 120/500 [05:06<18:27,  2.91s/it, Reward=549.82, AvgLoss=0.4565, Wins=1]Game has started.
+2025-10-21 23:43:23,659Z | INFO | Starting episode 121: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:26,378Z | INFO | Episode 121 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  24%|██▍       | 120/500 [05:09<18:27,  2.91s/it, Reward=499.82, AvgLoss=0.5072, Wins=1]Train Episodes:  24%|██▍       | 121/500 [05:09<18:05,  2.86s/it, Reward=499.82, AvgLoss=0.5072, Wins=1]Game has started.
+2025-10-21 23:43:26,416Z | INFO | Starting episode 122: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:29,132Z | INFO | Episode 122 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  24%|██▍       | 121/500 [05:12<18:05,  2.86s/it, Reward=649.82, AvgLoss=0.4560, Wins=1]Train Episodes:  24%|██▍       | 122/500 [05:12<17:49,  2.83s/it, Reward=649.82, AvgLoss=0.4560, Wins=1]Game has started.
+2025-10-21 23:43:29,165Z | INFO | Starting episode 123: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:31,515Z | INFO | Episode 123 finished after 2544 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  24%|██▍       | 122/500 [05:14<17:49,  2.83s/it, Reward=499.84, AvgLoss=0.4851, Wins=1]Train Episodes:  25%|██▍       | 123/500 [05:14<16:56,  2.70s/it, Reward=499.84, AvgLoss=0.4851, Wins=1]Game has started.
+2025-10-21 23:43:31,539Z | INFO | Starting episode 124: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:32,115Z | INFO | Episode 124 finished after 592 game steps. Outcome: [-1], reward: [-1], score: [3]
+Train Episodes:  25%|██▍       | 123/500 [05:15<16:56,  2.70s/it, Reward=299.96, AvgLoss=0.3116, Wins=1]Train Episodes:  25%|██▍       | 124/500 [05:15<12:57,  2.07s/it, Reward=299.96, AvgLoss=0.3116, Wins=1]Game has started.
+2025-10-21 23:43:32,139Z | INFO | Starting episode 125: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:34,768Z | INFO | Episode 125 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  25%|██▍       | 124/500 [05:17<12:57,  2.07s/it, Reward=549.82, AvgLoss=0.4655, Wins=1]Train Episodes:  25%|██▌       | 125/500 [05:17<14:01,  2.24s/it, Reward=549.82, AvgLoss=0.4655, Wins=1]Game has started.
+2025-10-21 23:43:34,792Z | INFO | Starting episode 126: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:37,449Z | INFO | Episode 126 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  25%|██▌       | 125/500 [05:20<14:01,  2.24s/it, Reward=599.82, AvgLoss=0.4880, Wins=1]Train Episodes:  25%|██▌       | 126/500 [05:20<14:52,  2.39s/it, Reward=599.82, AvgLoss=0.4880, Wins=1]Game has started.
+2025-10-21 23:43:37,520Z | INFO | Starting episode 127: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:40,539Z | INFO | Episode 127 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  25%|██▌       | 126/500 [05:23<14:52,  2.39s/it, Reward=549.82, AvgLoss=0.4876, Wins=1]Train Episodes:  25%|██▌       | 127/500 [05:23<16:04,  2.59s/it, Reward=549.82, AvgLoss=0.4876, Wins=1]Game has started.
+2025-10-21 23:43:40,564Z | INFO | Starting episode 128: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:41,623Z | INFO | Episode 128 finished after 1088 game steps. Outcome: [-1], reward: [-1], score: [1]
+Train Episodes:  25%|██▌       | 127/500 [05:24<16:04,  2.59s/it, Reward=199.93, AvgLoss=0.4657, Wins=1]Train Episodes:  26%|██▌       | 128/500 [05:24<13:14,  2.13s/it, Reward=199.93, AvgLoss=0.4657, Wins=1]Game has started.
+2025-10-21 23:43:41,647Z | INFO | Starting episode 129: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:44,455Z | INFO | Episode 129 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  26%|██▌       | 128/500 [05:27<13:14,  2.13s/it, Reward=749.82, AvgLoss=0.4322, Wins=1]Train Episodes:  26%|██▌       | 129/500 [05:27<14:29,  2.34s/it, Reward=749.82, AvgLoss=0.4322, Wins=1]Game has started.
+2025-10-21 23:43:44,479Z | INFO | Starting episode 130: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:47,103Z | INFO | Episode 130 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  26%|██▌       | 129/500 [05:30<14:29,  2.34s/it, Reward=449.82, AvgLoss=0.4286, Wins=1]Train Episodes:  26%|██▌       | 130/500 [05:30<15:01,  2.44s/it, Reward=449.82, AvgLoss=0.4286, Wins=1]Game has started.
+2025-10-21 23:43:47,127Z | INFO | Starting episode 131: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:49,798Z | INFO | Episode 131 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  26%|██▌       | 130/500 [05:32<15:01,  2.44s/it, Reward=599.82, AvgLoss=0.3876, Wins=1]Train Episodes:  26%|██▌       | 131/500 [05:32<15:27,  2.51s/it, Reward=599.82, AvgLoss=0.3876, Wins=1]Game has started.
+2025-10-21 23:43:49,821Z | INFO | Starting episode 132: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:52,448Z | INFO | Episode 132 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  26%|██▌       | 131/500 [05:35<15:27,  2.51s/it, Reward=399.82, AvgLoss=0.4092, Wins=1]Train Episodes:  26%|██▋       | 132/500 [05:35<15:39,  2.55s/it, Reward=399.82, AvgLoss=0.4092, Wins=1]Game has started.
+2025-10-21 23:43:52,471Z | INFO | Starting episode 133: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:55,108Z | INFO | Episode 133 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  26%|██▋       | 132/500 [05:38<15:39,  2.55s/it, Reward=699.82, AvgLoss=0.4715, Wins=1]Train Episodes:  27%|██▋       | 133/500 [05:38<15:49,  2.59s/it, Reward=699.82, AvgLoss=0.4715, Wins=1]Game has started.
+2025-10-21 23:43:55,132Z | INFO | Starting episode 134: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:57,769Z | INFO | Episode 134 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  27%|██▋       | 133/500 [05:40<15:49,  2.59s/it, Reward=599.82, AvgLoss=0.4355, Wins=1]Train Episodes:  27%|██▋       | 134/500 [05:40<15:54,  2.61s/it, Reward=599.82, AvgLoss=0.4355, Wins=1]Game has started.
+2025-10-21 23:43:57,792Z | INFO | Starting episode 135: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:43:59,349Z | INFO | Episode 135 finished after 1712 game steps. Outcome: [-1], reward: [-1], score: [9]
+Train Episodes:  27%|██▋       | 134/500 [05:42<15:54,  2.61s/it, Reward=599.89, AvgLoss=0.4568, Wins=1]Train Episodes:  27%|██▋       | 135/500 [05:42<13:59,  2.30s/it, Reward=599.89, AvgLoss=0.4568, Wins=1]Game has started.
+2025-10-21 23:43:59,372Z | INFO | Starting episode 136: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:02,003Z | INFO | Episode 136 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  27%|██▋       | 135/500 [05:44<13:59,  2.30s/it, Reward=499.82, AvgLoss=0.5354, Wins=1]Train Episodes:  27%|██▋       | 136/500 [05:44<14:35,  2.41s/it, Reward=499.82, AvgLoss=0.5354, Wins=1]Game has started.
+2025-10-21 23:44:02,033Z | INFO | Starting episode 137: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:04,762Z | INFO | Episode 137 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  27%|██▋       | 136/500 [05:47<14:35,  2.41s/it, Reward=499.82, AvgLoss=0.4058, Wins=1]Train Episodes:  27%|██▋       | 137/500 [05:47<15:11,  2.51s/it, Reward=499.82, AvgLoss=0.4058, Wins=1]Game has started.
+2025-10-21 23:44:04,787Z | INFO | Starting episode 138: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:07,806Z | INFO | Episode 138 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  27%|██▋       | 137/500 [05:50<15:11,  2.51s/it, Reward=499.82, AvgLoss=0.4030, Wins=1]Train Episodes:  28%|██▊       | 138/500 [05:50<16:07,  2.67s/it, Reward=499.82, AvgLoss=0.4030, Wins=1]Game has started.
+2025-10-21 23:44:07,833Z | INFO | Starting episode 139: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:10,674Z | INFO | Episode 139 finished after 2880 game steps. Outcome: [1], reward: [1], score: [10]
+Train Episodes:  28%|██▊       | 138/500 [05:53<16:07,  2.67s/it, Reward=474.82, AvgLoss=0.5083, Wins=2]Train Episodes:  28%|██▊       | 139/500 [05:53<16:25,  2.73s/it, Reward=474.82, AvgLoss=0.5083, Wins=2]Game has started.
+2025-10-21 23:44:10,715Z | INFO | Starting episode 140: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:13,063Z | INFO | Episode 140 finished after 2272 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  28%|██▊       | 139/500 [05:55<16:25,  2.73s/it, Reward=499.86, AvgLoss=0.5153, Wins=2]Train Episodes:  28%|██▊       | 140/500 [05:55<15:46,  2.63s/it, Reward=499.86, AvgLoss=0.5153, Wins=2]Game has started.
+2025-10-21 23:44:13,091Z | INFO | Starting episode 141: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:16,082Z | INFO | Episode 141 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  28%|██▊       | 140/500 [05:59<15:46,  2.63s/it, Reward=599.82, AvgLoss=0.4887, Wins=2]Train Episodes:  28%|██▊       | 141/500 [05:59<16:25,  2.75s/it, Reward=599.82, AvgLoss=0.4887, Wins=2]Game has started.
+2025-10-21 23:44:16,111Z | INFO | Starting episode 142: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:18,876Z | INFO | Episode 142 finished after 2608 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  28%|██▊       | 141/500 [06:01<16:25,  2.75s/it, Reward=499.84, AvgLoss=0.4509, Wins=2]Train Episodes:  28%|██▊       | 142/500 [06:01<16:28,  2.76s/it, Reward=499.84, AvgLoss=0.4509, Wins=2]Game has started.
+2025-10-21 23:44:18,902Z | INFO | Starting episode 143: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:21,918Z | INFO | Episode 143 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  28%|██▊       | 142/500 [06:04<16:28,  2.76s/it, Reward=499.82, AvgLoss=0.4653, Wins=2]Train Episodes:  29%|██▊       | 143/500 [06:04<16:55,  2.84s/it, Reward=499.82, AvgLoss=0.4653, Wins=2]Game has started.
+2025-10-21 23:44:21,947Z | INFO | Starting episode 144: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:24,714Z | INFO | Episode 144 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  29%|██▊       | 143/500 [06:07<16:55,  2.84s/it, Reward=599.82, AvgLoss=0.4348, Wins=2]Train Episodes:  29%|██▉       | 144/500 [06:07<16:47,  2.83s/it, Reward=599.82, AvgLoss=0.4348, Wins=2]Game has started.
+2025-10-21 23:44:24,746Z | INFO | Starting episode 145: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:25,891Z | INFO | Episode 145 finished after 1184 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:  29%|██▉       | 144/500 [06:08<16:47,  2.83s/it, Reward=399.93, AvgLoss=0.5378, Wins=2]Train Episodes:  29%|██▉       | 145/500 [06:08<13:48,  2.33s/it, Reward=399.93, AvgLoss=0.5378, Wins=2]Game has started.
+2025-10-21 23:44:25,919Z | INFO | Starting episode 146: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:28,686Z | INFO | Episode 146 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  29%|██▉       | 145/500 [06:11<13:48,  2.33s/it, Reward=499.82, AvgLoss=0.4393, Wins=2]Train Episodes:  29%|██▉       | 146/500 [06:11<14:35,  2.47s/it, Reward=499.82, AvgLoss=0.4393, Wins=2]Game has started.
+2025-10-21 23:44:28,712Z | INFO | Starting episode 147: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:31,377Z | INFO | Episode 147 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  29%|██▉       | 146/500 [06:14<14:35,  2.47s/it, Reward=549.82, AvgLoss=0.4460, Wins=2]Train Episodes:  29%|██▉       | 147/500 [06:14<14:55,  2.54s/it, Reward=549.82, AvgLoss=0.4460, Wins=2]Game has started.
+2025-10-21 23:44:31,402Z | INFO | Starting episode 148: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:34,091Z | INFO | Episode 148 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  29%|██▉       | 147/500 [06:17<14:55,  2.54s/it, Reward=599.82, AvgLoss=0.3819, Wins=2]Train Episodes:  30%|██▉       | 148/500 [06:17<15:11,  2.59s/it, Reward=599.82, AvgLoss=0.3819, Wins=2]Game has started.
+2025-10-21 23:44:34,120Z | INFO | Starting episode 149: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:35,818Z | INFO | Episode 149 finished after 1824 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:  30%|██▉       | 148/500 [06:18<15:11,  2.59s/it, Reward=399.89, AvgLoss=0.4359, Wins=2]Train Episodes:  30%|██▉       | 149/500 [06:18<13:38,  2.33s/it, Reward=399.89, AvgLoss=0.4359, Wins=2]Game has started.
+2025-10-21 23:44:35,844Z | INFO | Starting episode 150: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:38,473Z | INFO | Episode 150 finished after 2880 game steps. Outcome: [1], reward: [0], score: [4]
+Train Episodes:  30%|██▉       | 149/500 [06:21<13:38,  2.33s/it, Reward=299.82, AvgLoss=0.4514, Wins=2]2025-10-21 23:44:38,484Z | INFO | Ep 150: reward=299.82 avg_loss=0.4514 wins=2
+Train Episodes:  30%|███       | 150/500 [06:21<14:10,  2.43s/it, Reward=299.82, AvgLoss=0.4514, Wins=2]Game has started.
+2025-10-21 23:44:38,498Z | INFO | Starting episode 151: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:41,134Z | INFO | Episode 151 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  30%|███       | 150/500 [06:24<14:10,  2.43s/it, Reward=549.82, AvgLoss=0.4740, Wins=2]Train Episodes:  30%|███       | 151/500 [06:24<14:31,  2.50s/it, Reward=549.82, AvgLoss=0.4740, Wins=2]Game has started.
+2025-10-21 23:44:41,158Z | INFO | Starting episode 152: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:43,794Z | INFO | Episode 152 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  30%|███       | 151/500 [06:26<14:31,  2.50s/it, Reward=649.82, AvgLoss=0.5121, Wins=2]Train Episodes:  30%|███       | 152/500 [06:26<14:46,  2.55s/it, Reward=649.82, AvgLoss=0.5121, Wins=2]Game has started.
+2025-10-21 23:44:43,817Z | INFO | Starting episode 153: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:46,469Z | INFO | Episode 153 finished after 2880 game steps. Outcome: [1], reward: [0], score: [4]
+Train Episodes:  30%|███       | 152/500 [06:29<14:46,  2.55s/it, Reward=299.82, AvgLoss=0.4092, Wins=2]Train Episodes:  31%|███       | 153/500 [06:29<14:57,  2.59s/it, Reward=299.82, AvgLoss=0.4092, Wins=2]Game has started.
+2025-10-21 23:44:46,493Z | INFO | Starting episode 154: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:49,095Z | INFO | Episode 154 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  31%|███       | 153/500 [06:32<14:57,  2.59s/it, Reward=549.82, AvgLoss=0.5001, Wins=2]Train Episodes:  31%|███       | 154/500 [06:32<14:58,  2.60s/it, Reward=549.82, AvgLoss=0.5001, Wins=2]Game has started.
+2025-10-21 23:44:49,119Z | INFO | Starting episode 155: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:51,743Z | INFO | Episode 155 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  31%|███       | 154/500 [06:34<14:58,  2.60s/it, Reward=349.82, AvgLoss=0.4515, Wins=2]Train Episodes:  31%|███       | 155/500 [06:34<15:01,  2.61s/it, Reward=349.82, AvgLoss=0.4515, Wins=2]Game has started.
+2025-10-21 23:44:51,772Z | INFO | Starting episode 156: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:53,195Z | INFO | Episode 156 finished after 1536 game steps. Outcome: [-1], reward: [-1], score: [3]
+Train Episodes:  31%|███       | 155/500 [06:36<15:01,  2.61s/it, Reward=299.90, AvgLoss=0.3944, Wins=2]Train Episodes:  31%|███       | 156/500 [06:36<12:58,  2.26s/it, Reward=299.90, AvgLoss=0.3944, Wins=2]Game has started.
+2025-10-21 23:44:53,218Z | INFO | Starting episode 157: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:55,829Z | INFO | Episode 157 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  31%|███       | 156/500 [06:38<12:58,  2.26s/it, Reward=449.82, AvgLoss=0.5241, Wins=2]Train Episodes:  31%|███▏      | 157/500 [06:38<13:34,  2.38s/it, Reward=449.82, AvgLoss=0.5241, Wins=2]Game has started.
+2025-10-21 23:44:55,854Z | INFO | Starting episode 158: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:58,448Z | INFO | Episode 158 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  31%|███▏      | 157/500 [06:41<13:34,  2.38s/it, Reward=599.82, AvgLoss=0.4840, Wins=2]Train Episodes:  32%|███▏      | 158/500 [06:41<13:57,  2.45s/it, Reward=599.82, AvgLoss=0.4840, Wins=2]Game has started.
+2025-10-21 23:44:58,472Z | INFO | Starting episode 159: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:44:59,863Z | INFO | Episode 159 finished after 1536 game steps. Outcome: [-1], reward: [-1], score: [2]
+Train Episodes:  32%|███▏      | 158/500 [06:42<13:57,  2.45s/it, Reward=249.90, AvgLoss=0.4021, Wins=2]Train Episodes:  32%|███▏      | 159/500 [06:42<12:09,  2.14s/it, Reward=249.90, AvgLoss=0.4021, Wins=2]Game has started.
+2025-10-21 23:44:59,886Z | INFO | Starting episode 160: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:02,826Z | INFO | Episode 160 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  32%|███▏      | 159/500 [06:45<12:09,  2.14s/it, Reward=599.82, AvgLoss=0.3998, Wins=2]Train Episodes:  32%|███▏      | 160/500 [06:45<13:31,  2.39s/it, Reward=599.82, AvgLoss=0.3998, Wins=2]Game has started.
+2025-10-21 23:45:02,858Z | INFO | Starting episode 161: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:05,690Z | INFO | Episode 161 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  32%|███▏      | 160/500 [06:48<13:31,  2.39s/it, Reward=699.82, AvgLoss=0.4978, Wins=2]Train Episodes:  32%|███▏      | 161/500 [06:48<14:17,  2.53s/it, Reward=699.82, AvgLoss=0.4978, Wins=2]Game has started.
+2025-10-21 23:45:05,718Z | INFO | Starting episode 162: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:08,809Z | INFO | Episode 162 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  32%|███▏      | 161/500 [06:51<14:17,  2.53s/it, Reward=549.82, AvgLoss=0.4945, Wins=2]Train Episodes:  32%|███▏      | 162/500 [06:51<15:14,  2.71s/it, Reward=549.82, AvgLoss=0.4945, Wins=2]Game has started.
+2025-10-21 23:45:08,836Z | INFO | Starting episode 163: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:11,830Z | INFO | Episode 163 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  32%|███▏      | 162/500 [06:54<15:14,  2.71s/it, Reward=549.82, AvgLoss=0.4224, Wins=2]Train Episodes:  33%|███▎      | 163/500 [06:54<15:43,  2.80s/it, Reward=549.82, AvgLoss=0.4224, Wins=2]Game has started.
+2025-10-21 23:45:11,857Z | INFO | Starting episode 164: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:12,885Z | INFO | Episode 164 finished after 928 game steps. Outcome: [-1], reward: [-1], score: [4]
+Train Episodes:  33%|███▎      | 163/500 [06:55<15:43,  2.80s/it, Reward=349.94, AvgLoss=0.4078, Wins=2]Train Episodes:  33%|███▎      | 164/500 [06:55<12:45,  2.28s/it, Reward=349.94, AvgLoss=0.4078, Wins=2]Game has started.
+2025-10-21 23:45:12,910Z | INFO | Starting episode 165: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:16,162Z | INFO | Episode 165 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  33%|███▎      | 164/500 [06:59<12:45,  2.28s/it, Reward=599.82, AvgLoss=0.3535, Wins=2]Train Episodes:  33%|███▎      | 165/500 [06:59<14:23,  2.58s/it, Reward=599.82, AvgLoss=0.3535, Wins=2]Game has started.
+2025-10-21 23:45:16,207Z | INFO | Starting episode 166: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:19,175Z | INFO | Episode 166 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  33%|███▎      | 165/500 [07:02<14:23,  2.58s/it, Reward=399.82, AvgLoss=0.4598, Wins=2]Train Episodes:  33%|███▎      | 166/500 [07:02<15:04,  2.71s/it, Reward=399.82, AvgLoss=0.4598, Wins=2]Game has started.
+2025-10-21 23:45:19,203Z | INFO | Starting episode 167: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:22,351Z | INFO | Episode 167 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  33%|███▎      | 166/500 [07:05<15:04,  2.71s/it, Reward=599.82, AvgLoss=0.4608, Wins=2]Train Episodes:  33%|███▎      | 167/500 [07:05<15:48,  2.85s/it, Reward=599.82, AvgLoss=0.4608, Wins=2]Game has started.
+2025-10-21 23:45:22,378Z | INFO | Starting episode 168: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:25,454Z | INFO | Episode 168 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  33%|███▎      | 167/500 [07:08<15:48,  2.85s/it, Reward=549.82, AvgLoss=0.4179, Wins=2]Train Episodes:  34%|███▎      | 168/500 [07:08<16:11,  2.92s/it, Reward=549.82, AvgLoss=0.4179, Wins=2]Game has started.
+2025-10-21 23:45:25,492Z | INFO | Starting episode 169: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:28,450Z | INFO | Episode 169 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  34%|███▎      | 168/500 [07:11<16:11,  2.92s/it, Reward=349.82, AvgLoss=0.4415, Wins=2]Train Episodes:  34%|███▍      | 169/500 [07:11<16:15,  2.95s/it, Reward=349.82, AvgLoss=0.4415, Wins=2]Game has started.
+2025-10-21 23:45:28,476Z | INFO | Starting episode 170: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:31,283Z | INFO | Episode 170 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  34%|███▍      | 169/500 [07:14<16:15,  2.95s/it, Reward=499.82, AvgLoss=0.5215, Wins=2]Train Episodes:  34%|███▍      | 170/500 [07:14<16:00,  2.91s/it, Reward=499.82, AvgLoss=0.5215, Wins=2]Game has started.
+2025-10-21 23:45:31,308Z | INFO | Starting episode 171: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:33,686Z | INFO | Episode 171 finished after 2496 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  34%|███▍      | 170/500 [07:16<16:00,  2.91s/it, Reward=499.84, AvgLoss=0.4677, Wins=2]Train Episodes:  34%|███▍      | 171/500 [07:16<15:07,  2.76s/it, Reward=499.84, AvgLoss=0.4677, Wins=2]Game has started.
+2025-10-21 23:45:33,711Z | INFO | Starting episode 172: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:36,846Z | INFO | Episode 172 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  34%|███▍      | 171/500 [07:19<15:07,  2.76s/it, Reward=599.82, AvgLoss=0.4900, Wins=2]Train Episodes:  34%|███▍      | 172/500 [07:19<15:44,  2.88s/it, Reward=599.82, AvgLoss=0.4900, Wins=2]Game has started.
+2025-10-21 23:45:36,881Z | INFO | Starting episode 173: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:39,274Z | INFO | Episode 173 finished after 2144 game steps. Outcome: [-1], reward: [-1], score: [8]
+Train Episodes:  34%|███▍      | 172/500 [07:22<15:44,  2.88s/it, Reward=549.87, AvgLoss=0.5165, Wins=2]Train Episodes:  35%|███▍      | 173/500 [07:22<14:57,  2.74s/it, Reward=549.87, AvgLoss=0.5165, Wins=2]Game has started.
+2025-10-21 23:45:39,304Z | INFO | Starting episode 174: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:42,342Z | INFO | Episode 174 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  35%|███▍      | 173/500 [07:25<14:57,  2.74s/it, Reward=399.82, AvgLoss=0.4017, Wins=2]Train Episodes:  35%|███▍      | 174/500 [07:25<15:26,  2.84s/it, Reward=399.82, AvgLoss=0.4017, Wins=2]Game has started.
+2025-10-21 23:45:42,369Z | INFO | Starting episode 175: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:45,458Z | INFO | Episode 175 finished after 2880 game steps. Outcome: [1], reward: [0], score: [4]
+Train Episodes:  35%|███▍      | 174/500 [07:28<15:26,  2.84s/it, Reward=299.82, AvgLoss=0.3881, Wins=2]Train Episodes:  35%|███▌      | 175/500 [07:28<15:50,  2.92s/it, Reward=299.82, AvgLoss=0.3881, Wins=2]Game has started.
+2025-10-21 23:45:45,494Z | INFO | Starting episode 176: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:46,558Z | INFO | Episode 176 finished after 992 game steps. Outcome: [-1], reward: [-1], score: [3]
+Train Episodes:  35%|███▌      | 175/500 [07:29<15:50,  2.92s/it, Reward=299.94, AvgLoss=0.4829, Wins=2]Train Episodes:  35%|███▌      | 176/500 [07:29<12:50,  2.38s/it, Reward=299.94, AvgLoss=0.4829, Wins=2]Game has started.
+2025-10-21 23:45:46,584Z | INFO | Starting episode 177: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:49,508Z | INFO | Episode 177 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  35%|███▌      | 176/500 [07:32<12:50,  2.38s/it, Reward=499.82, AvgLoss=0.4174, Wins=2]Train Episodes:  35%|███▌      | 177/500 [07:32<13:43,  2.55s/it, Reward=499.82, AvgLoss=0.4174, Wins=2]Game has started.
+2025-10-21 23:45:49,538Z | INFO | Starting episode 178: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:52,616Z | INFO | Episode 178 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  35%|███▌      | 177/500 [07:35<13:43,  2.55s/it, Reward=499.82, AvgLoss=0.3920, Wins=2]Train Episodes:  36%|███▌      | 178/500 [07:35<14:34,  2.72s/it, Reward=499.82, AvgLoss=0.3920, Wins=2]Game has started.
+2025-10-21 23:45:52,644Z | INFO | Starting episode 179: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:55,680Z | INFO | Episode 179 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  36%|███▌      | 178/500 [07:38<14:34,  2.72s/it, Reward=449.82, AvgLoss=0.4425, Wins=2]Train Episodes:  36%|███▌      | 179/500 [07:38<15:05,  2.82s/it, Reward=449.82, AvgLoss=0.4425, Wins=2]Game has started.
+2025-10-21 23:45:55,704Z | INFO | Starting episode 180: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:45:57,142Z | INFO | Episode 180 finished after 1376 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:  36%|███▌      | 179/500 [07:40<15:05,  2.82s/it, Reward=399.91, AvgLoss=0.4448, Wins=2]Train Episodes:  36%|███▌      | 180/500 [07:40<12:52,  2.41s/it, Reward=399.91, AvgLoss=0.4448, Wins=2]Game has started.
+2025-10-21 23:45:57,168Z | INFO | Starting episode 181: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:00,097Z | INFO | Episode 181 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  36%|███▌      | 180/500 [07:43<12:52,  2.41s/it, Reward=549.82, AvgLoss=0.4007, Wins=2]Train Episodes:  36%|███▌      | 181/500 [07:43<13:41,  2.58s/it, Reward=549.82, AvgLoss=0.4007, Wins=2]Game has started.
+2025-10-21 23:46:00,142Z | INFO | Starting episode 182: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:03,077Z | INFO | Episode 182 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  36%|███▌      | 181/500 [07:46<13:41,  2.58s/it, Reward=599.82, AvgLoss=0.4687, Wins=2]Train Episodes:  36%|███▋      | 182/500 [07:46<14:17,  2.70s/it, Reward=599.82, AvgLoss=0.4687, Wins=2]Game has started.
+2025-10-21 23:46:03,105Z | INFO | Starting episode 183: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:06,040Z | INFO | Episode 183 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  36%|███▋      | 182/500 [07:48<14:17,  2.70s/it, Reward=599.82, AvgLoss=0.4604, Wins=2]Train Episodes:  37%|███▋      | 183/500 [07:48<14:40,  2.78s/it, Reward=599.82, AvgLoss=0.4604, Wins=2]Game has started.
+2025-10-21 23:46:06,074Z | INFO | Starting episode 184: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:09,201Z | INFO | Episode 184 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  37%|███▋      | 183/500 [07:52<14:40,  2.78s/it, Reward=549.82, AvgLoss=0.5029, Wins=2]Train Episodes:  37%|███▋      | 184/500 [07:52<15:13,  2.89s/it, Reward=549.82, AvgLoss=0.5029, Wins=2]Game has started.
+2025-10-21 23:46:09,231Z | INFO | Starting episode 185: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:12,219Z | INFO | Episode 185 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  37%|███▋      | 184/500 [07:55<15:13,  2.89s/it, Reward=399.82, AvgLoss=0.4338, Wins=2]Train Episodes:  37%|███▋      | 185/500 [07:55<15:22,  2.93s/it, Reward=399.82, AvgLoss=0.4338, Wins=2]Game has started.
+2025-10-21 23:46:12,246Z | INFO | Starting episode 186: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:14,797Z | INFO | Episode 186 finished after 2496 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  37%|███▋      | 185/500 [07:57<15:22,  2.93s/it, Reward=499.84, AvgLoss=0.3481, Wins=2]Train Episodes:  37%|███▋      | 186/500 [07:57<14:46,  2.82s/it, Reward=499.84, AvgLoss=0.3481, Wins=2]Game has started.
+2025-10-21 23:46:14,822Z | INFO | Starting episode 187: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:18,154Z | INFO | Episode 187 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  37%|███▋      | 186/500 [08:01<14:46,  2.82s/it, Reward=499.82, AvgLoss=0.3559, Wins=2]Train Episodes:  37%|███▋      | 187/500 [08:01<15:34,  2.98s/it, Reward=499.82, AvgLoss=0.3559, Wins=2]Game has started.
+2025-10-21 23:46:18,180Z | INFO | Starting episode 188: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:21,272Z | INFO | Episode 188 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  37%|███▋      | 187/500 [08:04<15:34,  2.98s/it, Reward=499.82, AvgLoss=0.3830, Wins=2]Train Episodes:  38%|███▊      | 188/500 [08:04<15:48,  3.04s/it, Reward=499.82, AvgLoss=0.3830, Wins=2]Game has started.
+2025-10-21 23:46:21,358Z | INFO | Starting episode 189: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:24,310Z | INFO | Episode 189 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  38%|███▊      | 188/500 [08:07<15:48,  3.04s/it, Reward=699.82, AvgLoss=0.3683, Wins=2]Train Episodes:  38%|███▊      | 189/500 [08:07<15:40,  3.02s/it, Reward=699.82, AvgLoss=0.3683, Wins=2]Game has started.
+2025-10-21 23:46:24,338Z | INFO | Starting episode 190: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:27,357Z | INFO | Episode 190 finished after 2880 game steps. Outcome: [1], reward: [0], score: [14]
+Train Episodes:  38%|███▊      | 189/500 [08:10<15:40,  3.02s/it, Reward=749.82, AvgLoss=0.4842, Wins=2]Train Episodes:  38%|███▊      | 190/500 [08:10<15:39,  3.03s/it, Reward=749.82, AvgLoss=0.4842, Wins=2]Game has started.
+2025-10-21 23:46:27,382Z | INFO | Starting episode 191: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:30,133Z | INFO | Episode 191 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  38%|███▊      | 190/500 [08:13<15:39,  3.03s/it, Reward=499.82, AvgLoss=0.4087, Wins=2]Train Episodes:  38%|███▊      | 191/500 [08:13<15:12,  2.95s/it, Reward=499.82, AvgLoss=0.4087, Wins=2]Game has started.
+2025-10-21 23:46:30,166Z | INFO | Starting episode 192: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:32,915Z | INFO | Episode 192 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  38%|███▊      | 191/500 [08:15<15:12,  2.95s/it, Reward=549.82, AvgLoss=0.4496, Wins=2]Train Episodes:  38%|███▊      | 192/500 [08:15<14:53,  2.90s/it, Reward=549.82, AvgLoss=0.4496, Wins=2]Game has started.
+2025-10-21 23:46:32,939Z | INFO | Starting episode 193: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:35,893Z | INFO | Episode 193 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  38%|███▊      | 192/500 [08:18<14:53,  2.90s/it, Reward=599.82, AvgLoss=0.2907, Wins=2]Train Episodes:  39%|███▊      | 193/500 [08:18<14:57,  2.92s/it, Reward=599.82, AvgLoss=0.2907, Wins=2]Game has started.
+2025-10-21 23:46:35,919Z | INFO | Starting episode 194: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:38,909Z | INFO | Episode 194 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  39%|███▊      | 193/500 [08:21<14:57,  2.92s/it, Reward=499.82, AvgLoss=0.3720, Wins=2]Train Episodes:  39%|███▉      | 194/500 [08:21<15:03,  2.95s/it, Reward=499.82, AvgLoss=0.3720, Wins=2]Game has started.
+2025-10-21 23:46:38,936Z | INFO | Starting episode 195: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:41,947Z | INFO | Episode 195 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  39%|███▉      | 194/500 [08:24<15:03,  2.95s/it, Reward=499.82, AvgLoss=0.3887, Wins=2]Train Episodes:  39%|███▉      | 195/500 [08:24<15:08,  2.98s/it, Reward=499.82, AvgLoss=0.3887, Wins=2]Game has started.
+2025-10-21 23:46:41,974Z | INFO | Starting episode 196: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:44,982Z | INFO | Episode 196 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  39%|███▉      | 195/500 [08:27<15:08,  2.98s/it, Reward=449.82, AvgLoss=0.4366, Wins=2]Train Episodes:  39%|███▉      | 196/500 [08:27<15:10,  3.00s/it, Reward=449.82, AvgLoss=0.4366, Wins=2]Game has started.
+2025-10-21 23:46:45,014Z | INFO | Starting episode 197: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:46,884Z | INFO | Episode 197 finished after 1952 game steps. Outcome: [-1], reward: [-1], score: [4]
+Train Episodes:  39%|███▉      | 196/500 [08:29<15:10,  3.00s/it, Reward=349.88, AvgLoss=0.4295, Wins=2]Train Episodes:  39%|███▉      | 197/500 [08:29<13:29,  2.67s/it, Reward=349.88, AvgLoss=0.4295, Wins=2]Game has started.
+2025-10-21 23:46:46,923Z | INFO | Starting episode 198: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:49,803Z | INFO | Episode 198 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  39%|███▉      | 197/500 [08:32<13:29,  2.67s/it, Reward=549.82, AvgLoss=0.3983, Wins=2]Train Episodes:  40%|███▉      | 198/500 [08:32<13:48,  2.74s/it, Reward=549.82, AvgLoss=0.3983, Wins=2]Game has started.
+2025-10-21 23:46:49,829Z | INFO | Starting episode 199: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:52,875Z | INFO | Episode 199 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  40%|███▉      | 198/500 [08:35<13:48,  2.74s/it, Reward=349.82, AvgLoss=0.4474, Wins=2]Train Episodes:  40%|███▉      | 199/500 [08:35<14:15,  2.84s/it, Reward=349.82, AvgLoss=0.4474, Wins=2]Game has started.
+2025-10-21 23:46:52,925Z | INFO | Starting episode 200: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:46:56,041Z | INFO | Episode 200 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  40%|███▉      | 199/500 [08:38<14:15,  2.84s/it, Reward=449.82, AvgLoss=0.3928, Wins=2]2025-10-21 23:46:56,053Z | INFO | Ep 200: reward=449.82 avg_loss=0.3928 wins=2
+2025-10-21 23:46:56,053Z | INFO | LR scheduler step: episode=200, lr=3.307092e-05
+Train Episodes:  40%|████      | 200/500 [08:40<16:58,  3.40s/it, Reward=449.82, AvgLoss=0.3928, Wins=2]Unable to do fast restart because gameLoop 263318 >= restartGameLoop 262144
+Performing a full restart of the game.
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+2025-10-21 23:47:00,341Z | INFO | Starting episode 201: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:03,357Z | INFO | Episode 201 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  40%|████      | 200/500 [08:46<16:58,  3.40s/it, Reward=449.82, AvgLoss=0.4051, Wins=2]Train Episodes:  40%|████      | 201/500 [08:46<20:30,  4.11s/it, Reward=449.82, AvgLoss=0.4051, Wins=2]Game has started.
+2025-10-21 23:47:03,387Z | INFO | Starting episode 202: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:06,394Z | INFO | Episode 202 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  40%|████      | 201/500 [08:49<20:30,  4.11s/it, Reward=599.82, AvgLoss=0.4155, Wins=2]Train Episodes:  40%|████      | 202/500 [08:49<18:49,  3.79s/it, Reward=599.82, AvgLoss=0.4155, Wins=2]Game has started.
+2025-10-21 23:47:06,419Z | INFO | Starting episode 203: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:09,165Z | INFO | Episode 203 finished after 2800 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:  40%|████      | 202/500 [08:52<18:49,  3.79s/it, Reward=449.83, AvgLoss=0.3714, Wins=2]Train Episodes:  41%|████      | 203/500 [08:52<17:15,  3.48s/it, Reward=449.83, AvgLoss=0.3714, Wins=2]Game has started.
+2025-10-21 23:47:09,195Z | INFO | Starting episode 204: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:12,011Z | INFO | Episode 204 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  41%|████      | 203/500 [08:54<17:15,  3.48s/it, Reward=399.82, AvgLoss=0.3754, Wins=2]Train Episodes:  41%|████      | 204/500 [08:54<16:14,  3.29s/it, Reward=399.82, AvgLoss=0.3754, Wins=2]Game has started.
+2025-10-21 23:47:12,038Z | INFO | Starting episode 205: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:14,050Z | INFO | Episode 205 finished after 2096 game steps. Outcome: [-1], reward: [-1], score: [4]
+Train Episodes:  41%|████      | 204/500 [08:56<16:14,  3.29s/it, Reward=349.87, AvgLoss=0.3504, Wins=2]Train Episodes:  41%|████      | 205/500 [08:56<14:20,  2.92s/it, Reward=349.87, AvgLoss=0.3504, Wins=2]Game has started.
+2025-10-21 23:47:14,074Z | INFO | Starting episode 206: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:16,793Z | INFO | Episode 206 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  41%|████      | 205/500 [08:59<14:20,  2.92s/it, Reward=499.82, AvgLoss=0.3974, Wins=2]Train Episodes:  41%|████      | 206/500 [08:59<14:02,  2.86s/it, Reward=499.82, AvgLoss=0.3974, Wins=2]Game has started.
+2025-10-21 23:47:16,818Z | INFO | Starting episode 207: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:19,590Z | INFO | Episode 207 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  41%|████      | 206/500 [09:02<14:02,  2.86s/it, Reward=399.82, AvgLoss=0.4689, Wins=2]Train Episodes:  41%|████▏     | 207/500 [09:02<13:53,  2.84s/it, Reward=399.82, AvgLoss=0.4689, Wins=2]Game has started.
+2025-10-21 23:47:19,620Z | INFO | Starting episode 208: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:22,442Z | INFO | Episode 208 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  41%|████▏     | 207/500 [09:05<13:53,  2.84s/it, Reward=549.82, AvgLoss=0.3396, Wins=2]Train Episodes:  42%|████▏     | 208/500 [09:05<13:51,  2.85s/it, Reward=549.82, AvgLoss=0.3396, Wins=2]Game has started.
+2025-10-21 23:47:22,470Z | INFO | Starting episode 209: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:25,240Z | INFO | Episode 209 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  42%|████▏     | 208/500 [09:08<13:51,  2.85s/it, Reward=599.82, AvgLoss=0.4630, Wins=2]Train Episodes:  42%|████▏     | 209/500 [09:08<13:44,  2.83s/it, Reward=599.82, AvgLoss=0.4630, Wins=2]Game has started.
+2025-10-21 23:47:25,265Z | INFO | Starting episode 210: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:27,937Z | INFO | Episode 210 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  42%|████▏     | 209/500 [09:10<13:44,  2.83s/it, Reward=499.82, AvgLoss=0.4461, Wins=2]Train Episodes:  42%|████▏     | 210/500 [09:10<13:29,  2.79s/it, Reward=499.82, AvgLoss=0.4461, Wins=2]Game has started.
+2025-10-21 23:47:27,960Z | INFO | Starting episode 211: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:30,637Z | INFO | Episode 211 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  42%|████▏     | 210/500 [09:13<13:29,  2.79s/it, Reward=399.82, AvgLoss=0.4087, Wins=2]Train Episodes:  42%|████▏     | 211/500 [09:13<13:18,  2.76s/it, Reward=399.82, AvgLoss=0.4087, Wins=2]Game has started.
+2025-10-21 23:47:30,660Z | INFO | Starting episode 212: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:33,349Z | INFO | Episode 212 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  42%|████▏     | 211/500 [09:16<13:18,  2.76s/it, Reward=549.82, AvgLoss=0.3780, Wins=2]Train Episodes:  42%|████▏     | 212/500 [09:16<13:11,  2.75s/it, Reward=549.82, AvgLoss=0.3780, Wins=2]Game has started.
+2025-10-21 23:47:33,372Z | INFO | Starting episode 213: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:36,016Z | INFO | Episode 213 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  42%|████▏     | 212/500 [09:18<13:11,  2.75s/it, Reward=399.82, AvgLoss=0.3199, Wins=2]Train Episodes:  43%|████▎     | 213/500 [09:18<13:01,  2.72s/it, Reward=399.82, AvgLoss=0.3199, Wins=2]Game has started.
+2025-10-21 23:47:36,039Z | INFO | Starting episode 214: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:38,750Z | INFO | Episode 214 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  43%|████▎     | 213/500 [09:21<13:01,  2.72s/it, Reward=449.82, AvgLoss=0.4308, Wins=2]Train Episodes:  43%|████▎     | 214/500 [09:21<12:59,  2.73s/it, Reward=449.82, AvgLoss=0.4308, Wins=2]Game has started.
+2025-10-21 23:47:38,779Z | INFO | Starting episode 215: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:41,562Z | INFO | Episode 215 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  43%|████▎     | 214/500 [09:24<12:59,  2.73s/it, Reward=449.82, AvgLoss=0.3952, Wins=2]Train Episodes:  43%|████▎     | 215/500 [09:24<13:04,  2.75s/it, Reward=449.82, AvgLoss=0.3952, Wins=2]Game has started.
+2025-10-21 23:47:41,589Z | INFO | Starting episode 216: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:44,296Z | INFO | Episode 216 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  43%|████▎     | 215/500 [09:27<13:04,  2.75s/it, Reward=399.82, AvgLoss=0.3651, Wins=2]Train Episodes:  43%|████▎     | 216/500 [09:27<13:00,  2.75s/it, Reward=399.82, AvgLoss=0.3651, Wins=2]Game has started.
+2025-10-21 23:47:44,320Z | INFO | Starting episode 217: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:47,289Z | INFO | Episode 217 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  43%|████▎     | 216/500 [09:30<13:00,  2.75s/it, Reward=449.82, AvgLoss=0.3783, Wins=2]Train Episodes:  43%|████▎     | 217/500 [09:30<13:18,  2.82s/it, Reward=449.82, AvgLoss=0.3783, Wins=2]Game has started.
+2025-10-21 23:47:47,339Z | INFO | Starting episode 218: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:50,248Z | INFO | Episode 218 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  43%|████▎     | 217/500 [09:33<13:18,  2.82s/it, Reward=449.82, AvgLoss=0.4251, Wins=2]Train Episodes:  44%|████▎     | 218/500 [09:33<13:27,  2.86s/it, Reward=449.82, AvgLoss=0.4251, Wins=2]Game has started.
+2025-10-21 23:47:50,275Z | INFO | Starting episode 219: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:53,164Z | INFO | Episode 219 finished after 2816 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:  44%|████▎     | 218/500 [09:36<13:27,  2.86s/it, Reward=449.82, AvgLoss=0.3564, Wins=2]Train Episodes:  44%|████▍     | 219/500 [09:36<13:28,  2.88s/it, Reward=449.82, AvgLoss=0.3564, Wins=2]Game has started.
+2025-10-21 23:47:53,189Z | INFO | Starting episode 220: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:56,175Z | INFO | Episode 220 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  44%|████▍     | 219/500 [09:39<13:28,  2.88s/it, Reward=499.82, AvgLoss=0.4585, Wins=2]Train Episodes:  44%|████▍     | 220/500 [09:39<13:37,  2.92s/it, Reward=499.82, AvgLoss=0.4585, Wins=2]Game has started.
+2025-10-21 23:47:56,203Z | INFO | Starting episode 221: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:47:57,376Z | INFO | Episode 221 finished after 1072 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:  44%|████▍     | 220/500 [09:40<13:37,  2.92s/it, Reward=399.93, AvgLoss=0.4052, Wins=2]Train Episodes:  44%|████▍     | 221/500 [09:40<11:10,  2.40s/it, Reward=399.93, AvgLoss=0.4052, Wins=2]Game has started.
+2025-10-21 23:47:57,404Z | INFO | Starting episode 222: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:00,438Z | INFO | Episode 222 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  44%|████▍     | 221/500 [09:43<11:10,  2.40s/it, Reward=499.82, AvgLoss=0.4637, Wins=2]Train Episodes:  44%|████▍     | 222/500 [09:43<12:03,  2.60s/it, Reward=499.82, AvgLoss=0.4637, Wins=2]Game has started.
+2025-10-21 23:48:00,476Z | INFO | Starting episode 223: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:03,423Z | INFO | Episode 223 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  44%|████▍     | 222/500 [09:46<12:03,  2.60s/it, Reward=599.82, AvgLoss=0.4309, Wins=2]Train Episodes:  45%|████▍     | 223/500 [09:46<12:32,  2.72s/it, Reward=599.82, AvgLoss=0.4309, Wins=2]Game has started.
+2025-10-21 23:48:03,449Z | INFO | Starting episode 224: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:06,400Z | INFO | Episode 224 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  45%|████▍     | 223/500 [09:49<12:32,  2.72s/it, Reward=499.82, AvgLoss=0.3701, Wins=2]Train Episodes:  45%|████▍     | 224/500 [09:49<12:51,  2.79s/it, Reward=499.82, AvgLoss=0.3701, Wins=2]Game has started.
+2025-10-21 23:48:06,435Z | INFO | Starting episode 225: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:09,536Z | INFO | Episode 225 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  45%|████▍     | 224/500 [09:52<12:51,  2.79s/it, Reward=449.82, AvgLoss=0.3637, Wins=2]Train Episodes:  45%|████▌     | 225/500 [09:52<13:16,  2.90s/it, Reward=449.82, AvgLoss=0.3637, Wins=2]Game has started.
+2025-10-21 23:48:09,563Z | INFO | Starting episode 226: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:12,418Z | INFO | Episode 226 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  45%|████▌     | 225/500 [09:55<13:16,  2.90s/it, Reward=499.82, AvgLoss=0.3701, Wins=2]Train Episodes:  45%|████▌     | 226/500 [09:55<13:12,  2.89s/it, Reward=499.82, AvgLoss=0.3701, Wins=2]Game has started.
+2025-10-21 23:48:12,442Z | INFO | Starting episode 227: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:15,526Z | INFO | Episode 227 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  45%|████▌     | 226/500 [09:58<13:12,  2.89s/it, Reward=599.82, AvgLoss=0.4506, Wins=2]Train Episodes:  45%|████▌     | 227/500 [09:58<13:27,  2.96s/it, Reward=599.82, AvgLoss=0.4506, Wins=2]Game has started.
+2025-10-21 23:48:15,552Z | INFO | Starting episode 228: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:17,030Z | INFO | Episode 228 finished after 1296 game steps. Outcome: [-1], reward: [-1], score: [3]
+Train Episodes:  45%|████▌     | 227/500 [09:59<13:27,  2.96s/it, Reward=299.92, AvgLoss=0.4681, Wins=2]Train Episodes:  46%|████▌     | 228/500 [09:59<11:25,  2.52s/it, Reward=299.92, AvgLoss=0.4681, Wins=2]Game has started.
+2025-10-21 23:48:17,058Z | INFO | Starting episode 229: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:20,034Z | INFO | Episode 229 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  46%|████▌     | 228/500 [10:02<11:25,  2.52s/it, Reward=499.82, AvgLoss=0.4803, Wins=2]Train Episodes:  46%|████▌     | 229/500 [10:02<12:02,  2.67s/it, Reward=499.82, AvgLoss=0.4803, Wins=2]Game has started.
+2025-10-21 23:48:20,061Z | INFO | Starting episode 230: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:21,126Z | INFO | Episode 230 finished after 896 game steps. Outcome: [-1], reward: [-1], score: [1]
+Train Episodes:  46%|████▌     | 229/500 [10:04<12:02,  2.67s/it, Reward=199.94, AvgLoss=0.4243, Wins=2]Train Episodes:  46%|████▌     | 230/500 [10:04<09:52,  2.19s/it, Reward=199.94, AvgLoss=0.4243, Wins=2]Game has started.
+2025-10-21 23:48:21,153Z | INFO | Starting episode 231: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:24,459Z | INFO | Episode 231 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  46%|████▌     | 230/500 [10:07<09:52,  2.19s/it, Reward=499.82, AvgLoss=0.4012, Wins=2]Train Episodes:  46%|████▌     | 231/500 [10:07<11:22,  2.54s/it, Reward=499.82, AvgLoss=0.4012, Wins=2]Game has started.
+2025-10-21 23:48:24,488Z | INFO | Starting episode 232: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:27,593Z | INFO | Episode 232 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  46%|████▌     | 231/500 [10:10<11:22,  2.54s/it, Reward=549.82, AvgLoss=0.4517, Wins=2]Train Episodes:  46%|████▋     | 232/500 [10:10<12:07,  2.71s/it, Reward=549.82, AvgLoss=0.4517, Wins=2]Game has started.
+2025-10-21 23:48:27,620Z | INFO | Starting episode 233: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:29,754Z | INFO | Episode 233 finished after 2112 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:  46%|████▋     | 232/500 [10:12<12:07,  2.71s/it, Reward=399.87, AvgLoss=0.4496, Wins=2]Train Episodes:  47%|████▋     | 233/500 [10:12<11:20,  2.55s/it, Reward=399.87, AvgLoss=0.4496, Wins=2]Game has started.
+2025-10-21 23:48:29,783Z | INFO | Starting episode 234: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:32,671Z | INFO | Episode 234 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  47%|████▋     | 233/500 [10:15<11:20,  2.55s/it, Reward=499.82, AvgLoss=0.3554, Wins=2]Train Episodes:  47%|████▋     | 234/500 [10:15<11:47,  2.66s/it, Reward=499.82, AvgLoss=0.3554, Wins=2]Game has started.
+2025-10-21 23:48:32,703Z | INFO | Starting episode 235: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:35,477Z | INFO | Episode 235 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  47%|████▋     | 234/500 [10:18<11:47,  2.66s/it, Reward=499.82, AvgLoss=0.3925, Wins=2]Train Episodes:  47%|████▋     | 235/500 [10:18<11:56,  2.70s/it, Reward=499.82, AvgLoss=0.3925, Wins=2]Game has started.
+2025-10-21 23:48:35,502Z | INFO | Starting episode 236: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:36,883Z | INFO | Episode 236 finished after 1440 game steps. Outcome: [-1], reward: [-1], score: [4]
+Train Episodes:  47%|████▋     | 235/500 [10:19<11:56,  2.70s/it, Reward=349.91, AvgLoss=0.4682, Wins=2]Train Episodes:  47%|████▋     | 236/500 [10:19<10:10,  2.31s/it, Reward=349.91, AvgLoss=0.4682, Wins=2]Game has started.
+2025-10-21 23:48:36,908Z | INFO | Starting episode 237: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:38,843Z | INFO | Episode 237 finished after 2016 game steps. Outcome: [-1], reward: [-1], score: [8]
+Train Episodes:  47%|████▋     | 236/500 [10:21<10:10,  2.31s/it, Reward=549.87, AvgLoss=0.4492, Wins=2]Train Episodes:  47%|████▋     | 237/500 [10:21<09:40,  2.21s/it, Reward=549.87, AvgLoss=0.4492, Wins=2]Game has started.
+2025-10-21 23:48:38,867Z | INFO | Starting episode 238: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:41,603Z | INFO | Episode 238 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  47%|████▋     | 237/500 [10:24<09:40,  2.21s/it, Reward=499.82, AvgLoss=0.4314, Wins=2]Train Episodes:  48%|████▊     | 238/500 [10:24<10:21,  2.37s/it, Reward=499.82, AvgLoss=0.4314, Wins=2]Game has started.
+2025-10-21 23:48:41,634Z | INFO | Starting episode 239: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:44,328Z | INFO | Episode 239 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  48%|████▊     | 238/500 [10:27<10:21,  2.37s/it, Reward=399.82, AvgLoss=0.4217, Wins=2]Train Episodes:  48%|████▊     | 239/500 [10:27<10:46,  2.48s/it, Reward=399.82, AvgLoss=0.4217, Wins=2]Game has started.
+2025-10-21 23:48:44,352Z | INFO | Starting episode 240: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:47,095Z | INFO | Episode 240 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  48%|████▊     | 239/500 [10:30<10:46,  2.48s/it, Reward=449.82, AvgLoss=0.3880, Wins=2]Train Episodes:  48%|████▊     | 240/500 [10:30<11:06,  2.57s/it, Reward=449.82, AvgLoss=0.3880, Wins=2]Game has started.
+2025-10-21 23:48:47,119Z | INFO | Starting episode 241: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:49,048Z | INFO | Episode 241 finished after 2000 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:  48%|████▊     | 240/500 [10:31<11:06,  2.57s/it, Reward=449.88, AvgLoss=0.3407, Wins=2]Train Episodes:  48%|████▊     | 241/500 [10:31<10:16,  2.38s/it, Reward=449.88, AvgLoss=0.3407, Wins=2]Game has started.
+2025-10-21 23:48:49,079Z | INFO | Starting episode 242: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:51,066Z | INFO | Episode 242 finished after 2032 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:  48%|████▊     | 241/500 [10:33<10:16,  2.38s/it, Reward=399.87, AvgLoss=0.3544, Wins=2]Train Episodes:  48%|████▊     | 242/500 [10:33<09:46,  2.27s/it, Reward=399.87, AvgLoss=0.3544, Wins=2]Game has started.
+2025-10-21 23:48:51,090Z | INFO | Starting episode 243: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:53,858Z | INFO | Episode 243 finished after 2880 game steps. Outcome: [1], reward: [0], score: [5]
+Train Episodes:  48%|████▊     | 242/500 [10:36<09:46,  2.27s/it, Reward=299.82, AvgLoss=0.4080, Wins=2]Train Episodes:  49%|████▊     | 243/500 [10:36<10:24,  2.43s/it, Reward=299.82, AvgLoss=0.4080, Wins=2]Game has started.
+2025-10-21 23:48:53,882Z | INFO | Starting episode 244: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:56,637Z | INFO | Episode 244 finished after 2880 game steps. Outcome: [1], reward: [0], score: [5]
+Train Episodes:  49%|████▊     | 243/500 [10:39<10:24,  2.43s/it, Reward=349.82, AvgLoss=0.5011, Wins=2]Train Episodes:  49%|████▉     | 244/500 [10:39<10:48,  2.53s/it, Reward=349.82, AvgLoss=0.5011, Wins=2]Game has started.
+2025-10-21 23:48:56,661Z | INFO | Starting episode 245: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:48:59,354Z | INFO | Episode 245 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  49%|████▉     | 244/500 [10:42<10:48,  2.53s/it, Reward=549.82, AvgLoss=0.3790, Wins=2]Train Episodes:  49%|████▉     | 245/500 [10:42<11:00,  2.59s/it, Reward=549.82, AvgLoss=0.3790, Wins=2]Game has started.
+2025-10-21 23:48:59,380Z | INFO | Starting episode 246: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:02,352Z | INFO | Episode 246 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  49%|████▉     | 245/500 [10:45<11:00,  2.59s/it, Reward=499.82, AvgLoss=0.4554, Wins=2]Train Episodes:  49%|████▉     | 246/500 [10:45<11:28,  2.71s/it, Reward=499.82, AvgLoss=0.4554, Wins=2]Game has started.
+2025-10-21 23:49:02,380Z | INFO | Starting episode 247: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:05,502Z | INFO | Episode 247 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  49%|████▉     | 246/500 [10:48<11:28,  2.71s/it, Reward=449.82, AvgLoss=0.3958, Wins=2]Train Episodes:  49%|████▉     | 247/500 [10:48<11:59,  2.84s/it, Reward=449.82, AvgLoss=0.3958, Wins=2]Game has started.
+2025-10-21 23:49:05,552Z | INFO | Starting episode 248: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:08,494Z | INFO | Episode 248 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  49%|████▉     | 247/500 [10:51<11:59,  2.84s/it, Reward=399.82, AvgLoss=0.3327, Wins=2]Train Episodes:  50%|████▉     | 248/500 [10:51<12:07,  2.89s/it, Reward=399.82, AvgLoss=0.3327, Wins=2]Game has started.
+2025-10-21 23:49:08,521Z | INFO | Starting episode 249: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:09,803Z | INFO | Episode 249 finished after 1280 game steps. Outcome: [-1], reward: [-1], score: [2]
+Train Episodes:  50%|████▉     | 248/500 [10:52<12:07,  2.89s/it, Reward=249.92, AvgLoss=0.4391, Wins=2]Train Episodes:  50%|████▉     | 249/500 [10:52<10:05,  2.41s/it, Reward=249.92, AvgLoss=0.4391, Wins=2]Game has started.
+2025-10-21 23:49:09,828Z | INFO | Starting episode 250: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:12,846Z | INFO | Episode 250 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  50%|████▉     | 249/500 [10:55<10:05,  2.41s/it, Reward=599.82, AvgLoss=0.3523, Wins=2]2025-10-21 23:49:12,859Z | INFO | Ep 250: reward=599.82 avg_loss=0.3523 wins=2
+Train Episodes:  50%|█████     | 250/500 [10:55<10:50,  2.60s/it, Reward=599.82, AvgLoss=0.3523, Wins=2]Game has started.
+2025-10-21 23:49:12,874Z | INFO | Starting episode 251: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:15,878Z | INFO | Episode 251 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  50%|█████     | 250/500 [10:58<10:50,  2.60s/it, Reward=499.82, AvgLoss=0.4919, Wins=2]Train Episodes:  50%|█████     | 251/500 [10:58<11:20,  2.73s/it, Reward=499.82, AvgLoss=0.4919, Wins=2]Game has started.
+2025-10-21 23:49:15,916Z | INFO | Starting episode 252: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:18,748Z | INFO | Episode 252 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  50%|█████     | 251/500 [11:01<11:20,  2.73s/it, Reward=649.82, AvgLoss=0.3790, Wins=2]Train Episodes:  50%|█████     | 252/500 [11:01<11:27,  2.77s/it, Reward=649.82, AvgLoss=0.3790, Wins=2]Game has started.
+2025-10-21 23:49:18,774Z | INFO | Starting episode 253: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:21,628Z | INFO | Episode 253 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  50%|█████     | 252/500 [11:04<11:27,  2.77s/it, Reward=499.82, AvgLoss=0.4006, Wins=2]Train Episodes:  51%|█████     | 253/500 [11:04<11:32,  2.81s/it, Reward=499.82, AvgLoss=0.4006, Wins=2]Game has started.
+2025-10-21 23:49:21,657Z | INFO | Starting episode 254: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:24,793Z | INFO | Episode 254 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  51%|█████     | 253/500 [11:07<11:32,  2.81s/it, Reward=399.82, AvgLoss=0.3682, Wins=2]Train Episodes:  51%|█████     | 254/500 [11:07<11:56,  2.91s/it, Reward=399.82, AvgLoss=0.3682, Wins=2]Game has started.
+2025-10-21 23:49:24,821Z | INFO | Starting episode 255: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:27,878Z | INFO | Episode 255 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  51%|█████     | 254/500 [11:10<11:56,  2.91s/it, Reward=549.82, AvgLoss=0.4083, Wins=2]Train Episodes:  51%|█████     | 255/500 [11:10<12:06,  2.96s/it, Reward=549.82, AvgLoss=0.4083, Wins=2]Game has started.
+2025-10-21 23:49:27,925Z | INFO | Starting episode 256: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:31,077Z | INFO | Episode 256 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  51%|█████     | 255/500 [11:14<12:06,  2.96s/it, Reward=499.82, AvgLoss=0.4240, Wins=2]Train Episodes:  51%|█████     | 256/500 [11:14<12:20,  3.03s/it, Reward=499.82, AvgLoss=0.4240, Wins=2]Game has started.
+2025-10-21 23:49:31,102Z | INFO | Starting episode 257: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:34,105Z | INFO | Episode 257 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  51%|█████     | 256/500 [11:17<12:20,  3.03s/it, Reward=549.82, AvgLoss=0.4410, Wins=2]Train Episodes:  51%|█████▏    | 257/500 [11:17<12:17,  3.03s/it, Reward=549.82, AvgLoss=0.4410, Wins=2]Game has started.
+2025-10-21 23:49:34,132Z | INFO | Starting episode 258: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:37,072Z | INFO | Episode 258 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  51%|█████▏    | 257/500 [11:19<12:17,  3.03s/it, Reward=499.82, AvgLoss=0.4171, Wins=2]Train Episodes:  52%|█████▏    | 258/500 [11:20<12:09,  3.01s/it, Reward=499.82, AvgLoss=0.4171, Wins=2]Game has started.
+2025-10-21 23:49:37,107Z | INFO | Starting episode 259: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:40,365Z | INFO | Episode 259 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  52%|█████▏    | 258/500 [11:23<12:09,  3.01s/it, Reward=449.82, AvgLoss=0.3326, Wins=2]Train Episodes:  52%|█████▏    | 259/500 [11:23<12:26,  3.10s/it, Reward=449.82, AvgLoss=0.3326, Wins=2]Game has started.
+2025-10-21 23:49:40,394Z | INFO | Starting episode 260: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:43,514Z | INFO | Episode 260 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  52%|█████▏    | 259/500 [11:26<12:26,  3.10s/it, Reward=349.82, AvgLoss=0.4693, Wins=2]Train Episodes:  52%|█████▏    | 260/500 [11:26<12:27,  3.11s/it, Reward=349.82, AvgLoss=0.4693, Wins=2]Game has started.
+2025-10-21 23:49:43,542Z | INFO | Starting episode 261: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:46,652Z | INFO | Episode 261 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  52%|█████▏    | 260/500 [11:29<12:27,  3.11s/it, Reward=499.82, AvgLoss=0.3548, Wins=2]Train Episodes:  52%|█████▏    | 261/500 [11:29<12:25,  3.12s/it, Reward=499.82, AvgLoss=0.3548, Wins=2]Game has started.
+2025-10-21 23:49:46,678Z | INFO | Starting episode 262: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:49,765Z | INFO | Episode 262 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  52%|█████▏    | 261/500 [11:32<12:25,  3.12s/it, Reward=499.82, AvgLoss=0.3882, Wins=2]Train Episodes:  52%|█████▏    | 262/500 [11:32<12:22,  3.12s/it, Reward=499.82, AvgLoss=0.3882, Wins=2]Game has started.
+2025-10-21 23:49:49,813Z | INFO | Starting episode 263: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:52,877Z | INFO | Episode 263 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  52%|█████▏    | 262/500 [11:35<12:22,  3.12s/it, Reward=599.82, AvgLoss=0.3296, Wins=2]Train Episodes:  53%|█████▎    | 263/500 [11:35<12:18,  3.12s/it, Reward=599.82, AvgLoss=0.3296, Wins=2]Game has started.
+2025-10-21 23:49:52,906Z | INFO | Starting episode 264: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:55,998Z | INFO | Episode 264 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  53%|█████▎    | 263/500 [11:38<12:18,  3.12s/it, Reward=349.82, AvgLoss=0.3794, Wins=2]Train Episodes:  53%|█████▎    | 264/500 [11:38<12:15,  3.12s/it, Reward=349.82, AvgLoss=0.3794, Wins=2]Game has started.
+2025-10-21 23:49:56,026Z | INFO | Starting episode 265: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:49:59,000Z | INFO | Episode 265 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  53%|█████▎    | 264/500 [11:41<12:15,  3.12s/it, Reward=649.82, AvgLoss=0.4418, Wins=2]Train Episodes:  53%|█████▎    | 265/500 [11:41<12:04,  3.08s/it, Reward=649.82, AvgLoss=0.4418, Wins=2]Game has started.
+2025-10-21 23:49:59,036Z | INFO | Starting episode 266: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:02,285Z | INFO | Episode 266 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  53%|█████▎    | 265/500 [11:45<12:04,  3.08s/it, Reward=499.82, AvgLoss=0.4057, Wins=2]Train Episodes:  53%|█████▎    | 266/500 [11:45<12:15,  3.14s/it, Reward=499.82, AvgLoss=0.4057, Wins=2]Game has started.
+2025-10-21 23:50:02,312Z | INFO | Starting episode 267: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:05,253Z | INFO | Episode 267 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  53%|█████▎    | 266/500 [11:48<12:15,  3.14s/it, Reward=499.82, AvgLoss=0.3740, Wins=2]Train Episodes:  53%|█████▎    | 267/500 [11:48<12:00,  3.09s/it, Reward=499.82, AvgLoss=0.3740, Wins=2]Game has started.
+2025-10-21 23:50:05,277Z | INFO | Starting episode 268: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:08,162Z | INFO | Episode 268 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  53%|█████▎    | 267/500 [11:51<12:00,  3.09s/it, Reward=449.82, AvgLoss=0.3578, Wins=2]Train Episodes:  54%|█████▎    | 268/500 [11:51<11:44,  3.04s/it, Reward=449.82, AvgLoss=0.3578, Wins=2]Game has started.
+2025-10-21 23:50:08,187Z | INFO | Starting episode 269: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:11,380Z | INFO | Episode 269 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  54%|█████▎    | 268/500 [11:54<11:44,  3.04s/it, Reward=499.82, AvgLoss=0.3859, Wins=2]Train Episodes:  54%|█████▍    | 269/500 [11:54<11:54,  3.09s/it, Reward=499.82, AvgLoss=0.3859, Wins=2]Game has started.
+2025-10-21 23:50:11,419Z | INFO | Starting episode 270: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:14,387Z | INFO | Episode 270 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  54%|█████▍    | 269/500 [11:57<11:54,  3.09s/it, Reward=399.82, AvgLoss=0.3261, Wins=2]Train Episodes:  54%|█████▍    | 270/500 [11:57<11:45,  3.07s/it, Reward=399.82, AvgLoss=0.3261, Wins=2]Game has started.
+2025-10-21 23:50:14,414Z | INFO | Starting episode 271: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:17,281Z | INFO | Episode 271 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  54%|█████▍    | 270/500 [12:00<11:45,  3.07s/it, Reward=599.82, AvgLoss=0.4078, Wins=2]Train Episodes:  54%|█████▍    | 271/500 [12:00<11:30,  3.01s/it, Reward=599.82, AvgLoss=0.4078, Wins=2]Game has started.
+2025-10-21 23:50:17,307Z | INFO | Starting episode 272: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:20,262Z | INFO | Episode 272 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  54%|█████▍    | 271/500 [12:03<11:30,  3.01s/it, Reward=449.82, AvgLoss=0.3545, Wins=2]Train Episodes:  54%|█████▍    | 272/500 [12:03<11:25,  3.00s/it, Reward=449.82, AvgLoss=0.3545, Wins=2]Game has started.
+2025-10-21 23:50:20,311Z | INFO | Starting episode 273: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:23,223Z | INFO | Episode 273 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  54%|█████▍    | 272/500 [12:06<11:25,  3.00s/it, Reward=449.82, AvgLoss=0.3872, Wins=2]Train Episodes:  55%|█████▍    | 273/500 [12:06<11:19,  2.99s/it, Reward=449.82, AvgLoss=0.3872, Wins=2]Game has started.
+2025-10-21 23:50:23,251Z | INFO | Starting episode 274: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:26,291Z | INFO | Episode 274 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  55%|█████▍    | 273/500 [12:09<11:19,  2.99s/it, Reward=449.82, AvgLoss=0.3434, Wins=2]Train Episodes:  55%|█████▍    | 274/500 [12:09<11:21,  3.01s/it, Reward=449.82, AvgLoss=0.3434, Wins=2]Game has started.
+2025-10-21 23:50:26,319Z | INFO | Starting episode 275: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:29,344Z | INFO | Episode 275 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  55%|█████▍    | 274/500 [12:12<11:21,  3.01s/it, Reward=549.82, AvgLoss=0.4192, Wins=2]Train Episodes:  55%|█████▌    | 275/500 [12:12<11:20,  3.03s/it, Reward=549.82, AvgLoss=0.4192, Wins=2]Game has started.
+2025-10-21 23:50:29,372Z | INFO | Starting episode 276: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:32,208Z | INFO | Episode 276 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  55%|█████▌    | 275/500 [12:15<11:20,  3.03s/it, Reward=449.82, AvgLoss=0.4004, Wins=2]Train Episodes:  55%|█████▌    | 276/500 [12:15<11:12,  3.00s/it, Reward=449.82, AvgLoss=0.4004, Wins=2]Game has started.
+2025-10-21 23:50:32,313Z | INFO | Starting episode 277: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:35,143Z | INFO | Episode 277 finished after 2880 game steps. Outcome: [1], reward: [0], score: [6]
+Train Episodes:  55%|█████▌    | 276/500 [12:18<11:12,  3.00s/it, Reward=399.82, AvgLoss=0.4422, Wins=2]Train Episodes:  55%|█████▌    | 277/500 [12:18<10:59,  2.96s/it, Reward=399.82, AvgLoss=0.4422, Wins=2]Game has started.
+2025-10-21 23:50:35,178Z | INFO | Starting episode 278: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:36,547Z | INFO | Episode 278 finished after 1408 game steps. Outcome: [-1], reward: [-1], score: [2]
+Train Episodes:  55%|█████▌    | 277/500 [12:19<10:59,  2.96s/it, Reward=249.91, AvgLoss=0.3978, Wins=2]Train Episodes:  56%|█████▌    | 278/500 [12:19<09:13,  2.49s/it, Reward=249.91, AvgLoss=0.3978, Wins=2]Game has started.
+2025-10-21 23:50:36,573Z | INFO | Starting episode 279: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:38,697Z | INFO | Episode 279 finished after 2128 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  56%|█████▌    | 278/500 [12:21<09:13,  2.49s/it, Reward=499.87, AvgLoss=0.4410, Wins=2]Train Episodes:  56%|█████▌    | 279/500 [12:21<08:47,  2.39s/it, Reward=499.87, AvgLoss=0.4410, Wins=2]Game has started.
+2025-10-21 23:50:38,724Z | INFO | Starting episode 280: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:41,556Z | INFO | Episode 280 finished after 2880 game steps. Outcome: [1], reward: [0], score: [4]
+Train Episodes:  56%|█████▌    | 279/500 [12:24<08:47,  2.39s/it, Reward=299.82, AvgLoss=0.4390, Wins=2]Train Episodes:  56%|█████▌    | 280/500 [12:24<09:16,  2.53s/it, Reward=299.82, AvgLoss=0.4390, Wins=2]Game has started.
+2025-10-21 23:50:41,583Z | INFO | Starting episode 281: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:44,466Z | INFO | Episode 281 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  56%|█████▌    | 280/500 [12:27<09:16,  2.53s/it, Reward=449.82, AvgLoss=0.4387, Wins=2]Train Episodes:  56%|█████▌    | 281/500 [12:27<09:39,  2.64s/it, Reward=449.82, AvgLoss=0.4387, Wins=2]Game has started.
+2025-10-21 23:50:44,499Z | INFO | Starting episode 282: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:47,553Z | INFO | Episode 282 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  56%|█████▌    | 281/500 [12:30<09:39,  2.64s/it, Reward=449.82, AvgLoss=0.3263, Wins=2]Train Episodes:  56%|█████▋    | 282/500 [12:30<10:05,  2.78s/it, Reward=449.82, AvgLoss=0.3263, Wins=2]Game has started.
+2025-10-21 23:50:47,578Z | INFO | Starting episode 283: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:50,488Z | INFO | Episode 283 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  56%|█████▋    | 282/500 [12:33<10:05,  2.78s/it, Reward=449.82, AvgLoss=0.3309, Wins=2]Train Episodes:  57%|█████▋    | 283/500 [12:33<10:12,  2.82s/it, Reward=449.82, AvgLoss=0.3309, Wins=2]Game has started.
+2025-10-21 23:50:50,513Z | INFO | Starting episode 284: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:53,394Z | INFO | Episode 284 finished after 2880 game steps. Outcome: [1], reward: [0], score: [13]
+Train Episodes:  57%|█████▋    | 283/500 [12:36<10:12,  2.82s/it, Reward=699.82, AvgLoss=0.4687, Wins=2]Train Episodes:  57%|█████▋    | 284/500 [12:36<10:15,  2.85s/it, Reward=699.82, AvgLoss=0.4687, Wins=2]Game has started.
+2025-10-21 23:50:53,418Z | INFO | Starting episode 285: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:56,242Z | INFO | Episode 285 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  57%|█████▋    | 284/500 [12:39<10:15,  2.85s/it, Reward=449.82, AvgLoss=0.3463, Wins=2]Train Episodes:  57%|█████▋    | 285/500 [12:39<10:12,  2.85s/it, Reward=449.82, AvgLoss=0.3463, Wins=2]Game has started.
+2025-10-21 23:50:56,265Z | INFO | Starting episode 286: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:50:59,209Z | INFO | Episode 286 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  57%|█████▋    | 285/500 [12:42<10:12,  2.85s/it, Reward=399.82, AvgLoss=0.3213, Wins=2]Train Episodes:  57%|█████▋    | 286/500 [12:42<10:17,  2.88s/it, Reward=399.82, AvgLoss=0.3213, Wins=2]Game has started.
+2025-10-21 23:50:59,257Z | INFO | Starting episode 287: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:02,438Z | INFO | Episode 287 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  57%|█████▋    | 286/500 [12:45<10:17,  2.88s/it, Reward=549.82, AvgLoss=0.4305, Wins=2]Train Episodes:  57%|█████▋    | 287/500 [12:45<10:36,  2.99s/it, Reward=549.82, AvgLoss=0.4305, Wins=2]Game has started.
+2025-10-21 23:51:02,466Z | INFO | Starting episode 288: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:05,498Z | INFO | Episode 288 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  57%|█████▋    | 287/500 [12:48<10:36,  2.99s/it, Reward=449.82, AvgLoss=0.4465, Wins=2]Train Episodes:  58%|█████▊    | 288/500 [12:48<10:37,  3.01s/it, Reward=449.82, AvgLoss=0.4465, Wins=2]Game has started.
+2025-10-21 23:51:05,533Z | INFO | Starting episode 289: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:08,390Z | INFO | Episode 289 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  58%|█████▊    | 288/500 [12:51<10:37,  3.01s/it, Reward=399.82, AvgLoss=0.4561, Wins=2]Train Episodes:  58%|█████▊    | 289/500 [12:51<10:27,  2.97s/it, Reward=399.82, AvgLoss=0.4561, Wins=2]Game has started.
+2025-10-21 23:51:08,415Z | INFO | Starting episode 290: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:11,353Z | INFO | Episode 290 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  58%|█████▊    | 289/500 [12:54<10:27,  2.97s/it, Reward=549.82, AvgLoss=0.3897, Wins=2]Train Episodes:  58%|█████▊    | 290/500 [12:54<10:23,  2.97s/it, Reward=549.82, AvgLoss=0.3897, Wins=2]Game has started.
+2025-10-21 23:51:11,382Z | INFO | Starting episode 291: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:14,303Z | INFO | Episode 291 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  58%|█████▊    | 290/500 [12:57<10:23,  2.97s/it, Reward=599.82, AvgLoss=0.4120, Wins=2]Train Episodes:  58%|█████▊    | 291/500 [12:57<10:19,  2.96s/it, Reward=599.82, AvgLoss=0.4120, Wins=2]Game has started.
+2025-10-21 23:51:14,331Z | INFO | Starting episode 292: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:17,384Z | INFO | Episode 292 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  58%|█████▊    | 291/500 [13:00<10:19,  2.96s/it, Reward=399.82, AvgLoss=0.4286, Wins=2]Train Episodes:  58%|█████▊    | 292/500 [13:00<10:23,  3.00s/it, Reward=399.82, AvgLoss=0.4286, Wins=2]Game has started.
+2025-10-21 23:51:17,410Z | INFO | Starting episode 293: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:20,279Z | INFO | Episode 293 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  58%|█████▊    | 292/500 [13:03<10:23,  3.00s/it, Reward=549.82, AvgLoss=0.3814, Wins=2]Train Episodes:  59%|█████▊    | 293/500 [13:03<10:14,  2.97s/it, Reward=549.82, AvgLoss=0.3814, Wins=2]Game has started.
+2025-10-21 23:51:20,317Z | INFO | Starting episode 294: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:23,148Z | INFO | Episode 294 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  59%|█████▊    | 293/500 [13:06<10:14,  2.97s/it, Reward=599.82, AvgLoss=0.3136, Wins=2]Train Episodes:  59%|█████▉    | 294/500 [13:06<10:05,  2.94s/it, Reward=599.82, AvgLoss=0.3136, Wins=2]Game has started.
+2025-10-21 23:51:23,174Z | INFO | Starting episode 295: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:25,980Z | INFO | Episode 295 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  59%|█████▉    | 294/500 [13:08<10:05,  2.94s/it, Reward=399.82, AvgLoss=0.4891, Wins=2]Train Episodes:  59%|█████▉    | 295/500 [13:08<09:55,  2.91s/it, Reward=399.82, AvgLoss=0.4891, Wins=2]Game has started.
+2025-10-21 23:51:26,007Z | INFO | Starting episode 296: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:29,188Z | INFO | Episode 296 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  59%|█████▉    | 295/500 [13:12<09:55,  2.91s/it, Reward=499.82, AvgLoss=0.3494, Wins=2]Train Episodes:  59%|█████▉    | 296/500 [13:12<10:11,  3.00s/it, Reward=499.82, AvgLoss=0.3494, Wins=2]Game has started.
+2025-10-21 23:51:29,234Z | INFO | Starting episode 297: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:30,421Z | INFO | Episode 297 finished after 1088 game steps. Outcome: [-1], reward: [-1], score: [3]
+Train Episodes:  59%|█████▉    | 296/500 [13:13<10:11,  3.00s/it, Reward=299.93, AvgLoss=0.2644, Wins=2]Train Episodes:  59%|█████▉    | 297/500 [13:13<08:20,  2.47s/it, Reward=299.93, AvgLoss=0.2644, Wins=2]Unable to do fast restart because gameLoop 262928 >= restartGameLoop 262144
+Performing a full restart of the game.
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+2025-10-21 23:51:33,188Z | INFO | Starting episode 298: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:35,821Z | INFO | Episode 298 finished after 2400 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:  59%|█████▉    | 297/500 [13:18<08:20,  2.47s/it, Reward=399.85, AvgLoss=0.3298, Wins=2]Train Episodes:  60%|█████▉    | 298/500 [13:18<11:16,  3.35s/it, Reward=399.85, AvgLoss=0.3298, Wins=2]Game has started.
+2025-10-21 23:51:35,851Z | INFO | Starting episode 299: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:38,854Z | INFO | Episode 299 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  60%|█████▉    | 298/500 [13:21<11:16,  3.35s/it, Reward=549.82, AvgLoss=0.4895, Wins=2]Train Episodes:  60%|█████▉    | 299/500 [13:21<10:53,  3.25s/it, Reward=549.82, AvgLoss=0.4895, Wins=2]Game has started.
+2025-10-21 23:51:38,881Z | INFO | Starting episode 300: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:41,913Z | INFO | Episode 300 finished after 2880 game steps. Outcome: [1], reward: [0], score: [10]
+Train Episodes:  60%|█████▉    | 299/500 [13:24<10:53,  3.25s/it, Reward=499.82, AvgLoss=0.3886, Wins=2]2025-10-21 23:51:41,924Z | INFO | Ep 300: reward=499.82 avg_loss=0.3886 wins=2
+2025-10-21 23:51:41,925Z | INFO | LR scheduler step: episode=300, lr=1.792908e-05
+Train Episodes:  60%|██████    | 300/500 [13:25<11:24,  3.42s/it, Reward=499.82, AvgLoss=0.3886, Wins=2]Game has started.
+2025-10-21 23:51:42,709Z | INFO | Starting episode 301: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:45,403Z | INFO | Episode 301 finished after 2576 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  60%|██████    | 300/500 [13:28<11:24,  3.42s/it, Reward=499.84, AvgLoss=0.5323, Wins=2]Train Episodes:  60%|██████    | 301/500 [13:28<10:39,  3.21s/it, Reward=499.84, AvgLoss=0.5323, Wins=2]Game has started.
+2025-10-21 23:51:45,429Z | INFO | Starting episode 302: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:48,422Z | INFO | Episode 302 finished after 2880 game steps. Outcome: [1], reward: [1], score: [10]
+Train Episodes:  60%|██████    | 301/500 [13:31<10:39,  3.21s/it, Reward=524.82, AvgLoss=0.5363, Wins=3]Train Episodes:  60%|██████    | 302/500 [13:31<10:24,  3.16s/it, Reward=524.82, AvgLoss=0.5363, Wins=3]Game has started.
+2025-10-21 23:51:48,449Z | INFO | Starting episode 303: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:51,492Z | INFO | Episode 303 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  60%|██████    | 302/500 [13:34<10:24,  3.16s/it, Reward=599.82, AvgLoss=0.5112, Wins=3]Train Episodes:  61%|██████    | 303/500 [13:34<10:16,  3.13s/it, Reward=599.82, AvgLoss=0.5112, Wins=3]Game has started.
+2025-10-21 23:51:51,520Z | INFO | Starting episode 304: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:54,535Z | INFO | Episode 304 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  61%|██████    | 303/500 [13:37<10:16,  3.13s/it, Reward=499.82, AvgLoss=0.5800, Wins=3]Train Episodes:  61%|██████    | 304/500 [13:37<10:08,  3.10s/it, Reward=499.82, AvgLoss=0.5800, Wins=3]Game has started.
+2025-10-21 23:51:54,562Z | INFO | Starting episode 305: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:51:56,816Z | INFO | Episode 305 finished after 2000 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  61%|██████    | 304/500 [13:39<10:08,  3.10s/it, Reward=499.88, AvgLoss=0.6184, Wins=3]Train Episodes:  61%|██████    | 305/500 [13:39<09:17,  2.86s/it, Reward=499.88, AvgLoss=0.6184, Wins=3]Game has started.
+2025-10-21 23:51:56,844Z | INFO | Starting episode 306: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:00,045Z | INFO | Episode 306 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  61%|██████    | 305/500 [13:42<09:17,  2.86s/it, Reward=599.82, AvgLoss=0.5926, Wins=3]Train Episodes:  61%|██████    | 306/500 [13:42<09:35,  2.97s/it, Reward=599.82, AvgLoss=0.5926, Wins=3]Game has started.
+2025-10-21 23:52:00,071Z | INFO | Starting episode 307: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:03,008Z | INFO | Episode 307 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  61%|██████    | 306/500 [13:45<09:35,  2.97s/it, Reward=499.82, AvgLoss=0.5984, Wins=3]Train Episodes:  61%|██████▏   | 307/500 [13:45<09:32,  2.97s/it, Reward=499.82, AvgLoss=0.5984, Wins=3]Game has started.
+2025-10-21 23:52:03,039Z | INFO | Starting episode 308: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:06,007Z | INFO | Episode 308 finished after 2880 game steps. Outcome: [1], reward: [0], score: [12]
+Train Episodes:  61%|██████▏   | 307/500 [13:48<09:32,  2.97s/it, Reward=599.82, AvgLoss=0.4251, Wins=3]Train Episodes:  62%|██████▏   | 308/500 [13:48<09:31,  2.98s/it, Reward=599.82, AvgLoss=0.4251, Wins=3]Game has started.
+2025-10-21 23:52:06,034Z | INFO | Starting episode 309: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:07,720Z | INFO | Episode 309 finished after 1600 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:  62%|██████▏   | 308/500 [13:50<09:31,  2.98s/it, Reward=399.90, AvgLoss=0.5894, Wins=3]Train Episodes:  62%|██████▏   | 309/500 [13:50<08:16,  2.60s/it, Reward=399.90, AvgLoss=0.5894, Wins=3]Game has started.
+2025-10-21 23:52:07,744Z | INFO | Starting episode 310: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:10,647Z | INFO | Episode 310 finished after 2880 game steps. Outcome: [1], reward: [0], score: [9]
+Train Episodes:  62%|██████▏   | 309/500 [13:53<08:16,  2.60s/it, Reward=549.82, AvgLoss=0.5568, Wins=3]Train Episodes:  62%|██████▏   | 310/500 [13:53<08:32,  2.70s/it, Reward=549.82, AvgLoss=0.5568, Wins=3]Game has started.
+2025-10-21 23:52:10,678Z | INFO | Starting episode 311: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:11,963Z | INFO | Episode 311 finished after 1200 game steps. Outcome: [-1], reward: [-1], score: [3]
+Train Episodes:  62%|██████▏   | 310/500 [13:54<08:32,  2.70s/it, Reward=299.93, AvgLoss=0.4219, Wins=3]Train Episodes:  62%|██████▏   | 311/500 [13:54<07:11,  2.28s/it, Reward=299.93, AvgLoss=0.4219, Wins=3]Game has started.
+2025-10-21 23:52:11,990Z | INFO | Starting episode 312: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:12,976Z | INFO | Episode 312 finished after 816 game steps. Outcome: [-1], reward: [-1], score: [-1]
+Train Episodes:  62%|██████▏   | 311/500 [13:55<07:11,  2.28s/it, Reward=99.95, AvgLoss=0.5521, Wins=3] Train Episodes:  62%|██████▏   | 312/500 [13:55<05:57,  1.90s/it, Reward=99.95, AvgLoss=0.5521, Wins=3]Game has started.
+2025-10-21 23:52:13,006Z | INFO | Starting episode 313: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:16,144Z | INFO | Episode 313 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  62%|██████▏   | 312/500 [13:59<05:57,  1.90s/it, Reward=499.82, AvgLoss=0.6104, Wins=3]Train Episodes:  63%|██████▎   | 313/500 [13:59<07:06,  2.28s/it, Reward=499.82, AvgLoss=0.6104, Wins=3]Game has started.
+2025-10-21 23:52:16,172Z | INFO | Starting episode 314: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:17,788Z | INFO | Episode 314 finished after 1504 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:  63%|██████▎   | 313/500 [14:00<07:06,  2.28s/it, Reward=449.91, AvgLoss=0.4617, Wins=3]Train Episodes:  63%|██████▎   | 314/500 [14:00<06:28,  2.09s/it, Reward=449.91, AvgLoss=0.4617, Wins=3]Game has started.
+2025-10-21 23:52:17,817Z | INFO | Starting episode 315: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:19,010Z | INFO | Episode 315 finished after 1024 game steps. Outcome: [-1], reward: [-1], score: [5]
+Train Episodes:  63%|██████▎   | 314/500 [14:01<06:28,  2.09s/it, Reward=399.94, AvgLoss=0.4705, Wins=3]Train Episodes:  63%|██████▎   | 315/500 [14:01<05:38,  1.83s/it, Reward=399.94, AvgLoss=0.4705, Wins=3]Game has started.
+2025-10-21 23:52:19,035Z | INFO | Starting episode 316: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:21,635Z | INFO | Episode 316 finished after 2512 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  63%|██████▎   | 315/500 [14:04<05:38,  1.83s/it, Reward=499.84, AvgLoss=0.5483, Wins=3]Train Episodes:  63%|██████▎   | 316/500 [14:04<06:20,  2.07s/it, Reward=499.84, AvgLoss=0.5483, Wins=3]Game has started.
+2025-10-21 23:52:21,661Z | INFO | Starting episode 317: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:24,577Z | INFO | Episode 317 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  63%|██████▎   | 316/500 [14:07<06:20,  2.07s/it, Reward=449.82, AvgLoss=0.4684, Wins=3]Train Episodes:  63%|██████▎   | 317/500 [14:07<07:06,  2.33s/it, Reward=449.82, AvgLoss=0.4684, Wins=3]Game has started.
+2025-10-21 23:52:24,602Z | INFO | Starting episode 318: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:25,854Z | INFO | Episode 318 finished after 1248 game steps. Outcome: [-1], reward: [-1], score: [7]
+Train Episodes:  63%|██████▎   | 317/500 [14:08<07:06,  2.33s/it, Reward=499.92, AvgLoss=0.5201, Wins=3]Train Episodes:  64%|██████▎   | 318/500 [14:08<06:06,  2.01s/it, Reward=499.92, AvgLoss=0.5201, Wins=3]Game has started.
+2025-10-21 23:52:25,879Z | INFO | Starting episode 319: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:28,689Z | INFO | Episode 319 finished after 2880 game steps. Outcome: [1], reward: [0], score: [7]
+Train Episodes:  64%|██████▎   | 318/500 [14:11<06:06,  2.01s/it, Reward=449.82, AvgLoss=0.4896, Wins=3]Train Episodes:  64%|██████▍   | 319/500 [14:11<06:49,  2.26s/it, Reward=449.82, AvgLoss=0.4896, Wins=3]Game has started.
+2025-10-21 23:52:28,719Z | INFO | Starting episode 320: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:30,495Z | INFO | Episode 320 finished after 1824 game steps. Outcome: [-1], reward: [-1], score: [2]
+Train Episodes:  64%|██████▍   | 319/500 [14:13<06:49,  2.26s/it, Reward=249.89, AvgLoss=0.5216, Wins=3]Train Episodes:  64%|██████▍   | 320/500 [14:13<06:22,  2.12s/it, Reward=249.89, AvgLoss=0.5216, Wins=3]Game has started.
+2025-10-21 23:52:30,521Z | INFO | Starting episode 321: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:31,682Z | INFO | Episode 321 finished after 1184 game steps. Outcome: [-1], reward: [-1], score: [6]
+Train Episodes:  64%|██████▍   | 320/500 [14:14<06:22,  2.12s/it, Reward=449.93, AvgLoss=0.5929, Wins=3]Train Episodes:  64%|██████▍   | 321/500 [14:14<05:29,  1.84s/it, Reward=449.93, AvgLoss=0.5929, Wins=3]Game has started.
+2025-10-21 23:52:31,707Z | INFO | Starting episode 322: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:34,534Z | INFO | Episode 322 finished after 2880 game steps. Outcome: [1], reward: [0], score: [8]
+Train Episodes:  64%|██████▍   | 321/500 [14:17<05:29,  1.84s/it, Reward=499.82, AvgLoss=0.5849, Wins=3]Train Episodes:  64%|██████▍   | 322/500 [14:17<06:21,  2.15s/it, Reward=499.82, AvgLoss=0.5849, Wins=3]Game has started.
+2025-10-21 23:52:34,559Z | INFO | Starting episode 323: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:37,567Z | INFO | Episode 323 finished after 2880 game steps. Outcome: [1], reward: [0], score: [11]
+Train Episodes:  64%|██████▍   | 322/500 [14:20<06:21,  2.15s/it, Reward=549.82, AvgLoss=0.5233, Wins=3]Train Episodes:  65%|██████▍   | 323/500 [14:20<07:07,  2.41s/it, Reward=549.82, AvgLoss=0.5233, Wins=3]Game has started.
+2025-10-21 23:52:37,605Z | INFO | Starting episode 324: [terran, zerg] on FindAndDefeatZerglings
+2025-10-21 23:52:40,581Z | INFO | Episode 324 finished after 2672 game steps. Outcome: [-1], reward: [-1], score: [3]
+Train Episodes:  65%|██████▍   | 323/500 [14:23<07:07,  2.41s/it, Reward=299.83, AvgLoss=0.4111, Wins=3]Train Episodes:  65%|██████▍   | 324/500 [14:23<07:36,  2.59s/it, Reward=299.83, AvgLoss=0.4111, Wins=3]Game has started.
+2025-10-21 23:52:40,610Z | INFO | Starting episode 325: [terran, zerg] on FindAndDefeatZerglings
