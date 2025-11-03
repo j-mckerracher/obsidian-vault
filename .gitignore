@@ -1,2 +1,7 @@
 .trash/
 Thumbs.db
+
+# Obsidian machine-specific files
+.obsidian/workspace.json
+.obsidian/workspaces.json
+.obsidian/app.json
