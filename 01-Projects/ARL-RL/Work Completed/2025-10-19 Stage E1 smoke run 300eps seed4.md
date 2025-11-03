@@ -46,7 +46,7 @@ Job completed successfully!
 
 ## Links
 - [[20251019_033706_E1_seed4]]
-- [[Work Completed/Index]]
+- [[01 Projects/ARL-RL/Work Completed/Index]]
 
 ## Next
 - Repeat smoke for seeds 6 and 8 (1h chunks) and/or extend to longer normal QoS runs; update `e1_results.csv` and Experiments notes accordingly.

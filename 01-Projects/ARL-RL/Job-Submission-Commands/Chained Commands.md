@@ -6,3 +6,4 @@ check status:
 ```bash
 for j in $jid4 $jid6 $jid8; do f=$(scontrol show job $j | awk -F= '/StdOut=/{print $2}'); echo "$j $f"; done
 ```
+
