@@ -1,5 +1,5 @@
 ## Projects
-![[01 Projects/Projects Index]]
+![[Projects Index]]
 
 ## Tips
 - Use [[ ]] to link notes.
