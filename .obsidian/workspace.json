@@ -4,35 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "ccd42704083bde8c",
+        "id": "0813e9e0d173ec22",
         "type": "tabs",
         "children": [
           {
-            "id": "5cc161a71261e71f",
+            "id": "bf9f25338c0d780d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01-Projects/AGILE3D-Demo/Current-State-Vs-Overall-Plan.md",
+                "file": "01-Projects/ARL-RL/Experiments/20251025_E3_PER_smoke.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Current-State-Vs-Overall-Plan"
-            }
-          },
-          {
-            "id": "f04cbea839b89ff9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "04-Agent-Reference-Files/File-Locations.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "File-Locations"
+              "title": "20251025_E3_PER_smoke"
             }
           }
         ]
@@ -92,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 425.5
+    "width": 343.5
   },
   "right": {
     "id": "798bc80d22f9f14d",
@@ -180,45 +166,53 @@
       "bases:Create new base": false
     }
   },
-  "active": "5cc161a71261e71f",
+  "active": "bf9f25338c0d780d",
   "lastOpenFiles": [
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/macro-level-plan.md",
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/infrastructure-plan.md",
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/aws-setup-commands.sh",
-    "01-Projects/AGILE3D-Demo/Current-State-Vs-Overall-Plan.md",
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/Work-Decomposer-Output.md",
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/infrastructure-plan",
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/meso-level-plan.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U18.md",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U19-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U21-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U20-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U18-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U18.md.tmp.114230.1762027759842",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U15-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U17.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U16.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U15.md.tmp.57240.1762011338014",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U15.md.tmp.57240.1762011333260",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U15.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U15.md.tmp.57240.1762009951960",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U11-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U14.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U14.md.tmp.57240.1762008086832",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U13.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U13.md.tmp.57240.1762007734054",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U12.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U12.md.tmp.57240.1762007363269",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U10-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U11.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U11.md.tmp.57240.1762006987960",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U17-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U16-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U14-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U13-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U12-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U10.md",
-    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D-Poster.png",
-    "01-Projects/NSF Site Visit Demo/Planning/AGILE3D-Poster.png"
+    "01-Projects/ARL-RL/Status.md",
+    "01 Projects/EuroSys-Demo-Confidential/EuroSys_Preeti_CDET.pdf",
+    "01 Projects/ARL-RL/Job-Submission-Commands/E2-Production-Run.md",
+    "01 Projects/ARL-RL/Job-Submission-Commands/2025-10-25-expt-20251025-e2-prod-3k.md",
+    "01 Projects/ARL-RL/Job-Submission-Commands/Chained Commands.md",
+    "01 Projects/ARL-RL/Experiments/20251025_E2_TUF_sweep_alt3.md",
+    "01 Projects/ARL-RL/Experiments/20251025_E3_PER_run2_alpha_sweep.md",
+    "01 Projects/ARL-RL/Experiments/20251025_E3_PER_smoke.md",
+    "01 Projects/ARL-RL/Notes/Engineering Notes - Mixed Precision and HPC.md",
+    "01 Projects/COMAD-CODS-Paper/ReviewFixes-Plan.md",
+    "01 Projects/AGILE3D-Demo/Planning/Stream-From-Model-Output/AGILE3D-WebSocket-Stream-Feature.md",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_time_series.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_distributions_enhanced.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/user_waste_heatmap.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_by_characteristics.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/acmguide.pdf",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sampleteaser.pdf",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/acm-jdslogo.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/acmdatamodel.dbx",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sample-franklin.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/references.bib",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/software.bib",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sample-sigconf.tex",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sample-sigconf-xelatex.tex",
+    "01 Projects/ARL-RL/Prompts/Update all status tracking docs.md",
+    "01 Projects/ARL-RL/PHASE_2_PROGRESS_2025-10-25.md",
+    "01 Projects/ARL-RL/Work Completed/2025-10/2025-10-25.md",
+    "01 Projects/ARL-RL/RESTRUCTURING_SUMMARY_2025-10-25.md",
+    "01 Projects/ARL-RL/Documents/Experiments/expt-20251025-e3-per-sweep.md",
+    "01 Projects/ARL-RL/Documents/Experiments/expt-20251025-e3-per-smoke.md",
+    "01 Projects/ARL-RL/Documents/Experiments/expt-20251025-e2-tuf-sweep.md",
+    "01 Projects/ARL-RL/Documents/Experiments/expt-20251025-e2-confirm-1k.md",
+    "01 Projects/ARL-RL/Documents/Experiments/expt-20251025-e2-prod-3k.md",
+    "01 Projects/ARL-RL/Documents/Index.md",
+    "01 Projects/ARL-RL/Documents/Index.template.md",
+    "01 Projects/ARL-RL/Status.template.md",
+    "01 Projects/ARL-RL/Plan.template.md",
+    "01 Projects/ARL-RL/Experiments.template.md",
+    "01 Projects/ARL-RL/Work Completed/DailyWorkLog.template.md",
+    "01 Projects/ARL-RL/Job-Submission-Commands/Job.template.md",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/training_curves.png",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed6/training_curves.png",
+    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212042_E1_seed4/training_curves.png",
+    "01 Projects/ARL RL/Experiment-Results/10-24-2025/run-2/20251024_145316_E1_seed8/training_curves.png"
   ]
 }
