@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "10ca9a3716ae3865",
+        "id": "0813e9e0d173ec22",
         "type": "tabs",
         "children": [
           {
-            "id": "1dc067156679b3f4",
+            "id": "bf9f25338c0d780d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01 Projects/ARL RL/Status.md",
+                "file": "01-Projects/ARL-RL/Experiments/20251025_E3_PER_smoke.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Status"
+              "title": "20251025_E3_PER_smoke"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 425.5
+    "width": 343.5
   },
   "right": {
     "id": "798bc80d22f9f14d",
@@ -166,53 +166,53 @@
       "bases:Create new base": false
     }
   },
-  "active": "aef185152c49203f",
+  "active": "bf9f25338c0d780d",
   "lastOpenFiles": [
-    "01 Projects/ARL RL/Experiments/20251021_212805_E1_seed8.md",
-    "01 Projects/ARL RL/Experiments/20251021_212805_E1_seed6.md",
-    "01 Projects/ARL RL/Experiments/20251021_212042_E1_seed4.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-21 E1 aggregation and decision.md",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep100.pth",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep100.pth.filepart",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/eval/test_results.json",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/eval",
+    "01-Projects/ARL-RL/Status.md",
+    "01 Projects/EuroSys-Demo-Confidential/EuroSys_Preeti_CDET.pdf",
+    "01 Projects/ARL-RL/Job-Submission-Commands/E2-Production-Run.md",
+    "01 Projects/ARL-RL/Job-Submission-Commands/2025-10-25-expt-20251025-e2-prod-3k.md",
+    "01 Projects/ARL-RL/Job-Submission-Commands/Chained Commands.md",
+    "01 Projects/ARL-RL/Experiments/20251025_E2_TUF_sweep_alt3.md",
+    "01 Projects/ARL-RL/Experiments/20251025_E3_PER_run2_alpha_sweep.md",
+    "01 Projects/ARL-RL/Experiments/20251025_E3_PER_smoke.md",
+    "01 Projects/ARL-RL/Notes/Engineering Notes - Mixed Precision and HPC.md",
+    "01 Projects/COMAD-CODS-Paper/ReviewFixes-Plan.md",
+    "01 Projects/AGILE3D-Demo/Planning/Stream-From-Model-Output/AGILE3D-WebSocket-Stream-Feature.md",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_time_series.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_distributions_enhanced.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/user_waste_heatmap.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_by_characteristics.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/acmguide.pdf",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sampleteaser.pdf",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/acm-jdslogo.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/acmdatamodel.dbx",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sample-franklin.png",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/references.bib",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/software.bib",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sample-sigconf.tex",
+    "01 Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sample-sigconf-xelatex.tex",
+    "01 Projects/ARL-RL/Prompts/Update all status tracking docs.md",
+    "01 Projects/ARL-RL/PHASE_2_PROGRESS_2025-10-25.md",
+    "01 Projects/ARL-RL/Work Completed/2025-10/2025-10-25.md",
+    "01 Projects/ARL-RL/RESTRUCTURING_SUMMARY_2025-10-25.md",
+    "01 Projects/ARL-RL/Documents/Experiments/expt-20251025-e3-per-sweep.md",
+    "01 Projects/ARL-RL/Documents/Experiments/expt-20251025-e3-per-smoke.md",
+    "01 Projects/ARL-RL/Documents/Experiments/expt-20251025-e2-tuf-sweep.md",
+    "01 Projects/ARL-RL/Documents/Experiments/expt-20251025-e2-confirm-1k.md",
+    "01 Projects/ARL-RL/Documents/Experiments/expt-20251025-e2-prod-3k.md",
+    "01 Projects/ARL-RL/Documents/Index.md",
+    "01 Projects/ARL-RL/Documents/Index.template.md",
+    "01 Projects/ARL-RL/Status.template.md",
+    "01 Projects/ARL-RL/Plan.template.md",
+    "01 Projects/ARL-RL/Experiments.template.md",
+    "01 Projects/ARL-RL/Work Completed/DailyWorkLog.template.md",
+    "01 Projects/ARL-RL/Job-Submission-Commands/Job.template.md",
     "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/training_curves.png.filepart",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/train.log",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/train.log.filepart",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep200.pth",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/model_ep200.pth.filepart",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed8/config.json",
     "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed6/training_curves.png",
     "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212042_E1_seed4/training_curves.png",
-    "01 Projects/ARL RL/Plan.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-21 Stage E1 2h standby chunks 800eps seeds 4 6 8.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-19 Stage E1 smoke runs seeds 6 and 8.md",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-2/20251021_205055_E1_seed6/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-2/20251021_205055_E1_seed4/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-2/20251021_205033_E1_seed8/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-1/20251021_164435_E1_seed8/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-1/20251021_164433_E1_seed4/training_curves.png",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/batch-1/20251021_164432_E1_seed6/training_curves.png",
-    "01 Projects/ARL RL/Experiments/20251021_164435_E1_seed8.md",
-    "01 Projects/ARL RL/Experiments/20251021_164432_E1_seed6.md",
-    "01 Projects/ARL RL/Experiments/20251021_164433_E1_seed4.md",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/10212025.md",
-    "01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_164435_E1_seed8/training_curves.png",
-    "01 Projects/ARL RL/Work Completed/2025-10-19 Stage E1 chained 1k eps seeds 4 6 8.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-21 Queue stall fix - normal QoS resubmission.md",
-    "01 Projects/ARL RL/Work Completed/2025-10-19 Stage E1 smoke run 300eps seed4.md",
-    "01 Projects/ARL RL/Home.md",
-    "01 Projects/ARL RL/Experiments.md",
-    "01 Projects/ARL RL/Status.md",
-    "01 Projects/ARL RL/References/LLM Collaboration Guide.md",
-    "01 Projects/ARL RL/Experiments/20251019_151225_E1_seed8.md",
-    "01 Projects/ARL RL/Experiments/20251019_041819_E1_seed6.md",
-    "01 Projects/ARL RL/Experiments/20251019_033706_E1_seed4.md",
-    "01 Projects/ARL RL/Script-Modification-Explainer.md",
-    "01 Projects/ARL RL/To Do.md",
-    "01 Projects/ARL RL/Don't Forget.md",
-    "01 Projects/ARL RL/Job-Submission-Commands/Chained Commands.md",
-    "01 Projects/ARL RL/Experiments/Plan.md"
+    "01 Projects/ARL RL/Experiment-Results/10-24-2025/run-2/20251024_145316_E1_seed8/training_curves.png"
   ]
 }
