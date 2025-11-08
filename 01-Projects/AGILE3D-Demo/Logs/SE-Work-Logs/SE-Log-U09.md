@@ -265,7 +265,7 @@ owner: "[[Claude Code]]"
 - Dependencies: None (utility worker)
 - Related: [[SE-Log-U05]] (Sample data generation), [[SE-Log-U08]] (FrameStreamService which will use this worker)
 - Today: [[2025-11-01]]
-- Planning: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/micro-level-plan]]
+- Planning: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/micro-level-plan]]
 
 ## Checklist
 - [x] Log created and linked from assignment

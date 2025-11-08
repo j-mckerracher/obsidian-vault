@@ -135,12 +135,12 @@ ng serve
 - Console log from manual test showing point counts and parsed results
 
 ## Minimal Context Excerpts
-> Source: [[micro-level-plan#4. Points Parser Worker]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#4. Points Parser Worker]]
 > Input: ArrayBuffer (.bin), optional small JSON header.
 > Output: Float32Array positions; metadata {pointCount}.
 > Validate size thresholds; return transferable buffers.
 >
-> Source: [[Work-Decomposer-Output#Unit U09: Points Parser Worker (assets-based)]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/Work-Decomposer-Output#Unit U09: Points Parser Worker (assets-based)]]
 > Implement `src/assets/workers/point-cloud-worker.js`; load using `new Worker('/assets/workers/point-cloud-worker.js')`.
 > Angular assets include `src/assets/workers/**` so the Worker URL resolves in dev/prod builds.
 > Worker parses buffers and returns transferable `Float32Array` plus `{pointCount}`.

@@ -370,7 +370,7 @@ This unit completed without blockers. All prerequisites available:
 ## Links & Backlinks
 
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Assignment: Unit U02 from [[Planning/Use-Real-Data/plan/micro-level-plan.md]]
+- Assignment: Unit U02 from [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/micro-level-plan]]
 - Predecessor: [[SE-Log-U01]]
 - Next: [[SE-Log-U03]] (Downsampling & fallback tiers)
 - Tests: `tools/converter/tests/test_pkl_reader.py`

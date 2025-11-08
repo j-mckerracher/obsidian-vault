@@ -125,14 +125,14 @@ ng serve
 - Example parsed manifest structure (serialized to JSON for inspection)
 
 ## Minimal Context Excerpts
-> Source: [[micro-level-plan#4. Detailed Module — FrameStreamService inputs]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#4. Detailed Module — FrameStreamService inputs]]
 > FrameStreamService depends on manifest URL and sequence id from config; uses SequenceManifest/FrameRef models to discover frames.
 >
-> Source: [[micro-level-plan#6. API and Message Contracts]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#6. API and Message Contracts]]
 > FrameRef interface: { id: string; ts?: number; pointCount?: number; urls:{points:string; gt?:string; det?:Record<string,string>}; }
 > SequenceManifest: { version:string; sequenceId:string; fps:number; classMap:Record<string,string>; branches:string[]; frames:FrameRef[]; }
 >
-> Source: [[Work-Decomposer-Output#Unit U06: Manifest Loader Service and Models]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/Work-Decomposer-Output#Unit U06: Manifest Loader Service and Models]]
 > Fetch uses `manifestMs=5000` timeout and `[250,750]` retry backoff.
 > Parsed models align with §16 interfaces; invalid schema → error stream.
 

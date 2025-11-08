@@ -179,7 +179,7 @@ None. All work completed successfully without blockers.
 - Assignment: [[01-Projects/AGILE3D-Demo/Assignments/UoW-U04-Assignment]]
 - Today: [[2025-10-31]]
 - Related logs: [[SE-Log-U03]] (downsampling dependency)
-- Planning docs: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/micro-level-plan]]
+- Planning docs: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/micro-level-plan]]
 
 ## Checklist
 - [x] Log created, linked from assignment and daily note

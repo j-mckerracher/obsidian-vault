@@ -102,14 +102,14 @@ python tools/converter/pkl2web.py --input-pkl assets/data/model-outputs/sample/d
 - Sample console output from manual CLI invocation with metadata
 
 ## Minimal Context Excerpts
-> Source: [[micro-level-plan#2. Repository Structure and Conventions]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#2. Repository Structure and Conventions]]
 > Converter: Python 3.11.x (Alt: 3.10/3.12)
 >
-> Source: [[Work-Decomposer-Output#Unit U03: Converter CLI — Downsampling and Quantization]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/Work-Decomposer-Output#Unit U03: Converter CLI — Downsampling and Quantization]]
 > Scope: Add downsample `{100k|50k}` and quantize `{off|fp16|int16}` transforms. Ensure size thresholds and metadata validated.
 > Acceptance: Output point counts respect selected tier within ±1%; Quantization modes round-trip without crashes; metadata indicates mode.
 >
-> Source: [[micro-level-plan#4. Detailed Module/Component Specifications — SceneDataService]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#4. Detailed Module/Component Specifications — SceneDataService]]
 > Edge cases: handle varying point counts (realloc only when needed); Z-up yaw; dequantize if header present
 
 ## Follow-ups if Blocked

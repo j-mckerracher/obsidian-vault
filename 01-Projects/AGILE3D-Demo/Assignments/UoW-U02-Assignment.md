@@ -80,13 +80,13 @@ python tools/converter/pkl2web.py --input-pkl assets/data/model-outputs/sample/d
 - Sample console output from `--dry-run` invocation
 
 ## Minimal Context Excerpts
-> Source: [[micro-level-plan#4. Detailed Module/Component Specifications]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#4. Detailed Module/Component Specifications]]
 > SceneDataService loads/parses points in Worker, patch THREE.BufferAttribute in-place, deserialize detections, filter by score/labels.
 > 
-> Source: [[micro-level-plan#16. Appendices — Example TypeScript interfaces]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#16. Appendices — Example TypeScript interfaces]]
 > Example interfaces for reference: `FrameRef { id: string; ts?: number; pointCount?: number; urls:{points:string; gt?:string; det?:Record<string,string>}; }`
 > 
-> Source: [[Work-Decomposer-Output#Unit U02: Converter CLI — PKL Read & Schema Mapping]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/Work-Decomposer-Output#Unit U02: Converter CLI — PKL Read & Schema Mapping]]
 > PKL schema stability; provide sample fixtures. Unknown fields tolerated (ignored) per additive versioning rule.
 
 ## Follow-ups if Blocked

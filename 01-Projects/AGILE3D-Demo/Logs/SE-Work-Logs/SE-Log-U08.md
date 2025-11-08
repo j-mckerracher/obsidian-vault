@@ -239,7 +239,7 @@ owner: "[[Claude Code]]"
 - Assignment: [[01-Projects/AGILE3D-Demo/Assignments/UoW-U08-Assignment]]
 - Dependencies: [[SE-Log-U06]] (Manifest Service), [[SE-Log-U07]] (HTTP Utilities)
 - Today: [[2025-11-01]]
-- Planning: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/micro-level-plan]]
+- Planning: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/micro-level-plan]]
 
 ## Checklist
 - [x] Log created and linked from assignment

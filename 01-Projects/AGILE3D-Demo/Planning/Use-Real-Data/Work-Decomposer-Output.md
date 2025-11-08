@@ -1,17 +1,19 @@
 ---
-tags: [planning, work-decomposition]
+tags:
+  - planning
+  - work-decomposition
 project: "[[01-Projects/AGILE3D-Demo]]"
-plan_title: "Use Real Data"
+plan_title: Use Real Data
 context_budget_tokens: 6000
-created: "2025-10-31"
-source_plan: "[[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/micro-level-plan.md]]"
+created: 2025-10-31
+source_plan: "[[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/micro-level-plan]]"
 ---
 
 # Work Decomposition — Use Real Data
 
 ## Overview
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Source plan: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/micro-level-plan.md]]
+- Source plan: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/micro-level-plan]]
 - Context budget (tokens): 6000
 
 ## Units

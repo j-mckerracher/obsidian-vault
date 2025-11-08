@@ -252,7 +252,7 @@ This unit completed without blockers or escalation. All prerequisites were avail
 ## Links & Backlinks
 
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Assignment: Unit U01 from [[Planning/Use-Real-Data/plan/micro-level-plan.md]]
+- Assignment: Unit U01 from [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/micro-level-plan]]
 - Related logs: (U01-2 through U01-6 to follow)
 - Tests: `tools/converter/tests/test_args.py`
 - Implementation: `tools/converter/pkl2web.py`

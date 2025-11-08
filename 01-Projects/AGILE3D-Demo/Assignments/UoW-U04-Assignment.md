@@ -137,12 +137,12 @@ python -m json.tool /tmp/u04_test_output/manifest.json
 - Sample manifest.json and one .bin/.json file pair (if not too large)
 
 ## Minimal Context Excerpts
-> Source: [[micro-level-plan#6. API and Message Contracts]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#6. API and Message Contracts]]
 > POST {Base_URL}/metrics JSON { "ts": number, "sessionId": string, "seqId": string, "frameId": string, "event": "heartbeat"|"error"|"miss"|"play"|"pause", ... }
 > FrameRef interface: { id: string; ts?: number; pointCount?: number; urls:{points:string; gt?:string; det?:Record<string,string>}; }
 > SequenceManifest: { version:string; sequenceId:string; fps:number; classMap:Record<string,string>; branches:string[]; frames:FrameRef[]; }
 >
-> Source: [[Work-Decomposer-Output#Unit U04: Converter CLI — Emit Frames and Manifest]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/Work-Decomposer-Output#Unit U04: Converter CLI — Emit Frames and Manifest]]
 > Output tree matches plan: `frames/*.bin`, `*.gt.json`, `*.det.{branch}.json`, `manifest.json`.
 > Manifest validates against schema and includes branches.
 > Ensure ordering, counts, and filenames deterministic.

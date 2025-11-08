@@ -132,13 +132,13 @@ nx test utils-network --watch=false
 - Range verification result (logged output showing detection)
 
 ## Minimal Context Excerpts
-> Source: [[micro-level-plan#7. Networking]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#7. Networking]]
 > Networking: manifest timeout 5s; frame timeout 3s; retries=2 with 250 ms and 750 ms backoff; prefetch=3; concurrency=2–3; "miss" includes late arrival.
 > 
-> Source: [[micro-level-plan#8. Delivery]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#8. Delivery]]
 > Frames: immutable 1 year; manifest TTL 300 s; Range‑GET enabled.
 >
-> Source: [[Work-Decomposer-Output#Unit U07: Utils-Network]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/Work-Decomposer-Output#Unit U07: Utils-Network]]
 > Implement `fetchWithTimeoutAndRetry` and `verifyRangeGet(url)` (HEAD+range probe).
 > Helpers enforce 3s frame timeout and `[250,750]` backoff; abort support.
 > Range support detected and logged; failures flagged.

@@ -160,16 +160,16 @@ ng serve
 - Screenshot or log of 3-miss pause flow
 
 ## Minimal Context Excerpts
-> Source: [[micro-level-plan#4. FrameStreamService]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#4. FrameStreamService]]
 > Purpose: fixed 10 Hz playback controller with prefetch=3, concurrency=2–3, cancellation and miss accounting.
 > Behavior: start() begins cadence; pause() stops; automatic loop; on 3 misses → pause and emit banner event.
 > Pseudocode: tick() checks prefetch queue, registers miss if deadline passed, fetches next, emits current frame.
 >
-> Source: [[micro-level-plan#3. Session Inputs Summary]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#3. Session Inputs Summary]]
 > NFRs: smooth 10 Hz; render ~60 fps; ≤16 ms per-frame budget.
 > Networking: frame timeout 3s; retries=2 with 250 ms and 750 ms backoff; prefetch=3; concurrency=2–3; "miss" includes late arrival.
 >
-> Source: [[Work-Decomposer-Output#Unit U08: FrameStreamService — Cadence, Prefetch, Miss Accounting]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/Work-Decomposer-Output#Unit U08: FrameStreamService — Cadence, Prefetch, Miss Accounting]]
 > Tick jitter ≤±5 ms on average over 60 s; sustained 10 Hz.
 > After 3 consecutive misses, service pauses and emits banner event.
 

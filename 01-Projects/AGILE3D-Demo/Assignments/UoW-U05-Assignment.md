@@ -121,10 +121,10 @@ cat .gitignore | grep -E '(\*\.bin|/assets/data/streams/sample)' || echo "Note: 
 - One sample manifest.json (text, not binary)
 
 ## Minimal Context Excerpts
-> Source: [[micro-level-plan#5. Data Model and Persistence]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#5. Data Model and Persistence]]
 > No DB; client memory only (sliding window ≤3 frames). Caching: CDN immutable for frames; client no IndexedDB v1; manifest cache per HTTP TTL (300 s).
 >
-> Source: [[Work-Decomposer-Output#Unit U05: Converter CLI — Validation Report & Sample Generator]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/Work-Decomposer-Output#Unit U05: Converter CLI — Validation Report & Sample Generator]]
 > Implement validators (counts, AABB, yaw sanity, ordering). Provide `generate_sample.sh` to emit 10-frame sample (full and fallback tiers) into assets path.
 > Validator emits pass/fail summary; non-fatal warnings allowed. Running script places 10-frame sample in `/home/josh/Code/AGILE3D-Demo/apps/web/src/assets/data/streams/sample/` with manifest.
 

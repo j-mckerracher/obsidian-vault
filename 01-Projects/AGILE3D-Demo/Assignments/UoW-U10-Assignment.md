@@ -160,15 +160,15 @@ ng serve
 - Memory profiling screenshot (optional) showing buffer reuse behavior
 
 ## Minimal Context Excerpts
-> Source: [[micro-level-plan#4. SceneDataService]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#4. SceneDataService]]
 > Purpose: load/parse points in Worker, patch THREE.BufferAttribute in-place, deserialize detections, filter by score/labels.
 > API: setActiveBranch(id), setScoreThreshold(n), setLabelMask(mask), applyFrame(FrameData).
 > Edge cases: handle varying point counts (realloc only when needed); Z-up yaw; dequantize if header present.
 >
-> Source: [[micro-level-plan#3. Session Inputs Summary]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#3. Session Inputs Summary]]
 > Score≥0.7 default; classes vehicle/pedestrian/cyclist enabled.
 >
-> Source: [[Work-Decomposer-Output#Unit U10: SceneDataService]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/Work-Decomposer-Output#Unit U10: SceneDataService]]
 > Geometry patches without reallocation when `pointCount` stable.
 > Filters correctly include classes vehicle/pedestrian/cyclist with default score ≥0.7.
 
