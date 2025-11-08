@@ -116,7 +116,7 @@ npm run build:prod
 - Any new config files
 
 ## Minimal Context Excerpts
-> Source: [[micro-level-plan#e.g., 4.1 VideoLandingComponent]]
+> Source: [[01-Projects/TGL-Results-Explorer/Planning/micro-level-plan#e.g., 4.1 VideoLandingComponent]]
 > Only the necessary 3–6 lines supporting this UoW
 
 ## Follow-ups if Blocked
