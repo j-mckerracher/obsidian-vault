@@ -22,7 +22,7 @@ Attached requirements
 
 1) Define project variables
 - Run:
-```
+```bash
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 AWS_REGION=us-east-1
 PROJECT=agile3d-demo
@@ -32,11 +32,22 @@ LOCAL_DEV_ORIGIN=http://localhost:4200
 PRICE_CLASS=PriceClass_100
 TS=$(date +%Y%m%d-%H%M%S)
 ```
+
+```powershell
+$ACCOUNT_ID = (aws sts get-caller-identity --query Account --output text)
+$AWS_REGION = "us-east-1"
+$PROJECT = "agile3d-demo"
+$BUCKET = "${PROJECT}-sequences-${ACCOUNT_ID}-${AWS_REGION}"
+$VERCEL_ORIGIN = "https://agile-3-d-demo.vercel.app"
+$LOCAL_DEV_ORIGIN = "http://localhost:4200"
+$PRICE_CLASS = "PriceClass_100"
+$TS = (Get-Date -Format "yyyyMMdd-HHmmss")
+```
 - Optional: persist to .agile3d.env for reuse.
 
 2) Create S3 bucket (private, encrypted, block public)
-- Create bucket:
-```
+- Create bucket: "Location": "/agile3d-demo-sequences-495599771100-us-east-1
+```bash
 if [ "$AWS_REGION" = "us-east-1" ]; then
   aws s3api create-bucket --bucket "$BUCKET"
 else
@@ -44,13 +55,31 @@ else
     --create-bucket-configuration LocationConstraint="$AWS_REGION"
 fi
 ```
-- Block public access and enable encryption:
+```powershell
+if ($AWS_REGION -eq "us-east-1") {
+  aws s3api create-bucket --bucket "$BUCKET"
+} else {
+  aws s3api create-bucket --bucket "$BUCKET" --region "$AWS_REGION" `
+    --create-bucket-configuration "LocationConstraint=$AWS_REGION"
+}
 ```
+- Block public access and enable encryption:
+```bash
 aws s3api put-public-access-block --bucket "$BUCKET" \
   --public-access-block-configuration '{"BlockPublicAcls":true,"IgnorePublicAcls":true,"BlockPublicPolicy":true,"RestrictPublicBuckets":true}'
 aws s3api put-bucket-encryption --bucket "$BUCKET" \
   --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
 ```
+```powershell
+aws s3api put-public-access-block --bucket "$BUCKET" `
+  --public-access-block-configuration '{"BlockPublicAcls":true,"IgnorePublicAcls":true,"BlockPublicPolicy":true,"RestrictPublicBuckets":true}'
+aws s3api put-bucket-encryption --bucket "$BUCKET" `
+  --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
+```
+
+
+S3 BUCKET -> **/agile3d-demo-sequences-495599771100-us-east-1**
+
 
 3) Configure S3 CORS (Vercel + localhost; Range support)
 - Create s3-cors.json:
@@ -62,7 +91,7 @@ aws s3api put-bucket-encryption --bucket "$BUCKET" \
         "https://agile3d-demo.vercel.app",
         "http://localhost:4200"
       ],
-      "AllowedMethods": ["GET","HEAD","OPTIONS"],
+      "AllowedMethods": ["GET","HEAD"],
       "AllowedHeaders": ["Range","Content-Type","Origin","Access-Control-Request-Headers","Access-Control-Request-Method"],
       "ExposeHeaders": ["Accept-Ranges","Content-Length","Content-Range"],
       "MaxAgeSeconds": 600
@@ -71,7 +100,10 @@ aws s3api put-bucket-encryption --bucket "$BUCKET" \
 }
 ```
 - Apply:
+```bash
+aws s3api put-bucket-cors --bucket "$BUCKET" --cors-configuration file://s3-cors.json
 ```
+```powershell
 aws s3api put-bucket-cors --bucket "$BUCKET" --cors-configuration file://s3-cors.json
 ```
 
@@ -89,11 +121,25 @@ aws s3api put-bucket-cors --bucket "$BUCKET" --cors-configuration file://s3-cors
 }
 ```
 - Create and capture OAC_ID:
-```
+```bash
 OAC_ID=$(aws cloudfront create-origin-access-control \
   --origin-access-control-config file://oac.json \
   --query 'OriginAccessControl.Id' --output text)
 ```
+```powershell
+$OAC_ID = (aws cloudfront create-origin-access-control `
+  --origin-access-control-config file://oac.json `
+  --query 'OriginAccessControl.Id' --output text)
+```
+
+PS C:\Users\jmckerra\WebstormProjects\AGILE3D-Demo\tools\infra> echo $OAC_INFO
+
+Id                            : E388RON893GSFV
+Description                   : OAC for AGILE3D S3 origin
+Name                          : AGILE3D-OAC
+SigningProtocol               : sigv4
+SigningBehavior               : always
+OriginAccessControlOriginType : s3
 
 5) Create CloudFront Response Headers Policy (CORS + Range headers)
 - cf-response-headers-policy.json:
@@ -114,9 +160,14 @@ OAC_ID=$(aws cloudfront create-origin-access-control \
 }
 ```
 - Create and capture RHP_ID:
-```
+```bash
 RHP_ID=$(aws cloudfront create-response-headers-policy \
   --response-headers-policy-config file://cf-response-headers-policy.json \
+  --query 'ResponseHeadersPolicy.Id' --output text)
+```
+```powershell
+$RHP_ID = (aws cloudfront create-response-headers-policy `
+  --response-headers-policy-config file://cf-response-headers-policy.json `
   --query 'ResponseHeadersPolicy.Id' --output text)
 ```
 
@@ -137,11 +188,71 @@ RHP_ID=$(aws cloudfront create-response-headers-policy \
 }
 ```
 - Create and capture ORP_ID:
-```
+```bash
 ORP_ID=$(aws cloudfront create-origin-request-policy \
   --origin-request-policy-config file://cf-origin-request-policy.json \
   --query 'OriginRequestPolicy.Id' --output text)
 ```
+```powershell
+$ORP_ID = (aws cloudfront create-origin-request-policy `
+  --origin-request-policy-config file://cf-origin-request-policy.json `
+  --query 'OriginRequestPolicy.Id' --output text)
+```
+
+PS C:\Users\jmckerra\WebstormProjects\AGILE3D-Demo\tools\infra> $POLICY_ID = (aws cloudfront list-response-headers-policies --query "ResponseHeadersPolicyList.Items[?ResponseHeadersPolicy.ResponseHeadersPolicyConfig.Name=='$POLICY_NAME'].ResponseHeadersPolicy.Id" --output text)
+PS C:\Users\jmckerra\WebstormProjects\AGILE3D-Demo\tools\infra>
+PS C:\Users\jmckerra\WebstormProjects\AGILE3D-Demo\tools\infra> # 2. Get the ETag using the ID
+PS C:\Users\jmckerra\WebstormProjects\AGILE3D-Demo\tools\infra> $ETAG = (aws cloudfront get-response-headers-policy --id $POLICY_ID --query 'ETag' --output text)
+PS C:\Users\jmckerra\WebstormProjects\AGILE3D-Demo\tools\infra> aws cloudfront update-response-headers-policy `
+>>   --id $POLICY_ID `
+>>   --if-match $ETAG `
+>>   --response-headers-policy-config file://cf-response-headers-policy.json
+{
+    "ETag": "ETVPDKIKX0DER",
+    "ResponseHeadersPolicy": {
+        "Id": "55e5213e-078c-454d-be12-9acdeedea070",
+        "LastModifiedTime": "2025-11-09T05:37:39.972000+00:00",
+        "ResponseHeadersPolicyConfig": {
+            "Comment": "CORS for Vercel + localhost; expose Range-related headers",
+            "Name": "AGILE3D-CORS-Expose-Range",
+            "CorsConfig": {
+                "AccessControlAllowOrigins": {
+                    "Quantity": 2,
+                    "Items": [
+                        "https://agile3d-demo.vercel.app",
+                        "http://localhost:4200"
+                    ]
+                },
+                "AccessControlAllowHeaders": {
+                    "Quantity": 2,
+                    "Items": [
+                        "range",
+                        "content-type"
+                    ]
+                },
+                "AccessControlAllowMethods": {
+                    "Quantity": 3,
+                    "Items": [
+                        "GET",
+                        "HEAD",
+                        "OPTIONS"
+                    ]
+                },
+                "AccessControlAllowCredentials": false,
+                "AccessControlExposeHeaders": {
+                    "Quantity": 3,
+                    "Items": [
+                        "Accept-Ranges",
+                        "Content-Length",
+                        "Content-Range"
+                    ]
+                },
+                "AccessControlMaxAgeSec": 600,
+                "OriginOverride": true
+            }
+        }
+    }
+}
 
 7) Create CloudFront Cache Policy (default uses origin Cache-Control; fallback 300s)
 - cf-cache-policy-default.json:
@@ -164,11 +275,49 @@ ORP_ID=$(aws cloudfront create-origin-request-policy \
 }
 ```
 - Create and capture DEFAULT_CACHE_POLICY_ID:
-```
+```bash
 DEFAULT_CACHE_POLICY_ID=$(aws cloudfront create-cache-policy \
   --cache-policy-config file://cf-cache-policy-default.json \
   --query 'CachePolicy.Id' --output text)
 ```
+```powershell
+$DEFAULT_CACHE_POLICY_ID = (aws cloudfront create-cache-policy `
+  --cache-policy-config file://cf-cache-policy-default.json `
+  --query 'CachePolicy.Id' --output text)
+```
+
+PS C:\Users\jmckerra\WebstormProjects\AGILE3D-Demo\tools\infra> aws cloudfront update-cache-policy `
+>>   --id $POLICY_ID `
+>>   --if-match $ETAG `
+>>   --cache-policy-config file://cf-cache-policy-default.json
+{
+    "ETag": "ETVPDKIKX0DER",
+    "CachePolicy": {
+        "Id": "58f9d2fe-9906-47d2-83cc-b2c979b9a2cf",
+        "LastModifiedTime": "2025-11-09T05:41:56.848000+00:00",
+        "CachePolicyConfig": {
+            "Comment": "Default TTL 300s; respect origin Cache-Control up to MaxTTL",
+            "Name": "AGILE3D-Default-300s",
+            "DefaultTTL": 300,
+            "MaxTTL": 31536000,
+            "MinTTL": 0,
+            "ParametersInCacheKeyAndForwardedToOrigin": {
+                "EnableAcceptEncodingGzip": true,
+                "EnableAcceptEncodingBrotli": true,
+                "HeadersConfig": {
+                    "HeaderBehavior": "none"
+                },
+                "CookiesConfig": {
+                    "CookieBehavior": "none"
+                },
+                "QueryStringsConfig": {
+                    "QueryStringBehavior": "none"
+                }
+            }
+        }
+    }
+}
+
 
 8) Create CloudFront distribution (single origin/behavior; OAC; PriceClass_100)
 - cloudfront-distribution.json (uses envsubst):
@@ -200,11 +349,20 @@ DEFAULT_CACHE_POLICY_ID=$(aws cloudfront create-cache-policy \
 }
 ```
 - Create and capture DIST_ID and CF_DOMAIN:
-```
+```bash
 cat cloudfront-distribution.json | envsubst > cf.dist.evaluated.json
 CF_OUT=$(aws cloudfront create-distribution --distribution-config file://cf.dist.evaluated.json)
 DIST_ID=$(echo "$CF_OUT" | jq -r '.Distribution.Id')
 CF_DOMAIN=$(echo "$CF_OUT" | jq -r '.Distribution.DomainName')
+```
+```powershell
+$template = Get-Content -Path "cloudfront-distribution.json" -Raw
+$evaluated = $ExecutionContext.InvokeCommand.ExpandString($template)
+$evaluated | Set-Content -Path "cf.dist.evaluated.json"
+
+$CF_OUT_JSON = aws cloudfront create-distribution --distribution-config file://cf.dist.evaluated.json | ConvertFrom-Json
+$DIST_ID = $CF_OUT_JSON.Distribution.Id
+$CF_DOMAIN = $CF_OUT_JSON.Distribution.DomainName
 ```
 
 9) Attach bucket policy to allow only this CloudFront distribution
@@ -225,8 +383,15 @@ CF_DOMAIN=$(echo "$CF_OUT" | jq -r '.Distribution.DomainName')
 }
 ```
 - Apply:
-```
+```bash
 cat bucket-policy.json | envsubst > bucket-policy.evaluated.json
+aws s3api put-bucket-policy --bucket "$BUCKET" --policy file://bucket-policy.evaluated.json
+```
+```powershell
+$template = Get-Content -Path "bucket-policy.json" -Raw
+$evaluated = $ExecutionContext.InvokeCommand.ExpandString($template)
+$evaluated | Set-Content -Path "bucket-policy.evaluated.json"
+
 aws s3api put-bucket-policy --bucket "$BUCKET" --policy file://bucket-policy.evaluated.json
 ```
 
@@ -243,7 +408,7 @@ aws s3api put-bucket-policy --bucket "$BUCKET" --policy file://bucket-policy.eva
 }
 ```
 - Create user + attach policy (or replace with CI OIDC later):
-```
+```bash
 cat iam-policy.json | envsubst > iam-policy.evaluated.json
 POLICY_ARN=$(aws iam create-policy --policy-name AGILE3D-Uploader-Policy \
   --policy-document file://iam-policy.evaluated.json --query 'Policy.Arn' --output text)
@@ -252,10 +417,33 @@ aws iam attach-user-policy --user-name agile3d-uploader --policy-arn "$POLICY_AR
 # Create access keys and store securely (never commit)
 aws iam create-access-key --user-name agile3d-uploader > uploader.keys.json
 ```
+```powershell
+$template = Get-Content -Path "iam-policy.json" -Raw
+$evaluated = $ExecutionContext.InvokeCommand.ExpandString($template)
+$evaluated | Set-Content -Path "iam-policy.evaluated.json"
+
+$POLICY_ARN = (aws iam create-policy --policy-name AGILE3D-Uploader-Policy `
+  --policy-document file://iam-policy.evaluated.json --query 'Policy.Arn' --output text)
+aws iam create-user --user-name agile3d-uploader
+aws iam attach-user-policy --user-name agile3d-uploader --policy-arn "$POLICY_ARN"
+# Create access keys and store securely (never commit)
+aws iam create-access-key --user-name agile3d-uploader | Set-Content -Path "uploader.keys.json"
+```
+
+PS C:\Users\jmckerra\WebstormProjects\AGILE3D-Demo\tools\infra> aws iam create-user --user-name agile3d-uploader
+{
+    "User": {
+        "Path": "/",
+        "UserName": "agile3d-uploader",
+        "UserId": "AIDAXGZAMLXOAWCHEUY7T",
+        "Arn": "arn:aws:iam::495599771100:user/agile3d-uploader",
+        "CreateDate": "2025-11-09T05:44:18+00:00"
+    }
+}
 
 11) Upload sequences with correct metadata and invalidate manifests
 - Example upload script (upload_sequences.sh):
-```
+```bash
 set -euo pipefail
 : "${BUCKET:?missing}"; : "${DIST_ID:?missing}"
 SEQS_DIR=./sequences
@@ -274,11 +462,35 @@ aws s3 sync "$SEQS_DIR" "s3://${BUCKET}/sequences" \
 
 # Invalidate manifests to publish updates
 aws cloudfront create-invalidation --distribution-id "$DIST_ID" \
-  --paths "/sequences/*/manifest*.json" "/sequences/*/manifest.json"
+  --paths "/sequences/*/manifest*.json" "/sequences/*/manifest*.json"
+```
+```powershell
+# upload_sequences.ps1
+$ErrorActionPreference = 'Stop'
+if (-not $BUCKET) { throw "Variable BUCKET is required." }
+if (-not $DIST_ID) { throw "Variable DIST_ID is required." }
+$SEQS_DIR = ".\sequences"
+
+# Frames + det/gt JSON: immutable 1y (relies on origin Cache-Control)
+aws s3 sync "$SEQS_DIR" "s3://${BUCKET}/sequences" `
+  --exclude "*" --include "*/frames/*.bin" --include "*/frames/*.det.*.json" --include "*/frames/*.gt.json" `
+  --content-type "application/octet-stream" --cache-control "public, max-age=31536000, immutable" `
+  --metadata-directive REPLACE --size-only
+
+# Manifests: 300s
+aws s3 sync "$SEQS_DIR" "s3://${BUCKET}/sequences" `
+  --exclude "*" --include "*/manifest.json" --include "*manifest*.json" `
+  --content-type "application/json" --cache-control "public, max-age=300" `
+  --metadata-directive REPLACE --size-only
+
+# Invalidate manifests to publish updates
+aws cloudfront create-invalidation --distribution-id "$DIST_ID" `
+  --paths "/sequences/*/manifest*.json" "/sequences/*/manifest*.json"
 ```
 
 12) Update SPA runtime-config and deploy to Vercel
 - Set manifestBaseUrl to CloudFront default domain (no custom DNS needed):
+- manifest Url = https://d1u4x8lsi8lzmi.cloudfront.net/sequences/
 ```
 {
   "manifestBaseUrl": "https://${CF_DOMAIN}/sequences/"
@@ -288,25 +500,45 @@ aws cloudfront create-invalidation --distribution-id "$DIST_ID" \
 
 13) Verify CORS, Range‑GET, and caching
 - CORS on GET:
-```
+```bash
 curl -I "https://${CF_DOMAIN}/sequences/SEQ001/manifest.json" -H "Origin: ${VERCEL_ORIGIN}"
 ```
-- Preflight (OPTIONS) for Range header:
+```powershell
+Invoke-WebRequest -Uri "https://${CF_DOMAIN}/sequences/SEQ001/manifest.json" -Method Head -Headers @{ "Origin" = $VERCEL_ORIGIN }
 ```
+- Preflight (OPTIONS) for Range header:
+```bash
 curl -i -X OPTIONS "https://${CF_DOMAIN}/sequences/SEQ001/frames/frame_000001.bin" \
   -H "Origin: ${VERCEL_ORIGIN}" \
   -H "Access-Control-Request-Method: GET" \
   -H "Access-Control-Request-Headers: range"
 ```
-- Range GET:
+```powershell
+Invoke-WebRequest -Uri "https://${CF_DOMAIN}/sequences/SEQ001/frames/frame_000001.bin" -Method Options -Headers @{
+  "Origin" = $VERCEL_ORIGIN
+  "Access-Control-Request-Method" = "GET"
+  "Access-Control-Request-Headers" = "range"
+}
 ```
+- Range GET:
+```bash
 curl -I "https://${CF_DOMAIN}/sequences/SEQ001/frames/frame_000001.bin" \
   -H "Origin: ${VERCEL_ORIGIN}" -H "Range: bytes=0-1023"
 ```
-- Caching spot-check (x-cache):
+```powershell
+Invoke-WebRequest -Uri "https://${CF_DOMAIN}/sequences/SEQ001/frames/frame_000001.bin" -Method Head -Headers @{
+  "Origin" = $VERCEL_ORIGIN
+  "Range" = "bytes=0-1023"
+}
 ```
+- Caching spot-check (x-cache):
+```bash
 curl -I "https://${CF_DOMAIN}/sequences/SEQ001/frames/frame_000001.bin"
 curl -I "https://${CF_DOMAIN}/sequences/SEQ001/frames/frame_000001.bin"
+```
+```powershell
+Invoke-WebRequest -Uri "https://${CF_DOMAIN}/sequences/SEQ001/frames/frame_000001.bin" -Method Head
+Invoke-WebRequest -Uri "https://${CF_DOMAIN}/sequences/SEQ001/frames/frame_000001.bin" -Method Head
 ```
 
 14) Cost guardrails and housekeeping

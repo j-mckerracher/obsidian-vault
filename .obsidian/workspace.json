@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan-scene-switching-and-desired-image.md",
+                "file": "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/infrastructure-plan.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "plan-scene-switching-and-desired-image"
+              "title": "infrastructure-plan"
             }
           }
         ]
@@ -166,12 +166,16 @@
       "bases:Create new base": false
     }
   },
-  "active": "aef185152c49203f",
+  "active": "bf9f25338c0d780d",
   "lastOpenFiles": [
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/detailed-implementation-plan.md",
+    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan-controls-voxel-contention-and-image.md",
+    "01-Projects/AGILE3D-Demo/Bugs",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U22-Visualization.md",
     "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan-scene-switching-and-desired-image.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U19-Use-Real-Data.md",
     "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U21-Camera-View-Optimization.md",
+    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U19-Use-Real-Data.md",
+    "Pasted image 20251108145601.png",
+    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/detailed-implementation-plan.md",
     "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U20.md",
     "01-Projects/ARL-RL/Experiments/20251025_E3_PER_smoke.md",
     "01-Projects/ARL-RL/Experiments.md",
@@ -196,23 +200,18 @@
     "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U14.md",
     "01-Projects/AGILE3D-Demo/Assignments/UoW-U21-Assignment.md",
     "01-Projects/AGILE3D-Demo/Current-State-Vs-Overall-Plan.md",
-    "04-Agent-Reference-Files/File-Locations.md",
-    "04-Agent-Reference-Files/Directory-And-File-Naming-Standards.md",
-    "04-Agent-Reference-Files/SE-Agent-Log-Template.md",
     "01-Projects/ARL-RL/Job-Submission-Commands",
     "99-Templates",
     "01-Projects/TGL-Results-Explorer/TGL___ICLR_2026___Atul.pdf",
     "01-Projects/TGL-Results-Explorer/Planning",
     "01-Projects/TGL-Results-Explorer",
     "01-Projects/ICLR-Demo-Confidential/TGL___ICLR_2026___Atul.pdf",
-    "01-Projects/ICLR-Demo-Confidential",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_time_series.png",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_by_characteristics.png",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_distributions_enhanced.png",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/user_waste_heatmap.png",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sample-franklin.png",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/acm-jdslogo.png",
-    "01-Projects/AGILE3D-Demo/Planning/AGILE3D-Poster.png",
-    "01 Projects/NSF Site Visit Demo/Planning/AGILE3D-Poster.png"
+    "01-Projects/AGILE3D-Demo/Planning/AGILE3D-Poster.png"
   ]
 }
