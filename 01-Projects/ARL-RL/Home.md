@@ -27,6 +27,7 @@ created: 2025-09-29
 - [[01 Projects/ARL-RL/Backlog]]
 - [[01 Projects/ARL-RL/Meetings/Index|Meetings]]
 - [[01 Projects/ARL-RL/References/Index|References]] (see [[LLM Collaboration Guide|LLM Guide]])
+- [[Scripts-Reference/README|Scripts Reference]]
 - [[Archive]]
 
 ## Context & Goals
