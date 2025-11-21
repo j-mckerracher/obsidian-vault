@@ -20,7 +20,7 @@ created: 2025-09-29
 - [[Don't Forget]]
 
 ### Organization
-- [[01 Projects/ARL-RL/Work Completed/Index|Work Completed]]
+- [[Work-Log/Index|Work Log]]
 - [[01 Projects/ARL-RL/Decisions/Index|Decisions]]
 - [[01 Projects/ARL-RL/Notes/Index|Notes]]
 - [[01 Projects/AGILE3D-Demo/To Do]]
