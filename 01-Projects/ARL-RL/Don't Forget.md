@@ -3,6 +3,33 @@
 > [!note] Critical reminders
 > Add key facts, deadlines, or gotchas here.
 
+## PREFERRED: Use Standby QoS for Job Submissions (2025-11-20)
+
+**Why**: Avoid hitting `AssocGrpGRES` limits on the `sbagchi` account.
+
+**Preferred submission method** (direct sbatch with standby QoS):
+```bash
+cd /home/jmckerra/Code/ARL-RL
+
+sbatch \
+  --account sbagchi \
+  --partition a30 \
+  --qos standby \
+  --time 4:00:00 \
+  --mem 80G \
+  scripts/run_e2.sh \
+  --res 64 \
+  --seeds "4 6 8" \
+  --episodes 500
+```
+
+**Benefits**:
+- Standby QoS uses backfill scheduling (avoids group GPU limits)
+- Better for short/medium runs (2-4 hours)
+- Less likely to block on `AssocGrpGRES`
+
+---
+
 ## URGENT: Restart Stage E1 Training (After OOM Fix - 2025-10-06)
 
 **Status**: Overnight E1 run hit OOM. Fixed with optimizer preallocation + reduced batch size.
