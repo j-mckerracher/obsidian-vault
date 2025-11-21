@@ -28,35 +28,31 @@ sbatch \
 - Better for short/medium runs (2-4 hours)
 - Less likely to block on `AssocGrpGRES`
 
+**Queue Management**:
+- Check queue: `squeue -u $USER`
+- Check wait time: `squeue -u $USER -o "%.18i %.9P %.30j %.8u %.8T %.10M %.9l %.6D %R"`
+- Cancel job: `scancel JOBID`
+
 ---
 
-## URGENT: Restart Stage E1 Training (After OOM Fix - 2025-10-06)
+## Current Priority: Resolution Scaling (64×64)
 
-**Status**: Overnight E1 run hit OOM. Fixed with optimizer preallocation + reduced batch size.
+**Next experiment**: Test frozen E2 config at 64×64 resolution
+- **Why**: Better spatial awareness, natural progression from E2 success
+- **Resource**: 80GB memory (vs 50GB for 32×32), 3-4h per seed
+- **Episodes**: Start with 500-episode smoke test per seed
+- **Expected**: Potential improvement over 94.3% baseline
 
-**To restart on Gilbreth**:
-```bash
-# Pull latest fixes
-cd ~/Code/ARL-RL && git pull origin double-dqn
+**Before submitting**:
+1. Check current queue: `squeue -u $USER`
+2. Cancel any old pending jobs if blocking
+3. Use standby QoS (see command above)
 
-# Restart with fixed configuration
-bash scripts/wait_and_run_e1.sh --min-free 2048 --sleep 300 --timeout 7200 --fallback-batch 2 -- --res 32 > e1_master.log 2>&1 &
+---
 
-# Monitor
-tail -f e1_master.log
-```
+## Archive
 
-**Key changes**:
-- Batch size: 8 → 4 (40-50% less memory)
-- Optimizer state preallocation (fails fast)
-- Enhanced CUDA allocator config
-- Training time: ~10-15 hours (up from 8-10)
-
-**Success indicators**:
-- "Preallocating optimizer state" message
-- Training starts episode 1 without OOM
-- GPU memory ~2-3 GB stable
-
+### 2025-10-06: E1 OOM Fix (Completed - Archived)
+Overnight E1 run hit OOM. Fixed with optimizer preallocation + reduced batch size (8→4).
 See [[2025-10-06 OOM fix and memory optimizations]] for details.
 
----
