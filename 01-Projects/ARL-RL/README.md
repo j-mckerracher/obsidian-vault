@@ -46,7 +46,7 @@ See [[Don't Forget]] for preferred submission patterns.
 - **Decisions**: [[Decisions/Index]] — Key choices with rationale
 - **Work Logs**: [[Work Completed/Index]] — Chronological work history
 - **How-To Guides**: [[Documents/Index]] — SLURM, commands, engineering notes
-- **Scripts**: [[Scripts/]] — Reference copies of SLURM job scripts
+- **Scripts**: [[Scripts-Reference/README|Scripts Reference]] — Reference copies of SLURM job scripts
 
 ---
 
