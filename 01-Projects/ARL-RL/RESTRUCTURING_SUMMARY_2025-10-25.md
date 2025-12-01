@@ -182,17 +182,17 @@ All notes follow consistent YAML with:
 
 ## Statistics
 
-| Metric | Value |
-|---|---|
-| New files created | 8 |
-| Files updated | 3 |
-| Canonical experiments documented | 5 |
-| Legacy experiments (pending Phase 2) | 23 |
-| Total experiment notes (target) | 28 |
-| Job submission notes (Phase 2) | ~15 planned |
-| Daily work log entries (Phase 2) | ~20 planned |
-| Cross-links created | 25+ |
-| Unresolved TODOs | 3 Phase-2 tasks + 4 info gaps |
+| Metric                               | Value                         |
+| ------------------------------------ | ----------------------------- |
+| New files created                    | 8                             |
+| Files updated                        | 3                             |
+| Canonical experiments documented     | 5                             |
+| Legacy experiments (pending Phase 2) | 23                            |
+| Total experiment notes (target)      | 28                            |
+| Job submission notes (Phase 2)       | ~15 planned                   |
+| Daily work log entries (Phase 2)     | ~20 planned                   |
+| Cross-links created                  | 25+                           |
+| Unresolved TODOs                     | 3 Phase-2 tasks + 4 info gaps |
 
 ## Next Actions
 
