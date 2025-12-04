@@ -13,15 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/infrastructure-plan.md",
+                "file": "01-Projects/TGL-Results-Explorer/Planning/macro-level-plan.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "infrastructure-plan"
+              "title": "macro-level-plan"
+            }
+          },
+          {
+            "id": "56b19cf634809325",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "01-Projects/ARL-RL/RESTRUCTURING_SUMMARY_2025-10-25.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "RESTRUCTURING_SUMMARY_2025-10-25"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -166,52 +181,53 @@
       "bases:Create new base": false
     }
   },
-  "active": "bf9f25338c0d780d",
+  "active": "56b19cf634809325",
   "lastOpenFiles": [
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan-controls-voxel-contention-and-image.md",
+    "01-Projects/ARL-RL/Decisions/2025-10-25 Park Stage E3 PER.md",
+    "01-Projects/ARL-RL/RESTRUCTURING_SUMMARY_2025-10-25.md",
+    "01-Projects/AGILE3D-Demo/Notes/pop-up.png",
+    "01-Projects/ARL-RL/Archive/legacy-directory-structure-2025-11-20.md",
+    "01-Projects/ARL-RL/Work-Log/Index.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-25.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-25 E3 PER exploration and parking decision.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-25 E2 production 3k validation complete.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-25 E2 dueling validation and config freeze.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-24 E2 validation completed - frozen config established.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-23 E2 TUF sweep (200 vs 400) preliminary results.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-22 E2 dueling head implemented and smoke runs submitted.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-21 Stage E1 2h standby chunks 800eps seeds 4 6 8.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-21 Queue stall fix - normal QoS resubmission.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-21 E1 aggregation and decision.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-19 Stage E1 smoke runs seeds 6 and 8.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-19 Stage E1 smoke run 300eps seed4.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-19 Stage E1 chained 1k eps seeds 4 6 8.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-11 Normal QoS 12h 4k episodes submission.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-11 FP16 masking overflow fix.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-10 Stage E1 job submission success.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-10 Gilbreth partition-account-qos fix.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-09 SLURM job submission scripts.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-06 Stage E1 overnight run initiated.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-06 Stage E1 implemented and automation.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-06 OOM fix and memory optimizations.md",
+    "01-Projects/ARL-RL/Work-Log/2025-10/2025-10-06 Mixed precision + wait wrapper.md",
+    "01-Projects/ARL-RL/Work-Log/2025-11",
+    "01-Projects/ARL-RL/Work-Log/2025-10",
+    "01-Projects/ARL-RL/Work-Log",
+    "01-Projects/ARL-RL/Scripts-Reference",
+    "01-Projects/ARL-RL/Scripts",
+    "01-Projects/TGL-Results-Explorer/TGL___ICLR_2026___Atul.pdf",
     "01-Projects/AGILE3D-Demo/Bugs",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U22-Visualization.md",
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan-scene-switching-and-desired-image.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U21-Camera-View-Optimization.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U19-Use-Real-Data.md",
     "Pasted image 20251108145601.png",
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/detailed-implementation-plan.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U20.md",
-    "01-Projects/ARL-RL/Experiments/20251025_E3_PER_smoke.md",
-    "01-Projects/ARL-RL/Experiments.md",
-    "01-Projects/ARL-RL/Plan.md",
-    "01-Projects/ARL-RL/Status.md",
-    "01-Projects/AGILE3D-Demo/Agent Prompts/Software Engineer.md",
     "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/plan/step1-branch-map.json",
-    "01-Projects/AGILE3D-Demo/Home.md",
-    "01-Projects/AGILE3D-Demo/Untitled.md",
-    "01-Projects/AGILE3D-Demo/To Do.md",
-    "01-Projects/AGILE3D-Demo/Don't Forget.md",
     "01-Projects/AGILE3D-Demo/Notes/actual.png",
     "01-Projects/AGILE3D-Demo/Notes/desired.png",
-    "01-Projects/AGILE3D-Demo/Notes/agile3d-high-level-summary.md",
-    "01-Projects/AGILE3D-Demo/Notes/agile3d-demo-video-essential-points.md",
     "01-Projects/AGILE3D-Demo/agile3d-mobisys25.pdf",
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/Work-Decomposer-Output.md",
     "01-Projects/AGILE3D-Demo/pkl2web_min.py",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U18.md",
-    "01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/README.md",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U19-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Logs/SE-Work-Logs/SE-Log-U14.md",
-    "01-Projects/AGILE3D-Demo/Assignments/UoW-U21-Assignment.md",
-    "01-Projects/AGILE3D-Demo/Current-State-Vs-Overall-Plan.md",
-    "01-Projects/ARL-RL/Job-Submission-Commands",
-    "99-Templates",
-    "01-Projects/TGL-Results-Explorer/TGL___ICLR_2026___Atul.pdf",
-    "01-Projects/TGL-Results-Explorer/Planning",
-    "01-Projects/TGL-Results-Explorer",
-    "01-Projects/ICLR-Demo-Confidential/TGL___ICLR_2026___Atul.pdf",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_time_series.png",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_by_characteristics.png",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/waste_distributions_enhanced.png",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sections/figure/user_waste_heatmap.png",
     "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/sample-franklin.png",
-    "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/acm-jdslogo.png",
-    "01-Projects/AGILE3D-Demo/Planning/AGILE3D-Poster.png"
+    "01-Projects/COMAD-CODS-Paper/latex-files/FRESCO_COMAD_2025/acm-jdslogo.png"
   ]
 }

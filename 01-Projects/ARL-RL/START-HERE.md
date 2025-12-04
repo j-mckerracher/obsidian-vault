@@ -1,0 +1,175 @@
+# ARL-RL Project — Start Here
+
+> **For New Researchers & AI Agents**: This document provides your roadmap to the ARL-RL project documentation.
+
+---
+
+## 🎯 First Stop: README.md
+
+**[[README]]** is your comprehensive entry point. It contains:
+- Current project status and immediate next actions
+- Recent session context (last 3-5 sessions)
+- Quick navigation to all core documents
+- Known issues and blockers
+- Key results summary
+- Onboarding guide for AI agents
+
+**Start there, then return here for the full documentation map.**
+
+---
+
+## 📂 Documentation Structure
+
+### Core Status Documents
+These are the most frequently updated files that track current state:
+
+- **[[README]]** — Current status, next actions, recent context (AI agent entry point)
+- **[[Status]]** — Detailed current status, stage progression, next actions
+- **[[Plan]]** — Roadmap, milestones, tasks, risks
+- **[[Experiments]]** — Canonical experiment tracker (all runs with results)
+- **[[RESULTS_SUMMARY]]** — Executive summary for research reporting
+
+### Quick Reference
+- **[[Dont-Forget]]** — Critical reminders, preferred commands, common patterns
+- **[[Backlog]]** — Future work items not yet prioritized
+
+### Detailed Documentation Folders
+
+#### 📁 Documents/
+Technical guides, how-tos, and experiment details:
+- **[[Documents/Index]]** — Full index of all documents
+- SLURM guides, common commands, engineering notes
+- **Documents/Experiments/** — Detailed experiment notes (one per experiment run)
+
+#### 📁 Decisions/
+Key architectural and methodological choices:
+- **[[Decisions/Index]]** — Index of all decision records
+- Each decision documented with: context, options, choice, rationale
+
+#### 📁 Work-Log/
+Chronological work history (day-by-day):
+- **[[Work-Log/Index]]** — Index of all work log entries
+- Organized by month (e.g., Work-Log/2025-10/)
+
+#### 📁 Work-Completed/
+Daily completion logs (what was finished each day):
+- **[[Work-Completed/Index]]** — Index of completed work
+- Organized by month (e.g., Work-Completed/2025-10/)
+
+#### 📁 Job-Submission-Commands/
+SLURM job submission records:
+- Exact commands used for each experiment
+- Job IDs, resource allocations, timestamps
+
+#### 📁 Scripts-Reference/
+Reference documentation for scripts:
+- **[[Scripts-Reference/README]]** — Scripts overview
+- Script usage, parameters, examples
+
+#### 📁 Run-Logs/
+Raw output logs from experiment runs:
+- **[[Run-Logs/Index]]** — Index of all run logs
+- Stdout/stderr from SLURM jobs
+
+#### 📁 Notes/
+Technical notes, insights, observations:
+- **[[Notes/Index]]** — Index of all notes
+- Engineering notes, mixed precision guidance, etc.
+
+#### 📁 References/
+External references and collaboration guides:
+- **[[References/Index]]** — Index of references
+- **[[References/LLM-Collaboration-Guide]]** — Guide for AI agent collaboration
+
+#### 📁 Prompts/
+AI agent prompts and instructions:
+- **[[Prompts/Index]]** — Index of prompts
+- Reusable prompts for common tasks
+
+#### 📁 Context/
+Project context and background information:
+- **[[Context/Index]]** — Index of context documents
+
+#### 📁 Templates/
+Document templates for consistency:
+- Experiments.template.md
+- Plan.template.md
+- Status.template.md
+
+#### 📁 Archive/
+Historical documents no longer actively used:
+- Old restructuring summaries
+- Completed tasks
+- Legacy documentation
+
+---
+
+## 🔄 Typical Workflow
+
+### For New Researchers
+1. Read **[[README]]** — Get current status and context
+2. Review **[[RESULTS_SUMMARY]]** — Understand key findings
+3. Check **[[Status]]** — See detailed current state
+4. Review **[[Plan]]** — Understand roadmap and milestones
+5. Browse **[[Experiments]]** — See all experiment history
+
+### For AI Agents Starting a New Session
+1. Read **[[README]]** — Get immediate context and next actions
+2. Check **[[Status]]** — Understand current stage and blockers
+3. Review **[[Dont-Forget]]** — Note critical patterns and preferences
+4. Check relevant folders (Decisions, Work-Log, Documents) as needed
+
+### For Continuing Work
+1. Update **[[Status]]** after significant progress
+2. Update **[[Plan]]** when milestones change
+3. Update **[[Experiments]]** when runs complete
+4. Add to **[[Work-Completed/Index]]** at end of session
+5. Update **[[README]]** recent context section
+
+---
+
+## 🔗 External Resources
+
+- **Code Repository**: `/home/jmckerra/Code/ARL-RL` (on Gilbreth HPC cluster)
+- **Results Path**: `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced`
+- **Local Results**: `C:\Users\jmckerra\OneDrive - purdue.edu\Documents\ARL-RL-Experiment-Results\`
+- **HPC Cluster**: Gilbreth (Purdue)
+- **Account**: `sbagchi`
+- **Partition**: `a30` (GPU partition)
+
+---
+
+## 📋 File Naming Conventions
+
+All files and folders use hyphens instead of spaces:
+- ✅ `Dont-Forget.md`
+- ✅ `Work-Completed/`
+- ❌ ~~`Don't Forget.md`~~
+- ❌ ~~`Work Completed/`~~
+
+Experiment files follow the pattern:
+- `expt-YYYYMMDD-{stage}-{type}.md`
+- Example: `expt-20251025-e2-prod-3k.md`
+
+---
+
+## 🆘 Common Questions
+
+**Q: Where do I find the current status?**
+A: **[[README]]** for quick status, **[[Status]]** for detailed status
+
+**Q: Where are experiment results?**
+A: Summary in **[[Experiments]]**, details in **Documents/Experiments/**
+
+**Q: How do I submit a SLURM job?**
+A: Check **[[Dont-Forget]]** for preferred method, **[[Documents/Index]]** for guides
+
+**Q: Where are past decisions documented?**
+A: **[[Decisions/Index]]** — all major choices with rationale
+
+**Q: What work was completed recently?**
+A: **[[Work-Completed/Index]]** — daily logs of completed work
+
+---
+
+*This guide maintained as the navigation hub for all ARL-RL documentation. Last updated: 2025-12-04*
