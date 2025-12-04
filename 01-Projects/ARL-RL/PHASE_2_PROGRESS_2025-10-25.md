@@ -13,8 +13,8 @@ tags: ["project/arl-rl", "meta", "documentation"]
 
 ## Completed Tasks ✅
 
-### 1. Work Completed Daily Logs
-- ✅ Created `Work Completed/2025-10/2025-10-25.md`
+### 1. Work-Completed Daily Logs
+- ✅ Created `Work-Completed/2025-10/2025-10-25.md`
 - Documented Phase 1 completion, tasks done, experiments touched
 - Planned next-day activities and dependencies
 - Established folder structure for future daily logs
@@ -132,9 +132,9 @@ tags: ["project/arl-rl", "meta", "documentation"]
 ## Links
 
 - [[RESTRUCTURING_SUMMARY_2025-10-25]] — Phase 1 details
-- [[2025-10-25]] — Today's work log
-- [[2025-10-25-expt-20251025-e2-prod-3k]] — E2 production jobs
-- [[01 Projects/ARL-RL/Plan]] — Updated with milestones/risks/tasks
+- [[Work-Completed/2025-10/2025-10-25]] — Today's work log
+- [[Job-Submission-Commands/2025-10-25-expt-20251025-e2-prod-3k]] — E2 production jobs
+- [[Plan]] — Updated with milestones/risks/tasks
 - [[Status]] — Current project status (GREEN)
 - [[Experiments]] — Canonical experiments hub
 

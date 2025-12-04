@@ -24,7 +24,7 @@ Improve SC2 FindAndDefeatZerglings win rate with a staged RL roadmap under HPC c
 | E3 PER Exploration | josh | 2025-10-25 | ⏸ Parked | [[Decisions/2025-10-25 Park Stage E3 PER]] |
 | Resolution Scaling (64×64) | josh | 2025-12-03 | 🚀 Ready for Submission | [[Documents/Experiments/expt-20251203-e2-res64]] |
 | Documentation Restructuring Phase 1 | josh | 2025-10-25 | ✅ Done | [[RESTRUCTURING_SUMMARY_2025-10-25]] |
-| Documentation Phase 2 (Legacy Migration) | josh | 2025-11-30 | ✅ Done | [[Work Completed/Index]] |
+| Documentation Phase 2 (Legacy Migration) | josh | 2025-11-30 | ✅ Done | [[Work-Completed/Index]] |
 | E4 N-step Returns (Design) | josh | 2025-12-01 | 📅 Planned | |
 
 ## Tasks
@@ -64,7 +64,7 @@ Improve SC2 FindAndDefeatZerglings win rate with a staged RL roadmap under HPC c
 - [[Status]]
 - [[Experiments]]
 - [[Documents/Index]]
-- [[Work Completed/Index]]
+- [[Work-Completed/Index]]
 
 ## Changelog
 - 2025-11-30 Updated structure to new template; marked Phase 2 migration as done.
