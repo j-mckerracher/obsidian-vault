@@ -30,7 +30,7 @@ sbatch --account sbagchi --partition a30 --qos standby \
   scripts/run_e2.sh --res 64 --seeds "4 6 8" --episodes 500
 ```
 
-See [[Don't Forget]] for preferred submission patterns.
+See [[Dont-Forget]] for preferred submission patterns.
 
 ---
 
@@ -108,13 +108,13 @@ See [[Don't Forget]] for preferred submission patterns.
 
 **Common tasks**:
 - Check queue: `squeue -u $USER`
-- Submit job: See [[Don't Forget]] for current preferred method
+- Submit job: See [[Dont-Forget]] for current preferred method
 - Review results: Check [[Experiments]] table
 - Update docs: [[Status]], [[Plan]], [[Experiments]] after major work
 
 **Communication**:
 - Principal Researcher: Likely wants updates via [[RESULTS_SUMMARY]]
-- Daily work: Add to [[Work Completed/Index]]
+- Daily work: Add to [[Work-Completed/Index]]
 - Decisions: Document in [[Decisions/]] with context
 
 ---

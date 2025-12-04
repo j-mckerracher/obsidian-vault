@@ -82,7 +82,7 @@ Establish comprehensive, standardized documentation system with:
 The following items are planned for Phase 2 (legacy consolidation):
 - Migrate 23 older experiments (E1 sweeps, confirms, smoke runs) to Documents/Experiments/
 - Create Job-Submission-Commands notes for each experiment's job runs
-- Consolidate 30+ work-completed entries into structured daily logs (Work Completed/YYYY-MM/YYYY-MM-DD.md)
+- Consolidate 30+ work-completed entries into structured daily logs (Work-Completed/YYYY-MM/YYYY-MM-DD.md)
 - Update Plan.md to Milestones/Tasks/Risks template structure
 - Full cross-linking audit and tag standardization
 
@@ -97,7 +97,7 @@ Examples:
 ### File Locations
 - **Canonical experiment notes**: `Documents/Experiments/<expt_id>-<title-slug>.md`
 - **Job notes** (Phase 2): `Job-Submission-Commands/<YYYY-MM-DD>-<expt_id>-<short>.md`
-- **Daily work logs** (Phase 2): `Work Completed/YYYY-MM/YYYY-MM-DD.md`
+- **Daily work logs** (Phase 2): `Work-Completed/YYYY-MM/YYYY-MM-DD.md`
 
 ### Tags (All files)
 - `project/arl-rl` — primary project tag (all notes)
@@ -146,7 +146,7 @@ All notes follow consistent YAML with:
 ### Phase 2 Tasks
 - [ ] Migrate 23 legacy experiments to Documents/Experiments/ with template format
 - [ ] Create Job-Submission-Commands notes for all job runs
-- [ ] Consolidate Work Completed entries into structured daily logs (Work Completed/YYYY-MM/YYYY-MM-DD.md)
+- [ ] Consolidate Work-Completed entries into structured daily logs (Work-Completed/YYYY-MM/YYYY-MM-DD.md)
 - [ ] Finalize Plan.md with Milestones/Tasks/Risks table structure
 - [ ] Audit all wikilinks; verify no 404s in Obsidian
 

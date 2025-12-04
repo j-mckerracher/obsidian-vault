@@ -17,7 +17,7 @@ created: 2025-09-29
 - [[01 Projects/ARL-RL/Plan|Plan]]
 - [[Status|Status]]
 - [[Experiments|Experiments]]
-- [[Don't Forget]]
+- [[Dont-Forget]]
 
 ### Organization
 - [[Work-Log/Index|Work Log]]
@@ -38,5 +38,5 @@ created: 2025-09-29
 - [ ] Milestone 1 — due:
 
 ## Recently completed
-![[01 Projects/ARL-RL/Work Completed/Index]]
+![[01 Projects/ARL-RL/Work-Completed/Index]]
 

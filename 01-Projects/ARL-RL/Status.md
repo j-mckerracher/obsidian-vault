@@ -96,7 +96,7 @@ Notes:
 - **Resource**: ~4x memory/compute vs 32×32 (80GB mem, 3-4h per seed)
 - **Timeline**: 500-1k episode smoke runs per seed
 - **Expected**: Potentially >95% win rate with improved tactical decisions
-- **Command**: See [[Don't Forget]] for current preferred submission method
+- **Command**: See [[Dont-Forget]] for current preferred submission method
 
 ### 🟡 Priority 2: Stage E4 (N-step Returns, n=3)
 - Add multi-step bootstrapping to E2 baseline
@@ -124,15 +124,15 @@ Notes:
 - Resolution increases will raise memory and compute costs.
 
 ## Links
-|- **Latest work**: 
-  - [[Work Completed/2025-10/2025-10-21#Queue Stall Fix — Normal QoS Resubmission]]
-  - [[Work Completed/2025-10/2025-10-19#Stage E1 smoke runs — seeds 6 and 8]]
-  - [[Work Completed/2025-10/2025-10-19#Stage E1 smoke run — 1h standby, 32×32, seed 4]]
-  - [[Work Completed/2025-10/2025-10-19#Stage E1 chained submissions — standby, 1k eps/seed, 32×32]]
-|- **Previous fixes**: [[Work Completed/2025-10/2025-10-11#FP16 masking overflow fix (autocast-safe)]]
-|- **SLURM Integration**: [[Work Completed/2025-10/2025-10-09]]
+|- **Latest work**:
+  - [[Work-Completed/2025-10/2025-10-21#Queue Stall Fix — Normal QoS Resubmission]]
+  - [[Work-Completed/2025-10/2025-10-19#Stage E1 smoke runs — seeds 6 and 8]]
+  - [[Work-Completed/2025-10/2025-10-19#Stage E1 smoke run — 1h standby, 32×32, seed 4]]
+  - [[Work-Completed/2025-10/2025-10-19#Stage E1 chained submissions — standby, 1k eps/seed, 32×32]]
+|- **Previous fixes**: [[Work-Completed/2025-10/2025-10-11#FP16 masking overflow fix (autocast-safe)]]
+|- **SLURM Integration**: [[Work-Completed/2025-10/2025-10-09]]
 |- Decisions: [[01 Projects/ARL-RL/Decisions/Index]]
 |- Experiments hub: [[Experiments]]
-|- Issues log: [[Work Completed/2025-10/2025-10-04]]
+|- Issues log: [[Work-Completed/2025-10/2025-10-04]]
 |- SLURM docs: [[Submitting SLURM Jobs on Gilbreth for LLMs]]
 |- Common commands: [[Common Commands]]
