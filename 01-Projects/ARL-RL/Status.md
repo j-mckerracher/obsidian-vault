@@ -9,7 +9,7 @@ created: 2025-10-05
 ## Overall Status
 **Status**: 🞫 GREEN — Excellent progress on E2 validation; PER exploration completed and parked.
 
-**Last updated**: 2025-10-25T16:44:16Z
+**Last updated**: 2025-11-30T13:05:00Z
 
 ### Summary
 - **E2 Production Validated**: 3k episodes achieve **94.3% mean win rate** (97%/88%/98%), excellent scaling from 1k (91.3%) and 500 (52.7%)
@@ -125,14 +125,14 @@ Notes:
 
 ## Links
 |- **Latest work**: 
-  - [[2025-10-21 Queue stall fix - normal QoS resubmission]]
-  - [[2025-10-19 Stage E1 smoke runs seeds 6 and 8]]
-  - [[2025-10-19 Stage E1 smoke run 300eps seed4]]
-  - [[2025-10-19 Stage E1 chained 1k eps seeds 4 6 8]] (canceled/replaced)
-|- **Previous fixes**: [[2025-10-11 FP16 masking overflow fix]]
-|- **SLURM Integration**: [[2025-10-09 SLURM job submission scripts]]
+  - [[Work Completed/2025-10/2025-10-21#Queue Stall Fix — Normal QoS Resubmission]]
+  - [[Work Completed/2025-10/2025-10-19#Stage E1 smoke runs — seeds 6 and 8]]
+  - [[Work Completed/2025-10/2025-10-19#Stage E1 smoke run — 1h standby, 32×32, seed 4]]
+  - [[Work Completed/2025-10/2025-10-19#Stage E1 chained submissions — standby, 1k eps/seed, 32×32]]
+|- **Previous fixes**: [[Work Completed/2025-10/2025-10-11#FP16 masking overflow fix (autocast-safe)]]
+|- **SLURM Integration**: [[Work Completed/2025-10/2025-10-09]]
 |- Decisions: [[01 Projects/ARL-RL/Decisions/Index]]
 |- Experiments hub: [[Experiments]]
-|- Issues log: [[2025-10-04 Issues and Solutions]]
+|- Issues log: [[Work Completed/2025-10/2025-10-04]]
 |- SLURM docs: [[Submitting SLURM Jobs on Gilbreth for LLMs]]
 |- Common commands: [[Common Commands]]
