@@ -32,6 +32,7 @@ hardware: { gpu: 1, cpu: 2, ram_gb: 20 }
 sources: []
 related: []
 ---
+
 ## Summary
 Stage E1 smoke validation run (short, backfill-friendly) using Seed 4.
 
@@ -61,3 +62,41 @@ Submitted as a short job to fit backfill windows.
 
 ## Changelog
 - 2025-11-30T12:38:00Z Created from template, migrated from `20251019_033706_E1_seed4.md`
+
+# Original Experiment Notes (Restored)
+
+# 20251019_033706_E1_seed4 — Experiment Run
+
+## Overview
+- Run ID: 20251019_033706_E1_seed4
+- Objective: Stage E1 smoke validation (short, backfill-friendly)
+- Part: Algorithmic upgrade — E1 (Double DQN + LR scheduler)
+
+## Metadata
+- Date/Time (UTC): 2025-10-19T03:48:11.460274Z
+- Resolution: 32×32
+- Episodes (train): 300
+- Test episodes: 5
+- Seed(s): 4
+- LR: 0.00005
+- EPS_DECAY: 100000
+- TARGET_UPDATE_FREQ: 300
+- Batch size: 2
+- Step multiplier: 32
+- Artifacts path: /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251019_033706_E1_seed4
+- Aggregation CSV: /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/e1_results.csv
+- SLURM: a30 / sbagchi / standby, 1h, 1×GPU, 2 CPU, 20G mem
+- Job ID: 9765383
+
+## Results
+- 5-episode test win rate: 80.0%
+- Avg reward: 2.0
+- CSV entry:
+  - timestamp_utc: 2025-10-19T03:48:11.460274Z
+  - run_id: 20251019_033706_E1_seed4, seed: 4
+  - lr: 0.00005, eps_decay: 100000, target_update: 300
+  - artifacts_path: as above
+
+## Notes
+- E1 recipe defaults with small batch and larger step_mul to reduce runtime and fit 1h backfill window.
+- Use this as a quick smoke signal; follow with seeds 6/8 or longer runs under normal QoS.

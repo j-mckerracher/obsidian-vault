@@ -29,6 +29,7 @@ hardware: {}
 sources: []
 related: []
 ---
+
 ## Summary
 This experiment was part of Sweep C, investigating the impact of a target update frequency of 200.
 
@@ -67,3 +68,26 @@ Lack of detailed setup information and job commands.
 
 ## Changelog
 - 2025-11-30T12:29:00Z Created from template, migrated from `20251005_070524_sweepC_tuf_200.md`
+
+# Original Experiment Notes (Restored)
+
+# 20251005_070524_sweepC_tuf_200 — Experiment Run
+
+## Overview
+- Run ID: 20251005_070524_sweepC_tuf_200
+- Objective: Sweep C — test target update frequency (TUF=200)
+- Part: 1 = parameter-only
+
+## Metadata
+- Date/Time (UTC): 2025-10-05T08:05:55.693502Z
+- LR: 0.0001
+- EPS_DECAY: 50000
+- TARGET_UPDATE_FREQ: 200
+- Artifacts path: /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced//20251005_070524_sweepC_tuf_200
+
+## Results
+- 100-episode test win rate: 53.0%
+- Avg reward: 1.47
+
+## Notes
+- Sweep C (Target Update Frequency). Resolution: 32×32 (assumed). Batch: 8. Replay: 50k.

@@ -29,6 +29,7 @@ hardware: {}
 sources: []
 related: []
 ---
+
 ## Summary
 This experiment was part of Sweep B, investigating the impact of an epsilon decay value of 20000.
 
@@ -67,3 +68,26 @@ Lack of detailed setup information and job commands.
 
 ## Changelog
 - 2025-11-30T12:14:00Z Created from template, migrated from `20251005_014154_sweepB_decay_20000.md`
+
+# Original Experiment Notes (Restored)
+
+# 20251005_014154_sweepB_decay_20000 — Experiment Run
+
+## Overview
+- Run ID: 20251005_014154_sweepB_decay_20000
+- Objective: Sweep B — test epsilon decay (EPS_DECAY=20000)
+- Part: 1 = parameter-only
+
+## Metadata
+- Date/Time (UTC): 2025-10-05T02:35:46.136555Z
+- LR: 0.0001
+- EPS_DECAY: 20000
+- TARGET_UPDATE_FREQ: 100
+- Artifacts path: /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced//20251005_014154_sweepB_decay_20000
+
+## Results
+- 100-episode test win rate: 13.0%
+- Avg reward: -0.10
+
+## Notes
+- Sweep B (Epsilon Decay). Resolution: 32×32 (assumed). Batch: 8. Replay: 50k.

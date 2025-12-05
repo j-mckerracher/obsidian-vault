@@ -35,6 +35,7 @@ hardware: { gpu: 1, cpu: 4, ram_gb: 24 } # CPU count assumed from typical SLURM 
 sources: []
 related: []
 ---
+
 ## Summary
 First baseline run to establish performance with reduced GPU memory settings (32x32 resolution, smaller batch and replay memory).
 
@@ -83,3 +84,86 @@ An interactive terminal session was used to run the experiment. Configuration wa
 
 ## Changelog
 - 2025-11-30T12:00:00Z Created from template, migrated from `20251004_013929_baseline.md`
+
+# Original Experiment Notes (Restored)
+
+# 20251004_013929_baseline — Experiment Run
+
+First baseline run with reduced GPU memory settings to establish current performance.
+
+## Overview
+- Run ID: 20251004_013929_baseline
+- Objective: Establish baseline win rate with memory-constrained settings
+- Part: 1 = parameter-only (memory optimization)
+
+## Config deltas (from original baseline)
+List only changed parameters, with previous -> new values.
+- BATCH_SIZE: 32 -> 8
+- REPLAY_MEMORY_SIZE: 10000 -> 5000
+- SCREEN_RESOLUTION: 64 -> 32
+- MINIMAP_RESOLUTION: 64 -> 32
+- NUM_EPISODES: 10000 -> 100 (short test)
+- START_EPISODE: 2000 -> 0 (train from scratch)
+- EPS_START: 0.95 -> 0.90
+- EPS_DECAY: 10000 -> 50000
+- TARGET_UPDATE_FREQ: 20 -> 100
+- SEED: 42 -> 4
+
+## Metadata
+- Date/Time (UTC): 2025-10-04 01:39:29
+- Git commit: (not tracked - code repo not initialized)
+- Branch: (not tracked)
+- Seed(s): 4
+- Environment: Gilbreth
+- SLURM: [N/A - interactive terminal session]
+- Resources: NVIDIA A30 24GB (23.2GB used, 967MB free)
+- Command / Env overrides:
+  ```bash
+  export RL_BATCH_SIZE=8
+  export RL_REPLAY_MEMORY_SIZE=5000
+  export RL_SCREEN_RES=32
+  export RL_MINIMAP_RES=32
+  export RL_NUM_EPISODES=100
+  export RL_START_EPISODE=0
+  export RL_EPS_START=0.90
+  export RL_EPS_END=0.05
+  export RL_EPS_DECAY=50000
+  export RL_LEARNING_RATE=0.0001
+  export RL_TARGET_UPDATE_FREQ=100
+  export RL_STEP_MUL=8
+  export RL_SEED=4
+  export RL_SAVE_PATH=/home/jmckerra/ARL-RL/runs
+  export RL_RUN_ID=20251004_013929_baseline
+  export SC2PATH=/home/jmckerra/StarCraftII
+  export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+  python -u training_split.py
+  ```
+- Artifacts path: /home/jmckerra/ARL-RL/runs/20251004_013929_baseline
+
+## Results
+- 100-episode test win rate: 8.00%
+- Mean/median test reward: -0.43
+- Training: 100 episodes completed successfully
+- Checkpoints: model_ep100.pth saved
+- GPU: No OOM errors with reduced settings
+
+## Observations
+- What worked: Memory optimization successful, no CUDA OOM
+- GPU memory usage: High baseline usage (23.2GB/24GB) from other processes
+- NO_OP behavior: Not specifically monitored in this run
+- Performance: 8% win rate is lower than expected 20% baseline, likely due to:
+  - Reduced spatial resolution (64x64 -> 32x32) limiting visual information
+  - Smaller batch size reducing learning stability  
+  - Different random seed
+  - Training from scratch vs. checkpoint
+
+## Next steps
+- Immediate follow-ups: 
+  - Try higher resolution (48x48 or 64x64) if memory allows
+  - Increase batch size gradually to find memory limit
+  - Run longer training (1000+ episodes) for better evaluation
+- Parameter sweep targets:
+  - EPS_DECAY: try 20000-100000 range
+  - LEARNING_RATE: try 5e-5, 1e-4, 2.5e-4
+  - BATCH_SIZE: find maximum that fits in available GPU memory
+  - TARGET_UPDATE_FREQ: try 50, 100, 200

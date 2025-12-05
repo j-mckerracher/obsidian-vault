@@ -31,6 +31,7 @@ hardware: {}
 sources: []
 related: []
 ---
+
 ## Summary
 This experiment aimed to confirm the best parameters identified from previous sweeps using Seed 4.
 
@@ -70,3 +71,27 @@ Lack of detailed setup information and job commands.
 
 ## Changelog
 - 2025-11-30T12:32:00Z Created from template, migrated from `20251005_161708_confirm_best_seed4.md`
+
+# Original Experiment Notes (Restored)
+
+# 20251005_161708_confirm_best_seed4 — Experiment Run
+
+## Overview
+- Run ID: 20251005_161708_confirm_best_seed4
+- Objective: Confirm best parameters (LR=0.00005, EPS_DECAY=20000, TUF=200) — Seed 4
+- Part: 1 = parameter-only
+
+## Metadata
+- Date/Time (UTC): 2025-10-05T16:23:24.353115Z
+- LR: 0.00005
+- EPS_DECAY: 20000
+- TARGET_UPDATE_FREQ: 200
+- Seed: 4
+- Artifacts path: /depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced//20251005_161708_confirm_best_seed4
+
+## Results
+- 100-episode test win rate: 37.0%
+- Avg reward: 0.46
+
+## Notes
+- Confirmation run at 32×32 resolution, batch 8, replay 50k, step_mul 8.

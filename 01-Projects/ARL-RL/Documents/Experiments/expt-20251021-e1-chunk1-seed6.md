@@ -32,6 +32,7 @@ hardware: {}
 sources: []
 related: []
 ---
+
 ## Summary
 First 800-episode chunk for Seed 6 in Stage E1 production.
 
@@ -59,3 +60,45 @@ To accumulate training episodes (~800) in a 2h standby window.
 
 ## Changelog
 - 2025-11-30T12:42:00Z Created from template, migrated from `20251021_164432_E1_seed6.md`
+
+# Original Experiment Notes (Restored)
+
+# Run 20251021_164432_E1_seed6 — Stage E1 (800 eps, 32×32)
+
+- Timestamp (UTC): 2025-10-21T17:15:40.442534Z
+- Seed: 6
+- Episodes: 800
+- Resolution: 32×32
+- Algorithm: Stage E1 (Double DQN + Cosine LR)
+- Config highlights: LR=5e-5, EPS_DECAY=100k, TUF=300, Batch=4, StepMul=16
+
+## Results (5 test episodes)
+- Win rate: 40.0%
+- Avg reward: 0.4
+
+## Artifacts
+- Local: `01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_164432_E1_seed6/`
+- HPC: `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251021_164432_E1_seed6`
+
+## Notes
+- 2h standby chunk (~800 episodes) completed; improved vs prior smoke for seed 6.
+- Continue chunking to reach ≥1000 episodes before cross‑seed comparison.
+
+# Original Experiment Notes (Restored)
+
+# Run 20251021_212805_E1_seed6 — Stage E1 top-up (+200 eps, 32×32)
+
+- Timestamp (UTC): 2025-10-21T21:42:08.070432Z
+- Seed: 6
+- Episodes (top-up): 200 (after prior 800)
+- Resolution: 32×32
+- Algorithm: Stage E1 (Double DQN + Cosine LR)
+- Config highlights: LR=5e-5, EPS_DECAY=100k, TUF=300, Batch=4, StepMul=16
+
+## Results (100 test episodes)
+- Win rate: 0.0%
+- Avg reward: 0.0
+
+## Artifacts
+- Local: `01 Projects/ARL RL/Experiment-Results/10-21-2025/20251021_212805_E1_seed6/`
+- HPC: `/depot/sbagchi/data/josh/RL/FindAndDefeatZerglings/results_split_advanced/20251021_212805_E1_seed6`
