@@ -1,7 +1,7 @@
 # ARL-RL Project — Quick Start for AI Agents
 
 > [!NOTE] Last Updated
-> 2025-11-20 by Josh McKeracher
+> 2025-11-20
 
 ## 🎯 Current Status
 
@@ -88,34 +88,13 @@ See [[Dont-Forget]] for preferred submission patterns.
 
 ## 📊 Key Results Summary
 
-| Stage | Algorithm | Episodes | Win Rate | Status |
-|-------|-----------|----------|----------|--------|
-| E1 | Double DQN + LR Scheduler | 1k | 44.0% | ✅ Complete |
-| E2 (500) | + Dueling DQN | 500 | 52.7% | ✅ Gate passed |
-| E2 (1k) | + TUF=400 | 1k | 91.3% | ✅ Confirmed |
-| **E2 (3k)** | **Frozen Config** | **3k** | **94.3%** | ✅ **Production** |
-| E3 | + PER | 500 | <E2 | ⏸️ Parked |
-
----
-
-## 🎓 For New AI Agents
-
-**If you're starting fresh**, read in this order:
-1. This README (you are here!)
-2. [[Status]] — detailed current state
-3. [[Plan]] — understand the roadmap
-4. [[Experiments]] — see experiment history
-
-**Common tasks**:
-- Check queue: `squeue -u $USER`
-- Submit job: See [[Dont-Forget]] for current preferred method
-- Review results: Check [[Experiments]] table
-- Update docs: [[Status]], [[Plan]], [[Experiments]] after major work
-
-**Communication**:
-- Principal Researcher: Likely wants updates via [[RESULTS_SUMMARY]]
-- Daily work: Add to [[Work-Completed/Index]]
-- Decisions: Document in [[Decisions/]] with context
+| Stage       | Algorithm                 | Episodes | Win Rate  | Status     |
+| ----------- | ------------------------- | -------- | --------- | ---------- |
+| E1          | Double DQN + LR Scheduler | 1k       | 44.0%     | ✅ Done     |
+| E2 (500)    | + Dueling DQN             | 500      | 52.7%     | ✅ Done     |
+| E2 (1k)     | + TUF=400                 | 1k       | 91.3%     | ✅ Done     |
+| **E2 (3k)** | **Frozen Config**         | **3k**   | **94.3%** | ✅ **Done** |
+| E3          | + PER                     | 500      | <E2       | ⏸️ Parked  |
 
 ---
 
@@ -127,5 +106,3 @@ See [[Dont-Forget]] for preferred submission patterns.
 - **Cluster**: Gilbreth HPC (Purdue)
 
 ---
-
-*This README is maintained as the single source of truth for AI agent onboarding. Update after major milestones or decision points.*
