@@ -1,4 +1,4 @@
-# ARL-RL Project — Quick Start for AI Agents
+# ARL-RL Project
 
 > [!NOTE] Last Updated
 > 2025-11-20
