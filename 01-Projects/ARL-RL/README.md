@@ -18,8 +18,8 @@
 **PRIORITY**: Submit 64×64 Resolution Scaling Jobs
 
 **Why**: Natural progression from E2 success; test if higher resolution improves spatial awareness  
-**Status**: 4 jobs pending in queue (3 with `AssocGrpGRES` blocking, 1 waiting on resources)  
-**Blocker**: Old jobs may need cancellation
+**Status**: No jobs pending
+**Blocker**: None
 
 **Command** (after checking/canceling old jobs):
 ```bash
