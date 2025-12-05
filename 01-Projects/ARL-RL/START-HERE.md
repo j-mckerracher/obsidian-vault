@@ -1,20 +1,6 @@
 # ARL-RL Project — Start Here
 
-> **For New Researchers & AI Agents**: This document provides your roadmap to the ARL-RL project documentation.
-
----
-
-## 🎯 First Stop: README.md
-
-**[[README]]** is your comprehensive entry point. It contains:
-- Current project status and immediate next actions
-- Recent session context (last 3-5 sessions)
-- Quick navigation to all core documents
-- Known issues and blockers
-- Key results summary
-- Onboarding guide for AI agents
-
-**Start there, then return here for the full documentation map.**
+> This document provides your roadmap to the ARL-RL project documentation.
 
 ---
 
@@ -81,11 +67,6 @@ External references and collaboration guides:
 - **[[References/Index]]** — Index of references
 - **[[References/LLM-Collaboration-Guide]]** — Guide for AI agent collaboration
 
-#### 📁 Prompts/
-AI agent prompts and instructions:
-- **[[Prompts/Index]]** — Index of prompts
-- Reusable prompts for common tasks
-
 #### 📁 Context/
 Project context and background information:
 - **[[Context/Index]]** — Index of context documents
@@ -112,12 +93,6 @@ Historical documents no longer actively used:
 3. Check **[[Status]]** — See detailed current state
 4. Review **[[Plan]]** — Understand roadmap and milestones
 5. Browse **[[Experiments]]** — See all experiment history
-
-### For AI Agents Starting a New Session
-1. Read **[[README]]** — Get immediate context and next actions
-2. Check **[[Status]]** — Understand current stage and blockers
-3. Review **[[Dont-Forget]]** — Note critical patterns and preferences
-4. Check relevant folders (Decisions, Work-Log, Documents) as needed
 
 ### For Continuing Work
 1. Update **[[Status]]** after significant progress
