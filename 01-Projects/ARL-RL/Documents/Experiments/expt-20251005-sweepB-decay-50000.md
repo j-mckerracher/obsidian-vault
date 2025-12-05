@@ -29,6 +29,7 @@ hardware: {}
 sources: []
 related: []
 ---
+
 ## Summary
 This experiment was part of Sweep B, investigating the impact of an epsilon decay value of 50000.
 
@@ -67,3 +68,9 @@ Lack of detailed setup information and job commands.
 
 ## Changelog
 - 2025-11-30T12:17:00Z Created from template, migrated from `20251005_023546_sweepB_decay_50000.md`
+
+# Original Experiment Notes (Restored)
+
+# Redirect
+This experiment note has been migrated. Please see the new canonical version:
+[[01 Projects/ARL-RL/Documents/Experiments/expt-20251005-sweepB-decay-50000]]
