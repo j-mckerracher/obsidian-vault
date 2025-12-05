@@ -9,7 +9,7 @@ created: 2025-10-05
 ## Overall Status
 **Status**: 🞫 GREEN — Excellent progress on E2 validation; PER exploration completed and parked.
 
-**Last updated**: 2025-10-25T16:44:16Z
+**Last updated**: 2025-11-30T13:05:00Z
 
 ### Summary
 - **E2 Production Validated**: 3k episodes achieve **94.3% mean win rate** (97%/88%/98%), excellent scaling from 1k (91.3%) and 500 (52.7%)
@@ -86,44 +86,53 @@ Notes:
 - **Memory optimized**: Mixed precision + CUDA memory management
 
 ## Next actions
-**Choose next exploration direction:**
 
-**Option 1: Resolution scaling (64×64)**
+> [!IMPORTANT] Decision Point
+> Choose next exploration direction. Current recommendation: **Option 1 (Resolution Scaling)** for natural progression without code changes.
+
+### 🔴 Priority 1: Resolution Scaling (64×64) — **RECOMMENDED**
 - Test frozen E2 config at higher resolution
-- Expected: Better spatial awareness, potentially higher win rate
-- Resource: ~4x memory/compute vs 32×32
-- Timeline: 500-1k episode smoke runs per seed
+- **Why first**: Natural progression from E2 success, no code changes needed, better spatial awareness
+- **Resource**: ~4x memory/compute vs 32×32 (80GB mem, 3-4h per seed)
+- **Timeline**: 500-1k episode smoke runs per seed
+- **Expected**: Potentially >95% win rate with improved tactical decisions
+- **Command**: See [[Dont-Forget]] for current preferred submission method
 
-**Option 2: Stage E4 (N-step returns, n=3)**
+### 🟡 Priority 2: Stage E4 (N-step Returns, n=3)
 - Add multi-step bootstrapping to E2 baseline
-- Expected: Improved credit assignment, potentially faster learning
-- Resource: Similar to E2 baseline
-- Timeline: 500-1k episode smoke runs per seed
+- **Why second**: Requires code implementation first (RL_N_STEP parameter + buffer changes)
+- **Resource**: Similar to E2 baseline (50GB mem, 2-3h per seed)
+- **Timeline**: Implementation (1-2 days) + 500-1k episode smoke runs per seed
+- **Expected**: Improved credit assignment, potentially faster learning
 
-**Option 3: Extended validation (4k-5k episodes)**
+### 🟢 Priority 3: Extended Validation (4k-5k episodes)
 - Push E2 even further to test convergence limits
-- Expected: Marginal improvements or plateau confirmation
-- Resource: 6-8h per seed on normal QoS
+- **Why third**: Only valuable if 64×64 and E4 don't show improvement
+- **Resource**: 6-8h per seed on normal QoS
+- **Expected**: Marginal improvements or plateau confirmation
+- **Timeline**: 1-2 days for full 3-seed run
 
-**Option 4: Checkpoint cleanup & deployment prep**
+### 🔵 Priority 4: Checkpoint Cleanup & Deployment Prep
 - Archive strategic checkpoints, delete intermediates
 - Prepare best model (seed 8 ep3000, 98% win rate) for deployment/demos
 - Document final E2 configuration for paper/reports
+- **Why last**: Can be done in parallel with any other option
+
 
 ## Risks and watchouts
 - GPU contention on shared A30 node can affect training speed/stability.
 - Resolution increases will raise memory and compute costs.
 
 ## Links
-|- **Latest work**: 
-  - [[2025-10-21 Queue stall fix - normal QoS resubmission]]
-  - [[2025-10-19 Stage E1 smoke runs seeds 6 and 8]]
-  - [[2025-10-19 Stage E1 smoke run 300eps seed4]]
-  - [[2025-10-19 Stage E1 chained 1k eps seeds 4 6 8]] (canceled/replaced)
-|- **Previous fixes**: [[2025-10-11 FP16 masking overflow fix]]
-|- **SLURM Integration**: [[2025-10-09 SLURM job submission scripts]]
+|- **Latest work**:
+  - [[Work-Completed/2025-10/2025-10-21#Queue Stall Fix — Normal QoS Resubmission]]
+  - [[Work-Completed/2025-10/2025-10-19#Stage E1 smoke runs — seeds 6 and 8]]
+  - [[Work-Completed/2025-10/2025-10-19#Stage E1 smoke run — 1h standby, 32×32, seed 4]]
+  - [[Work-Completed/2025-10/2025-10-19#Stage E1 chained submissions — standby, 1k eps/seed, 32×32]]
+|- **Previous fixes**: [[Work-Completed/2025-10/2025-10-11#FP16 masking overflow fix (autocast-safe)]]
+|- **SLURM Integration**: [[Work-Completed/2025-10/2025-10-09]]
 |- Decisions: [[01 Projects/ARL-RL/Decisions/Index]]
 |- Experiments hub: [[Experiments]]
-|- Issues log: [[2025-10-04 Issues and Solutions]]
+|- Issues log: [[Work-Completed/2025-10/2025-10-04]]
 |- SLURM docs: [[Submitting SLURM Jobs on Gilbreth for LLMs]]
 |- Common commands: [[Common Commands]]
