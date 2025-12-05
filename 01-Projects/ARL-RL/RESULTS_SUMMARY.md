@@ -3,12 +3,6 @@
 > [!NOTE] Executive Summary
 > This document provides a high-level overview of the ARL-RL project for research reporting and stakeholder communication.
 
-**Project**: StarCraft II FindAndDefeatZerglings Agent Optimization  
-**Researcher**: Josh McKeracher  
-**Institution**: Purdue University (ARL collaboration)  
-**Period**: October 2025 - Present  
-**Status**: 🟢 Active — Stage E2 Validated at Production Scale
-
 ---
 
 ## Objective
@@ -200,5 +194,3 @@ With E2 validated at 94.3%, three exploration paths are available:
 
 ---
 
-*Last Updated: 2025-11-20*  
-*For questions or additional analysis, contact Josh McKeracher*

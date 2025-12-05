@@ -106,7 +106,7 @@ Historical documents no longer actively used:
 
 ## 🔄 Typical Workflow
 
-### For New Researchers
+### Intro
 1. Read **[[README]]** — Get current status and context
 2. Review **[[RESULTS_SUMMARY]]** — Understand key findings
 3. Check **[[Status]]** — See detailed current state
@@ -130,9 +130,8 @@ Historical documents no longer actively used:
 
 ## 🔗 External Resources
 
-- **Code Repository**: `/home/<username>/Code/ARL-RL` (on Gilbreth HPC cluster)
+- **Code: `/home/<username>/Code/ARL-RL` (on Gilbreth HPC cluster)
 - **Results Path**: `/depot/<group>/data/josh/RL/FindAndDefeatZerglings/results_split_advanced`
-- **Local Results**: `C:\Users\<username>\OneDrive - purdue.edu\Documents\ARL-RL-Experiment-Results\`
 - **HPC Cluster**: Gilbreth (Purdue)
 - **Account**: `<group>`
 - **Partition**: `a30` (GPU partition)
@@ -150,25 +149,6 @@ All files and folders use hyphens instead of spaces:
 Experiment files follow the pattern:
 - `expt-YYYYMMDD-{stage}-{type}.md`
 - Example: `expt-20251025-e2-prod-3k.md`
-
----
-
-## 🆘 Common Questions
-
-**Q: Where do I find the current status?**
-A: **[[README]]** for quick status, **[[Status]]** for detailed status
-
-**Q: Where are experiment results?**
-A: Summary in **[[Experiments]]**, details in **Documents/Experiments/**
-
-**Q: How do I submit a SLURM job?**
-A: Check **[[Dont-Forget]]** for preferred method, **[[Documents/Index]]** for guides
-
-**Q: Where are past decisions documented?**
-A: **[[Decisions/Index]]** — all major choices with rationale
-
-**Q: What work was completed recently?**
-A: **[[Work-Completed/Index]]** — daily logs of completed work
 
 ---
 
