@@ -50,29 +50,6 @@ See [[Dont-Forget]] for preferred submission patterns.
 
 ---
 
-## 🧠 Recent Context (Last 3 Sessions)
-
-### 2025-11-20: Queue Troubleshooting & Job Submission
-- Checked SLURM queue: 4 E2_Training jobs pending
-- 3 jobs blocked by `AssocGrpGRES` (account GPU limit)
-- 1 job waiting on general resources
-- Updated [[Don't Forget]] with standby QoS preference
-- **Action needed**: Cancel old jobs 9821750-52, keep 9974636
-
-### 2025-10-25: E2 Production Validation Complete
-- Completed 3k-episode runs across seeds 4, 6, 8
-- Results: 97%/88%/98% → **94.3% mean** (excellent!)
-- Updated Status, Plan, Experiments with results
-- Parked E3 (PER) — underperformed E2 baseline
-- Created decision point for next direction
-
-### 2025-10-25: E3 PER Exploration
-- Tested Prioritized Experience Replay with α∈{0.4, 0.5, 0.6}
-- All configurations below E2 baseline
-- Decision: Park PER, proceed with E2 as foundation
-
----
-
 ## 🚧 Known Issues & Blockers
 
 ### Active Blockers
