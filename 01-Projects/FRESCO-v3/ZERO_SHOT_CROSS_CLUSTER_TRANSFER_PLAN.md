@@ -218,7 +218,7 @@ Predict:
 ---
 
 ### Phase 5 — Rigor + Publication Readiness
-- [ ] Repeat across multiple month pairs (not just one window)
+- [ ] Repeat across multiple month pairs (not just one window; proxy single-month pairs EXP-033..EXP-038)
 - [ ] Add ablations:
   - allocations only vs allocations+runtime vs allocations+perf metrics
   - with/without matching
