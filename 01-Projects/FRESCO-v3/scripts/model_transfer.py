@@ -31,7 +31,7 @@ import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
 from sklearn.impute import SimpleImputer
-from sklearn.linear_model import Ridge
+from sklearn.linear_model import HuberRegressor, Ridge
 from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -291,11 +291,25 @@ def main() -> int:
     test_idx = idx[:n_test]
     train_idx = idx[n_test:]
 
+    model_cfg = cfg.get("model", {"type": "ridge", "alpha": 1.0})
+    model_type = str(model_cfg.get("type", "ridge")).lower()
+
+    if model_type == "huber":
+        reg = HuberRegressor(
+            epsilon=float(model_cfg.get("epsilon", 1.35)),
+            alpha=float(model_cfg.get("alpha", 0.0001)),
+            max_iter=int(model_cfg.get("max_iter", 500)),
+        )
+        reg_step = ("huber", reg)
+    else:
+        reg = Ridge(alpha=float(model_cfg.get("alpha", 1.0)), random_state=seed)
+        reg_step = ("ridge", reg)
+
     model = Pipeline(
         steps=[
             ("impute", SimpleImputer(strategy="median")),
             ("scale", StandardScaler()),
-            ("ridge", Ridge(alpha=1.0, random_state=seed)),
+            reg_step,
         ]
     )
 
@@ -313,6 +327,7 @@ def main() -> int:
         "regime": regime,
         "label": {"column": label_col, "transform": label_transform, "proxy": True},
         "features": feature_cols,
+        "model": model_cfg,
         "overlap": {
             "run_id": overlap.get("run_id"),
             "overlap_band": overlap.get("overlap_band"),

@@ -190,8 +190,10 @@ Predict:
 - Overlap-band sensitivity (alloc+perf, no memused; job-level):
   - Phase 2 overlap (band **[0.1,0.9]**): `experiments\\EXP-024_regime_matching_alloc_perf_nomem_band_01_09\\`
     - Key numbers: AUC≈0.9895, Conte overlap coverage≈0.416.
-  - Phase 3 modeling: `experiments\\EXP-025_modeling_alloc_perf_nomem_band_01_09\\`
+  - Phase 3 modeling (Ridge): `experiments\\EXP-025_modeling_alloc_perf_nomem_band_01_09\\`
     - Result: still catastrophic target R² on proxy label (~ -1.29e5).
+  - Phase 3 modeling (HuberRegressor): `experiments\\EXP-026_modeling_alloc_perf_nomem_band_01_09_huber\\`
+    - Result: target R²=-867.12 on proxy label (still negative, but far less extreme vs Ridge).
 
 **Acceptance**: on regime‑matched cohorts, achieve Tier A success (R² > 0) with stable CI (requires rerun on true v3 shards and true label).
 
