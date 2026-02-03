@@ -109,6 +109,12 @@ If available as time series/snapshots, derive robust aggregates:
   - Limitations: this reproducer regenerates baseline *artifacts* from the frozen snapshot; it does not recompute EXP-015 from raw shards because the referenced scripts/logs are not present in the snapshot.
 - [x] Define one canonical evaluation split protocol (seeded, reproducible)
   - Documented in: `paper/EXPERIMENTS_AND_EVAL.md` (“Canonical split protocol (v3 default)”).
+- [x] Copied authoritative schema PDF from Gilbreth:
+  - `docs/FRESCO_Repository_Description.pdf`
+- [x] Sampled source data headers on Gilbreth (Action 2 in v2 quick start):
+  - Anvil: JobAccounting + JobResourceUsage sample headers
+  - Conte: `TACC_Stats/2015-03/cpu.csv` header
+  - Stampede: `TACC_Stats/NODE1/cpu.csv` header
 
 **Acceptance (Phase 0)**: EXP-015 baseline artifacts + summary can be regenerated from v3 with a single command, and the v3 evaluation split protocol is explicitly documented.
 
