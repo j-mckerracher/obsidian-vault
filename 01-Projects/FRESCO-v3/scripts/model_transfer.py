@@ -138,6 +138,9 @@ def _smape_median(y_true: np.ndarray, y_pred: np.ndarray) -> float:
 def _evaluate(y_true_log: np.ndarray, y_pred_log: np.ndarray) -> dict:
     y_true = np.expm1(y_true_log)
     y_pred = np.expm1(y_pred_log)
+    overflow = bool(np.any(~np.isfinite(y_pred)))
+    if overflow:
+        y_pred = np.where(np.isfinite(y_pred), y_pred, np.nan)
     resid = y_true_log - y_pred_log
 
     # Calibration: y_true_log ≈ slope * y_pred_log + intercept
@@ -152,6 +155,7 @@ def _evaluate(y_true_log: np.ndarray, y_pred_log: np.ndarray) -> dict:
         "bias_log": float(np.mean(resid)),
         "slope": float(slope),
         "intercept": float(intercept),
+        "overflow_pred": overflow,
     }
 
 
@@ -172,6 +176,28 @@ def _bootstrap_r2(y_true_log: np.ndarray, y_pred_log: np.ndarray, n_boot: int, s
         "r2_ci_lower": float(np.quantile(stats, 0.025)),
         "r2_ci_upper": float(np.quantile(stats, 0.975)),
     }
+
+
+def _covariance(x: np.ndarray) -> np.ndarray:
+    n = x.shape[0]
+    if n < 2:
+        return np.eye(x.shape[1])
+    xc = x - np.mean(x, axis=0, keepdims=True)
+    return (xc.T @ xc) / float(n - 1)
+
+
+def _matrix_power(cov: np.ndarray, power: float) -> np.ndarray:
+    vals, vecs = np.linalg.eigh(cov)
+    vals = np.clip(vals, 1e-12, None)
+    vals_power = np.power(vals, power)
+    return vecs @ np.diag(vals_power) @ vecs.T
+
+
+def _coral_matrix(x_src: np.ndarray, x_tgt: np.ndarray, reg: float) -> np.ndarray:
+    n_feat = x_src.shape[1]
+    cs = _covariance(x_src) + reg * np.eye(n_feat)
+    ct = _covariance(x_tgt) + reg * np.eye(n_feat)
+    return _matrix_power(cs, -0.5) @ _matrix_power(ct, 0.5)
 
 
 def main() -> int:
@@ -293,6 +319,31 @@ def main() -> int:
 
     model_cfg = cfg.get("model", {"type": "ridge", "alpha": 1.0})
     model_type = str(model_cfg.get("type", "ridge")).lower()
+    adaptation_cfg = cfg.get("adaptation", {"type": "none"})
+    adaptation_type = str(adaptation_cfg.get("type", "none")).lower()
+    log(f"adaptation={adaptation_type}")
+    adaptation_applied = False
+    adaptation_details: dict | None = None
+
+    if adaptation_type == "coral":
+        reg = float(adaptation_cfg.get("reg", 1e-6))
+        transform = _coral_matrix(
+            X_src.iloc[train_idx].to_numpy(dtype=float),
+            X_tgt.to_numpy(dtype=float),
+            reg,
+        )
+        X_src = pd.DataFrame(
+            X_src.to_numpy(dtype=float) @ transform,
+            columns=feature_cols,
+            index=X_src.index,
+        )
+        X_tgt = pd.DataFrame(
+            X_tgt.to_numpy(dtype=float) @ transform,
+            columns=feature_cols,
+            index=X_tgt.index,
+        )
+        adaptation_applied = True
+        adaptation_details = {"type": "coral", "reg": reg}
 
     if model_type == "huber":
         reg = HuberRegressor(
@@ -328,6 +379,7 @@ def main() -> int:
         "label": {"column": label_col, "transform": label_transform, "proxy": True},
         "features": feature_cols,
         "model": model_cfg,
+        "adaptation": {"applied": adaptation_applied, "config": adaptation_details},
         "overlap": {
             "run_id": overlap.get("run_id"),
             "overlap_band": overlap.get("overlap_band"),

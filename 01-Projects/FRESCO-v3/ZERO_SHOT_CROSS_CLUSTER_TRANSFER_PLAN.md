@@ -207,6 +207,8 @@ Predict:
 #### 4.2 CORAL baseline
 - Align covariance of continuous features using unlabeled target.
 - Train model on aligned source; evaluate on aligned target.
+  - Proxy run: `experiments\\EXP-027_modeling_alloc_perf_nomem_band_01_09_coral\\`
+    - Result: catastrophic negative target R² with severe numerical instability (proxy-only); see `...\\results\\metrics.json`.
 
 #### 4.3 Output distribution matching (unsupervised)
 - Fit a monotonic mapping on *predicted outputs* to match target’s predicted distribution to a reference distribution (careful: avoids using labels but can still distort semantics).
