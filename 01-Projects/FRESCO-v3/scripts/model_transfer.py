@@ -365,6 +365,87 @@ def main() -> int:
     )
 
     log(f"training_rows={len(train_idx)} source_test_rows={len(test_idx)} target_eval_rows={len(X_tgt)}")
+    if len(train_idx) == 0 or len(X_tgt) == 0:
+        metrics = {
+            "run_id": run_id,
+            "created_utc": _utc_now_iso(),
+            "dataset_label": cfg.get("dataset_label"),
+            "pair": {"source": source, "target": target},
+            "regime": regime,
+            "label": {"column": label_col, "transform": label_transform, "proxy": True},
+            "features": feature_cols,
+            "model": model_cfg,
+            "adaptation": {"applied": adaptation_applied, "config": adaptation_details},
+            "overlap": {
+                "run_id": overlap.get("run_id"),
+                "overlap_band": overlap.get("overlap_band"),
+                "matched_source_n": int(len(src)),
+                "matched_target_n": int(len(tgt)),
+            },
+            "eval": {
+                "source_test": None,
+                "target": None,
+                "target_r2_bootstrap": None,
+            },
+            "limitations": [
+                "Label is a local proxy (value_memused_max) from job_partials, not the authoritative v3 peak_memory_fraction target.",
+                "Model uses the feature set specified in the run config; treat this as an ablation baseline, not the final intended Phase 3 feature set.",
+                "No training or target rows after overlap/regime filters; metrics not computed.",
+            ],
+        }
+
+        (exp_dir / "results" / "metrics.json").write_text(
+            json.dumps(metrics, indent=2, sort_keys=True), encoding="utf-8"
+        )
+
+        (exp_dir / "manifests" / "run_metadata.json").write_text(
+            json.dumps(
+                {
+                    "run_id": run_id,
+                    "created_utc": _utc_now_iso(),
+                    "script": str((repo_root / "scripts" / "model_transfer.py").resolve()),
+                    "config": str(cfg_path),
+                    "git": _git_info(repo_root.parents[1]),
+                    "python": sys.version.replace("\n", " "),
+                    "cwd": os.getcwd(),
+                },
+                indent=2,
+                sort_keys=True,
+            ),
+            encoding="utf-8",
+        )
+
+        used_files = []
+        for p in src_used:
+            used_files.append(
+                {"cluster": source, "path": str(p), "bytes": p.stat().st_size, "sha256": _sha256(p)}
+            )
+        for p in tgt_used:
+            used_files.append(
+                {"cluster": target, "path": str(p), "bytes": p.stat().st_size, "sha256": _sha256(p)}
+            )
+        for p in [matched_source_idx, matched_target_idx]:
+            used_files.append({"cluster": "overlap", "path": str(p), "bytes": p.stat().st_size, "sha256": _sha256(p)})
+
+        (exp_dir / "manifests" / "input_files_used.json").write_text(
+            json.dumps(used_files, indent=2, sort_keys=True), encoding="utf-8"
+        )
+        (exp_dir / "validation" / "python_version.txt").write_text(
+            sys.version.replace("\n", " ") + "\n", encoding="utf-8"
+        )
+        try:
+            rc, out, err = _run([sys.executable, "-m", "pip", "freeze"], repo_root)
+            (exp_dir / "validation" / "pip_freeze.txt").write_text(
+                out if rc == 0 else (out + "\n" + err), encoding="utf-8"
+            )
+        except Exception as e:
+            (exp_dir / "validation" / "pip_freeze.txt").write_text(
+                f"pip freeze failed: {e}\n", encoding="utf-8"
+            )
+        log("no data after filters; metrics not computed")
+        log("done")
+        return 0
+
     model.fit(X_src.iloc[train_idx], y_src[train_idx])
 
     y_src_pred = model.predict(X_src.iloc[test_idx])
