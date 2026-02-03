@@ -223,7 +223,7 @@ Predict:
   - allocations only vs allocations+runtime vs allocations+perf metrics
   - with/without matching
   - with/without adaptation (proxy runs: EXP-027 CORAL vs EXP-028 no-adapt)
-- [ ] Add sensitivity analysis to cohort overlap thresholds
+- [ ] Add sensitivity analysis to cohort overlap thresholds (proxy runs: EXP-029/030 [0.05,0.95], EXP-031/032 [0.2,0.8])
 
 **Acceptance**: reproducible report with clear scope: “zero‑shot works for X% of target jobs under regime Y; fails elsewhere due to domain shift.”
 

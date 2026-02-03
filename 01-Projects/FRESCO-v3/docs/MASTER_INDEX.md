@@ -41,6 +41,10 @@ This folder contains the **required documentation** to (1) produce the FRESCO v3
 27. `experiments/EXP-026_modeling_alloc_perf_nomem_band_01_09_huber/` – Phase 3 ablation: robust regression (HuberRegressor) rerun on EXP-024 cohorts
 28. `experiments/EXP-027_modeling_alloc_perf_nomem_band_01_09_coral/` – Phase 4 ablation: CORAL adaptation baseline on EXP-024 cohorts
 29. `experiments/EXP-028_modeling_alloc_perf_nomem_band_01_09_no_adapt/` – Phase 5 ablation: no-adaptation baseline on EXP-024 cohorts
+30. `experiments/EXP-029_regime_matching_alloc_perf_nomem_band_005_095/` – Phase 5 overlap sensitivity: band [0.05,0.95]
+31. `experiments/EXP-030_modeling_alloc_perf_nomem_band_005_095/` – Phase 5 overlap sensitivity: modeling on band [0.05,0.95]
+32. `experiments/EXP-031_regime_matching_alloc_perf_nomem_band_02_08/` – Phase 5 overlap sensitivity: band [0.2,0.8]
+33. `experiments/EXP-032_modeling_alloc_perf_nomem_band_02_08/` – Phase 5 overlap sensitivity: modeling on band [0.2,0.8]
 
 ## Quick Links
 - Planning: `../ZERO_SHOT_CROSS_CLUSTER_TRANSFER_PLAN.md`
