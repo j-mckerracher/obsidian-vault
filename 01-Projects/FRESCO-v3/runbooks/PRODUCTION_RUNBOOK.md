@@ -9,8 +9,8 @@ Produce `/depot/<group>/data/josh/FRESCO/chunks-v3/` with full reproducibility a
 1. Confirm input root exists and is readable.
 2. Confirm output root exists or can be created.
 3. Confirm conda env name + versions.
-4. Confirm pipeline code is pinned to a git commit.
-5. Confirm config file created (see `docs/CONFIGURATION.md`).
+	1. Confirm pipeline code is pinned to a git commit. 
+4. Confirm config file created (see `docs/CONFIGURATION.md`).
 
 ## Step-by-step
 
