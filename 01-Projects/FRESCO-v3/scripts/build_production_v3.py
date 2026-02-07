@@ -168,7 +168,10 @@ def enforce_batch_schema(df):
 
     for col in time_cols:
         if col in df.columns:
-            df[col] = pd.to_datetime(df[col], errors='coerce').astype('datetime64[us]')
+            series = pd.to_datetime(df[col], errors='coerce', utc=True)
+            if pd.api.types.is_datetime64tz_dtype(series.dtype):
+                series = series.dt.tz_localize(None)
+            df[col] = series.astype('datetime64[us]')
 
     for col in float_cols:
         if col in df.columns:
@@ -326,14 +329,22 @@ def run_production_build(config_path):
         logger.error("No input files found!")
         sys.exit(1)
     
-    # Process each shard and write incrementally
-    logger.info("Processing shards in batches...")
+    # Process each shard and write incrementally (streaming)
+    logger.info("Processing shards (streaming)...")
     
     output_file = output_dir / f'{run_id}_v3.parquet'
     writer = None
     total_rows = 0
-    batch_size = 100  # Process 100 files at a time
-    current_batch = []
+    sample_size = int(config.get('validation_sample_size', 100000))
+    sample_per_file = int(config.get('validation_sample_per_file', 100))
+    sample_df = None
+    missing_counts = {}
+    dtype_observed = {}
+    clusters_seen = set()
+    
+    logger.info(
+        f"Validation sample size: {sample_size} (per file: {sample_per_file})"
+    )
     
     for idx, input_file in enumerate(input_files):
         if idx % 1000 == 0:
@@ -358,89 +369,82 @@ def run_production_build(config_path):
         if 'cluster' in df.columns:
             cluster = df['cluster'].iloc[0]
         else:
-            # Infer from filename suffix (_S, _C, _A) or path
+            # Infer from filename suffix (_S, _C, _A) or path or year range
             filename = input_file.name
-            if filename.endswith('_S.parquet') or '_S/' in str(input_file):
+            file_path_str = str(input_file)
+            
+            if filename.endswith('_S.parquet') or '_S/' in file_path_str:
                 cluster = 'stampede'
-            elif filename.endswith('_C.parquet') or '_C/' in str(input_file):
+            elif filename.endswith('_C.parquet') or '_C/' in file_path_str:
                 cluster = 'conte'
-            elif filename.endswith('_A.parquet') or '_A/' in str(input_file):
+            elif filename.endswith('_A.parquet') or '_A/' in file_path_str:
                 cluster = 'anvil'
-            elif 'anvil' in str(input_file).lower():
+            elif 'anvil' in file_path_str.lower():
                 cluster = 'anvil'
-            elif 'conte' in str(input_file).lower():
+            elif 'conte' in file_path_str.lower():
                 cluster = 'conte'
-            elif 'stampede' in str(input_file).lower():
+            elif 'stampede' in file_path_str.lower():
                 cluster = 'stampede'
             else:
-                logger.warning(f"Cannot detect cluster for {input_file}, skipping")
-                continue
+                # Anvil files have no suffix; infer from year range (2022+)
+                # Extract year from path pattern: .../chunks/YYYY/MM/DD/HH.parquet
+                import re
+                year_match = re.search(r'/chunks/(\d{4})/', file_path_str)
+                if year_match:
+                    year = int(year_match.group(1))
+                    if year >= 2022:
+                        cluster = 'anvil'
+                        logger.debug(f"Inferred Anvil from year {year} for {filename}")
+                    else:
+                        logger.warning(f"Cannot detect cluster for {input_file} (year {year}), skipping")
+                        continue
+                else:
+                    logger.warning(f"Cannot detect cluster for {input_file}, skipping")
+                    continue
         
         # Apply transformations
         df = normalize_schema(df, cluster)
         df = add_provenance_metadata(df, cluster)
         df = enforce_batch_schema(df)
+        clusters_seen.add(cluster)
         
-        if idx % 1000 == 0:
-            logger.info(
-                f"batch_prewrite_{idx}: columns={list(df.columns)}"
-            )
+        # Update validation sample (bounded)
+        if sample_size > 0 and len(df) > 0:
+            take = min(sample_per_file, len(df))
+            if take > 0:
+                sample_new = df.sample(n=take, random_state=(idx % 2**32))
+                if sample_df is None:
+                    sample_df = sample_new
+                else:
+                    sample_df = pd.concat([sample_df, sample_new], ignore_index=True)
+                    if len(sample_df) > sample_size:
+                        sample_df = sample_df.sample(
+                            n=sample_size,
+                            random_state=42
+                        )
         
-        current_batch.append(df)
-        total_rows += len(df)
-        
-        # Write batch when we hit batch_size
-        if len(current_batch) >= batch_size:
-            batch_df = pd.concat(current_batch, ignore_index=True)
-            
-            # Ensure consistent schema across batches
-            batch_df = enforce_batch_schema(batch_df)
-            
-            table = pa.Table.from_pandas(batch_df, preserve_index=False)
-            
-            if writer is None:
-                # First write - create writer
-                writer = pq.ParquetWriter(output_file, table.schema)
-            else:
-                table = align_table_to_schema(table, writer.schema, f"batch_{idx}")
-            
-            # Log batch schema details for diagnostics
-            logger.info(
-                f"batch_{idx}: rows={table.num_rows}, columns={table.num_columns}"
-            )
-            if writer is not None:
-                logger.debug(
-                    f"batch_{idx}: writer schema={writer.schema}"
-                )
-            
-            writer.write_table(table)
-            current_batch = []
-            del batch_df
-            del table
-    
-    # Write remaining batch
-    if current_batch:
-        logger.info(f"Writing final batch of {len(current_batch)} files...")
-        batch_df = pd.concat(current_batch, ignore_index=True)
-        
-        # Ensure consistent schema across batches
-        batch_df = enforce_batch_schema(batch_df)
-        
-        table = pa.Table.from_pandas(batch_df, preserve_index=False)
-        
+        # Convert to Arrow and align to writer schema
+        table = pa.Table.from_pandas(df, preserve_index=False)
         if writer is None:
             writer = pq.ParquetWriter(output_file, table.schema)
         else:
-            table = align_table_to_schema(table, writer.schema, "final_batch")
+            table = align_table_to_schema(table, writer.schema, f"file_{idx}")
         
-        logger.info(
-            f"final_batch: rows={table.num_rows}, columns={table.num_columns}"
-        )
-        if writer is not None:
-            logger.debug(f"final_batch: writer schema={writer.schema}")
+        # Accumulate missingness and dtype observations from aligned table
+        for field in table.schema:
+            missing_counts[field.name] = (
+                missing_counts.get(field.name, 0) + table.column(field.name).null_count
+            )
+            dtype_observed.setdefault(field.name, set()).add(str(field.type))
+        
+        if idx % 1000 == 0:
+            logger.info(
+                f"file_{idx}: rows={table.num_rows}, columns={table.num_columns}"
+            )
         
         writer.write_table(table)
-        del batch_df
+        total_rows += table.num_rows
+        del df
         del table
     
     # Close writer
@@ -451,21 +455,36 @@ def run_production_build(config_path):
     logger.info("")
     
     # =========================================================================
-    # VALIDATION (Sample-based since file is already written)
+    # VALIDATION (Streaming sample-based)
     # =========================================================================
     logger.info("=" * 80)
     logger.info("VALIDATION")
     logger.info("=" * 80)
     
-    # Read a sample for validation
-    logger.info("Reading sample for validation...")
-    sample_df = pd.read_parquet(output_file, engine='pyarrow')
-    sample_size = min(100000, len(sample_df))
-    sample_df = sample_df.sample(n=sample_size, random_state=42) if len(sample_df) > sample_size else sample_df
-    
-    validation_results = validate_output(sample_df)
-    validation_results['total_rows'] = total_rows
-    validation_results['sample_size'] = len(sample_df)
+    if sample_df is None or len(sample_df) == 0:
+        logger.warning("No validation sample collected; skipping validation stats.")
+        validation_results = {
+            'row_count': 0,
+            'column_count': 0,
+            'has_cluster': False,
+            'has_jid': False,
+            'clusters_present': [],
+            'dtype_check': {},
+            'missingness': {}
+        }
+        validation_results['total_rows'] = total_rows
+        validation_results['sample_size'] = 0
+    else:
+        validation_results = validate_output(sample_df)
+        validation_results['total_rows'] = total_rows
+        validation_results['sample_size'] = len(sample_df)
+        validation_results['dtype_observed'] = {
+            k: sorted(list(v)) for k, v in dtype_observed.items()
+        }
+        validation_results['missingness_global'] = {
+            k: (missing_counts.get(k, 0) / total_rows) if total_rows > 0 else None
+            for k in dtype_observed.keys()
+        }
     
     # Write validation report
     validation_path = output_dir / 'validation' / 'schema_report.json'
