@@ -58,7 +58,7 @@ See [[Dont-Forget]] for preferred submission patterns.
 
 ### Configuration Notes
 - **Frozen E2 Config**: LR=5e-5, TUF=400, Batch=4, Replay=100k, Res=32, StepMul=16, Dueling=1
-- **Preferred QoS**: Use `standby` to avoid group GPU limits (see [[Don't Forget]])
+- **Preferred QoS**: Use `standby` to avoid group GPU limits (see [[01-Projects/Demo-ICLR-Confidential/Don't Forget]])
 - **Account**: `sbagchi` on Gilbreth cluster
 
 ---

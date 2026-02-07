@@ -57,7 +57,7 @@ Logs are organized by year-month subdirectories (`YYYY-MM/`) for better chronolo
 - [[Notes/Index]] — Engineering notes and technical documentation
 - [[Decisions/Index]] — Key decisions with rationale
 - [[Experiments]] — Canonical experiment tracker
-- [[README]] — Current status and next actions
+- [[01-Projects/ARL-RL/README]] — Current status and next actions
 
 ---
 

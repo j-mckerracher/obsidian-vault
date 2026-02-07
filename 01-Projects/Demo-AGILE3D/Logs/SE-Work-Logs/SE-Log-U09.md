@@ -1,17 +1,20 @@
 ---
-tags: [agent/se, log, work-log]
-unit_id: "U09"
+tags:
+  - agent/se
+  - log
+  - work-log
+unit_id: U09
 project: "[[01-Projects/AGILE3D-Demo]]"
-assignment_note: "[[01-Projects/AGILE3D-Demo/Assignments/UoW-U09-Assignment]]"
-date: "2025-11-01"
-status: "done"
+assignment_note: "[[UoW-U09-Assignment]]"
+date: 2025-11-01
+status: done
 owner: "[[Claude Code]]"
 ---
 
 # SE Work Log — U09
 
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Assignment: [[01-Projects/AGILE3D-Demo/Assignments/UoW-U09-Assignment]]
+- Assignment: [[UoW-U09-Assignment]]
 - Daily note: [[2025-11-01]]
 - Reference: [[04-Agent-Reference-Files/Code-Standards]] · [[04-Agent-Reference-Files/Common-Pitfalls-to-Avoid]]
 
@@ -261,11 +264,11 @@ owner: "[[Claude Code]]"
 
 ## Links & Backlinks
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Assignment: [[01-Projects/AGILE3D-Demo/Assignments/UoW-U09-Assignment]]
+- Assignment: [[UoW-U09-Assignment]]
 - Dependencies: None (utility worker)
 - Related: [[SE-Log-U05]] (Sample data generation), [[SE-Log-U08]] (FrameStreamService which will use this worker)
 - Today: [[2025-11-01]]
-- Planning: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/micro-level-plan]]
+- Planning: [[01-Projects/Demo-AGILE3D/Planning/Use-Real-Data/micro-level-plan]]
 
 ## Checklist
 - [x] Log created and linked from assignment

@@ -1,17 +1,20 @@
 ---
-tags: [agent/se, log, work-log]
-unit_id: "U08"
+tags:
+  - agent/se
+  - log
+  - work-log
+unit_id: U08
 project: "[[01-Projects/AGILE3D-Demo]]"
-assignment_note: "[[01-Projects/AGILE3D-Demo/Assignments/UoW-U08-Assignment]]"
-date: "2025-11-01"
-status: "done"
+assignment_note: "[[01-Projects/Demo-AGILE3D/Assignments/UoW-U08-Assignment]]"
+date: 2025-11-01
+status: done
 owner: "[[Claude Code]]"
 ---
 
 # SE Work Log — U08
 
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Assignment: [[01-Projects/AGILE3D-Demo/Assignments/UoW-U08-Assignment]]
+- Assignment: [[01-Projects/Demo-AGILE3D/Assignments/UoW-U08-Assignment]]
 - Daily note: [[2025-11-01]]
 - Reference: [[04-Agent-Reference-Files/Code-Standards]] · [[04-Agent-Reference-Files/Common-Pitfalls-to-Avoid]]
 
@@ -236,10 +239,10 @@ owner: "[[Claude Code]]"
 
 ## Links & Backlinks
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Assignment: [[01-Projects/AGILE3D-Demo/Assignments/UoW-U08-Assignment]]
+- Assignment: [[01-Projects/Demo-AGILE3D/Assignments/UoW-U08-Assignment]]
 - Dependencies: [[SE-Log-U06]] (Manifest Service), [[SE-Log-U07]] (HTTP Utilities)
 - Today: [[2025-11-01]]
-- Planning: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/micro-level-plan]]
+- Planning: [[01-Projects/Demo-AGILE3D/Planning/Use-Real-Data/micro-level-plan]]
 
 ## Checklist
 - [x] Log created and linked from assignment

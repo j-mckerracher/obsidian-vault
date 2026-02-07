@@ -9,7 +9,7 @@
 ### Core Status Documents
 These are the most frequently updated files that track current state:
 
-- **[[README]]** — Current status, next actions, recent context (AI agent entry point)
+- **[[01-Projects/ARL-RL/README]]** — Current status, next actions, recent context (AI agent entry point)
 - **[[Status]]** — Detailed current status, stage progression, next actions
 - **[[Plan]]** — Roadmap, milestones, tasks, risks
 - **[[Experiments]]** — Canonical experiment tracker (all runs with results)
@@ -17,7 +17,7 @@ These are the most frequently updated files that track current state:
 
 ### Quick Reference
 - **[[Dont-Forget]]** — Critical reminders, preferred commands, common patterns
-- **[[Backlog]]** — Future work items not yet prioritized
+- **[[01-Projects/Demo-AGILE3D/Backlog]]** — Future work items not yet prioritized
 
 ### Detailed Documentation Folders
 
@@ -88,7 +88,7 @@ Historical documents no longer actively used:
 ## 🔄 Typical Workflow
 
 ### Intro
-1. Read **[[README]]** — Get current status and context
+1. Read **[[01-Projects/ARL-RL/README]]** — Get current status and context
 2. Review **[[RESULTS_SUMMARY]]** — Understand key findings
 3. Check **[[Status]]** — See detailed current state
 4. Review **[[Plan]]** — Understand roadmap and milestones
@@ -99,7 +99,7 @@ Historical documents no longer actively used:
 2. Update **[[Plan]]** when milestones change
 3. Update **[[Experiments]]** when runs complete
 4. Add to **[[Work-Completed/Index]]** at end of session
-5. Update **[[README]]** recent context section
+5. Update **[[01-Projects/ARL-RL/README]]** recent context section
 
 ---
 

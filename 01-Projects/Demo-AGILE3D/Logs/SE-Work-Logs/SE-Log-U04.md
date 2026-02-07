@@ -1,17 +1,20 @@
 ---
-tags: [agent/se, log, work-log]
-unit_id: "U04"
+tags:
+  - agent/se
+  - log
+  - work-log
+unit_id: U04
 project: "[[01-Projects/AGILE3D-Demo]]"
-assignment_note: "[[01-Projects/AGILE3D-Demo/Assignments/UoW-U04-Assignment]]"
-date: "2025-10-31"
-status: "done"
+assignment_note: "[[01-Projects/Demo-AGILE3D/Assignments/UoW-U04-Assignment]]"
+date: 2025-10-31
+status: done
 owner: "[[Claude Code]]"
 ---
 
 # SE Work Log — U04
 
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Assignment: [[01-Projects/AGILE3D-Demo/Assignments/UoW-U04-Assignment]]
+- Assignment: [[01-Projects/Demo-AGILE3D/Assignments/UoW-U04-Assignment]]
 - Daily note: [[2025-10-31]]
 - Reference: [[04-Agent-Reference-Files/Code-Standards]] · [[04-Agent-Reference-Files/Common-Pitfalls-to-Avoid]]
 
@@ -176,10 +179,10 @@ None. All work completed successfully without blockers.
 
 ## Links & Backlinks
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Assignment: [[01-Projects/AGILE3D-Demo/Assignments/UoW-U04-Assignment]]
+- Assignment: [[01-Projects/Demo-AGILE3D/Assignments/UoW-U04-Assignment]]
 - Today: [[2025-10-31]]
 - Related logs: [[SE-Log-U03]] (downsampling dependency)
-- Planning docs: [[01-Projects/AGILE3D-Demo/Planning/Use-Real-Data/micro-level-plan]]
+- Planning docs: [[01-Projects/Demo-AGILE3D/Planning/Use-Real-Data/micro-level-plan]]
 
 ## Checklist
 - [x] Log created, linked from assignment and daily note

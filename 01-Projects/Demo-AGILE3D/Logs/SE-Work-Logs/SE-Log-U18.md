@@ -1,17 +1,20 @@
 ---
-tags: [agent/se, log, work-log]
-unit_id: "U18"
+tags:
+  - agent/se
+  - log
+  - work-log
+unit_id: U18
 project: "[[01-Projects/AGILE3D-Demo]]"
-assignment_note: "[[01-Projects/AGILE3D-Demo/Assignments/UoW-U18-Assignment]]"
-date: "2025-11-01"
-status: "done"
+assignment_note: "[[UoW-U18-Assignment]]"
+date: 2025-11-01
+status: done
 owner: "[[Claude Code]]"
 ---
 
 # SE Work Log — U18
 
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Assignment: [[01-Projects/AGILE3D-Demo/Assignments/UoW-U18-Assignment]]
+- Assignment: [[UoW-U18-Assignment]]
 - Daily note: [[2025-11-01]]
 - Reference: [[04-Agent-Reference-Files/Code-Standards]] · [[04-Agent-Reference-Files/Common-Pitfalls-to-Avoid]]
 
@@ -95,7 +98,7 @@ owner: "[[Claude Code]]"
 
 ## Links & Backlinks
 - Project: [[01-Projects/AGILE3D-Demo]]
-- Assignment: [[01-Projects/AGILE3D-Demo/Assignments/UoW-U18-Assignment]]
+- Assignment: [[UoW-U18-Assignment]]
 - Today: [[2025-11-01]]
 
 ## Checklist

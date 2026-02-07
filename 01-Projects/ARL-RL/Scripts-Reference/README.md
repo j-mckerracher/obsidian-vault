@@ -30,4 +30,4 @@ This directory contains markdown-formatted copies of SLURM job submission script
 
 - [[Documents/Common Commands]] — SLURM commands and usage examples
 - [[Documents/Submitting SLURM Jobs on Gilbreth for LLMs]] — Job submission guide
-- [[Don't Forget]] — Current preferred submission methods
+- [[01-Projects/Demo-ICLR-Confidential/Don't Forget]] — Current preferred submission methods
