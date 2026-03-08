@@ -1,4 +1,7 @@
-# Skill: Write an Experiment Log
+---
+name: write-experiment-log
+description: Create and fill out a run log for a FRESCO experiment or production run. Use when starting or completing any experiment to ensure all required sections are recorded correctly.
+---
 
 Every experiment or production run must have a run log. Use this skill to create and fill one out correctly.
 

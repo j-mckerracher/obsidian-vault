@@ -1,4 +1,7 @@
-# Skill: Gilbreth Pre-flight
+---
+name: gilbreth-preflight
+description: Pre-flight checklist for submitting jobs on Gilbreth HPC. Use this before submitting any SLURM job to verify GPU quota, environment, paths, and code version.
+---
 
 Before submitting any job to Gilbreth, complete every item below.
 

@@ -1,4 +1,7 @@
-# Skill: Create Run ID and Folder Scaffold
+---
+name: create-run-id
+description: Create a unique run ID and output folder scaffold for FRESCO production runs or experiments. Use this at the very start of any new run before writing any files.
+---
 
 Every production run requires a unique, stable run ID before any files are written.
 

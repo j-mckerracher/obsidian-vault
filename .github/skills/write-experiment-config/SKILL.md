@@ -1,4 +1,7 @@
-# Skill: Write an Experiment Config File
+---
+name: write-experiment-config
+description: Write a correctly structured experiment or production config JSON file for the FRESCO pipeline. Use when creating a new experiment or production run to ensure all required fields are present.
+---
 
 Every run must be fully parameterized by a single config file stored with its artifacts.
 

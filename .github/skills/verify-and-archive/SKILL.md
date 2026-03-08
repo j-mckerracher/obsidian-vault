@@ -1,4 +1,7 @@
-# Skill: Post-Run Verification and Archival
+---
+name: verify-and-archive
+description: Spot-check and archive a completed FRESCO production run. Use after the pipeline finishes and validation passes to confirm output integrity and copy artifacts to the depot archive.
+---
 
 After the pipeline completes and validation artifacts are written, perform a final spot-check and archive the run.
 

@@ -1,4 +1,7 @@
-# Skill: Submit a SLURM Job on Gilbreth
+---
+name: submit-slurm-job
+description: Submit and monitor a SLURM job on Gilbreth for the FRESCO pipeline. Use when submitting any production or experiment job, or when diagnosing a stuck/failed job.
+---
 
 ## Required SLURM header (production build)
 

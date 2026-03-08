@@ -1,4 +1,7 @@
-# Skill: Reproducibility Checklist
+---
+name: reproducibility-checklist
+description: Publication readiness checklist covering code, environment, data provenance, determinism, and validation. Use before declaring any FRESCO run publication-ready or submitting results to a venue.
+---
 
 Run through this checklist before declaring any run publication-ready. All items in A–E must pass. F–G must be completed before submitting to a venue.
 

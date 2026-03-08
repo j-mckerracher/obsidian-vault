@@ -1,4 +1,7 @@
-# Skill: Capture Code Version
+---
+name: capture-code-version
+description: Pin a run to a specific git commit hash for reproducibility. Use when starting any production run or experiment to record which version of the pipeline code was used.
+---
 
 Every run must be pinned to an exact git commit so results are reproducible from source.
 

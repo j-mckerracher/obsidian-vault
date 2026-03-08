@@ -1,4 +1,7 @@
-# Skill: Canonical Schema and Dtype Rules
+---
+name: canonical-schema
+description: FRESCO v3 canonical column schema, required dtypes, and known per-cluster dtype drift. Use when writing extractors, validating output parquet files, adding new columns, or checking schema conformance.
+---
 
 Use this skill when writing extractors, checking output parquet files, or adding new columns. Every v3 output shard must conform to this schema.
 

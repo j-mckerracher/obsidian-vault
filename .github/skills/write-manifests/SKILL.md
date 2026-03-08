@@ -1,4 +1,7 @@
-# Skill: Write Run Manifests
+---
+name: write-manifests
+description: Write run manifests (input_manifest.jsonl, output_manifest.jsonl, run_metadata.json) for a FRESCO production run or experiment. Use when a run completes or to verify that traceability records are present.
+---
 
 Every production run must produce three manifest files. These are the traceability record required for publication.
 

@@ -1,4 +1,7 @@
-# Skill: Capture Environment
+---
+name: capture-environment
+description: Capture the software environment (Python version, pip freeze, conda export, host info) for reproducibility. Use when starting a production run or experiment on Gilbreth.
+---
 
 Record the full software environment on the execution host before running the pipeline. These artifacts are required for publication reproducibility.
 

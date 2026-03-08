@@ -1,4 +1,7 @@
-# Skill: Run a Cross-Cluster Comparison (Regime Matching)
+---
+name: run-cross-cluster-comparison
+description: Perform regime matching and overlap analysis for cross-cluster transfer comparisons. Use when making or evaluating any cross-cluster transfer claim, or when setting up a Phase 2/3 experiment.
+---
 
 Cross-cluster claims are only defensible when restricted to overlapping workload regimes. Follow this procedure exactly.
 

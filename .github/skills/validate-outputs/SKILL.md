@@ -1,4 +1,7 @@
-# Skill: Validate Pipeline Outputs
+---
+name: validate-outputs
+description: Validate FRESCO pipeline output parquet files against quality levels 0–3. Use after any production pipeline run or experiment completes to confirm outputs meet acceptance criteria before archiving or making claims.
+---
 
 After the production pipeline runs, validation artifacts must be produced and checked before the run is considered complete.
 
