@@ -5,6 +5,8 @@ description: FRESCO v3 canonical column schema, required dtypes, and known per-c
 
 Use this skill when writing extractors, checking output parquet files, or adding new columns. Every v3 output shard must conform to this schema.
 
+> **Important**: The actual PROD-20260203-v3 output uses the raw FRESCO column naming convention (e.g., `value_memused`, `queue`). Derived/normalized columns (`runtime_sec`, `peak_memory_gb`, `partition`) are **not stored** — compute them at analysis time. This schema reflects the actual output as of 2026-03-09.
+
 ## Required columns
 
 ### Identifiers
@@ -12,61 +14,67 @@ Use this skill when writing extractors, checking output parquet files, or adding
 |---|---|---|
 | `jid` | string | Normalized to string across all clusters |
 | `jid_global` | string | Globally unique job ID |
-| `cluster` | categorical | Must be one of `{anvil, conte, stampede}` |
+| `cluster` | string | Must be one of `{anvil, conte, stampede}` |
+| `username` | string | |
+| `account` | string | |
+| `jobname` | string | |
 
 ### Allocations
-| Column | Type |
-|---|---|
-| `nhosts` | int64 |
-| `ncores` | int64 |
-| `timelimit_sec` | float64 |
-| `timelimit_original` | float64 |
-| `timelimit_unit_original` | string |
-
-### Timing
-| Column | Type |
-|---|---|
-| `submit_time` | timestamp (UTC) |
-| `start_time` | timestamp (UTC) |
-| `end_time` | timestamp (UTC) |
-| `runtime_sec` | float64 |
-| `queue_time_sec` | float64 |
-| `runtime_fraction` | float64 |
-
-### Memory
 | Column | Type | Notes |
 |---|---|---|
-| `peak_memory_gb` | float64 | May be null if not collected |
-| `node_memory_gb` | float64 | From hardware metadata |
-| `peak_memory_fraction` | float64 | `peak_memory_gb / node_memory_gb` |
+| `nhosts` | int64 | |
+| `ncores` | int64 | |
+| `timelimit_sec` | float64 | Normalized to seconds |
+| `timelimit` | float64 | Raw timelimit value |
+| `timelimit_original` | float64 | Original value before normalization |
+| `timelimit_unit_original` | string | Unit of original timelimit |
+| `queue` | string | Scheduler queue/partition name |
+| `host` | string | Submission host |
+| `host_list` | string | Allocated nodes |
+| `exitcode` | string | |
+| `unit` | string | |
 
-### Workload / hardware context
-| Column | Type |
-|---|---|
-| `partition` | string |
-| `node_type` | string |
-| `node_cores` | int64 |
-| `gpu_count_per_node` | int64 |
-| `gpu_model` | string |
+### Timing
+| Column | Type | Notes |
+|---|---|---|
+| `time` | timestamp[us] | Main measurement timestamp |
+| `submit_time` | timestamp[us] | |
+| `start_time` | timestamp[us] | |
+| `end_time` | timestamp[us] | |
+
+> `runtime_sec`, `queue_time_sec`, `runtime_fraction` are **not stored** — derive as needed:
+> `runtime_sec = (end_time - start_time).dt.total_seconds()`
+
+### Performance metrics (raw FRESCO values)
+| Column | Type | Notes |
+|---|---|---|
+| `value_cpuuser` | float64 | CPU user time |
+| `value_gpu` | float64 | GPU utilization |
+| `value_memused` | float64 | Memory used (may include cache) |
+| `value_memused_minus_diskcache` | float64 | Memory minus disk cache |
+| `value_nfs` | float64 | NFS I/O |
+| `value_block` | float64 | Block I/O |
+
+> `peak_memory_gb`, `peak_memory_fraction`, `node_memory_gb` are **not stored** in v3 output.
 
 ### Provenance (measurement semantics)
 | Column | Type | Purpose |
 |---|---|---|
-| `memory_includes_cache` | bool | True if memory metric includes disk cache |
+| `memory_includes_cache` | bool | True if `value_memused` includes disk cache |
 | `memory_collection_method` | string | e.g., `procfs`, `cgroup`, `scheduler` |
 | `memory_aggregation` | string | e.g., `max`, `mean` |
 | `memory_sampling_interval_sec` | float64 | How often memory was sampled |
-| `memory_original_value` | float64 | Raw value before normalization |
-| `memory_original_unit` | string | e.g., `KB`, `MB`, `GB` |
 
 ## Dtype drift: known per-cluster issues
 
-| Column | Anvil | Conte | Stampede | Fix |
+All columns in PROD-20260203-v3 output are stored as `timestamp[us]` (not `timestamp[ns]`). The pipeline normalizes to `timestamp[us]` across all clusters.
+
+| Column | Anvil (raw) | Conte (raw) | Stampede (raw) | Fix |
 |---|---|---|---|---|
-| `ncores` | int64 | double | int32 | Cast to int64 |
-| `nhosts` | int64 | double | int32 | Cast to int64 |
-| timestamps | `timestamp[ns, UTC]` | `timestamp[ns, UTC]` | `timestamp[us, UTC]` | Normalize to ns |
-| `exitcode` | string | string | dict-encoded string | Decode to string |
+| `ncores` | int64 | double | int32 | Cast to int64 before write |
+| `nhosts` | int64 | double | int32 | Cast to int64 before write |
+| timestamps | varies | varies | `timestamp[us]` | Normalize to `timestamp[us]` |
+| `exitcode` | string | string | dict-encoded string | Decode to plain string |
 | `timelimit` | double | double | int64 | Cast to float64 |
 
 ## Rules for extractor authors
