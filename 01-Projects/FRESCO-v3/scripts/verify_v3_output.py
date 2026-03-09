@@ -59,7 +59,7 @@ print('=' * 80)
 print('Expected timestamp[us] fields:')
 time_fields = ['time', 'submit_time', 'start_time', 'end_time']
 for field in time_fields:
-    field_type = parquet_file.schema.field(field).type
+    field_type = parquet_file.schema_arrow.field(field).type
     print(f'  {field}: {field_type}')
 print()
 
