@@ -2,6 +2,16 @@
 
 **Last Updated**: 2026-02-03
 
+## Implementation status (PROD-20260203-v3)
+The current `build_production_v3.py` implementation writes **only** `validation/schema_report.json`.
+
+The other artifacts required by this document —
+- `validation/dtype_report.json`
+- `validation/missingness_report.json`
+- `validation/sanity_checks.json`
+
+— are still part of the target validation spec and have **not** yet been implemented/generated for `PROD-20260203-v3`.
+
 ## 1. Validation levels
 
 ### Level 0 (Schema)

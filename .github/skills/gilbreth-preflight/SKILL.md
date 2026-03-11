@@ -25,6 +25,19 @@ All SLURM scripts must contain:
 
 Submitting to any other partition will cause the job to queue indefinitely with `AssocGrpGRES`.
 
+### Verified fallback for short non-production jobs
+
+If `a100-80gb` is saturated and you are only running a short development / validation / experiment job, the `<group>` account can also submit to:
+
+```bash
+#SBATCH --partition=training
+#SBATCH --qos=training
+#SBATCH --account=<group>
+#SBATCH --gres=gpu:1
+```
+
+Do **not** use `training` for production builds.
+
 ## 2. Check current group GPU usage
 
 ```bash

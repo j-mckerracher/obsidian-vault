@@ -1,88 +1,49 @@
 #!/usr/bin/env python3
-"""Compute a per-cluster feature availability/missingness matrix.
-
-This script is Phase 1 of the v3 plan: it scans a sample of parquet shards per
-cluster and reports:
-- column presence (union/intersection)
-- dtype stability (per cluster)
-- missingness rates per column per cluster
-
-It is designed to be reproducibility/traceability friendly:
-- reads a single config file
-- writes run metadata + input file manifest with SHA256
-
-NOTE: This implementation targets local parquet samples (e.g., EXP-001 job_partials)
-when the full `/depot/.../chunks-v3/` dataset is not available locally.
-"""
+"""Compute a per-cluster feature inventory on sampled, job-level parquet data."""
 
 from __future__ import annotations
 
 import argparse
-import datetime as dt
-import hashlib
 import json
 import os
 import random
-import subprocess
 import sys
 from pathlib import Path
 
-import pyarrow as pa
-import pyarrow.compute as pc
-import pyarrow.parquet as pq
+from fresco_data_loader import (
+    build_file_records,
+    capture_environment_artifacts,
+    git_info,
+    load_manifest_rows,
+    read_job_level_frame,
+    resolve_path,
+    sample_input_specs,
+    utc_now_iso,
+    write_json,
+)
 
 
-def _utc_now_iso() -> str:
-    return dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+def _collect_input_rows(
+    cfg: dict,
+    repo_root: Path,
+    seed: int,
+) -> tuple[list[dict], list[str], str]:
+    if "inputs" in cfg:
+        clusters = [spec["cluster"] for spec in cfg["inputs"]]
+        return sample_input_specs(cfg["inputs"], repo_root, seed), clusters, "inputs"
 
+    if "inputs_manifest" in cfg:
+        rows = load_manifest_rows(cfg["inputs_manifest"], repo_root)
+        clusters = list(cfg.get("clusters") or [])
+        if not clusters:
+            clusters = sorted({str(row["cluster"]) for row in rows if row.get("cluster")})
+        if not clusters:
+            raise ValueError(
+                "Feature-matrix configs using inputs_manifest must provide clusters when manifest rows omit cluster."
+            )
+        return rows, clusters, "inputs_manifest"
 
-def _sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(1024 * 1024), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
-def _run(cmd: list[str], cwd: Path) -> tuple[int, str, str]:
-    p = subprocess.run(cmd, cwd=str(cwd), capture_output=True, text=True)
-    return p.returncode, p.stdout, p.stderr
-
-
-def _git_info(git_root: Path) -> dict:
-    info: dict = {}
-    rc, out, _ = _run(["git", "rev-parse", "HEAD"], git_root)
-    info["git_commit"] = out.strip() if rc == 0 else None
-    rc, out, _ = _run(["git", "status", "--porcelain=v1"], git_root)
-    info["git_status_porcelain"] = out if rc == 0 else None
-    return info
-
-
-def _normalize_dtype(t: pa.DataType) -> str:
-    # Stable, human-readable type string.
-    try:
-        return str(t)
-    except Exception:
-        return repr(t)
-
-
-def _missingness_for_table(tbl: pa.Table) -> dict[str, float]:
-    out: dict[str, float] = {}
-    n = tbl.num_rows
-    for name in tbl.column_names:
-        col = tbl[name]
-        nulls = pc.sum(pc.is_null(col)).as_py() if n > 0 else 0
-        out[name] = float(nulls) / float(n) if n > 0 else 0.0
-    return out
-
-
-def _merge_missingness(acc: dict[str, list[float]], miss: dict[str, float]) -> None:
-    for k, v in miss.items():
-        acc.setdefault(k, []).append(v)
-
-
-def _mean(xs: list[float]) -> float:
-    return float(sum(xs) / len(xs)) if xs else 0.0
+    raise ValueError("Config must define either 'inputs' or 'inputs_manifest'.")
 
 
 def main() -> int:
@@ -90,183 +51,150 @@ def main() -> int:
     ap.add_argument("--config", required=True)
     args = ap.parse_args()
 
-    repo_root = Path(__file__).resolve().parents[1]  # ...\FRESCO-v3
-    cfg_path = (repo_root / args.config).resolve()
+    repo_root = Path(__file__).resolve().parents[1]
+    cfg_path = resolve_path(args.config, repo_root)
     cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
 
     run_id = cfg["run_id"]
     exp_dir = (repo_root / "experiments" / run_id).resolve()
-
-    for d in ["logs", "results", "manifests", "validation"]:
-        (exp_dir / d).mkdir(parents=True, exist_ok=True)
+    for directory in ["logs", "results", "manifests", "validation"]:
+        (exp_dir / directory).mkdir(parents=True, exist_ok=True)
 
     log_path = exp_dir / "logs" / "feature_matrix.log"
 
-    def log(msg: str) -> None:
-        line = f"[{_utc_now_iso()}] {msg}"
+    def log(message: str) -> None:
+        line = f"[{utc_now_iso()}] {message}"
         print(line)
         with log_path.open("a", encoding="utf-8") as f:
             f.write(line + "\n")
 
-    log(f"run_id={run_id}")
-    log(f"config={cfg_path}")
-
-    # Resolve inputs
     seed = int(cfg.get("random_seed", 1337))
     random.seed(seed)
 
-    inputs = cfg["inputs"]
-    selected_files: list[dict] = []
+    input_rows, clusters, input_mode = _collect_input_rows(cfg, repo_root, seed)
+    max_rows_cfg = cfg.get("max_rows_per_cluster")
+    max_rows = int(max_rows_cfg) if max_rows_cfg not in (None, "", 0) else None
+    sample_n_row_groups = int(cfg.get("sample_n_row_groups_per_file", 0) or 0) or None
 
-    for spec in inputs:
-        cluster = spec["cluster"]
-        glob_pat = spec["paths_glob"]
-        sample_n = int(spec.get("sample_n_files", 20))
+    log(f"run_id={run_id}")
+    log(f"config={cfg_path}")
+    log(f"input_mode={input_mode}")
+    log(f"clusters={clusters}")
+    log(f"max_rows_per_cluster={max_rows}")
+    log(f"sample_n_row_groups_per_file={sample_n_row_groups}")
 
-        paths = sorted(Path(repo_root, glob_pat).resolve().parent.glob(Path(glob_pat).name))
-        if not paths:
-            raise FileNotFoundError(f"No parquet files matched for {cluster}: {glob_pat}")
+    per_cluster_frames: dict[str, object] = {}
+    per_cluster_meta: dict[str, dict] = {}
+    input_manifest: list[dict] = []
+    hash_cache: dict[str, str] = {}
 
-        if sample_n > 0 and len(paths) > sample_n:
-            paths = random.sample(paths, sample_n)
+    for offset, cluster in enumerate(clusters):
+        frame, meta = read_job_level_frame(
+            manifest_rows=input_rows,
+            cluster=cluster,
+            columns=None,
+            max_rows=max_rows,
+            seed=seed + offset,
+            sample_n_row_groups_per_file=sample_n_row_groups,
+        )
+        if meta["raw_rows_sampled"] == 0:
+            raise FileNotFoundError(f"No sampled rows available for cluster={cluster}")
+        per_cluster_frames[cluster] = frame
+        per_cluster_meta[cluster] = meta
+        input_manifest.extend(
+            build_file_records(meta["used_paths"], cluster=cluster, hash_cache=hash_cache)
+        )
+        log(
+            f"{cluster}: raw_rows_sampled={meta['raw_rows_sampled']} "
+            f"job_rows={meta['job_rows']} files_used={len(meta['used_paths'])} "
+            f"row_groups_read={meta['row_groups_read']}"
+        )
 
-        for p in paths:
-            selected_files.append({"cluster": cluster, "path": str(p)})
+    union_cols = set().union(*(set(frame.columns) for frame in per_cluster_frames.values()))
+    intersection_cols = set(union_cols)
+    for cluster in clusters:
+        intersection_cols &= set(per_cluster_frames[cluster].columns)
 
-        log(f"{cluster}: selected_files={len(paths)}")
+    missingness_mean_by_cluster: dict[str, dict[str, float]] = {}
+    dtype_by_cluster: dict[str, dict[str, list[str]]] = {}
+    job_rows_profiled: dict[str, int] = {}
+    raw_rows_sampled: dict[str, int] = {}
+    row_groups_sampled: dict[str, int] = {}
+    n_files: dict[str, int] = {}
 
-    # Scan (two-pass):
-    #  1) collect schema + dtype sets per cluster
-    #  2) compute missingness over full sampled files, treating missing columns as 100% missing
-    per_cluster_columns: dict[str, set[str]] = {}
-    per_cluster_dtype: dict[str, dict[str, set[str]]] = {}
+    for cluster in clusters:
+        frame = per_cluster_frames[cluster]
+        meta = per_cluster_meta[cluster]
+        job_rows_profiled[cluster] = int(len(frame))
+        raw_rows_sampled[cluster] = int(meta["raw_rows_sampled"])
+        row_groups_sampled[cluster] = int(meta["row_groups_read"])
+        n_files[cluster] = int(len(meta["used_paths"]))
 
-    file_columns: list[dict] = []  # {cluster, path, columns:set[str]}
-
-    for rec in selected_files:
-        cluster = rec["cluster"]
-        p = Path(rec["path"])
-
-        pf = pq.ParquetFile(str(p))
-        schema = pf.schema_arrow
-        cols = [f.name for f in schema]
-        per_cluster_columns.setdefault(cluster, set()).update(cols)
-
-        dtypes = per_cluster_dtype.setdefault(cluster, {})
-        for f in schema:
-            dtypes.setdefault(f.name, set()).add(_normalize_dtype(f.type))
-
-        file_columns.append({"cluster": cluster, "path": str(p), "columns": set(cols)})
-
-    clusters = [s["cluster"] for s in inputs]
-    union_cols = set().union(*(per_cluster_columns.get(c, set()) for c in clusters))
-    inter_cols = set(union_cols)
-    for c in clusters:
-        inter_cols &= per_cluster_columns.get(c, set())
-
-    per_cluster_missingness_samples: dict[str, dict[str, list[float]]] = {}
-    per_cluster_rows_scanned: dict[str, int] = {}
-
-    for rec in file_columns:
-        cluster = rec["cluster"]
-        p = Path(rec["path"])
-        cols_present: set[str] = rec["columns"]
-
-        pf = pq.ParquetFile(str(p))
-        tbl = pf.read()  # full file; sampled N files keeps this bounded
-        per_cluster_rows_scanned[cluster] = per_cluster_rows_scanned.get(cluster, 0) + tbl.num_rows
-
-        miss = _missingness_for_table(tbl)
-        for col in union_cols:
-            if col not in cols_present:
-                miss[col] = 1.0
-
-        per_cluster_missingness_samples.setdefault(cluster, {})
-        _merge_missingness(per_cluster_missingness_samples[cluster], miss)
-
-    # Aggregate missingness means
-    per_cluster_missingness_mean: dict[str, dict[str, float]] = {}
-    for c in clusters:
-        per_cluster_missingness_mean[c] = {
-            col: _mean(per_cluster_missingness_samples.get(c, {}).get(col, []))
-            for col in sorted(union_cols)
+        dtype_by_cluster[cluster] = {
+            column: [str(frame[column].dtype)] for column in frame.columns
         }
+
+        missingness_mean_by_cluster[cluster] = {}
+        for column in sorted(union_cols):
+            if column not in frame.columns:
+                missingness_mean_by_cluster[cluster][column] = 1.0
+            else:
+                missingness_mean_by_cluster[cluster][column] = (
+                    float(frame[column].isna().mean()) if len(frame) > 0 else 1.0
+                )
 
     cutoff = float(cfg.get("missingness_safe_cutoff", 0.0))
     safe_cols = [
-        col
-        for col in sorted(inter_cols)
-        if all(per_cluster_missingness_mean[c].get(col, 1.0) <= cutoff for c in clusters)
+        column
+        for column in sorted(intersection_cols)
+        if all(
+            missingness_mean_by_cluster[cluster].get(column, 1.0) <= cutoff
+            for cluster in clusters
+        )
     ]
 
-    # Write results
     results = {
         "run_id": run_id,
-        "created_utc": _utc_now_iso(),
+        "created_utc": utc_now_iso(),
         "dataset_label": cfg.get("dataset_label"),
         "random_seed": seed,
         "missingness_safe_cutoff": cutoff,
         "clusters": clusters,
-        "rows_scanned": per_cluster_rows_scanned,
-        "n_files": {c: sum(1 for r in selected_files if r["cluster"] == c) for c in clusters},
+        "n_files": n_files,
+        "raw_rows_sampled": raw_rows_sampled,
+        "job_rows_profiled": job_rows_profiled,
+        "row_groups_sampled": row_groups_sampled,
         "union_columns": sorted(union_cols),
-        "intersection_columns": sorted(inter_cols),
+        "intersection_columns": sorted(intersection_cols),
         "safe_columns": safe_cols,
-        "dtype_by_cluster": {
-            c: {k: sorted(v) for k, v in per_cluster_dtype.get(c, {}).items()} for c in clusters
-        },
-        "missingness_mean_by_cluster": per_cluster_missingness_mean,
+        "dtype_by_cluster": dtype_by_cluster,
+        "missingness_mean_by_cluster": missingness_mean_by_cluster,
         "limitations": [
-            "Missingness is computed over full sampled parquet files (sampling-based across files, not across the full dataset).",
-            "This run uses local EXP-001 job_partials parquet outputs, not the full v3 dataset under /depot/...",
+            "Union/intersection/missingness are computed on sampled job-level frames, not the full raw corpus.",
+            "When only raw time-slice value_* columns are present, *_cnt/*_sum/*_max and runtime-derived columns are materialized at analysis time.",
         ],
     }
+    write_json(exp_dir / "results" / "feature_matrix.json", results)
 
-    (exp_dir / "results" / "feature_matrix.json").write_text(
-        json.dumps(results, indent=2, sort_keys=True), encoding="utf-8"
-    )
-
-    # Manifests + env capture
-    meta = {
+    metadata = {
         "run_id": run_id,
-        "created_utc": _utc_now_iso(),
+        "created_utc": utc_now_iso(),
         "script": str((repo_root / "scripts" / "feature_matrix.py").resolve()),
         "config": str(cfg_path),
-        "git": _git_info(repo_root.parents[1]),  # git repo root is ...\ObsidianNotes\Main
+        "git": git_info(repo_root),
         "python": sys.version.replace("\n", " "),
         "cwd": os.getcwd(),
+        "input_mode": input_mode,
     }
-    (exp_dir / "manifests" / "run_metadata.json").write_text(
-        json.dumps(meta, indent=2, sort_keys=True), encoding="utf-8"
-    )
+    write_json(exp_dir / "manifests" / "run_metadata.json", metadata)
+    write_json(exp_dir / "manifests" / "input_files.json", input_manifest)
 
-    input_manifest = []
-    for r in selected_files:
-        p = Path(r["path"])
-        input_manifest.append(
-            {
-                "cluster": r["cluster"],
-                "path": str(p),
-                "bytes": p.stat().st_size,
-                "sha256": _sha256(p),
-            }
-        )
-    (exp_dir / "manifests" / "input_files.json").write_text(
-        json.dumps(input_manifest, indent=2, sort_keys=True), encoding="utf-8"
+    capture_environment_artifacts(
+        exp_dir / "validation",
+        cwd=repo_root,
+        include_conda_env=False,
+        include_host_info=False,
     )
-
-    (exp_dir / "validation" / "python_version.txt").write_text(
-        sys.version.replace("\n", " ") + "\n", encoding="utf-8"
-    )
-    try:
-        rc, out, err = _run([sys.executable, "-m", "pip", "freeze"], repo_root)
-        (exp_dir / "validation" / "pip_freeze.txt").write_text(
-            out if rc == 0 else (out + "\n" + err), encoding="utf-8"
-        )
-    except Exception as e:
-        (exp_dir / "validation" / "pip_freeze.txt").write_text(
-            f"pip freeze failed: {e}\n", encoding="utf-8"
-        )
 
     log("done")
     return 0

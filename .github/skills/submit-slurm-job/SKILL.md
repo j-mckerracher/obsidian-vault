@@ -35,6 +35,14 @@ Or submit explicitly to `a100-80gb`:
 sbatch --partition=a100-80gb --account=<group> production_v3.slurm
 ```
 
+For short non-production jobs when `a100-80gb` is blocked by group quota, a verified fallback is:
+
+```bash
+sbatch --partition=training --qos=training --account=<group> --gres=gpu:1 <job>
+```
+
+Use `training` only for development / validation / experiment runs, not for production dataset builds.
+
 ## Monitoring commands
 
 ```bash

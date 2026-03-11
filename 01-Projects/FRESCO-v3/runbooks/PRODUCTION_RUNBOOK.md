@@ -11,7 +11,8 @@ Produce `/depot/<group>/data/josh/FRESCO/chunks-v3/` with full reproducibility a
 3. Confirm conda env name + versions.
 	1. Confirm pipeline code is pinned to a git commit. 
 4. Confirm config file created (see `docs/CONFIGURATION.md`).
-5. **Confirm SLURM scripts target `--partition=a100-80gb`** — the `<group>` account has zero allocation on `a10`, `a30`, `a100-40gb`, and `h100`. Jobs submitted to any other partition will queue indefinitely with `AssocGrpGRES`. Run `slist` to check current group GPU usage before submitting.
+5. **Confirm production SLURM scripts target `--partition=a100-80gb`** — the `<group>` account has zero allocation on `a10`, `a30`, `a100-40gb`, and `h100`. Jobs submitted to any other GPU partition will queue indefinitely with `AssocGrpGRES`. Run `slist` to check current group GPU usage before submitting.
+   - For short development or diagnostic jobs only, `--partition=training --qos=training --account=<group> --gres=gpu:1` is a verified fallback when `a100-80gb` quota is saturated.
 
 ## Step-by-step
 

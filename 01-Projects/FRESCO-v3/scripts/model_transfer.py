@@ -1,130 +1,44 @@
 #!/usr/bin/env python3
-"""Phase 3: modeling for zero-shot transfer (local proxy).
-
-Trains on source-cluster labeled jobs and evaluates on target-cluster jobs.
-This is a local-proxy implementation using EXP-001 job_partials parquet outputs.
-
-Label is configurable; for the local proxy we use value_memused_max as a stand-in
-for peak memory, and report results as *proxy-only*.
-
-Writes:
-- results/metrics.json
-- results/predictions_source_test.parquet
-- results/predictions_target.parquet
-- manifests/run_metadata.json + input_files_used.json
-- validation/python_version.txt + pip_freeze.txt
-"""
+"""Phase 3: transfer modeling on proxy or authoritative v3 inputs."""
 
 from __future__ import annotations
 
 import argparse
-import datetime as dt
-import hashlib
 import json
 import os
 import random
-import subprocess
 import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import pyarrow.parquet as pq
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import HuberRegressor, Ridge
 from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-
-def _utc_now_iso() -> str:
-    return dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
-
-
-def _sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(1024 * 1024), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
-def _run(cmd: list[str], cwd: Path) -> tuple[int, str, str]:
-    p = subprocess.run(cmd, cwd=str(cwd), capture_output=True, text=True)
-    return p.returncode, p.stdout, p.stderr
-
-
-def _git_info(git_root: Path) -> dict:
-    info: dict = {}
-    rc, out, _ = _run(["git", "rev-parse", "HEAD"], git_root)
-    info["git_commit"] = out.strip() if rc == 0 else None
-    rc, out, _ = _run(["git", "status", "--porcelain=v1"], git_root)
-    info["git_status_porcelain"] = out if rc == 0 else None
-    return info
-
-
-def _load_manifest_rows(manifest_path: Path, cluster: str) -> list[dict]:
-    rows = json.loads(manifest_path.read_text(encoding="utf-8"))
-    return [r for r in rows if r.get("cluster") == cluster]
-
-
-def _read_parquets(
-    manifest_rows: list[dict],
-    columns: list[str],
-    max_rows: int,
-    seed: int,
-) -> tuple[pd.DataFrame, list[Path]]:
-    rng = random.Random(seed)
-    paths = [Path(r["path"]) for r in manifest_rows]
-    rng.shuffle(paths)
-
-    dfs: list[pd.DataFrame] = []
-    used: list[Path] = []
-    n = 0
-
-    for p in paths:
-        if n >= max_rows:
-            break
-
-        pf = pq.ParquetFile(str(p))
-        available = set(pf.schema_arrow.names)
-        col_subset = [c for c in columns if c in available]
-        tbl = pf.read(columns=col_subset)
-        df = tbl.to_pandas()
-        for c in columns:
-            if c not in df.columns:
-                df[c] = np.nan
-
-        remaining = max_rows - n
-        if len(df) > remaining:
-            df = df.sample(remaining, random_state=seed)
-
-        if len(df) > 0:
-            dfs.append(df[columns])
-            used.append(p)
-            n += len(df)
-
-    if not dfs:
-        return pd.DataFrame(columns=columns), []
-
-    out = pd.concat(dfs, ignore_index=True)
-
-    # job_partials can contain multiple rows per jid (partials/time slices). Collapse to job-level.
-    if "jid" in out.columns:
-        numeric_cols = [c for c in columns if c != "jid"]
-        for c in numeric_cols:
-            out[c] = pd.to_numeric(out[c], errors="coerce")
-        out = out.groupby("jid", as_index=False)[numeric_cols].max()
-        out = out[["jid"] + numeric_cols]
-
-    return out[columns], used
+from fresco_data_loader import (
+    build_file_records,
+    capture_environment_artifacts,
+    git_info,
+    load_manifest_rows,
+    read_job_level_frame,
+    resolve_path,
+    utc_now_iso,
+    write_json,
+)
 
 
 def _derive_cpu_standard(df: pd.DataFrame) -> pd.Series:
+    gpu_max = df.get("value_gpu_max")
     gpu_cnt = df.get("value_gpu_cnt")
     gpu_sum = df.get("value_gpu_sum")
+    if gpu_max is not None:
+        gpu_max = pd.to_numeric(gpu_max, errors="coerce").fillna(0)
+        return gpu_max <= 0
     if gpu_cnt is None and gpu_sum is None:
-        return pd.Series([True] * len(df))
+        return pd.Series([True] * len(df), index=df.index)
     gpu_cnt = pd.to_numeric(gpu_cnt, errors="coerce").fillna(0)
     gpu_sum = pd.to_numeric(gpu_sum, errors="coerce").fillna(0)
     return (gpu_cnt <= 0) & (gpu_sum <= 0)
@@ -143,7 +57,6 @@ def _evaluate(y_true_log: np.ndarray, y_pred_log: np.ndarray) -> dict:
         y_pred = np.where(np.isfinite(y_pred), y_pred, np.nan)
     resid = y_true_log - y_pred_log
 
-    # Calibration: y_true_log ≈ slope * y_pred_log + intercept
     A = np.vstack([y_pred_log, np.ones_like(y_pred_log)]).T
     slope, intercept = np.linalg.lstsq(A, y_true_log, rcond=None)[0]
 
@@ -200,27 +113,63 @@ def _coral_matrix(x_src: np.ndarray, x_tgt: np.ndarray, reg: float) -> np.ndarra
     return _matrix_power(cs, -0.5) @ _matrix_power(ct, 0.5)
 
 
+def _limitations(label_column: str, label_proxy: bool, no_data: bool) -> list[str]:
+    notes = [
+        "Model uses the feature set specified in the run config; treat this as an ablation baseline, not the final intended Phase 3 feature set."
+    ]
+    if label_proxy:
+        notes.insert(
+            0,
+            f"Label {label_column} is marked proxy=true in the config; interpret results as proxy-target transfer only.",
+        )
+    if no_data:
+        notes.append("No training/test or target rows remained after overlap, label, and regime filters; metrics were not computed.")
+    return notes
+
+
+def _write_common_artifacts(
+    exp_dir: Path,
+    repo_root: Path,
+    cfg_path: Path,
+    run_id: str,
+    used_files: list[dict],
+) -> None:
+    metadata = {
+        "run_id": run_id,
+        "created_utc": utc_now_iso(),
+        "script": str((repo_root / "scripts" / "model_transfer.py").resolve()),
+        "config": str(cfg_path),
+        "git": git_info(repo_root),
+        "python": sys.version.replace("\n", " "),
+        "cwd": os.getcwd(),
+    }
+    write_json(exp_dir / "manifests" / "run_metadata.json", metadata)
+    write_json(exp_dir / "manifests" / "input_files_used.json", used_files)
+    capture_environment_artifacts(exp_dir / "validation", cwd=repo_root)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
     args = ap.parse_args()
 
     repo_root = Path(__file__).resolve().parents[1]
-    cfg_path = (repo_root / args.config).resolve()
+    cfg_path = resolve_path(args.config, repo_root)
     cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
 
     run_id = cfg["run_id"]
     exp_dir = (repo_root / "experiments" / run_id).resolve()
-    for d in ["config", "logs", "results", "manifests", "validation"]:
-        (exp_dir / d).mkdir(parents=True, exist_ok=True)
+    for directory in ["config", "logs", "results", "manifests", "validation"]:
+        (exp_dir / directory).mkdir(parents=True, exist_ok=True)
 
-    # Copy config into run folder for provenance
-    (exp_dir / "config" / Path(cfg_path).name).write_text(cfg_path.read_text(encoding="utf-8"), encoding="utf-8")
+    (exp_dir / "config" / Path(cfg_path).name).write_text(
+        cfg_path.read_text(encoding="utf-8"), encoding="utf-8"
+    )
 
     log_path = exp_dir / "logs" / "model_transfer.log"
 
-    def log(msg: str) -> None:
-        line = f"[{_utc_now_iso()}] {msg}"
+    def log(message: str) -> None:
+        line = f"[{utc_now_iso()}] {message}"
         print(line)
         with log_path.open("a", encoding="utf-8") as f:
             f.write(line + "\n")
@@ -234,77 +183,102 @@ def main() -> int:
     regime = cfg.get("regime", "cpu_standard")
     label_col = cfg["label_column"]
     label_transform = cfg.get("label_transform", "log1p")
+    label_proxy = bool(cfg.get("label_proxy", True))
     feature_cols = list(cfg["feature_columns"])
     max_src = int(cfg.get("max_rows_source", 200000))
     max_tgt = int(cfg.get("max_rows_target", 200000))
     n_boot = int(cfg.get("n_boot", 200))
+    sample_n_row_groups = int(cfg.get("sample_n_row_groups_per_file", 0) or 0) or None
 
     overlap = cfg.get("overlap_run", {})
-    matched_source_idx = (repo_root / overlap["matched_source_indices"]).resolve()
-    matched_target_idx = (repo_root / overlap["matched_target_indices"]).resolve()
+    matched_source_idx = resolve_path(overlap["matched_source_indices"], repo_root)
+    matched_target_idx = resolve_path(overlap["matched_target_indices"], repo_root)
 
     log(f"run_id={run_id}")
     log(f"config={cfg_path}")
     log(f"source={source} target={target} regime={regime}")
-    log(f"label={label_col} transform={label_transform}")
+    log(f"label={label_col} transform={label_transform} proxy={label_proxy}")
     log(f"features={feature_cols}")
     log(f"matched_source_indices={matched_source_idx}")
     log(f"matched_target_indices={matched_target_idx}")
+    log(f"sample_n_row_groups_per_file={sample_n_row_groups}")
 
     src_jids = set(pd.read_parquet(matched_source_idx)["jid"].astype("string").tolist())
     tgt_jids = set(pd.read_parquet(matched_target_idx)["jid"].astype("string").tolist())
 
-    manifest_path = (repo_root / cfg["inputs_manifest"]).resolve()
-    src_rows = _load_manifest_rows(manifest_path, source)
-    tgt_rows = _load_manifest_rows(manifest_path, target)
-    if not src_rows or not tgt_rows:
-        raise FileNotFoundError("Missing manifest rows for source/target")
-
-    needed = ["jid", label_col] + feature_cols + ["value_gpu_cnt", "value_gpu_sum"]
+    manifest_rows = load_manifest_rows(cfg["inputs_manifest"], repo_root)
+    needed = ["jid", label_col] + feature_cols + ["value_gpu_cnt", "value_gpu_sum", "value_gpu_max"]
     needed = list(dict.fromkeys(needed))
 
-    log("loading source data...")
-    src, src_used = _read_parquets(src_rows, needed, max_rows=max_src, seed=seed)
-    log(f"source_rows_loaded={len(src)} source_files_used={len(src_used)}")
-
-    log("loading target data...")
-    tgt, tgt_used = _read_parquets(tgt_rows, needed, max_rows=max_tgt, seed=seed + 1)
-    log(f"target_rows_loaded={len(tgt)} target_files_used={len(tgt_used)}")
+    src, src_meta = read_job_level_frame(
+        manifest_rows=manifest_rows,
+        cluster=source,
+        columns=needed,
+        max_rows=max_src,
+        seed=seed,
+        sample_n_row_groups_per_file=sample_n_row_groups,
+    )
+    tgt, tgt_meta = read_job_level_frame(
+        manifest_rows=manifest_rows,
+        cluster=target,
+        columns=needed,
+        max_rows=max_tgt,
+        seed=seed + 1,
+        sample_n_row_groups_per_file=sample_n_row_groups,
+    )
+    log(
+        f"source_raw_rows_sampled={src_meta['raw_rows_sampled']} "
+        f"source_job_rows={src_meta['job_rows']} source_files_used={len(src_meta['used_paths'])}"
+    )
+    log(
+        f"target_raw_rows_sampled={tgt_meta['raw_rows_sampled']} "
+        f"target_job_rows={tgt_meta['job_rows']} target_files_used={len(tgt_meta['used_paths'])}"
+    )
 
     if regime == "cpu_standard":
         src = src.loc[_derive_cpu_standard(src)].copy()
         tgt = tgt.loc[_derive_cpu_standard(tgt)].copy()
 
-    # Filter to matched overlap cohorts
     src = src.loc[src["jid"].astype("string").isin(src_jids)].copy()
     tgt = tgt.loc[tgt["jid"].astype("string").isin(tgt_jids)].copy()
+    log(f"source_rows_after_overlap={len(src)} target_rows_after_overlap={len(tgt)}")
 
-    log(f"source_rows_after_filters={len(src)} target_rows_after_filters={len(tgt)}")
-
-    # Clean + transform
-    for c in feature_cols:
-        src[c] = pd.to_numeric(src[c], errors="coerce")
-        tgt[c] = pd.to_numeric(tgt[c], errors="coerce")
+    for column in feature_cols:
+        src[column] = pd.to_numeric(src[column], errors="coerce")
+        tgt[column] = pd.to_numeric(tgt[column], errors="coerce")
 
     src[label_col] = pd.to_numeric(src[label_col], errors="coerce")
     tgt[label_col] = pd.to_numeric(tgt[label_col], errors="coerce")
-
-    # Require positive label
     src = src.loc[src[label_col].notna() & (src[label_col] > 0)].copy()
     tgt = tgt.loc[tgt[label_col].notna() & (tgt[label_col] > 0)].copy()
+    log(f"source_rows_after_label={len(src)} target_rows_after_label={len(tgt)}")
 
-    if label_transform == "log1p":
+    hash_cache: dict[str, str] = {}
+    used_files = build_file_records(src_meta["used_paths"], source, hash_cache=hash_cache)
+    used_files.extend(build_file_records(tgt_meta["used_paths"], target, hash_cache=hash_cache))
+    used_files.extend(
+        build_file_records(
+            [matched_source_idx, matched_target_idx],
+            "overlap",
+            hash_cache=hash_cache,
+        )
+    )
+
+    no_data = len(src) == 0 or len(tgt) == 0
+    if not no_data and label_transform == "log1p":
         y_src = np.log1p(src[label_col].to_numpy(dtype=float))
         y_tgt = np.log1p(tgt[label_col].to_numpy(dtype=float))
+    elif no_data:
+        y_src = np.array([], dtype=float)
+        y_tgt = np.array([], dtype=float)
     else:
         raise ValueError(f"Unsupported label_transform: {label_transform}")
 
-    # Features: use log1p for heavy-tailed allocations
     X_src = src[feature_cols].copy()
     X_tgt = tgt[feature_cols].copy()
-    for c in feature_cols:
-        X_src[c] = np.log1p(X_src[c])
-        X_tgt[c] = np.log1p(X_tgt[c])
+    for column in feature_cols:
+        X_src[column] = np.log1p(X_src[column])
+        X_tgt[column] = np.log1p(X_tgt[column])
 
     split = cfg.get("split", {"type": "random", "test_frac": 0.2, "seed": seed})
     test_frac = float(split.get("test_frac", 0.2))
@@ -316,16 +290,17 @@ def main() -> int:
     n_test = int(round(test_frac * n_src))
     test_idx = idx[:n_test]
     train_idx = idx[n_test:]
+    no_data = no_data or len(train_idx) == 0 or len(test_idx) == 0 or len(X_tgt) == 0
 
     model_cfg = cfg.get("model", {"type": "ridge", "alpha": 1.0})
     model_type = str(model_cfg.get("type", "ridge")).lower()
     adaptation_cfg = cfg.get("adaptation", {"type": "none"})
     adaptation_type = str(adaptation_cfg.get("type", "none")).lower()
-    log(f"adaptation={adaptation_type}")
     adaptation_applied = False
     adaptation_details: dict | None = None
+    log(f"adaptation={adaptation_type}")
 
-    if adaptation_type == "coral":
+    if not no_data and adaptation_type == "coral":
         reg = float(adaptation_cfg.get("reg", 1e-6))
         transform = _coral_matrix(
             X_src.iloc[train_idx].to_numpy(dtype=float),
@@ -346,15 +321,15 @@ def main() -> int:
         adaptation_details = {"type": "coral", "reg": reg}
 
     if model_type == "huber":
-        reg = HuberRegressor(
+        regressor = HuberRegressor(
             epsilon=float(model_cfg.get("epsilon", 1.35)),
             alpha=float(model_cfg.get("alpha", 0.0001)),
             max_iter=int(model_cfg.get("max_iter", 500)),
         )
-        reg_step = ("huber", reg)
+        reg_step = ("huber", regressor)
     else:
-        reg = Ridge(alpha=float(model_cfg.get("alpha", 1.0)), random_state=seed)
-        reg_step = ("ridge", reg)
+        regressor = Ridge(alpha=float(model_cfg.get("alpha", 1.0)), random_state=seed)
+        reg_step = ("ridge", regressor)
 
     model = Pipeline(
         steps=[
@@ -364,103 +339,24 @@ def main() -> int:
         ]
     )
 
-    log(f"training_rows={len(train_idx)} source_test_rows={len(test_idx)} target_eval_rows={len(X_tgt)}")
-    if len(train_idx) == 0 or len(X_tgt) == 0:
-        metrics = {
-            "run_id": run_id,
-            "created_utc": _utc_now_iso(),
-            "dataset_label": cfg.get("dataset_label"),
-            "pair": {"source": source, "target": target},
-            "regime": regime,
-            "label": {"column": label_col, "transform": label_transform, "proxy": True},
-            "features": feature_cols,
-            "model": model_cfg,
-            "adaptation": {"applied": adaptation_applied, "config": adaptation_details},
-            "overlap": {
-                "run_id": overlap.get("run_id"),
-                "overlap_band": overlap.get("overlap_band"),
-                "matched_source_n": int(len(src)),
-                "matched_target_n": int(len(tgt)),
-            },
-            "eval": {
-                "source_test": None,
-                "target": None,
-                "target_r2_bootstrap": None,
-            },
-            "limitations": [
-                "Label is a local proxy (value_memused_max) from job_partials, not the authoritative v3 peak_memory_fraction target.",
-                "Model uses the feature set specified in the run config; treat this as an ablation baseline, not the final intended Phase 3 feature set.",
-                "No training or target rows after overlap/regime filters; metrics not computed.",
-            ],
-        }
-
-        (exp_dir / "results" / "metrics.json").write_text(
-            json.dumps(metrics, indent=2, sort_keys=True), encoding="utf-8"
-        )
-
-        (exp_dir / "manifests" / "run_metadata.json").write_text(
-            json.dumps(
-                {
-                    "run_id": run_id,
-                    "created_utc": _utc_now_iso(),
-                    "script": str((repo_root / "scripts" / "model_transfer.py").resolve()),
-                    "config": str(cfg_path),
-                    "git": _git_info(repo_root.parents[1]),
-                    "python": sys.version.replace("\n", " "),
-                    "cwd": os.getcwd(),
-                },
-                indent=2,
-                sort_keys=True,
-            ),
-            encoding="utf-8",
-        )
-
-        used_files = []
-        for p in src_used:
-            used_files.append(
-                {"cluster": source, "path": str(p), "bytes": p.stat().st_size, "sha256": _sha256(p)}
-            )
-        for p in tgt_used:
-            used_files.append(
-                {"cluster": target, "path": str(p), "bytes": p.stat().st_size, "sha256": _sha256(p)}
-            )
-        for p in [matched_source_idx, matched_target_idx]:
-            used_files.append({"cluster": "overlap", "path": str(p), "bytes": p.stat().st_size, "sha256": _sha256(p)})
-
-        (exp_dir / "manifests" / "input_files_used.json").write_text(
-            json.dumps(used_files, indent=2, sort_keys=True), encoding="utf-8"
-        )
-        (exp_dir / "validation" / "python_version.txt").write_text(
-            sys.version.replace("\n", " ") + "\n", encoding="utf-8"
-        )
-        try:
-            rc, out, err = _run([sys.executable, "-m", "pip", "freeze"], repo_root)
-            (exp_dir / "validation" / "pip_freeze.txt").write_text(
-                out if rc == 0 else (out + "\n" + err), encoding="utf-8"
-            )
-        except Exception as e:
-            (exp_dir / "validation" / "pip_freeze.txt").write_text(
-                f"pip freeze failed: {e}\n", encoding="utf-8"
-            )
-        log("no data after filters; metrics not computed")
-        log("done")
-        return 0
-
-    model.fit(X_src.iloc[train_idx], y_src[train_idx])
-
-    y_src_pred = model.predict(X_src.iloc[test_idx])
-    y_tgt_pred = model.predict(X_tgt)
+    log(
+        f"training_rows={len(train_idx)} source_test_rows={len(test_idx)} "
+        f"target_eval_rows={len(X_tgt)} no_data={no_data}"
+    )
 
     metrics = {
         "run_id": run_id,
-        "created_utc": _utc_now_iso(),
+        "created_utc": utc_now_iso(),
         "dataset_label": cfg.get("dataset_label"),
         "pair": {"source": source, "target": target},
         "regime": regime,
-        "label": {"column": label_col, "transform": label_transform, "proxy": True},
+        "label": {"column": label_col, "transform": label_transform, "proxy": label_proxy},
         "features": feature_cols,
         "model": model_cfg,
-        "adaptation": {"applied": adaptation_applied, "config": adaptation_details},
+        "adaptation": {
+            "applied": adaptation_applied,
+            "config": adaptation_details if adaptation_details is not None else adaptation_cfg,
+        },
         "overlap": {
             "run_id": overlap.get("run_id"),
             "overlap_band": overlap.get("overlap_band"),
@@ -468,21 +364,30 @@ def main() -> int:
             "matched_target_n": int(len(tgt)),
         },
         "eval": {
-            "source_test": _evaluate(y_src[test_idx], y_src_pred),
-            "target": _evaluate(y_tgt, y_tgt_pred),
-            "target_r2_bootstrap": _bootstrap_r2(y_tgt, y_tgt_pred, n_boot=n_boot, seed=seed),
+            "source_test": None,
+            "target": None,
+            "target_r2_bootstrap": None,
         },
-        "limitations": [
-            "Label is a local proxy (value_memused_max) from job_partials, not the authoritative v3 peak_memory_fraction target.",
-            "Model uses the feature set specified in the run config; treat this as an ablation baseline, not the final intended Phase 3 feature set.",
-        ],
+        "limitations": _limitations(label_col, label_proxy, no_data=no_data),
     }
 
-    (exp_dir / "results" / "metrics.json").write_text(
-        json.dumps(metrics, indent=2, sort_keys=True), encoding="utf-8"
-    )
+    if no_data:
+        write_json(exp_dir / "results" / "metrics.json", metrics)
+        _write_common_artifacts(exp_dir, repo_root, cfg_path, run_id, used_files)
+        log("no data after filters; metrics not computed")
+        return 0
 
-    # Save predictions
+    model.fit(X_src.iloc[train_idx], y_src[train_idx])
+    y_src_pred = model.predict(X_src.iloc[test_idx])
+    y_tgt_pred = model.predict(X_tgt)
+
+    metrics["eval"] = {
+        "source_test": _evaluate(y_src[test_idx], y_src_pred),
+        "target": _evaluate(y_tgt, y_tgt_pred),
+        "target_r2_bootstrap": _bootstrap_r2(y_tgt, y_tgt_pred, n_boot=n_boot, seed=seed),
+    }
+    write_json(exp_dir / "results" / "metrics.json", metrics)
+
     src_pred_df = pd.DataFrame(
         {
             "jid": src.iloc[test_idx]["jid"].astype("string").to_numpy(),
@@ -500,46 +405,7 @@ def main() -> int:
     src_pred_df.to_parquet(exp_dir / "results" / "predictions_source_test.parquet", index=False)
     tgt_pred_df.to_parquet(exp_dir / "results" / "predictions_target.parquet", index=False)
 
-    # Provenance
-    meta = {
-        "run_id": run_id,
-        "created_utc": _utc_now_iso(),
-        "script": str((repo_root / "scripts" / "model_transfer.py").resolve()),
-        "config": str(cfg_path),
-        "git": _git_info(repo_root.parents[1]),
-        "python": sys.version.replace("\n", " "),
-        "cwd": os.getcwd(),
-    }
-    (exp_dir / "manifests" / "run_metadata.json").write_text(
-        json.dumps(meta, indent=2, sort_keys=True), encoding="utf-8"
-    )
-
-    used_files = []
-    for p in src_used:
-        used_files.append({"cluster": source, "path": str(p), "bytes": p.stat().st_size, "sha256": _sha256(p)})
-    for p in tgt_used:
-        used_files.append({"cluster": target, "path": str(p), "bytes": p.stat().st_size, "sha256": _sha256(p)})
-    # include overlap index artifacts
-    for p in [matched_source_idx, matched_target_idx]:
-        used_files.append({"cluster": "overlap", "path": str(p), "bytes": p.stat().st_size, "sha256": _sha256(p)})
-
-    (exp_dir / "manifests" / "input_files_used.json").write_text(
-        json.dumps(used_files, indent=2, sort_keys=True), encoding="utf-8"
-    )
-
-    (exp_dir / "validation" / "python_version.txt").write_text(
-        sys.version.replace("\n", " ") + "\n", encoding="utf-8"
-    )
-    try:
-        rc, out, err = _run([sys.executable, "-m", "pip", "freeze"], repo_root)
-        (exp_dir / "validation" / "pip_freeze.txt").write_text(
-            out if rc == 0 else (out + "\n" + err), encoding="utf-8"
-        )
-    except Exception as e:
-        (exp_dir / "validation" / "pip_freeze.txt").write_text(
-            f"pip freeze failed: {e}\n", encoding="utf-8"
-        )
-
+    _write_common_artifacts(exp_dir, repo_root, cfg_path, run_id, used_files)
     log("done")
     return 0
 

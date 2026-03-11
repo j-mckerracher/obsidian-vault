@@ -8,6 +8,14 @@ Define the v3 canonical schema, dtype rules, and provenance fields required for:
 - cross-cluster comparability
 - publication-quality traceability
 
+## Current implementation status (PROD-20260203-v3)
+The current production artifact (`/depot/<group>/data/josh/FRESCO/chunks-v3/PROD-20260203-v3_v3.parquet`) does **not** yet fully realize the canonical schema below.
+
+- Present in the current output: raw FRESCO-style fields such as `value_memused`, `value_gpu`, `value_cpuuser`, `queue`, `time`, and the provenance fields added by the pipeline.
+- Not yet materialized in the current output: `runtime_sec`, `queue_time_sec`, `runtime_fraction`, `peak_memory_gb`, `node_memory_gb`, `peak_memory_fraction`, `partition`, `node_type`, `node_cores`, `gpu_count_per_node`, `gpu_model`, `memory_original_value`, `memory_original_unit`.
+
+Treat the schema below as the **target canonical schema**. Current analysis must either derive the missing fields post hoc or extend the production build to emit them directly.
+
 ## 1. Canonical columns (minimum)
 At minimum, v3 must contain:
 

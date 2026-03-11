@@ -11,7 +11,7 @@
 #SBATCH --mail-user=<personal-email>
 
 # FRESCO v3 Production Data Build
-# Processes raw FRESCO shards -> chunks-v3/ with schema normalization
+# Processes raw FRESCO shards -> chunks-v3/ and finalizes manifests/validation
 
 echo "========================================"
 echo "FRESCO v3 PRODUCTION DATA BUILD"
@@ -20,6 +20,8 @@ echo "Job ID: $SLURM_JOB_ID"
 echo "Node: $SLURM_NODELIST"
 echo "Started: $(date)"
 echo ""
+
+RUN_STARTED_AT="$(date --iso-8601=seconds)"
 
 # Change to project directory
 cd /home/<username>/Code/FRESCO-Pipeline
@@ -38,10 +40,24 @@ echo "Python version: $(python --version)"
 echo "Conda env: $CONDA_DEFAULT_ENV"
 echo ""
 
-# Run production build
-python build_production_v3.py --config production_v3.json
+PIPELINE_GIT_COMMIT="$(git rev-parse HEAD 2>/dev/null || echo unknown)"
 
-exit_code=$?
+# Run production build
+python scripts/build_production_v3.py --config config/production_v3.json
+build_exit_code=$?
+
+if [ "$build_exit_code" -eq 0 ]; then
+  python scripts/finalize_production_v3.py \
+    --config config/production_v3.json \
+    --output-root /depot/<group>/data/josh/FRESCO/chunks-v3 \
+    --slurm-job-id "$SLURM_JOB_ID" \
+    --started-at "$RUN_STARTED_AT" \
+    --completed-at "$(date --iso-8601=seconds)" \
+    --pipeline-git-commit "$PIPELINE_GIT_COMMIT"
+  exit_code=$?
+else
+  exit_code=$build_exit_code
+fi
 
 echo ""
 echo "========================================"
