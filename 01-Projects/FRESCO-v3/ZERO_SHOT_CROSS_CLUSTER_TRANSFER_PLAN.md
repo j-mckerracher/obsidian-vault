@@ -62,8 +62,11 @@ The authoritative `chunks-v3` reruns are now complete enough to sharpen the plan
   - true Conte target medians were much lower (`0.074` / `0.086`) than the Anvil source-test median (`~0.205`)
   - alloc-only Huber still predicted source-like target medians (`0.209` / `0.259`)
   - a simple `log(4)` node-memory correction made target `R^2` much worse, so the error is not explained by a hidden constant denominator shift alone
+- Decoupling Phase 2 and Phase 3 feature sets also failed to rescue transfer:
+  - EXP-060 (seed `1337`, alloc-only overlap + restored safe-full Ridge model): source-test `R^2 = 0.0121`, target `R^2 = -1.5721`, bootstrap 95% CI `[-1.6360, -1.5091]`
+  - EXP-061 (seed `2024`, same decoupled design): source-test `R^2 = 0.0359`, target `R^2 = -0.8824`, bootstrap 95% CI `[-0.9218, -0.8433]`
 
-Conclusion: narrowing to safer overlap features alone was not enough, and adding recovered hardware metadata plus normalized `peak_memory_fraction` can produce a positive Anvil -> Conte split, but repeated-seed, denser-sampling, and alloc-only/Huber follow-ups all show that the current baseline is still too unstable for a claim.
+Conclusion: narrowing to safer overlap features alone was not enough, and adding recovered hardware metadata plus normalized `peak_memory_fraction` can produce a positive Anvil -> Conte split, but repeated-seed, denser-sampling, alloc-only/Huber, and decoupled-feature follow-ups all show that the current baseline is still too unstable for a claim.
 
 ---
 
@@ -258,7 +261,8 @@ Predict:
 - [x] Increase authoritative sampling depth (or otherwise reduce sampling variance) and confirm whether that alone stabilizes the normalized baseline.
 - [x] Diagnose whether simple feature/model simplification (alloc-only + Huber) is enough to rescue the dense cohorts.
 - [x] Diagnose whether label / measurement semantics are now the dominant source of failure on the dense cohorts.
-- [ ] Test a decoupled-feature dense rerun: safer Phase 2 overlap features with richer Phase 3 modeling features.
+- [x] Test a decoupled-feature dense rerun: safer Phase 2 overlap features with richer Phase 3 modeling features.
+- [ ] Test explicit feature adaptation on the decoupled dense design (e.g. CORAL).
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---

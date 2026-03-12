@@ -49,7 +49,9 @@ python scripts/model_transfer.py --config experiments/EXP-061_modeling_authorita
 ```
 
 Submitted on Gilbreth:
-- Pending submission
+- Submitted job: `10406644`
+- Partition/account/qos: `training` / `<group>` / `training`
+- Resources: `--gres=gpu:1 --cpus-per-task=8 --mem=64G`
 
 ## Outputs
 - Metrics: `experiments/EXP-061_modeling_authoritative_v3_hwcpu_overlap_alloc_model_safefull_peakmem_ridge_dense600k_seed_2024/results/metrics.json`
@@ -59,4 +61,26 @@ Submitted on Gilbreth:
 - Provenance: `.../manifests/run_metadata.json`, `.../manifests/input_files_used.json`
 
 ## Results Summary
-- Pending execution.
+- Job `10406644` completed successfully.
+- Final evaluation sizes:
+  - source overlap rows after label filter: `18,682`
+  - target overlap rows after label filter: `26,131`
+  - source train: `14,946`
+  - source test: `3,736`
+  - target eval: `26,131`
+- Source holdout performance:
+  - `R^2 = 0.0359`
+  - `MAE(log1p) = 0.0399`
+  - `SMAPE = 9.98%`
+- Target transfer performance:
+  - `R^2 = -0.8824`
+  - `MAE(log1p) = 0.1217`
+  - `SMAPE = 92.49%`
+- Target bootstrap `R^2` interval:
+  - mean: `-0.8812`
+  - 95% CI: `[-0.9218, -0.8433]`
+- Target calibration note:
+  - fitted target slope on log scale: `-0.4331`
+- Interpretation:
+  - Restoring the richer safe-full timing features again recovered modest positive source holdout signal, but target transfer still remained decisively negative.
+  - This seed improved relative to the alloc-only Huber run, but the fully negative bootstrap interval shows the decoupled design still does not support a transfer claim.

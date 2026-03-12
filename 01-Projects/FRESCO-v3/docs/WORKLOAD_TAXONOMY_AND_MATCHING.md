@@ -177,9 +177,26 @@ Label-semantics interpretation:
 - The current dense alloc-only model is too weak to learn that lower-median target regime, so it defaults toward a source-like prediction level.
 - The next corrective experiment should therefore **decouple Phase 2 and Phase 3 feature sets**: keep safer overlap features if needed, but restore richer modeling features to test whether the low-median Conte label regime is actually predictable.
 
+A decoupled-feature follow-up then tested that hypothesis directly:
+- `EXP-060` (seed `1337`, alloc-only overlap from `EXP-056`, Phase 3 restored to the full safe timing feature set with Ridge)
+  - source-test `R^2 = 0.0121`
+  - target `R^2 = -1.5721`
+  - bootstrap 95% CI = `[-1.6360, -1.5091]`
+  - target slope = `-1.5997`
+- `EXP-061` (seed `2024`, alloc-only overlap from `EXP-058`, same decoupled Phase 3 design)
+  - source-test `R^2 = 0.0359`
+  - target `R^2 = -0.8824`
+  - bootstrap 95% CI = `[-0.9218, -0.8433]`
+  - target slope = `-0.4331`
+
+Decoupled-feature interpretation:
+- Restoring the richer timing features did recover modest positive source holdout signal, so Phase 3 feature richness does matter.
+- But both target slopes stayed negative and both target intervals remained fully below zero, so decoupling overlap and modeling features alone is still not enough.
+- The remaining issue now looks more like unresolved domain shift inside the feature geometry than simple overlap scarcity or an underpowered source model.
+
 ## 9. Immediate next requirement
 The next high-value task is now to diagnose why normalized memory remains misspecified even under broad alloc-only overlap:
-- run a decoupled Phase 2/Phase 3 feature experiment on the dense cohorts,
-- keep safer alloc-only overlap if it helps coverage, but restore richer modeling features to see whether target label compression is predictable,
-- only revisit revised labels or explicit calibration if the decoupled-feature experiment still fails,
+- test explicit feature-space adaptation on top of the decoupled design (for example CORAL, which is already supported by `model_transfer.py`),
+- keep the safer alloc-only overlap if it helps coverage, but do not assume richer modeling features alone solve the transfer gap,
+- only revisit revised labels or explicit calibration if adaptation-aware decoupled experiments still fail,
 - keep the measurement-semantics caveat explicit while doing that diagnosis.

@@ -49,7 +49,9 @@ python scripts/model_transfer.py --config experiments/EXP-060_modeling_authorita
 ```
 
 Submitted on Gilbreth:
-- Pending submission
+- Submitted job: `10406643`
+- Partition/account/qos: `training` / `<group>` / `training`
+- Resources: `--gres=gpu:1 --cpus-per-task=8 --mem=64G`
 
 ## Outputs
 - Metrics: `experiments/EXP-060_modeling_authoritative_v3_hwcpu_overlap_alloc_model_safefull_peakmem_ridge_dense600k_seed_1337/results/metrics.json`
@@ -59,4 +61,26 @@ Submitted on Gilbreth:
 - Provenance: `.../manifests/run_metadata.json`, `.../manifests/input_files_used.json`
 
 ## Results Summary
-- Pending execution.
+- Job `10406643` completed successfully.
+- Final evaluation sizes:
+  - source overlap rows after label filter: `19,121`
+  - target overlap rows after label filter: `25,939`
+  - source train: `15,297`
+  - source test: `3,824`
+  - target eval: `25,939`
+- Source holdout performance:
+  - `R^2 = 0.0121`
+  - `MAE(log1p) = 0.0410`
+  - `SMAPE = 10.73%`
+- Target transfer performance:
+  - `R^2 = -1.5721`
+  - `MAE(log1p) = 0.1494`
+  - `SMAPE = 107.89%`
+- Target bootstrap `R^2` interval:
+  - mean: `-1.5721`
+  - 95% CI: `[-1.6360, -1.5091]`
+- Target calibration note:
+  - fitted target slope on log scale: `-1.5997`
+- Interpretation:
+  - Restoring the richer safe-full timing features recovered a small amount of source holdout signal, but it did not rescue Conte transfer on the broader alloc-only overlap cohort.
+  - This seed actually became worse than the alloc-only Huber run, so decoupling overlap and modeling features is not a stable fix by itself.
