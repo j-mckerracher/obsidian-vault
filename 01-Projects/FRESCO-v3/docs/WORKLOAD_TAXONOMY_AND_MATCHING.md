@@ -132,9 +132,26 @@ Updated interpretation:
 - Higher overlap coverage alone did not guarantee transfer: the seed-2025 repeat widened overlap substantially but still produced the worst target `R^2`.
 - The normalized-label path remains the right direction, but the current sampled authoritative baseline is still too unstable for a publication claim.
 
+A denser-sampling stabilization attempt then tested whether the instability was mainly a row-group sampling artifact:
+- `EXP-052` / `EXP-053` (seed `1337`, `max_rows=600000`, `sample_n_row_groups_per_file=128`)
+  - overlap AUC = `0.9378`
+  - target overlap coverage = `37.36%`
+  - target `R^2 = -0.8817`
+  - bootstrap 95% CI = `[-0.9372, -0.8255]`
+- `EXP-054` / `EXP-055` (seed `2024`, same dense-sampling controls)
+  - overlap AUC = `0.9536`
+  - target overlap coverage = `24.25%`
+  - target `R^2 = -0.1047`
+  - bootstrap 95% CI = `[-0.1272, -0.0881]`
+
+Dense-sampling interpretation:
+- Increasing the sample depth alone did not stabilize the normalized baseline.
+- On the original positive seed (`1337`), denser sampling actually pushed the target result decisively negative.
+- That makes it unlikely that the earlier instability was only a 300k/24-row-group sampling artifact.
+
 ## 9. Immediate next requirement
-The next high-value task is now to stabilize the normalized baseline before extending it:
-- increase authoritative sampling depth (or otherwise reduce row-group sampling variance) for the Anvil -> Conte normalized comparison,
-- determine whether the instability is driven primarily by sampled cohort composition versus the model itself,
-- only then run the same normalized-label design on other cluster pairs,
-- quantify sensitivity to the remaining measurement-semantics mismatch.
+The next high-value task is now to diagnose why the normalized baseline remains unstable even after denser sampling:
+- test whether the remaining failure is driven more by model specification / feature set than by cohort sampling depth,
+- quantify how much `queue_time_sec` and `runtime_fraction` mismatch is still dominating the matched cohorts,
+- decide whether to revise the overlap feature set or the Phase 3 model before extending to other cluster pairs,
+- keep the measurement-semantics caveat explicit while doing that diagnosis.
