@@ -58,6 +58,10 @@ The authoritative `chunks-v3` reruns are now complete enough to sharpen the plan
 - Simplifying to alloc-only overlap features plus Huber also failed:
   - EXP-056/057 (seed `1337`): overlap AUC `0.8571`, coverage `82.52%`, target `R^2 = -0.6492`, bootstrap 95% CI `[-0.6831, -0.6182]`
   - EXP-058/059 (seed `2024`): overlap AUC `0.8607`, coverage `83.03%`, target `R^2 = -1.4949`, bootstrap 95% CI `[-1.5563, -1.4371]`
+- Post-hoc label-semantics diagnosis on the saved prediction artifacts showed why those dense alloc-only runs failed:
+  - true Conte target medians were much lower (`0.074` / `0.086`) than the Anvil source-test median (`~0.205`)
+  - alloc-only Huber still predicted source-like target medians (`0.209` / `0.259`)
+  - a simple `log(4)` node-memory correction made target `R^2` much worse, so the error is not explained by a hidden constant denominator shift alone
 
 Conclusion: narrowing to safer overlap features alone was not enough, and adding recovered hardware metadata plus normalized `peak_memory_fraction` can produce a positive Anvil -> Conte split, but repeated-seed, denser-sampling, and alloc-only/Huber follow-ups all show that the current baseline is still too unstable for a claim.
 
@@ -253,7 +257,8 @@ Predict:
 - [x] Repeat the normalized matched-regime baseline across additional seeds / splits and confirm whether it is stable.
 - [x] Increase authoritative sampling depth (or otherwise reduce sampling variance) and confirm whether that alone stabilizes the normalized baseline.
 - [x] Diagnose whether simple feature/model simplification (alloc-only + Huber) is enough to rescue the dense cohorts.
-- [ ] Diagnose whether label / measurement semantics are now the dominant source of failure on the dense cohorts.
+- [x] Diagnose whether label / measurement semantics are now the dominant source of failure on the dense cohorts.
+- [ ] Test a decoupled-feature dense rerun: safer Phase 2 overlap features with richer Phase 3 modeling features.
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---

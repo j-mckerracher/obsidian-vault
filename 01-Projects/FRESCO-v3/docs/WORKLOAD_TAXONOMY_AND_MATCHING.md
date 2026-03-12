@@ -166,9 +166,20 @@ Alloc-only diagnosis interpretation:
 - Within-overlap `timelimit_sec` mismatch remained large (`KS ≈ 0.60`) even after removing queue and runtime-derived features.
 - The tracked Huber runs therefore suggest the remaining failure is not just a queue-time artifact; the cross-cluster response relationship for normalized memory is still badly misspecified.
 
+Post-hoc label-semantics diagnosis on the saved prediction artifacts then clarified the failure mode:
+- On the dense alloc-only runs, the source-test median `peak_memory_fraction` stayed near `0.205`, while the true Conte target median was much lower (`0.074` for seed `1337`, `0.086` for seed `2024`).
+- The alloc-only Huber model still predicted source-like target medians (`0.209` and `0.259`), so the transfer failure was dominated by source-centered prediction collapse rather than by overlap scarcity alone.
+- A simple hidden-denominator correction did **not** explain the error: applying the expected `log(256 / 64) = log(4)` node-memory shift made target `R^2` dramatically worse.
+- The positive single-split baseline (`EXP-045`) still showed some target calibration (`slope ≈ 0.90`) with the richer timing feature set, while the dense runs compressed target predictions into a narrow source-like band.
+
+Label-semantics interpretation:
+- Conte hardware CPU-standard jobs occupy a substantially lower normalized-memory median than the matched Anvil source jobs, even when they remain inside the overlap band.
+- The current dense alloc-only model is too weak to learn that lower-median target regime, so it defaults toward a source-like prediction level.
+- The next corrective experiment should therefore **decouple Phase 2 and Phase 3 feature sets**: keep safer overlap features if needed, but restore richer modeling features to test whether the low-median Conte label regime is actually predictable.
+
 ## 9. Immediate next requirement
 The next high-value task is now to diagnose why normalized memory remains misspecified even under broad alloc-only overlap:
-- quantify whether the remaining failure is dominated by label / measurement semantics rather than overlap scarcity,
-- inspect source-vs-target calibration behavior (slope, intercept, bias) on the dense matched cohorts,
-- test whether a revised target definition or explicit calibration step is needed before extending to other cluster pairs,
+- run a decoupled Phase 2/Phase 3 feature experiment on the dense cohorts,
+- keep safer alloc-only overlap if it helps coverage, but restore richer modeling features to see whether target label compression is predictable,
+- only revisit revised labels or explicit calibration if the decoupled-feature experiment still fails,
 - keep the measurement-semantics caveat explicit while doing that diagnosis.
