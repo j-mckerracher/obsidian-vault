@@ -1,6 +1,6 @@
 # FRESCO v3 Schema & Provenance
 
-**Last Updated**: 2026-02-03
+**Last Updated**: 2026-03-12
 
 ## Purpose
 Define the v3 canonical schema, dtype rules, and provenance fields required for:
@@ -15,6 +15,15 @@ The current production artifact (`/depot/<group>/data/josh/FRESCO/chunks-v3/PROD
 - Not yet materialized in the current output: `runtime_sec`, `queue_time_sec`, `runtime_fraction`, `peak_memory_gb`, `node_memory_gb`, `peak_memory_fraction`, `partition`, `node_type`, `node_cores`, `gpu_count_per_node`, `gpu_model`, `memory_original_value`, `memory_original_unit`.
 
 Treat the schema below as the **target canonical schema**. Current analysis must either derive the missing fields post hoc or extend the production build to emit them directly.
+
+## Publication-path decision (2026-03-12)
+For the current publication workflow, treat `PROD-20260203-v3` as the frozen authoritative raw dataset and derive normalized timing / job-level aggregate columns at analysis time.
+
+- Use the stored raw columns (`time`, `submit_time`, `start_time`, `end_time`, `value_*`) plus provenance fields as the primary archived source of truth.
+- Derive `runtime_sec`, `queue_time_sec`, `runtime_fraction`, and job-level `value_*_{cnt,sum,max}` in analysis code rather than rebuilding the parquet solely to materialize them.
+- Defer any parquet rebuild or schema-version bump until the missing hardware metadata (`partition`, `node_type`, `node_memory_gb`, `gpu_count_per_node`, `gpu_model`) is recovered and can be written authoritatively.
+
+This decision keeps the archived v3 parquet stable while still allowing authoritative Phase 1/2/3 reruns from derived analysis-time features.
 
 ## 1. Canonical columns (minimum)
 At minimum, v3 must contain:

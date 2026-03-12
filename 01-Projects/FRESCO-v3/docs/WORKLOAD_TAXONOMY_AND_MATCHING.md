@@ -1,6 +1,6 @@
 # Workload Taxonomy & Regime Matching (Required for Cross-Cluster Insights)
 
-**Last Updated**: 2026-02-03
+**Last Updated**: 2026-03-12
 
 ## Purpose
 Enable **defensible cross-cluster insights** by ensuring we compare **like with like**.
@@ -38,3 +38,30 @@ Every cross-cluster claim must report:
 
 ## 4. Non-negotiable constraint
 No “global cross-cluster” claims without regime matching + overlap reporting.
+
+## 5. Current authoritative status (2026-03-12)
+- The authoritative v3 parquet still does **not** store `partition`, `node_type`, `node_memory_gb`, or `gpu_count_per_node`, so current regime labels remain **proxy-based** even on authoritative data.
+- The current proxy is:
+  - `cpu_standard := value_gpu_max <= 0` when available
+  - otherwise `cpu_standard := (value_gpu_cnt <= 0) AND (value_gpu_sum <= 0)`
+- Authoritative EXP-040 (alloc + perf counters) still produced severe domain separability:
+  - domain AUC = `0.9962`
+  - target overlap coverage = `25.94%`
+- Authoritative EXP-041 then still showed very poor transfer on raw `value_memused_max`:
+  - source-test `R^2 = 0.3103`
+  - target `R^2 = -11.8921`
+
+## 6. Refined design decision
+Until hardware metadata is restored, the default authoritative overlap feature set should use only the strict 0% missingness safe columns confirmed by Phase 1:
+
+```text
+ncores, nhosts, timelimit_sec, runtime_sec, queue_time_sec, runtime_fraction
+```
+
+Do **not** include raw performance counters or memory columns in the overlap feature set for primary transfer claims.
+
+The next authoritative comparison pair is therefore:
+- `EXP-042_regime_matching_authoritative_v3_safe_features_band_02_08`
+- `EXP-043_modeling_authoritative_v3_safe_features_band_02_08`
+
+Treat alloc+perf overlap runs such as EXP-040/041 as exploratory ablations, not the default publication path.

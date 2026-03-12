@@ -3,6 +3,30 @@
 ## Goal
 Compute a vetted list of features that are **safe for cross-cluster modeling** (strict criterion) and document schema/dtype drift that must be normalized before any cross-cluster claims.
 
+## Authoritative update (EXP-039, 2026-03-12)
+The original EXP-016 run below was based on a local snapshot. We have now rerun Phase 1 on the authoritative `chunks-v3` parquet as `EXP-039_feature_matrix_authoritative_v3`.
+
+Key authoritative outcomes from the sampled, job-level rerun:
+- raw rows sampled:
+  - anvil: `171,959`
+  - conte: `85,711`
+  - stampede: `225,830`
+- job rows profiled:
+  - anvil: `4,622`
+  - conte: `5,015`
+  - stampede: `8,741`
+- union columns: `52`
+- intersection columns: `52`
+- safe columns at strict 0% missingness cutoff: `32`
+
+Default safe-feature set for authoritative Phase 2/3 runs:
+
+```text
+ncores, nhosts, timelimit_sec, runtime_sec, queue_time_sec, runtime_fraction
+```
+
+These are now the preferred overlap features for cross-cluster claims on `chunks-v3`.
+
 ## Evidence artifacts
 Run folder:
 - `experiments\EXP-016_feature_matrix\`
