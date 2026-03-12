@@ -145,6 +145,61 @@ def resolve_path(path_value: str | os.PathLike[str], base_dir: Path) -> Path:
     return (base_dir / path_text).resolve()
 
 
+def load_sampling_plan(
+    path_value: str | os.PathLike[str], base_dir: Path
+) -> tuple[dict[str, Any], Path]:
+    resolved_plan = resolve_path(path_value, base_dir)
+    payload = json.loads(resolved_plan.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict) or not isinstance(payload.get("clusters"), dict):
+        raise ValueError(
+            f"Invalid sampling plan at {resolved_plan}: expected top-level 'clusters' mapping."
+        )
+    return payload, resolved_plan
+
+
+def sampling_plan_entries_for_cluster(
+    plan: dict[str, Any], cluster: str | None
+) -> list[dict[str, Any]] | None:
+    if cluster is None:
+        return None
+    cluster_payload = plan.get("clusters", {}).get(cluster)
+    if cluster_payload is None:
+        return None
+
+    entries = cluster_payload.get("entries") if isinstance(cluster_payload, dict) else cluster_payload
+    if not isinstance(entries, list):
+        raise ValueError(f"Invalid sampling plan for cluster={cluster}: entries must be a list.")
+
+    normalized: list[dict[str, Any]] = []
+    for entry in entries:
+        if (
+            not isinstance(entry, dict)
+            or "path" not in entry
+            or "row_groups" not in entry
+            or not isinstance(entry["row_groups"], list)
+        ):
+            raise ValueError(
+                f"Invalid sampling plan entry for cluster={cluster}: expected path + row_groups."
+            )
+        normalized.append(
+            {
+                "path": str(entry["path"]),
+                "row_groups": [int(v) for v in entry["row_groups"]],
+            }
+        )
+    return normalized
+
+
+def sampling_plan_seed_for_cluster(plan: dict[str, Any], cluster: str | None) -> int | None:
+    if cluster is None:
+        return None
+    cluster_payload = plan.get("clusters", {}).get(cluster)
+    if not isinstance(cluster_payload, dict):
+        return None
+    seed = cluster_payload.get("seed")
+    return int(seed) if seed is not None else None
+
+
 def expand_glob_paths(pattern: str, base_dir: Path) -> list[Path]:
     pattern_text = pattern if _is_absolute_like(pattern) else str(base_dir / pattern)
     matches = sorted(Path(p) for p in glob.glob(pattern_text, recursive=True))
@@ -669,6 +724,8 @@ def read_job_level_frame(
     max_rows: int | None,
     seed: int,
     sample_n_row_groups_per_file: int | None = None,
+    row_group_plan: list[dict[str, Any]] | None = None,
+    plan_seed: int | None = None,
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     candidate_rows = select_manifest_rows_for_cluster(manifest_rows, cluster)
     if not candidate_rows:
@@ -679,6 +736,9 @@ def read_job_level_frame(
             "row_groups_read": 0,
             "available_columns": [],
             "cluster_filter": cluster,
+            "sampling_plan_entries": [],
+            "sampling_seed": int(plan_seed) if plan_seed is not None else int(seed),
+            "read_errors": [],
         }
 
     schema_columns, has_cluster_column = _schema_union(candidate_rows)
@@ -693,17 +753,47 @@ def read_job_level_frame(
     physical_columns = _physical_columns_to_read(requested_columns, schema_columns, cluster)
 
     rng = random.Random(seed)
-    ordered_rows = [dict(row) for row in candidate_rows]
-    rng.shuffle(ordered_rows)
+    sampling_seed = int(plan_seed) if plan_seed is not None else int(seed)
+    candidate_row_lookup = {str(Path(row["path"])): dict(row) for row in candidate_rows}
+    if row_group_plan is None:
+        ordered_rows = [dict(row) for row in candidate_rows]
+        rng.shuffle(ordered_rows)
+    else:
+        ordered_rows = []
+        for plan_entry in row_group_plan:
+            plan_path = str(Path(plan_entry["path"]))
+            manifest_row = candidate_row_lookup.get(plan_path)
+            if manifest_row is None:
+                raise ValueError(
+                    f"Sampling plan path {plan_path} is not present in the current manifest for cluster={cluster}."
+                )
+            manifest_row["row_groups"] = [int(v) for v in plan_entry.get("row_groups", [])]
+            ordered_rows.append(manifest_row)
 
     frames: list[pd.DataFrame] = []
     used_paths: list[Path] = []
     raw_rows_sampled = 0
     row_groups_read = 0
+    sampling_plan_entries: list[dict[str, Any]] = []
+    read_errors: list[dict[str, Any]] = []
 
     for row in ordered_rows:
         path = Path(row["path"])
-        pf = pq.ParquetFile(str(path))
+        try:
+            pf = pq.ParquetFile(str(path))
+        except OSError as exc:
+            if row_group_plan is not None:
+                raise RuntimeError(
+                    f"Failed to open planned parquet file {path} for cluster={cluster}: {exc}"
+                ) from exc
+            read_errors.append(
+                {
+                    "path": str(path),
+                    "row_group": None,
+                    "error": str(exc),
+                }
+            )
+            continue
         available = set(pf.schema_arrow.names)
         read_columns = [col for col in physical_columns if col in available]
         if "jid" not in available:
@@ -711,22 +801,41 @@ def read_job_level_frame(
         if "jid" not in read_columns:
             read_columns = ["jid"] + read_columns
 
-        row_groups = list(range(pf.num_row_groups))
-        rng.shuffle(row_groups)
+        if row_group_plan is None:
+            row_groups = list(range(pf.num_row_groups))
+            rng.shuffle(row_groups)
+        else:
+            row_groups = [int(v) for v in row.get("row_groups", [])]
 
         file_used = False
         file_row_groups_read = 0
+        file_sampled_row_groups: list[int] = []
         for row_group in row_groups:
             if max_rows is not None and raw_rows_sampled >= max_rows:
                 break
             if (
-                sample_n_row_groups_per_file
+                row_group_plan is None
+                and sample_n_row_groups_per_file
                 and sample_n_row_groups_per_file > 0
                 and file_row_groups_read >= sample_n_row_groups_per_file
             ):
                 break
 
-            table = pf.read_row_group(row_group, columns=read_columns)
+            try:
+                table = pf.read_row_group(row_group, columns=read_columns)
+            except OSError as exc:
+                if row_group_plan is not None:
+                    raise RuntimeError(
+                        f"Failed to read planned row group {row_group} from {path} for cluster={cluster}: {exc}"
+                    ) from exc
+                read_errors.append(
+                    {
+                        "path": str(path),
+                        "row_group": int(row_group),
+                        "error": str(exc),
+                    }
+                )
+                continue
             chunk = table.to_pandas()
 
             if cluster is not None:
@@ -749,16 +858,23 @@ def read_job_level_frame(
                 if remaining <= 0:
                     break
                 if len(chunk) > remaining:
-                    chunk = chunk.sample(n=remaining, random_state=seed)
+                    chunk = chunk.sample(n=remaining, random_state=sampling_seed)
 
             frames.append(chunk[read_columns])
             raw_rows_sampled += len(chunk)
             row_groups_read += 1
             file_row_groups_read += 1
             file_used = True
+            file_sampled_row_groups.append(int(row_group))
 
         if file_used:
             used_paths.append(path)
+            sampling_plan_entries.append(
+                {
+                    "path": str(path),
+                    "row_groups": file_sampled_row_groups,
+                }
+            )
         if max_rows is not None and raw_rows_sampled >= max_rows:
             break
 
@@ -771,6 +887,9 @@ def read_job_level_frame(
             "row_groups_read": 0,
             "available_columns": requested_columns,
             "cluster_filter": cluster,
+            "sampling_plan_entries": [],
+            "sampling_seed": sampling_seed,
+            "read_errors": read_errors,
         }
 
     sampled = pd.concat(frames, ignore_index=True)
@@ -795,6 +914,9 @@ def read_job_level_frame(
         "row_groups_read": int(row_groups_read),
         "available_columns": requested_columns,
         "cluster_filter": cluster,
+        "sampling_plan_entries": sampling_plan_entries,
+        "sampling_seed": sampling_seed,
+        "read_errors": read_errors,
     }
 
 

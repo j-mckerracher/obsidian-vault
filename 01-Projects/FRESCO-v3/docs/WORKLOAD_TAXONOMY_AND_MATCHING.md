@@ -132,6 +132,13 @@ Updated interpretation:
 - Higher overlap coverage alone did not guarantee transfer: the seed-2025 repeat widened overlap substantially but still produced the worst target `R^2`.
 - The normalized-label path remains the right direction, but the current sampled authoritative baseline is still too unstable for a publication claim.
 
+Planned no-queue-time follow-up (staged locally; not yet submitted):
+- EXP-046..051 showed that the normalized hardware CPU-standard baseline was highly seed-sensitive: overlap coverage swung from 26.92% to 58.89%, and every repeat moved target `R^2` back below zero.
+- The current working hypothesis is that `queue_time_sec` is encoding scheduler/cluster behavior rather than portable workload similarity, and EXP-044 already showed that it remained one of the worst-matched within-overlap features (`KS = 0.8176`) even after regime filtering.
+- Workstream A also showed that `85.1%` of source jobs and `90.6%` of target jobs appeared in only one seed, so the no-queue-time family now freezes the raw row-group universe before any submission.
+- The frozen sampling artifact is `experiments/ANALYSIS_seed_instability/frozen_sampling_plan_exp044_hwcpu_standard_300k_24_seed1337.json`, which captures the EXP-044 `300k / 24` sampling regime as 24 fixed Anvil row groups (`286,843` raw rows -> `13,260` jobs) and 24 fixed Conte row groups (`131,122` raw rows -> `7,383` jobs).
+- All EXP-062..069 configs now set `sampling_plan_path` to that artifact while dropping **only** `queue_time_sec` from both the overlap and modeling feature sets.
+- Because a shared sampling plan makes the Phase 2 regime-matching step deterministic for this design, `EXP-064/066/068` are retained only as provenance placeholders; the meaningful repeated-split comparison is `EXP-063/065/067/069` on the shared `EXP-062` overlap cohort.
 A denser-sampling stabilization attempt then tested whether the instability was mainly a row-group sampling artifact:
 - `EXP-052` / `EXP-053` (seed `1337`, `max_rows=600000`, `sample_n_row_groups_per_file=128`)
   - overlap AUC = `0.9378`
@@ -193,10 +200,10 @@ Decoupled-feature interpretation:
 - Restoring the richer timing features did recover modest positive source holdout signal, so Phase 3 feature richness does matter.
 - But both target slopes stayed negative and both target intervals remained fully below zero, so decoupling overlap and modeling features alone is still not enough.
 - The remaining issue now looks more like unresolved domain shift inside the feature geometry than simple overlap scarcity or an underpowered source model.
-
 ## 9. Immediate next requirement
-The next high-value task is now to diagnose why normalized memory remains misspecified even under broad alloc-only overlap:
-- test explicit feature-space adaptation on top of the decoupled design (for example CORAL, which is already supported by `model_transfer.py`),
-- keep the safer alloc-only overlap if it helps coverage, but do not assume richer modeling features alone solve the transfer gap,
-- only revisit revised labels or explicit calibration if adaptation-aware decoupled experiments still fail,
-- keep the measurement-semantics caveat explicit while doing that diagnosis.
+The next planned follow-up is to test whether the instability diagnosis improves when `queue_time_sec` is removed from the tighter hardware CPU-standard design without changing anything else:
+- Workstream B now stages the EXP-062..069 no-queue-time family locally with a frozen sampling plan, but **does not submit it**.
+- Treat `EXP-062` as the single overlap-construction run, then use `EXP-063/065/067/069` as the meaningful repeated modeling splits on that shared cohort; keep `EXP-064/066/068` dormant unless exact duplicate overlap provenance is explicitly needed.
+- Final go/no-go on submitting the frozen no-queue-time family should still consider whether the remaining timing block (`timelimit_sec`, `runtime_sec`, `runtime_fraction`) needs to be simplified further before execution.
+- If the frozen no-queue-time follow-up still fails, the next corrective path remains either simplifying that timing block or adding explicit feature-space adaptation on top of the decoupled/normalized design (for example CORAL, which is already supported by `model_transfer.py`).
+- Keep the measurement-semantics caveat explicit while doing either follow-up.

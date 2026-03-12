@@ -6,7 +6,8 @@
 
 ## Executive Summary
 
-EXP-014/015 show that **v2.0 fixed schema + normalization**, but **zero‑shot transfer** (train on cluster A labels, predict on cluster B with *no labeled target*) still fails badly (R²  0) because the clusters are not i.i.d.:
+EXP-014/015 show that **v2.0 fixed schema + normalization**, but **zero‑shot transfer** (train on cluster A labels, predict on cluster B with *no labeled target*) still fails badly (R² 
+ 0) because the clusters are not i.i.d.:
 
 - **Severe covariate shift** (e.g., partition/node_type completely non‑overlapping; KS up to 1.0)
 - **Conditional shift** (the mapping \(E[y|x]\) differs by cluster)
@@ -48,6 +49,13 @@ The authoritative `chunks-v3` reruns are now complete enough to sharpen the plan
   - target overlap coverage = `33.04%`
   - target `R^2 = 0.0878`
   - bootstrap 95% CI = `[0.0556, 0.1132]`
+- The no-queue-time follow-up is now staged locally with a shared frozen sampling plan but **not yet submitted**:
+  - rationale: `queue_time_sec` appears to encode scheduler/cluster behavior rather than workload similarity, and it remained badly mismatched within overlap in EXP-044 even after the hardware CPU-standard regime filter
+  - goal: keep the EXP-044/045 and EXP-046..051 baseline/repeat design fixed while dropping only `queue_time_sec` from both Phase 2 and Phase 3 `feature_columns`
+  - frozen plan artifact: `experiments/ANALYSIS_seed_instability/frozen_sampling_plan_exp044_hwcpu_standard_300k_24_seed1337.json`
+  - frozen plan summary: reuse the EXP-044 `300k / 24` sampling regime with fixed row-group universes for Anvil (`286,843` raw rows -> `13,260` jobs) and Conte (`131,122` raw rows -> `7,383` jobs)
+  - renumbering note: the originally requested EXP-052..059 range is already occupied by immutable committed dense-sampling and alloc-only diagnosis runs, so the planned family is staged as EXP-062..069 instead
+  - runnable set: `EXP-062` plus `EXP-063/065/067/069`; `EXP-064/066/068` are retained only as provenance placeholders because the frozen plan makes the regime stage deterministic
 - Repeated-seed validation then showed that this baseline is not yet stable:
   - EXP-046/047 (seed `2024`): overlap AUC `0.9394`, coverage `26.92%`, target `R^2 = -0.0346`, bootstrap 95% CI `[-0.0741, -0.0063]`
   - EXP-048/049 (seed `2025`): overlap AUC `0.9073`, coverage `58.89%`, target `R^2 = -2.1030`, bootstrap 95% CI `[-2.3111, -1.9280]`
@@ -94,8 +102,10 @@ We should define tiered success metrics:
 
 ### Evidence of covariate shift
 - partition KS = 1.00 (disjoint)
-- node_type KS  0.999 (disjoint)
-- log_ncores KS  0.88 (extreme)
+- node_type KS 
+ 0.999 (disjoint)
+- log_ncores KS 
+ 0.88 (extreme)
 
 **Implication**: models are extrapolating outside training support. Tree models in particular extrapolate poorly.
 
@@ -262,7 +272,10 @@ Predict:
 - [x] Diagnose whether simple feature/model simplification (alloc-only + Huber) is enough to rescue the dense cohorts.
 - [x] Diagnose whether label / measurement semantics are now the dominant source of failure on the dense cohorts.
 - [x] Test a decoupled-feature dense rerun: safer Phase 2 overlap features with richer Phase 3 modeling features.
+- [x] Stage (but do not submit) a no-queue-time matched-regime follow-up family as EXP-062..069 after confirming EXP-052..059 were already occupied by immutable historical runs.
+- [x] Freeze the EXP-044-equivalent `300k / 24` sampling universe and retrofit EXP-062..069 to use the shared sampling-plan artifact.
 - [ ] Test explicit feature adaptation on the decoupled dense design (e.g. CORAL).
+- [ ] Execute `EXP-062` plus the frozen-cohort modeling repeats (`EXP-063/065/067/069`) if the remaining timing block still looks acceptable after review.
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---
@@ -270,7 +283,8 @@ Predict:
 ### Phase 4 — Unlabeled Domain Adaptation (Zero‑Label)
 #### 4.1 Domain classifier diagnostics
 - Train a classifier to predict domain from features.
-- If AUC  0.9, domains are highly separable → transfer will fail without matching/adaptation.
+- If AUC 
+ 0.9, domains are highly separable → transfer will fail without matching/adaptation.
 
 #### 4.2 CORAL baseline
 - Align covariance of continuous features using unlabeled target.
@@ -312,10 +326,10 @@ Mitigation: map partitions into a **shared taxonomy** and use only taxonomy labe
 
 ## Concrete Next Steps (Immediate)
 
-1. Implement `feature_matrix.py` to compute intersection + missingness.
-2. Implement `workload_taxonomy.py` (mapping per cluster).
-3. Implement `cohort_builder.py` with overlap diagnostics.
-4. Run a first v3 experiment:
+1. Review the frozen-sampling no-queue-time scaffold and, if it still looks well-targeted, treat `EXP-062` as the single overlap-construction run.
+2. Execute `EXP-062`, then compare `EXP-063/065/067/069` as model-split repeats on the shared `EXP-062` cohort; leave `EXP-064/066/068` unsubmitted unless duplicate overlap provenance is explicitly needed.
+3. If the frozen no-queue-time design still fails, either simplify the remaining timing block or prioritize explicit adaptation on the decoupled normalized design instead.
+4. Only after that decision, continue the broader regime-matched v3 experiment plan:
    - Source: Conte (CPU)
    - Target: Anvil CPU partitions only
    - Model: regularized linear / GAM

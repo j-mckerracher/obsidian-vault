@@ -26,10 +26,13 @@ from fresco_data_loader import (
     describe_regime,
     git_info,
     load_manifest_rows,
+    load_sampling_plan,
     read_job_level_frame,
     regime_mask,
     regime_required_columns,
     resolve_path,
+    sampling_plan_entries_for_cluster,
+    sampling_plan_seed_for_cluster,
     utc_now_iso,
     write_json,
 )
@@ -140,11 +143,28 @@ def main() -> int:
     overlap_lo, overlap_hi = cfg.get("overlap_band", [0.2, 0.8])
     max_rows = int(cfg.get("max_rows_per_cluster", 200000))
     sample_n_row_groups = int(cfg.get("sample_n_row_groups_per_file", 0) or 0) or None
+    sampling_plan_cfg = cfg.get("sampling_plan_path")
 
     manifest_rows = load_manifest_rows(cfg["inputs_manifest"], repo_root)
     needed = ["jid"] + sorted(
         set(feature_cols + regime_required_columns(cfg.get("regime", "cpu_standard")))
     )
+
+    sampling_plan_path: Path | None = None
+    source_sampling_plan = None
+    target_sampling_plan = None
+    source_sampling_seed = None
+    target_sampling_seed = None
+    if sampling_plan_cfg:
+        sampling_plan, sampling_plan_path = load_sampling_plan(sampling_plan_cfg, repo_root)
+        source_sampling_plan = sampling_plan_entries_for_cluster(sampling_plan, source)
+        target_sampling_plan = sampling_plan_entries_for_cluster(sampling_plan, target)
+        if source_sampling_plan is None or target_sampling_plan is None:
+            raise ValueError(
+                f"Sampling plan {sampling_plan_path} must define entries for both {source} and {target}."
+            )
+        source_sampling_seed = sampling_plan_seed_for_cluster(sampling_plan, source)
+        target_sampling_seed = sampling_plan_seed_for_cluster(sampling_plan, target)
 
     log(f"run_id={run_id}")
     log(f"config={cfg_path}")
@@ -152,6 +172,8 @@ def main() -> int:
     log(f"features={feature_cols}")
     log(f"overlap_band=[{overlap_lo},{overlap_hi}] max_rows_per_cluster={max_rows}")
     log(f"sample_n_row_groups_per_file={sample_n_row_groups}")
+    if sampling_plan_path is not None:
+        log(f"sampling_plan_path={sampling_plan_path}")
 
     src, src_meta = read_job_level_frame(
         manifest_rows=manifest_rows,
@@ -160,6 +182,8 @@ def main() -> int:
         max_rows=max_rows,
         seed=seed,
         sample_n_row_groups_per_file=sample_n_row_groups,
+        row_group_plan=source_sampling_plan,
+        plan_seed=source_sampling_seed,
     )
     tgt, tgt_meta = read_job_level_frame(
         manifest_rows=manifest_rows,
@@ -168,15 +192,31 @@ def main() -> int:
         max_rows=max_rows,
         seed=seed + 1,
         sample_n_row_groups_per_file=sample_n_row_groups,
+        row_group_plan=target_sampling_plan,
+        plan_seed=target_sampling_seed,
     )
     log(
         f"source_raw_rows_sampled={src_meta['raw_rows_sampled']} "
         f"source_job_rows={src_meta['job_rows']} source_files_used={len(src_meta['used_paths'])}"
     )
+    if src_meta["read_errors"]:
+        log(f"source_sampling_read_errors={len(src_meta['read_errors'])}")
+        for error in src_meta["read_errors"][:5]:
+            log(
+                "source_read_error "
+                f"path={error['path']} row_group={error['row_group']} error={error['error']}"
+            )
     log(
         f"target_raw_rows_sampled={tgt_meta['raw_rows_sampled']} "
         f"target_job_rows={tgt_meta['job_rows']} target_files_used={len(tgt_meta['used_paths'])}"
     )
+    if tgt_meta["read_errors"]:
+        log(f"target_sampling_read_errors={len(tgt_meta['read_errors'])}")
+        for error in tgt_meta["read_errors"][:5]:
+            log(
+                "target_read_error "
+                f"path={error['path']} row_group={error['row_group']} error={error['error']}"
+            )
 
     regime = cfg.get("regime", "cpu_standard")
     src = src.loc[regime_mask(src, regime)].copy()
@@ -188,6 +228,8 @@ def main() -> int:
     hash_cache: dict[str, str] = {}
     used_files = build_file_records(src_meta["used_paths"], source, hash_cache=hash_cache)
     used_files.extend(build_file_records(tgt_meta["used_paths"], target, hash_cache=hash_cache))
+    if sampling_plan_path is not None:
+        used_files.extend(build_file_records([sampling_plan_path], "sampling_plan", hash_cache=hash_cache))
 
     if len(src) == 0 or len(tgt) == 0:
         _write_empty_outputs(
