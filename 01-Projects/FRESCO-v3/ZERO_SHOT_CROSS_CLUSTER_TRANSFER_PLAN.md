@@ -259,7 +259,7 @@ Predict:
   - Phase 3 modeling (HuberRegressor): `experiments\\EXP-026_modeling_alloc_perf_nomem_band_01_09_huber\\`
     - Result: target R²=-867.12 on proxy label (still negative, but far less extreme vs Ridge).
 
-**Acceptance**: on regime‑matched cohorts, achieve Tier A success (R² > 0) with stable CI (not yet achieved: EXP-045 was positive on one split, but repeated-seed, denser-sampling, and alloc-only/Huber follow-ups all returned negative target R² with fully negative bootstrap intervals).
+**Acceptance**: Tier A success is now achieved for one authoritative matched regime: `EXP-063/065/067/069` all returned positive target `R^2` (`0.1070`-`0.1108`) with bootstrap 95% intervals entirely above zero on the frozen `EXP-062` Anvil -> Conte `hardware_cpu_standard` cohort. Broader replication across alternate frozen universes and additional cluster pairs is still pending.
 
 ### Authoritative Phase 3 status
 - [x] Rerun authoritative overlap/modeling on the raw `chunks-v3` parquet.
@@ -275,7 +275,8 @@ Predict:
 - [x] Stage (but do not submit) a no-queue-time matched-regime follow-up family as EXP-062..069 after confirming EXP-052..059 were already occupied by immutable historical runs.
 - [x] Freeze the EXP-044-equivalent `300k / 24` sampling universe and retrofit EXP-062..069 to use the shared sampling-plan artifact.
 - [ ] Test explicit feature adaptation on the decoupled dense design (e.g. CORAL).
-- [ ] Execute `EXP-062` plus the frozen-cohort modeling repeats (`EXP-063/065/067/069`) if the remaining timing block still looks acceptable after review.
+- [x] Execute `EXP-062` plus the frozen-cohort modeling repeats (`EXP-063/065/067/069`) and confirm that the queue-time-free frozen design yields stable positive target transfer on the shared cohort.
+- [ ] Quantify sensitivity to frozen-universe choice (for example, a second frozen sampling plan for the same regime).
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---
@@ -326,10 +327,11 @@ Mitigation: map partitions into a **shared taxonomy** and use only taxonomy labe
 
 ## Concrete Next Steps (Immediate)
 
-1. Review the frozen-sampling no-queue-time scaffold and, if it still looks well-targeted, treat `EXP-062` as the single overlap-construction run.
-2. Execute `EXP-062`, then compare `EXP-063/065/067/069` as model-split repeats on the shared `EXP-062` cohort; leave `EXP-064/066/068` unsubmitted unless duplicate overlap provenance is explicitly needed.
-3. If the frozen no-queue-time design still fails, either simplify the remaining timing block or prioritize explicit adaptation on the decoupled normalized design instead.
-4. Only after that decision, continue the broader regime-matched v3 experiment plan:
+1. Record `EXP-062..069` as the current authoritative positive baseline for Anvil -> Conte `hardware_cpu_standard` transfer with `peak_memory_fraction`.
+2. Measure how sensitive that positive result is to frozen-universe choice by building at least one additional frozen sampling plan for the same regime, or by applying the same queue-time-free recipe to a second cluster pair.
+3. Extend the normalized matched-regime design to other cluster pairs, keeping `queue_time_sec` excluded and freezing the sampled universe per pair.
+4. If the positive result does not generalize under those follow-ups, revisit either further timing-block simplification or explicit adaptation there.
+5. Only after that decision, continue the broader regime-matched v3 experiment plan:
    - Source: Conte (CPU)
    - Target: Anvil CPU partitions only
    - Model: regularized linear / GAM

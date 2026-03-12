@@ -1,14 +1,14 @@
-# EXP-062 Run Log  Planned regime matching on authoritative v3 hardware CPU-standard cohorts without queue_time_sec
+# EXP-062 Run Log -- Completed regime matching on authoritative v3 hardware CPU-standard cohorts without queue_time_sec
 
 **Run ID**: EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime  
-**Date**: 2026-03-12
+**Date**: 2026-03-12  
 **Owner**: <username>
 
 ## Objective
-Test whether removing queue_time_sec from the authoritative hardware CPU-standard overlap feature set reduces scheduler-specific mismatch while preserving the EXP-044 baseline design.
+Test whether removing `queue_time_sec` from the authoritative hardware CPU-standard overlap feature set reduces scheduler-specific mismatch while preserving the EXP-044 baseline geometry on a frozen sampled universe.
 
 ## Hypothesis (if experiment)
-Dropping queue_time_sec will make the Anvil -> Conte overlap region less sensitive to cluster-specific scheduler behavior and may yield more stable overlap coverage than EXP-044/046/048/050 while keeping the rest of the design fixed.
+Dropping `queue_time_sec` while freezing the raw sampled row-group universe will preserve the EXP-044 overlap coverage but remove the largest scheduler-specific within-overlap mismatch, creating a cleaner cohort for repeated Phase 3 transfer tests.
 
 ## Inputs
 - Dataset label: `chunks-v3-authoritative`
@@ -23,24 +23,17 @@ Dropping queue_time_sec will make the Anvil -> Conte overlap region less sensiti
 ## Code & Environment
 - Script: `scripts\regime_matching.py`
 - Config: `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/config/exp062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime.json`
-- Git commit (pipeline): `TBD at execution time; current local changes add sampling_plan_path support`
-- Git commit (analysis): `TBD at execution time`
-- Conda env: `TBD at execution time`
-- Python: `TBD at execution time`
+- Git commit (pipeline): `aa2457958db8ec9a0735da5f64129d00155a62d1`
+- Git commit (analysis): `aa2457958db8ec9a0735da5f64129d00155a62d1`
+- Conda env: `fresco_v2`
+- Python: `3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]`
 - Package lock: `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/validation/pip_freeze.txt`
-
-## Notes
-- Workstream B scaffolding only: this run has **not** been submitted yet.
-- This config now reuses the shared frozen EXP-044 row-group plan so raw-row sampling is held fixed across the no-queue-time family.
-- This config preserves the EXP-044/046/048/050 regime-matching design except for removing `queue_time_sec` from `feature_columns`.
-- Renumbering rationale: the originally requested EXP-052..059 identifiers are already occupied by committed dense-sampling and alloc-only diagnosis runs, so this planned family is staged as EXP-062..069 instead.
-- Rationale for the feature change: `queue_time_sec` appears to encode scheduler/cluster behavior more than workload similarity, and it remained one of the worst-matched features inside the EXP-044 overlap region.
 
 ## Execution
 - Cluster: Gilbreth
-- Submission command: `Not submitted in Workstream B. Planned repro command: python scripts\regime_matching.py --config experiments\EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime\config\exp062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime.json`
-- Job IDs: `Not assigned (job submission intentionally deferred)`
-- Start / end time (UTC): `N/A / N/A`
+- Submission command: `sbatch exp062_noqt.slurm`
+- Job IDs: `10407050`
+- Start / end time (UTC): `2026-03-12T20:34:32Z / 2026-03-12T20:36:33Z`
 
 ## Outputs
 - Output root: `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/results/`
@@ -48,18 +41,22 @@ Dropping queue_time_sec will make the Anvil -> Conte overlap region less sensiti
 - Validation reports: `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/validation/`
 
 ## Results Summary
-- Planned run only; no job has been submitted in Workstream B, so no metrics or overlap artifacts exist yet.
-- Expected result artifacts, once executed, will be written under `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/results/` and should be cited there before making any claim.
+- `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/results/overlap_report.json`: domain classifier AUC = `0.9366` and target overlap coverage = `33.31%`.
+- `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/results/overlap_report.json`: source overlap = `6995 / 12649` jobs and target overlap = `2459 / 7383` jobs.
+- `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/results/overlap_report.json`: the largest remaining within-overlap KS values are `runtime_fraction = 0.4903`, `runtime_sec = 0.4091`, and `timelimit_sec = 0.4066`; `queue_time_sec` is no longer part of the overlap geometry.
+- `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/logs/slurm-10407050.out`: frozen-plan replay read `286,843` Anvil raw rows (`13,260` jobs) and `131,122` Conte raw rows (`7,383` jobs).
 
 ## Validation Summary
-- Not run yet. Validation artifacts will be produced under `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/validation/` after execution.
+- Job `10407050` completed with exit code `0` and wrote the expected overlap artifacts, manifests, and validation files (`experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/logs/slurm-10407050.out`).
+- Execution provenance was captured in `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/validation/git_commit.txt`, `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/validation/python_version.txt`, and `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/validation/pip_freeze.txt`.
+- No runtime validation or schema errors were reported in `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/logs/regime_matching.log`.
 
 ## Known Issues / Caveats
-- This log records a **planned** run only; nothing in this folder should be interpreted as executed evidence.
-- The experiment numbering was renumbered from the user-requested EXP-052..059 to EXP-062..069 because EXP-052..059 are already occupied by immutable committed historical runs.
-- Final submission and any design adjustments should wait for Workstream A analysis of the current instability diagnosis.
+- `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/manifests/run_metadata.json` leaves git/environment fields null because `/home/<username>/Code/FRESCO-Pipeline` on Gilbreth was a synced snapshot rather than a git checkout; use the files under `validation/` as the authoritative provenance record.
+- This run freezes the EXP-044-equivalent raw row-group universe by design, so it stabilizes the cohort used for comparison but does not by itself quantify sensitivity to alternate frozen universes.
+- Even after removing `queue_time_sec`, the remaining time-derived features still show moderate within-overlap mismatch.
 
 ## Repro Steps
-1. Confirm the queue-time-free + frozen-sampling design is still the preferred next ablation after Workstream A review.
-2. Capture the final execution environment into `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/validation/` before submission.
-3. Run `python scripts\regime_matching.py --config experiments\EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime\config\exp062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime.json`.
+1. `source ~/anaconda3/bin/activate fresco_v2`
+2. `cd /home/<username>/Code/FRESCO-Pipeline && sbatch exp062_noqt.slurm`
+3. `python scripts/regime_matching.py --config experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/config/exp062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime.json`

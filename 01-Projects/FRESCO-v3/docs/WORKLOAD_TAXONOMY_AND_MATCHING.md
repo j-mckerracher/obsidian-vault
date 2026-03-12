@@ -127,18 +127,19 @@ Repeated-seed validation runs then checked whether that positive split was stabl
   - target `R^2 = -0.2882`
   - bootstrap 95% CI = `[-0.3788, -0.2020]`
 
-Updated interpretation:
+Updated interpretation before the frozen no-queue correction:
 - EXP-045 is now best read as a promising single split, not a stable matched-regime result.
 - Higher overlap coverage alone did not guarantee transfer: the seed-2025 repeat widened overlap substantially but still produced the worst target `R^2`.
-- The normalized-label path remains the right direction, but the current sampled authoritative baseline is still too unstable for a publication claim.
+- The normalized-label path remained the right direction, but the sampled authoritative baseline on its own was still too unstable for a publication claim.
 
-Planned no-queue-time follow-up (staged locally; not yet submitted):
-- EXP-046..051 showed that the normalized hardware CPU-standard baseline was highly seed-sensitive: overlap coverage swung from 26.92% to 58.89%, and every repeat moved target `R^2` back below zero.
-- The current working hypothesis is that `queue_time_sec` is encoding scheduler/cluster behavior rather than portable workload similarity, and EXP-044 already showed that it remained one of the worst-matched within-overlap features (`KS = 0.8176`) even after regime filtering.
-- Workstream A also showed that `85.1%` of source jobs and `90.6%` of target jobs appeared in only one seed, so the no-queue-time family now freezes the raw row-group universe before any submission.
-- The frozen sampling artifact is `experiments/ANALYSIS_seed_instability/frozen_sampling_plan_exp044_hwcpu_standard_300k_24_seed1337.json`, which captures the EXP-044 `300k / 24` sampling regime as 24 fixed Anvil row groups (`286,843` raw rows -> `13,260` jobs) and 24 fixed Conte row groups (`131,122` raw rows -> `7,383` jobs).
-- All EXP-062..069 configs now set `sampling_plan_path` to that artifact while dropping **only** `queue_time_sec` from both the overlap and modeling feature sets.
-- Because a shared sampling plan makes the Phase 2 regime-matching step deterministic for this design, `EXP-064/066/068` are retained only as provenance placeholders; the meaningful repeated-split comparison is `EXP-063/065/067/069` on the shared `EXP-062` overlap cohort.
+Completed frozen no-queue-time follow-up (EXP-062..069):
+- `EXP-062` (`experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/results/overlap_report.json`) nearly reproduced the original EXP-044 geometry while dropping `queue_time_sec`: domain AUC = `0.9366`, target overlap coverage = `33.31%`, source overlap = `6995 / 12649`, target overlap = `2459 / 7383`.
+- The frozen sampling artifact `experiments/ANALYSIS_seed_instability/frozen_sampling_plan_exp044_hwcpu_standard_300k_24_seed1337.json` fixed the EXP-044-equivalent `300k / 24` row-group universe as 24 Anvil row groups (`286,843` raw rows -> `13,260` jobs) and 24 Conte row groups (`131,122` raw rows -> `7,383` jobs), removing the raw sampling drift diagnosed in Workstream A.
+- The meaningful repeated-split comparison is `EXP-063/065/067/069` on the shared `EXP-062` overlap cohort; `EXP-064/066/068` remain provenance placeholders because the frozen plan makes Phase 2 deterministic for this design.
+- `EXP-063` (`.../EXP-063.../results/metrics.json`), `EXP-065` (`.../EXP-065.../results/metrics.json`), `EXP-067` (`.../EXP-067.../results/metrics.json`), and `EXP-069` (`.../EXP-069.../results/metrics.json`) all returned positive target `R^2`: `0.1070`, `0.1099`, `0.1089`, and `0.1108`, respectively.
+- All four no-queue modeling repeats also kept their bootstrap 95% intervals strictly above zero (`[0.0788, 0.1291]`, `[0.0861, 0.1351]`, `[0.0812, 0.1354]`, `[0.0804, 0.1365]`) and target slopes near `1.0` (`0.9593` to `1.0498`), so the result is now stable across modeling split seeds on the frozen cohort.
+- Updated interpretation: the earlier failure was not an unavoidable label-semantics collapse. It was largely driven by queue-time-driven overlap drift plus seed-dependent sampling drift. Once `queue_time_sec` is removed and the sampled universe is frozen, the authoritative Anvil -> Conte `hardware_cpu_standard` / `peak_memory_fraction` pathway yields a repeatable positive zero-shot result on that cohort.
+- Remaining caveat: this is stability on a fixed frozen universe, not yet a claim about all possible overlap universes or all cluster pairs.
 A denser-sampling stabilization attempt then tested whether the instability was mainly a row-group sampling artifact:
 - `EXP-052` / `EXP-053` (seed `1337`, `max_rows=600000`, `sample_n_row_groups_per_file=128`)
   - overlap AUC = `0.9378`
@@ -201,9 +202,8 @@ Decoupled-feature interpretation:
 - But both target slopes stayed negative and both target intervals remained fully below zero, so decoupling overlap and modeling features alone is still not enough.
 - The remaining issue now looks more like unresolved domain shift inside the feature geometry than simple overlap scarcity or an underpowered source model.
 ## 9. Immediate next requirement
-The next planned follow-up is to test whether the instability diagnosis improves when `queue_time_sec` is removed from the tighter hardware CPU-standard design without changing anything else:
-- Workstream B now stages the EXP-062..069 no-queue-time family locally with a frozen sampling plan, but **does not submit it**.
-- Treat `EXP-062` as the single overlap-construction run, then use `EXP-063/065/067/069` as the meaningful repeated modeling splits on that shared cohort; keep `EXP-064/066/068` dormant unless exact duplicate overlap provenance is explicitly needed.
-- Final go/no-go on submitting the frozen no-queue-time family should still consider whether the remaining timing block (`timelimit_sec`, `runtime_sec`, `runtime_fraction`) needs to be simplified further before execution.
-- If the frozen no-queue-time follow-up still fails, the next corrective path remains either simplifying that timing block or adding explicit feature-space adaptation on top of the decoupled/normalized design (for example CORAL, which is already supported by `model_transfer.py`).
-- Keep the measurement-semantics caveat explicit while doing either follow-up.
+The immediate next requirement is no longer to decide whether to run the no-queue design; that family has now completed successfully on the frozen EXP-062 cohort:
+- Record `EXP-062..069` as the current authoritative positive baseline for Anvil -> Conte transfer in the `hardware_cpu_standard` regime with `peak_memory_fraction`.
+- Before making a publication-strength generalization claim, quantify sensitivity to frozen-universe choice (for example, a second frozen sampling plan) and/or extend the same queue-time-free recipe to additional cluster pairs.
+- If alternate frozen universes or new cluster pairs fail, revisit either further timing-block simplification or explicit feature-space adaptation for those failing cases.
+- Keep the measurement-semantics caveat explicit while extending the design.

@@ -1,14 +1,14 @@
-# EXP-065 Run Log  Planned modeling repeat on authoritative v3 without queue_time_sec (seed 2024)
+# EXP-065 Run Log -- Completed modeling repeat on the frozen authoritative no-queue cohort (seed 2024)
 
 **Run ID**: EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024  
-**Date**: 2026-03-12
+**Date**: 2026-03-12  
 **Owner**: <username>
 
 ## Objective
-Repeat the normalized peak-memory transfer baseline with seed 2024 while dropping queue_time_sec from both overlap and modeling feature sets.
+Evaluate the authoritative Anvil -> Conte normalized peak-memory transfer baseline on the frozen EXP-062 overlap cohort using modeling split seed `2024` after removing `queue_time_sec` from both the overlap and modeling feature sets.
 
 ## Hypothesis (if experiment)
-If queue_time_sec is amplifying scheduler-specific mismatch, the seed-2024 no-queue-time repeat should be more stable than EXP-047 while preserving the same sampling and model controls.
+If the earlier instability was driven mainly by queue-time-induced overlap drift plus raw sampling drift, then freezing the EXP-062 cohort and removing `queue_time_sec` should yield a repeatable positive target `R^2` across modeling split seeds.
 
 ## Inputs
 - Dataset label: `chunks-v3-authoritative`
@@ -16,33 +16,24 @@ If queue_time_sec is amplifying scheduler-specific mismatch, the seed-2024 no-qu
 - Frozen sampling plan: `experiments/ANALYSIS_seed_instability/frozen_sampling_plan_exp044_hwcpu_standard_300k_24_seed1337.json`
 - Clusters: anvil / conte / stampede
 - Date range: 2015-01-01 to 2023-12-31
-- Cohorts (planned from EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime):
-  - `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/results/matched_source_indices.parquet`
-  - `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/results/matched_target_indices.parquet`
+- Cohorts: `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/results/matched_source_indices.parquet` and `experiments/EXP-062_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime/results/matched_target_indices.parquet`
 - Label: `peak_memory_fraction` with `log1p` transform (`label_proxy=false`)
+- Modeling split seed: `2024`
 
 ## Code & Environment
 - Script: `scripts\model_transfer.py`
 - Config: `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/config/exp065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024.json`
-- Git commit (pipeline): `TBD at execution time; current local changes add sampling_plan_path support`
-- Git commit (analysis): `TBD at execution time`
-- Conda env: `TBD at execution time`
-- Python: `TBD at execution time`
+- Git commit (pipeline): `aa2457958db8ec9a0735da5f64129d00155a62d1`
+- Git commit (analysis): `aa2457958db8ec9a0735da5f64129d00155a62d1`
+- Conda env: `fresco_v2`
+- Python: `3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]`
 - Package lock: `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/validation/pip_freeze.txt`
-
-## Notes
-- Workstream B scaffolding only: this run has **not** been submitted yet.
-- This modeling repeat now reuses the frozen EXP-062 overlap cohort, so only the train/test split seed changes across EXP-063/065/067/069.
-- This config preserves the EXP-045/047/049/051 modeling design except for removing `queue_time_sec` from both the Phase 2 overlap reference and the Phase 3 `feature_columns` list.
-- Renumbering rationale: the originally requested EXP-052..059 identifiers are already occupied by committed dense-sampling and alloc-only diagnosis runs, so this planned family is staged as EXP-062..069 instead.
-- Rationale for the feature change: `queue_time_sec` appears to encode scheduler/cluster behavior more than workload similarity, and the tightened family tests whether removing it improves transfer stability without otherwise changing the baseline recipe.
-- The normalized label still inherits the cross-cluster measurement-semantics caveat (`memory_includes_cache=true` on anvil and `false` on conte/stampede).
 
 ## Execution
 - Cluster: Gilbreth
-- Submission command: `Not submitted in Workstream B. Planned repro command: python scripts\model_transfer.py --config experiments\EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024\config\exp065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024.json`
-- Job IDs: `Not assigned (job submission intentionally deferred)`
-- Start / end time (UTC): `N/A / N/A`
+- Submission command: `sbatch exp065_noqt_model.slurm`
+- Job IDs: `10407079`
+- Start / end time (UTC): `2026-03-12T20:48:57Z / 2026-03-12T20:51:00Z`
 
 ## Outputs
 - Output root: `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/results/`
@@ -50,18 +41,22 @@ If queue_time_sec is amplifying scheduler-specific mismatch, the seed-2024 no-qu
 - Validation reports: `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/validation/`
 
 ## Results Summary
-- Planned run only; no job has been submitted in Workstream B, so no metrics or overlap artifacts exist yet.
-- Expected result artifacts, once executed, will be written under `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/results/` and should be cited there before making any claim.
+- `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/results/metrics.json`: source-test `R^2 = 0.1264` and target `R^2 = 0.1099`.
+- `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/results/metrics.json`: bootstrap target `R^2` 95% CI = `[0.0861, 0.1351]` with bootstrap mean `0.1101`.
+- `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/results/metrics.json`: target slope = `0.9593`, target `bias_log = -0.0131`, and target `mae_log = 0.0874`.
+- `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/results/metrics.json`: this repeat reused the frozen EXP-062 overlap cohort with `6995` matched source jobs and `2455` target evaluation jobs.
 
 ## Validation Summary
-- Not run yet. Validation artifacts will be produced under `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/validation/` after execution.
+- Job `10407079` completed with exit code `0` and wrote the expected metrics, prediction parquet files, manifests, and validation files (`experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/logs/slurm-10407079.out`).
+- Execution provenance was captured in `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/validation/git_commit.txt`, `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/validation/python_version.txt`, and `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/validation/pip_freeze.txt`.
+- No runtime errors were reported in `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/logs/model_transfer.log`.
 
 ## Known Issues / Caveats
-- This log records a **planned** run only; nothing in this folder should be interpreted as executed evidence.
-- The experiment numbering was renumbered from the user-requested EXP-052..059 to EXP-062..069 because EXP-052..059 are already occupied by immutable committed historical runs.
-- Final submission and any design adjustments should wait for Workstream A analysis of the current instability diagnosis.
+- `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/manifests/run_metadata.json` leaves git/environment fields null because `/home/<username>/Code/FRESCO-Pipeline` on Gilbreth was a synced snapshot rather than a git checkout; use the files under `validation/` as the authoritative provenance record.
+- These repeats quantify stability across modeling split seeds on a frozen overlap cohort; they do not by themselves measure sensitivity to alternative frozen sampling universes.
+- The normalized label still carries the cross-cluster measurement-semantics caveat (`memory_includes_cache=true` on anvil and `false` on conte/stampede), so broader generalization still requires care.
 
 ## Repro Steps
-1. Confirm the queue-time-free + frozen-sampling design is still the preferred next ablation after Workstream A review.
-2. Capture the final execution environment into `experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/validation/` before submission.
-3. Run `python scripts\model_transfer.py --config experiments\EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024\config\exp065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024.json`.
+1. `source ~/anaconda3/bin/activate fresco_v2`
+2. `cd /home/<username>/Code/FRESCO-Pipeline && sbatch exp065_noqt_model.slurm`
+3. `python scripts/model_transfer.py --config experiments/EXP-065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024/config/exp065_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_seed_2024.json`
