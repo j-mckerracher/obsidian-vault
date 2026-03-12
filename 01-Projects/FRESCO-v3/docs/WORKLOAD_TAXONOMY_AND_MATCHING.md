@@ -137,9 +137,17 @@ Completed frozen no-queue-time follow-up (EXP-062..069):
 - The frozen sampling artifact `experiments/ANALYSIS_seed_instability/frozen_sampling_plan_exp044_hwcpu_standard_300k_24_seed1337.json` fixed the EXP-044-equivalent `300k / 24` row-group universe as 24 Anvil row groups (`286,843` raw rows -> `13,260` jobs) and 24 Conte row groups (`131,122` raw rows -> `7,383` jobs), removing the raw sampling drift diagnosed in Workstream A.
 - The meaningful repeated-split comparison is `EXP-063/065/067/069` on the shared `EXP-062` overlap cohort; `EXP-064/066/068` remain provenance placeholders because the frozen plan makes Phase 2 deterministic for this design.
 - `EXP-063` (`.../EXP-063.../results/metrics.json`), `EXP-065` (`.../EXP-065.../results/metrics.json`), `EXP-067` (`.../EXP-067.../results/metrics.json`), and `EXP-069` (`.../EXP-069.../results/metrics.json`) all returned positive target `R^2`: `0.1070`, `0.1099`, `0.1089`, and `0.1108`, respectively.
-- All four no-queue modeling repeats also kept their bootstrap 95% intervals strictly above zero (`[0.0788, 0.1291]`, `[0.0861, 0.1351]`, `[0.0812, 0.1354]`, `[0.0804, 0.1365]`) and target slopes near `1.0` (`0.9593` to `1.0498`), so the result is now stable across modeling split seeds on the frozen cohort.
-- Updated interpretation: the earlier failure was not an unavoidable label-semantics collapse. It was largely driven by queue-time-driven overlap drift plus seed-dependent sampling drift. Once `queue_time_sec` is removed and the sampled universe is frozen, the authoritative Anvil -> Conte `hardware_cpu_standard` / `peak_memory_fraction` pathway yields a repeatable positive zero-shot result on that cohort.
-- Remaining caveat: this is stability on a fixed frozen universe, not yet a claim about all possible overlap universes or all cluster pairs.
+- All four no-queue modeling repeats also kept their bootstrap 95% intervals strictly above zero (`[0.0788, 0.1291]`, `[0.0861, 0.1351]`, `[0.0812, 0.1354]`, `[0.0804, 0.1365]`) and target slopes near `1.0` (`0.9593` to `1.0498`), so the result was stable across modeling split seeds on that first frozen cohort.
+- Updated interpretation after EXP-062..069 alone: the earlier failure was not an unavoidable label-semantics collapse. Queue-time-driven overlap drift plus seed-dependent sampling drift clearly mattered, and removing `queue_time_sec` on the frozen EXP-062 universe revealed one clean positive zero-shot result.
+- Important caveat: that success was only established on one frozen universe, not yet across alternate frozen universes or cluster pairs.
+
+Second frozen-universe sensitivity check (EXP-070..074):
+- `EXP-070` (`experiments/EXP-070_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_no_queuetime_plan2024/results/overlap_report.json`) reused the same no-queue feature recipe on a different fixed `300k / 24` universe (`frozen_sampling_plan_exp070_hwcpu_standard_300k_24_seed2024.json`) and produced a materially different matched cohort: domain AUC = `0.9294`, target overlap coverage = `27.66%`, source overlap = `11898 / 16680`, target overlap = `1697 / 6136`.
+- Relative to EXP-062, the second frozen universe barely overlapped at the job level (`source` Jaccard = `0.2061`, `target` Jaccard = `0.0616`; see `experiments/ANALYSIS_seed_instability/exp062_vs_exp070_overlap_comparison.json`), so it is a genuine universe-robustness check rather than a replay.
+- The remaining time-derived overlap mismatches worsened substantially on EXP-070: `runtime_fraction KS = 0.6093`, `runtime_sec KS = 0.5492`, and `timelimit_sec KS = 0.5416`.
+- `EXP-071` through `EXP-074` all moved target transfer back to zero or negative on this second universe: target `R^2 = -0.0639`, `-0.0990`, `-0.0909`, and `-0.0060`.
+- The corresponding bootstrap 95% intervals were mostly strictly negative (`[-0.1096, -0.0161]`, `[-0.1567, -0.0487]`, `[-0.1555, -0.0465]`) with the last split straddling zero (`[-0.0452, 0.0346]`), and target slopes collapsed to `0.41`-`0.52`.
+- Updated interpretation after EXP-070..074: removing `queue_time_sec` and freezing the sampled universe is necessary but not sufficient. The positive no-queue result does **not** generalize across frozen sampled universes, and the remaining timing block (`timelimit_sec`, `runtime_sec`, `runtime_fraction`) is still the main instability suspect.
 A denser-sampling stabilization attempt then tested whether the instability was mainly a row-group sampling artifact:
 - `EXP-052` / `EXP-053` (seed `1337`, `max_rows=600000`, `sample_n_row_groups_per_file=128`)
   - overlap AUC = `0.9378`
@@ -202,8 +210,9 @@ Decoupled-feature interpretation:
 - But both target slopes stayed negative and both target intervals remained fully below zero, so decoupling overlap and modeling features alone is still not enough.
 - The remaining issue now looks more like unresolved domain shift inside the feature geometry than simple overlap scarcity or an underpowered source model.
 ## 9. Immediate next requirement
-The immediate next requirement is no longer to decide whether to run the no-queue design; that family has now completed successfully on the frozen EXP-062 cohort:
-- Record `EXP-062..069` as the current authoritative positive baseline for Anvil -> Conte transfer in the `hardware_cpu_standard` regime with `peak_memory_fraction`.
-- Before making a publication-strength generalization claim, quantify sensitivity to frozen-universe choice (for example, a second frozen sampling plan) and/or extend the same queue-time-free recipe to additional cluster pairs.
-- If alternate frozen universes or new cluster pairs fail, revisit either further timing-block simplification or explicit feature-space adaptation for those failing cases.
-- Keep the measurement-semantics caveat explicit while extending the design.
+The immediate next requirement is now to **tighten the remaining timing block before extending to new cluster pairs**:
+- `EXP-062..069` established that a positive result exists on one frozen universe, but `EXP-070..074` showed that it is not robust to frozen-universe choice.
+- The strongest current evidence points back to the residual timing trio (`timelimit_sec`, `runtime_sec`, `runtime_fraction`), which became markedly worse on the failing second-universe overlap even after `queue_time_sec` was removed.
+- The next corrective experiment should therefore simplify or transform that remaining timing block while keeping the frozen-universe methodology, rather than immediately broadening to more cluster pairs.
+- If that tighter timing design still fails, the next fallback remains explicit feature-space adaptation on top of the normalized design.
+- Keep the measurement-semantics caveat explicit throughout either follow-up.
