@@ -14,6 +14,7 @@ import re
 import socket
 import subprocess
 import sys
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -34,12 +35,16 @@ KNOWN_STRING_COLUMNS = {
     "jobname",
     "timelimit_unit_original",
     "queue",
+    "partition",
     "host",
     "host_list",
+    "node_type",
+    "gpu_model",
     "exitcode",
     "unit",
     "memory_collection_method",
     "memory_aggregation",
+    "memory_original_unit",
 }
 KNOWN_NUMERIC_COLUMNS = {
     "nhosts",
@@ -56,11 +61,34 @@ KNOWN_NUMERIC_COLUMNS = {
     "node_memory_gb",
     "peak_memory_fraction",
     "memory_sampling_interval_sec",
+    "memory_original_value",
+}
+HARDWARE_METADATA_COLUMNS = {
+    "partition",
+    "node_type",
+    "node_cores",
+    "gpu_count_per_node",
+    "gpu_model",
+    "node_memory_gb",
+}
+MEMORY_DERIVED_COLUMNS = {
+    "peak_memory_gb",
+    "peak_memory_fraction",
+    "memory_original_value",
+    "memory_original_unit",
 }
 
 
 def utc_now_iso() -> str:
     return dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+
+
+@lru_cache(maxsize=1)
+def _load_clusters_config() -> dict[str, Any]:
+    config_path = Path(__file__).resolve().parents[1] / "config" / "clusters.json"
+    if not config_path.exists():
+        return {}
+    return json.loads(config_path.read_text(encoding="utf-8"))
 
 
 def sha256_file(path: Path) -> str:
@@ -286,6 +314,21 @@ def _default_output_columns(schema_columns: list[str]) -> list[str]:
         ordered.append("queue_time_sec")
     if {"start_time", "end_time", "timelimit_sec"}.issubset(schema_columns):
         ordered.append("runtime_fraction")
+    if "queue" in schema_columns:
+        ordered.extend(
+            [
+                "partition",
+                "node_type",
+                "node_cores",
+                "gpu_count_per_node",
+                "gpu_model",
+                "node_memory_gb",
+            ]
+        )
+    if "value_memused" in schema_columns:
+        ordered.extend(["memory_original_value", "memory_original_unit", "peak_memory_gb"])
+    if {"value_memused", "nhosts", "queue"}.issubset(schema_columns):
+        ordered.append("peak_memory_fraction")
 
     deduped: list[str] = []
     seen: set[str] = set()
@@ -313,6 +356,20 @@ def _physical_columns_to_read(
         add("cluster")
 
     for column in requested_columns:
+        if column == "partition":
+            add("queue")
+            continue
+        if column in HARDWARE_METADATA_COLUMNS - {"partition"}:
+            add("queue")
+            continue
+        if column in {"peak_memory_gb", "memory_original_value", "memory_original_unit"}:
+            add("value_memused")
+            continue
+        if column == "peak_memory_fraction":
+            add("value_memused")
+            add("nhosts")
+            add("queue")
+            continue
         if column in available:
             add(column)
             continue
@@ -357,6 +414,170 @@ def _coerce_for_aggregation(df: pd.DataFrame) -> pd.DataFrame:
         else:
             work[column] = work[column].astype("string")
     return work
+
+
+def regime_required_columns(regime: str | None) -> list[str]:
+    if regime in (None, "", "all"):
+        return []
+    if regime == "cpu_standard":
+        return ["value_gpu_cnt", "value_gpu_sum", "value_gpu_max"]
+    if regime in {"hardware_cpu_standard", "hardware_cpu_largemem", "hardware_gpu_standard"}:
+        return ["gpu_count_per_node", "node_memory_gb", "queue"]
+    raise ValueError(f"Unsupported regime: {regime}")
+
+
+def describe_regime(regime: str | None) -> str:
+    if regime in (None, "", "all"):
+        return "No regime filter applied."
+    if regime == "cpu_standard":
+        return (
+            "cpu_standard is defined on the aggregated job-level frame as no GPU activity "
+            "(prefer value_gpu_max<=0 when available; otherwise fall back to "
+            "value_gpu_cnt<=0 and value_gpu_sum<=0)."
+        )
+    if regime == "hardware_cpu_standard":
+        return (
+            "hardware_cpu_standard uses recovered hardware metadata from config/clusters.json: "
+            "gpu_count_per_node<=0 and node_memory_gb<512, with partition recovered from queue."
+        )
+    if regime == "hardware_cpu_largemem":
+        return (
+            "hardware_cpu_largemem uses recovered hardware metadata from config/clusters.json: "
+            "gpu_count_per_node<=0 and node_memory_gb>=512, with partition recovered from queue."
+        )
+    if regime == "hardware_gpu_standard":
+        return (
+            "hardware_gpu_standard uses recovered hardware metadata from config/clusters.json: "
+            "gpu_count_per_node>0, with partition recovered from queue."
+        )
+    raise ValueError(f"Unsupported regime: {regime}")
+
+
+def regime_mask(df: pd.DataFrame, regime: str | None) -> pd.Series:
+    if regime in (None, "", "all"):
+        return pd.Series([True] * len(df), index=df.index)
+
+    if regime == "cpu_standard":
+        gpu_max = df.get("value_gpu_max")
+        gpu_cnt = df.get("value_gpu_cnt")
+        gpu_sum = df.get("value_gpu_sum")
+        if gpu_max is not None:
+            gpu_max = pd.to_numeric(gpu_max, errors="coerce").fillna(0)
+            return gpu_max <= 0
+        if gpu_cnt is None and gpu_sum is None:
+            return pd.Series([True] * len(df), index=df.index)
+        gpu_cnt = pd.to_numeric(gpu_cnt, errors="coerce").fillna(0)
+        gpu_sum = pd.to_numeric(gpu_sum, errors="coerce").fillna(0)
+        return (gpu_cnt <= 0) & (gpu_sum <= 0)
+
+    gpu_count = pd.to_numeric(df.get("gpu_count_per_node"), errors="coerce")
+    node_memory = pd.to_numeric(df.get("node_memory_gb"), errors="coerce")
+    if regime == "hardware_cpu_standard":
+        return (gpu_count.fillna(0) <= 0) & node_memory.notna() & (node_memory < 512)
+    if regime == "hardware_cpu_largemem":
+        return (gpu_count.fillna(0) <= 0) & node_memory.notna() & (node_memory >= 512)
+    if regime == "hardware_gpu_standard":
+        return gpu_count.fillna(0) > 0
+    raise ValueError(f"Unsupported regime: {regime}")
+
+
+def _resolve_hardware_spec(cluster_name: str, partition_name: str | None) -> dict[str, Any]:
+    cfg = _load_clusters_config()
+    clusters_cfg = cfg.get("clusters", {})
+    cluster_cfg = clusters_cfg.get(cluster_name, {})
+    spec: dict[str, Any] = dict(cluster_cfg.get("default", {}))
+    if partition_name:
+        spec.update(cluster_cfg.get("partitions", {}).get(partition_name, {}))
+    return spec
+
+
+def enrich_hardware_metadata(
+    df: pd.DataFrame, cluster: str | None = None, requested_columns: list[str] | None = None
+) -> pd.DataFrame:
+    if df.empty:
+        return df
+
+    needs_hardware = requested_columns is None or bool(
+        set(requested_columns) & (HARDWARE_METADATA_COLUMNS | MEMORY_DERIVED_COLUMNS)
+    )
+    if not needs_hardware:
+        return df
+
+    out = df.copy()
+    if "queue" in out.columns:
+        out["partition"] = out["queue"].astype("string")
+
+    cluster_series = (
+        out["cluster"].astype("string")
+        if "cluster" in out.columns
+        else pd.Series([cluster] * len(out), index=out.index, dtype="string")
+    )
+    partition_series = (
+        out["partition"].astype("string")
+        if "partition" in out.columns
+        else pd.Series([pd.NA] * len(out), index=out.index, dtype="string")
+    )
+
+    for column in HARDWARE_METADATA_COLUMNS - {"partition"}:
+        if column not in out.columns:
+            out[column] = pd.NA
+
+    combos = pd.DataFrame({"cluster": cluster_series, "partition": partition_series}).drop_duplicates()
+    for record in combos.to_dict(orient="records"):
+        cluster_name = str(record["cluster"]) if pd.notna(record["cluster"]) else ""
+        partition_name = str(record["partition"]) if pd.notna(record["partition"]) else None
+        spec = _resolve_hardware_spec(cluster_name, partition_name)
+        if not spec:
+            continue
+        mask = cluster_series.eq(cluster_name)
+        if partition_name is None:
+            mask &= partition_series.isna()
+        else:
+            mask &= partition_series.eq(partition_name)
+        for column in HARDWARE_METADATA_COLUMNS - {"partition"}:
+            if column in spec:
+                out.loc[mask, column] = spec[column]
+
+    memory_source = None
+    if "value_memused_max" in out.columns:
+        memory_source = pd.to_numeric(out["value_memused_max"], errors="coerce")
+    elif "value_memused" in out.columns:
+        memory_source = pd.to_numeric(out["value_memused"], errors="coerce")
+
+    if memory_source is not None:
+        out["memory_original_value"] = memory_source.astype("float64")
+        original_unit = "GB"
+        peak_memory_gb = memory_source.astype("float64")
+        observed = peak_memory_gb.dropna()
+        if not observed.empty and float(observed.quantile(0.95)) > 1e6:
+            peak_memory_gb = peak_memory_gb / float(1024**3)
+            original_unit = "bytes"
+        out["memory_original_unit"] = pd.Series(
+            np.where(memory_source.notna(), original_unit, pd.NA), index=out.index, dtype="string"
+        )
+        out["peak_memory_gb"] = peak_memory_gb
+
+    if {
+        "peak_memory_gb",
+        "node_memory_gb",
+        "nhosts",
+    }.issubset(out.columns):
+        peak = pd.to_numeric(out["peak_memory_gb"], errors="coerce").astype("float64")
+        node_memory = pd.to_numeric(out["node_memory_gb"], errors="coerce").astype("float64")
+        hosts = pd.to_numeric(out["nhosts"], errors="coerce").astype("float64")
+        denom = node_memory * hosts
+        out["peak_memory_fraction"] = np.where(denom > 0, peak / denom, np.nan)
+
+    for column in {"partition", "node_type", "gpu_model", "memory_original_unit"}:
+        if column in out.columns:
+            out[column] = out[column].astype("string")
+    for column in {"node_cores", "gpu_count_per_node"}:
+        if column in out.columns:
+            out[column] = pd.to_numeric(out[column], errors="coerce").astype("Int64")
+    for column in {"node_memory_gb", "peak_memory_gb", "peak_memory_fraction", "memory_original_value"}:
+        if column in out.columns:
+            out[column] = pd.to_numeric(out[column], errors="coerce").astype("float64")
+    return out
 
 
 def collapse_to_job_level(
@@ -431,6 +652,7 @@ def collapse_to_job_level(
         out["runtime_fraction"] = np.where(timelimit > 0, runtime / timelimit, np.nan)
     if "jid_global" not in out.columns and {"cluster", "jid"}.issubset(out.columns):
         out["jid_global"] = out["cluster"].astype("string") + "_" + out["jid"].astype("string")
+    out = enrich_hardware_metadata(out, cluster=cluster, requested_columns=requested_columns)
 
     if requested_columns is not None:
         for column in requested_columns:

@@ -23,29 +23,16 @@ from sklearn.preprocessing import StandardScaler
 from fresco_data_loader import (
     build_file_records,
     capture_environment_artifacts,
+    describe_regime,
     git_info,
     load_manifest_rows,
     read_job_level_frame,
+    regime_mask,
+    regime_required_columns,
     resolve_path,
     utc_now_iso,
     write_json,
 )
-
-
-def _derive_cpu_standard(df: pd.DataFrame) -> pd.Series:
-    gpu_max = df.get("value_gpu_max")
-    gpu_cnt = df.get("value_gpu_cnt")
-    gpu_sum = df.get("value_gpu_sum")
-    if gpu_max is not None:
-        gpu_max = pd.to_numeric(gpu_max, errors="coerce").fillna(0)
-        return gpu_max <= 0
-    if gpu_cnt is None and gpu_sum is None:
-        return pd.Series([True] * len(df), index=df.index)
-
-    gpu_cnt = pd.to_numeric(gpu_cnt, errors="coerce").fillna(0)
-    gpu_sum = pd.to_numeric(gpu_sum, errors="coerce").fillna(0)
-    return (gpu_cnt <= 0) & (gpu_sum <= 0)
-
 
 def _ks(a: pd.Series, b: pd.Series) -> float | None:
     a_values = pd.to_numeric(a, errors="coerce").dropna().to_numpy()
@@ -156,7 +143,7 @@ def main() -> int:
 
     manifest_rows = load_manifest_rows(cfg["inputs_manifest"], repo_root)
     needed = ["jid"] + sorted(
-        set(feature_cols + ["value_gpu_cnt", "value_gpu_sum", "value_gpu_max"])
+        set(feature_cols + regime_required_columns(cfg.get("regime", "cpu_standard")))
     )
 
     log(f"run_id={run_id}")
@@ -192,11 +179,11 @@ def main() -> int:
     )
 
     regime = cfg.get("regime", "cpu_standard")
-    if regime == "cpu_standard":
-        src = src.loc[_derive_cpu_standard(src)].copy()
-        tgt = tgt.loc[_derive_cpu_standard(tgt)].copy()
+    src = src.loc[regime_mask(src, regime)].copy()
+    tgt = tgt.loc[regime_mask(tgt, regime)].copy()
 
     log(f"source_rows_after_regime={len(src)} target_rows_after_regime={len(tgt)}")
+    regime_note = describe_regime(regime)
 
     hash_cache: dict[str, str] = {}
     used_files = build_file_records(src_meta["used_paths"], source, hash_cache=hash_cache)
@@ -216,11 +203,11 @@ def main() -> int:
             n_source=len(src),
             n_target=len(tgt),
             notes=[
-                "Propensity model was not trained because one side had zero rows after sampling and regime filtering.",
-                "cpu_standard is defined on the aggregated job-level frame as no GPU activity (prefer value_gpu_max<=0 when available; otherwise fall back to value_gpu_cnt<=0 and value_gpu_sum<=0).",
-            ],
-            used_files=used_files,
-        )
+                        "Propensity model was not trained because one side had zero rows after sampling and regime filtering.",
+                        regime_note,
+                    ],
+                    used_files=used_files,
+                )
         log("no rows after filtering; wrote empty overlap artifacts")
         return 0
 
@@ -309,7 +296,7 @@ def main() -> int:
         "ks_by_feature_overlap": ks_overlap,
         "notes": [
             "Propensity model is trained on sampled job-level frames aggregated from parquet inputs.",
-            "cpu_standard is defined on the aggregated job-level frame as no GPU activity (prefer value_gpu_max<=0 when available; otherwise fall back to value_gpu_cnt<=0 and value_gpu_sum<=0).",
+            regime_note,
         ],
     }
     write_json(exp_dir / "results" / "overlap_report.json", report)

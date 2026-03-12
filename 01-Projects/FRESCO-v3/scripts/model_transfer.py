@@ -21,27 +21,16 @@ from sklearn.preprocessing import StandardScaler
 from fresco_data_loader import (
     build_file_records,
     capture_environment_artifacts,
+    describe_regime,
     git_info,
     load_manifest_rows,
     read_job_level_frame,
+    regime_mask,
+    regime_required_columns,
     resolve_path,
     utc_now_iso,
     write_json,
 )
-
-
-def _derive_cpu_standard(df: pd.DataFrame) -> pd.Series:
-    gpu_max = df.get("value_gpu_max")
-    gpu_cnt = df.get("value_gpu_cnt")
-    gpu_sum = df.get("value_gpu_sum")
-    if gpu_max is not None:
-        gpu_max = pd.to_numeric(gpu_max, errors="coerce").fillna(0)
-        return gpu_max <= 0
-    if gpu_cnt is None and gpu_sum is None:
-        return pd.Series([True] * len(df), index=df.index)
-    gpu_cnt = pd.to_numeric(gpu_cnt, errors="coerce").fillna(0)
-    gpu_sum = pd.to_numeric(gpu_sum, errors="coerce").fillna(0)
-    return (gpu_cnt <= 0) & (gpu_sum <= 0)
 
 
 def _smape_median(y_true: np.ndarray, y_pred: np.ndarray) -> float:
@@ -207,7 +196,7 @@ def main() -> int:
     tgt_jids = set(pd.read_parquet(matched_target_idx)["jid"].astype("string").tolist())
 
     manifest_rows = load_manifest_rows(cfg["inputs_manifest"], repo_root)
-    needed = ["jid", label_col] + feature_cols + ["value_gpu_cnt", "value_gpu_sum", "value_gpu_max"]
+    needed = ["jid", label_col] + feature_cols + regime_required_columns(regime)
     needed = list(dict.fromkeys(needed))
 
     src, src_meta = read_job_level_frame(
@@ -235,9 +224,8 @@ def main() -> int:
         f"target_job_rows={tgt_meta['job_rows']} target_files_used={len(tgt_meta['used_paths'])}"
     )
 
-    if regime == "cpu_standard":
-        src = src.loc[_derive_cpu_standard(src)].copy()
-        tgt = tgt.loc[_derive_cpu_standard(tgt)].copy()
+    src = src.loc[regime_mask(src, regime)].copy()
+    tgt = tgt.loc[regime_mask(tgt, regime)].copy()
 
     src = src.loc[src["jid"].astype("string").isin(src_jids)].copy()
     tgt = tgt.loc[tgt["jid"].astype("string").isin(tgt_jids)].copy()
@@ -370,6 +358,7 @@ def main() -> int:
         },
         "limitations": _limitations(label_col, label_proxy, no_data=no_data),
     }
+    metrics["limitations"].append(describe_regime(regime))
 
     if no_data:
         write_json(exp_dir / "results" / "metrics.json", metrics)

@@ -39,7 +39,7 @@ Every cross-cluster claim must report:
 ## 4. Non-negotiable constraint
 No “global cross-cluster” claims without regime matching + overlap reporting.
 
-## 5. Current authoritative status (2026-03-12)
+## 5. Proxy-only authoritative baseline (historical)
 - The authoritative v3 parquet still does **not** store `partition`, `node_type`, `node_memory_gb`, or `gpu_count_per_node`, so current regime labels remain **proxy-based** even on authoritative data.
 - The current proxy is:
   - `cpu_standard := value_gpu_max <= 0` when available
@@ -51,8 +51,8 @@ No “global cross-cluster” claims without regime matching + overlap reporting
   - source-test `R^2 = 0.3103`
   - target `R^2 = -11.8921`
 
-## 6. Refined design decision
-Until hardware metadata is restored, the default authoritative overlap feature set should use only the strict 0% missingness safe columns confirmed by Phase 1:
+## 6. Safe-feature proxy baseline
+Before hardware metadata was recovered at analysis time, the default authoritative overlap feature set used only the strict 0% missingness safe columns confirmed by Phase 1:
 
 ```text
 ncores, nhosts, timelimit_sec, runtime_sec, queue_time_sec, runtime_fraction
@@ -77,7 +77,41 @@ Interpretation:
 - Treat alloc+perf overlap runs such as EXP-040/041 as exploratory ablations, not the default publication path.
 - Treat EXP-042/043 as the current best proxy-only baseline, not a publication-ready transfer result.
 
-## 7. Immediate next requirement
-The next high-value task is to recover authoritative hardware metadata (at least `node_memory_gb`, `partition`, `node_type`, and `gpu_count_per_node`) so Phase 2/3 can:
-- define real workload regimes instead of GPU-activity proxies, and
-- evaluate the planned normalized label `peak_memory_fraction` rather than raw `value_memused_max`.
+## 7. Recovered hardware-metadata path
+We now recover hardware metadata at analysis time via `config/clusters.json`:
+- `partition := queue`
+- `node_type`, `node_cores`, `node_memory_gb`, `gpu_count_per_node`, `gpu_model` come from per-cluster defaults and known Anvil partition mappings
+- Conte and Stampede queue identifiers remain anonymized, so those clusters use cluster-wide defaults
+- `peak_memory_fraction := peak_memory_gb / (node_memory_gb * nhosts)`
+
+This enables explicit hardware-based regime filters such as:
+- `hardware_cpu_standard`
+- `hardware_cpu_largemem`
+- `hardware_gpu_standard`
+
+## 8. Current best authoritative baseline
+The first hardware-normalized comparison pair is:
+- `EXP-044_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08`
+- `EXP-045_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08`
+
+Results from that pair:
+- EXP-044:
+  - domain AUC = `0.9398`
+  - target overlap coverage = `33.04%`
+- EXP-045:
+  - source-test `R^2 = 0.1414`
+  - target `R^2 = 0.0878`
+  - target bootstrap `R^2` 95% CI = `[0.0556, 0.1132]`
+
+Interpretation:
+- Recovering hardware metadata and switching to normalized `peak_memory_fraction` changed the Anvil -> Conte target result from clearly negative to modestly positive.
+- This is the strongest authoritative transfer result so far, but it is still a baseline rather than a final claim because:
+  - Conte and Stampede hardware metadata still rely on cluster-wide defaults,
+  - Conte queue names remain anonymized,
+  - memory measurement semantics still differ across clusters.
+
+## 9. Immediate next requirement
+The next high-value task is to validate and stress-test the new positive baseline:
+- repeat EXP-044/045 across additional seeds / splits,
+- run the same normalized-label design on other cluster pairs,
+- quantify sensitivity to the remaining measurement-semantics mismatch.

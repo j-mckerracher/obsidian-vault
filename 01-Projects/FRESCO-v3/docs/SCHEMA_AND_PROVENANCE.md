@@ -21,7 +21,9 @@ For the current publication workflow, treat `PROD-20260203-v3` as the frozen aut
 
 - Use the stored raw columns (`time`, `submit_time`, `start_time`, `end_time`, `value_*`) plus provenance fields as the primary archived source of truth.
 - Derive `runtime_sec`, `queue_time_sec`, `runtime_fraction`, and job-level `value_*_{cnt,sum,max}` in analysis code rather than rebuilding the parquet solely to materialize them.
-- Defer any parquet rebuild or schema-version bump until the missing hardware metadata (`partition`, `node_type`, `node_memory_gb`, `gpu_count_per_node`, `gpu_model`) is recovered and can be written authoritatively.
+- Recover `partition` from the raw `queue` field and recover `node_type`, `node_cores`, `node_memory_gb`, `gpu_count_per_node`, and `gpu_model` from `config/clusters.json` at analysis time.
+- Derive `peak_memory_gb` and `peak_memory_fraction` at analysis time from job-level `value_memused_max`; on the current authoritative parquet, that memory series is already GB-scale.
+- Defer any parquet rebuild or schema-version bump until these recovered fields can be written authoritatively into parquet rather than only derived post hoc.
 
 This decision keeps the archived v3 parquet stable while still allowing authoritative Phase 1/2/3 reruns from derived analysis-time features.
 

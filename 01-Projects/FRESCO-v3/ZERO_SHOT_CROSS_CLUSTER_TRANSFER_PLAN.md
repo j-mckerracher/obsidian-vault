@@ -39,8 +39,17 @@ The authoritative `chunks-v3` reruns are now complete enough to sharpen the plan
   - overlap AUC = `0.9369`
   - target overlap coverage = `33.18%`
   - target `R^2 = -4.2053`
+- We now recover hardware metadata at analysis time via `config/clusters.json`:
+  - `partition := queue`
+  - `node_type`, `node_cores`, `node_memory_gb`, `gpu_count_per_node`, `gpu_model` recovered from cluster defaults + Anvil partition mappings
+  - `peak_memory_fraction := peak_memory_gb / (node_memory_gb * nhosts)`
+- EXP-044/045 (hardware CPU-standard regime + normalized `peak_memory_fraction`) produced the first positive authoritative transfer baseline:
+  - overlap AUC = `0.9398`
+  - target overlap coverage = `33.04%`
+  - target `R^2 = 0.0878`
+  - bootstrap 95% CI = `[0.0556, 0.1132]`
 
-Conclusion: narrowing to safer overlap features helps, but the current proxy regime + raw `value_memused_max` target still does not deliver a defensible zero-shot Anvil -> Conte transfer story.
+Conclusion: narrowing to safer overlap features alone was not enough, but adding recovered hardware metadata and switching to normalized `peak_memory_fraction` does produce a modestly positive matched-regime Anvil -> Conte baseline.
 
 ---
 
@@ -223,14 +232,16 @@ Predict:
   - Phase 3 modeling (HuberRegressor): `experiments\\EXP-026_modeling_alloc_perf_nomem_band_01_09_huber\\`
     - Result: target R²=-867.12 on proxy label (still negative, but far less extreme vs Ridge).
 
-**Acceptance**: on regime‑matched cohorts, achieve Tier A success (R² > 0) with stable CI (requires rerun on true v3 shards and true label).
+**Acceptance**: on regime‑matched cohorts, achieve Tier A success (R² > 0) with stable CI (first achieved for one authoritative matched-regime split in EXP-045; repeated-split confirmation still pending).
 
 ### Authoritative Phase 3 status
 - [x] Rerun authoritative overlap/modeling on the raw `chunks-v3` parquet.
 - [x] Confirm that alloc+perf overlap features are too separable for primary claims.
 - [x] Confirm that the strict safe-feature overlap set improves transfer but still leaves target `R^2 < 0`.
-- [ ] Recover authoritative hardware metadata needed to derive `peak_memory_fraction` and non-proxy workload regimes.
-- [ ] Re-run Phase 2/3 on normalized memory targets after that metadata is restored.
+- [x] Recover analysis-time hardware metadata needed to derive `peak_memory_fraction` and non-proxy workload regimes.
+- [x] Re-run Phase 2/3 on normalized memory targets after that metadata recovery.
+- [ ] Repeat the normalized matched-regime baseline across additional seeds / splits.
+- [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---
 

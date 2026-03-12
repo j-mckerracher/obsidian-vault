@@ -17,6 +17,8 @@ This section is written in a paper-ready style and must be kept synchronized wit
 
 ## Memory normalization
 - We compute `peak_memory_fraction = peak_memory_gb / (node_memory_gb * nhosts)` when peak memory is available.
+- In the current authoritative `chunks-v3` workflow, `peak_memory_gb` is derived at analysis time from job-level `value_memused_max`, which is already GB-scale in the production parquet.
+- `node_memory_gb` and other hardware context fields are currently recovered at analysis time from `config/clusters.json`, with `partition` recovered from the raw `queue` field.
 - When peak_memory_fraction is not present, we compute an equivalent proxy if `node_memory_from_metrics` and `node_memory_gb` are available.
 - We record semantics in `memory_includes_cache`, `memory_collection_method`, and related provenance fields.
 
