@@ -41,6 +41,7 @@ Must produce:
 - schema/dtype report
 - missingness report (per cluster)
 - sanity checks
+- Current workflow: run `scripts/finalize_production_v3.py` after the parquet build (this is already wired into `scripts/production_v3.slurm`) so the output directory gets the full validation + reproducibility bundle.
 
 ### 6) Manifests
 Write:

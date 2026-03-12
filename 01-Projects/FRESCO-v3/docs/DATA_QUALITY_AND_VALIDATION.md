@@ -1,16 +1,24 @@
 # FRESCO v3 Data Quality & Validation
 
-**Last Updated**: 2026-02-03
+**Last Updated**: 2026-03-11
 
 ## Implementation status (PROD-20260203-v3)
-The current `build_production_v3.py` implementation writes **only** `validation/schema_report.json`.
+The production build itself still writes only `validation/schema_report.json`, but `scripts/finalize_production_v3.py` has now backfilled the missing validation and reproducibility artifacts for `PROD-20260203-v3`.
 
-The other artifacts required by this document —
+Artifacts now present for the finalized production run:
 - `validation/dtype_report.json`
 - `validation/missingness_report.json`
 - `validation/sanity_checks.json`
+- `validation/python_version.txt`
+- `validation/pip_freeze.txt`
+- `validation/conda_env.yml`
+- `validation/host_info.txt`
 
-— are still part of the target validation spec and have **not** yet been implemented/generated for `PROD-20260203-v3`.
+Current quantified sanity findings for `PROD-20260203-v3`:
+- `42` rows with negative `queue_time_sec` / `submit_after_start`
+- `402,365` rows with `runtime_fraction > 1.05`
+
+So the run now has machine-readable validation outputs, but the remaining sanity exceptions still need to be documented and judged in context rather than treated as a full clean pass.
 
 ## 1. Validation levels
 

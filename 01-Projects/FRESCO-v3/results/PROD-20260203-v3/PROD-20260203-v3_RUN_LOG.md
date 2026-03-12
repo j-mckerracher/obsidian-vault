@@ -1,7 +1,7 @@
 # PROD-20260203-v3 Run Log — FRESCO v3 Production Dataset Build
 
 **Run ID**: PROD-20260203-v3  
-**Date**: 2026-02-03 (submitted) / 2026-03-09 (executed) / 2026-03-11 (verified)
+**Date**: 2026-02-03 (submitted) / 2026-03-09 (executed) / 2026-03-11 (verified + finalized)
 
 ## Objective
 
@@ -13,14 +13,15 @@ Build the authoritative FRESCO v3 unified parquet dataset from raw FRESCO shards
 - Input root: `/depot/<group>/data/josh/FRESCO/chunks/`
 - Clusters: **anvil**, **conte**, **stampede**
 - Date range: 2013–2023 (full available range)
-- Config: `config/production_v3.json` (local), `/home/<username>/Code/FRESCO-Pipeline/production_v3.json` (Gilbreth)
+- Config: `config/production_v3.json` (local), `/home/<username>/Code/FRESCO-Pipeline/config/production_v3.json` (Gilbreth)
 
 ## Code & Environment
 
 - Script: `scripts/build_production_v3.py`
 - Config: `config/production_v3.json`
 - Remote execution path: `/home/<username>/Code/FRESCO-Pipeline`
-- Git commit (pipeline): **unknown** — the Gilbreth execution directory is not a git repository, so `run_metadata.json` could not pin a commit
+- Finalization script: `scripts/finalize_production_v3.py`
+- Git commit (pipeline): `fc750e678863efacf098e8d83a8840d3aad97ea9` (captured in `manifests/run_metadata.json` during finalizer job `10404611`)
 - Conda env: `fresco_v2`
 - SLURM job script: `scripts/production_v3.slurm`
 
@@ -31,6 +32,7 @@ Build the authoritative FRESCO v3 unified parquet dataset from raw FRESCO shards
 - SLURM job IDs:
   - ~~10323059~~ — CANCELLED (wrong partition: `a10`)
   - **10387798** — COMPLETED ✅
+  - **10404611** — COMPLETED ✅ (`finalize_v3` backfill on `training`)
 - Job 10387798 start: 2026-03-09T10:47:11 EDT
 - Job 10387798 end:   2026-03-09T13:20:23 EDT
 - Elapsed: 2h 33m 12s
@@ -40,10 +42,18 @@ Build the authoritative FRESCO v3 unified parquet dataset from raw FRESCO shards
 - Output file: `/depot/<group>/data/josh/FRESCO/chunks-v3/PROD-20260203-v3_v3.parquet`
 - Row groups: 62,668
 - Total rows: **655,327,086**
-- Input manifest: `manifests/input_manifest.jsonl` (**62,668** entries)
-- Output manifest: `manifests/output_manifest.jsonl` (**1** entry)
+- Input manifest: `manifests/input_manifest.jsonl` (**62,668** entries, now with `sha256`)
+- Output manifest: `manifests/output_manifest.jsonl` (**1** entry, now with `sha256`)
 - Run metadata: `manifests/run_metadata.json`
-- Validation present: `validation/schema_report.json`
+- Validation present:
+  - `validation/schema_report.json`
+  - `validation/dtype_report.json`
+  - `validation/missingness_report.json`
+  - `validation/sanity_checks.json`
+  - `validation/python_version.txt`
+  - `validation/pip_freeze.txt`
+  - `validation/conda_env.yml`
+  - `validation/host_info.txt`
 
 ## Results Summary
 
@@ -68,10 +78,14 @@ All three clusters present. Timestamp fields (`time`, `submit_time`, `start_time
 - Basic verification: ✅ `verify_v3_output.py` completed successfully in job **10393102**
 - Validation artifacts actually present:
   - ✅ `validation/schema_report.json`
-  - ❌ `validation/missingness_report.json`
-  - ❌ `validation/dtype_report.json`
-  - ❌ `validation/sanity_checks.json`
-- Level 1/2/3 status: **not fully satisfied** because the current production script only writes `schema_report.json`
+  - ✅ `validation/missingness_report.json`
+  - ✅ `validation/dtype_report.json`
+  - ✅ `validation/sanity_checks.json`
+- Finalizer backfill: ✅ job **10404611** wrote validation/env/manifests from committed code `fc750e678863efacf098e8d83a8840d3aad97ea9`
+- Quantified sanity exceptions remain:
+  - `42` rows with negative `queue_time_sec` / `submit_after_start`
+  - `402,365` rows with `runtime_fraction > 1.05`
+- Level 1/2/3 status: **partially satisfied** — the artifacts now exist and exceptions are quantified, but the run is not a full clean pass
 
 ## Verification Status
 
@@ -84,24 +98,17 @@ All three clusters present. Timestamp fields (`time`, `submit_time`, `start_time
 
 1. **Schema implementation gap**: The actual v3 parquet output uses raw FRESCO column names (`value_memused`, `value_gpu`, `value_cpuuser`, `value_nfs`, `value_block`, `queue`) rather than the normalized fields described in `docs/SCHEMA_AND_PROVENANCE.md` (`peak_memory_gb`, `partition`, etc.). Derived columns (`runtime_sec`, `queue_time_sec`, `runtime_fraction`, `peak_memory_fraction`) are not stored, so downstream analysis must either derive them post hoc or the production pipeline must be extended and rerun.
 
-2. **Reproducibility gap**: `run_metadata.json` contains `"git_commit": "unknown"` because `/home/<username>/Code/FRESCO-Pipeline` is not a git repository on Gilbreth. The current metadata also lacks a recorded `completed_at`, host, and environment lock artifact paths.
+2. **Sanity exceptions remain**: `validation/sanity_checks.json` reports `42` rows with negative queue time / submit-after-start and `402,365` rows with `runtime_fraction > 1.05`. These are now quantified, but still need interpretation as scheduler/accounting quirks vs. true data defects.
 
-3. **Validation artifact gap**: Although `write_validation_reports=true`, `build_production_v3.py` currently writes only `validation/schema_report.json`. The required `missingness_report.json`, `dtype_report.json`, and `sanity_checks.json` are not generated yet.
+3. **Archive missing**: No archive folder exists yet under `/depot/<group>/data/josh/FRESCO-Research/runs/PROD-20260203-v3`.
 
-4. **Manifest completeness gap**: The manifests exist, but they record only paths, sizes, row counts, and timestamps — not checksums/hashes — so they do not yet meet the stronger provenance standard described in the docs and skills.
-
-5. **Archive missing**: No archive folder exists yet under `/depot/<group>/data/josh/FRESCO-Research/runs/PROD-20260203-v3`.
-
-6. **Research status**: All completed modeling and overlap experiments in `experiments/EXP-016` through `EXP-038` remain **proxy-only** (`local_job_partials_snapshot`, proxy label `value_memused_max`) and are not publication-grade.
+4. **Research status**: Authoritative reruns now exist for `EXP-039` / `EXP-040` / `EXP-041`, but direct Anvil -> Conte transfer on raw `value_memused_max` still performs very poorly (`target R^2 = -11.8921`) even after overlap filtering.
 
 ## Next Actions
 
-1. Bring `build_production_v3.py` up to the documented spec:
-   - materialize the intended canonical/derived columns or define a post-processing step that does so,
-   - emit the full validation artifact set,
-   - capture reproducibility metadata from a git-tracked code checkout.
-2. Archive `PROD-20260203-v3` only after those gaps are closed.
-3. Then rerun Phase 1/2/3 experiments on authoritative v3 data instead of the proxy snapshot.
+1. Archive the finalized production bundle now that manifests, validation reports, and reproducibility artifacts exist.
+2. Decide whether publication will rely on post hoc derived runtime/memory fields or on a rebuilt parquet that materializes the target canonical schema directly.
+3. Revisit the Phase 2/3 regime/label design, because the current authoritative activity-based overlap slice still leaves severe cross-cluster shift.
 
 ## Repro Steps
 
