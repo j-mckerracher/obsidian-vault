@@ -33,13 +33,14 @@ Repeat the authoritative Anvil -> Conte overlap analysis under alternate random 
 
 ## Execution
 Planned repro command:
-```powershell
-python scripts
-egime_matching.py --config experiments\EXP-048_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_seed_2025\config\exp048_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_seed_2025.json
+```bash
+python scripts/regime_matching.py --config experiments/EXP-048_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_seed_2025/config/exp048_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_seed_2025.json
 ```
 
 Submitted on Gilbreth:
-- Pending submission.
+- Final successful SLURM job: `10405140`
+- Partition/account/qos: `training` / `<group>` / `training`
+- Resources: `--gres=gpu:1 --cpus-per-task=8 --mem=48G`
 
 ## Outputs
 - Overlap report: `experiments/EXP-048_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_seed_2025/results/overlap_report.json`
@@ -49,9 +50,29 @@ Submitted on Gilbreth:
 - Provenance: `.../manifests/run_metadata.json`, `.../manifests/input_files_used.json`
 
 ## Results Summary
-- Pending execution.
-- Key checks after completion:
-  - domain classifier AUC
-  - target overlap coverage
-  - source / target overlap cohort sizes
-  - within-overlap KS statistics
+- Job `10405140` completed successfully.
+- Final cohort sizes:
+  - source jobs: `11,696`
+  - target jobs: `5,624`
+  - source overlap jobs: `7,888`
+  - target overlap jobs: `3,312`
+- Overlap diagnostics:
+  - domain classifier AUC: `0.9073`
+  - target overlap coverage: `58.89%`
+- KS statistics on the full sampled cohorts:
+  - `ncores`: `0.4162`
+  - `nhosts`: `0.1433`
+  - `timelimit_sec`: `0.3677`
+  - `runtime_sec`: `0.3235`
+  - `queue_time_sec`: `0.6561`
+  - `runtime_fraction`: `0.4088`
+- KS statistics within the overlap band:
+  - `ncores`: `0.1658`
+  - `nhosts`: `0.0000`
+  - `timelimit_sec`: `0.5861`
+  - `runtime_sec`: `0.5375`
+  - `queue_time_sec`: `0.7045`
+  - `runtime_fraction`: `0.5495`
+- Interpretation:
+  - This seed widened the overlap region substantially, but the within-overlap timing KS values remained very high.
+  - The recovered hardware regime remains more defensible than the older proxy regime, but these repeated seeds still show large within-overlap timing mismatch.

@@ -36,12 +36,15 @@ Repeat the authoritative Anvil -> Conte transfer model under alternate random se
 
 ## Execution
 Planned repro command:
-```powershell
+```bash
 python scripts/model_transfer.py --config experiments/EXP-049_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_seed_2025/config/exp049_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_seed_2025.json
 ```
 
 Submitted on Gilbreth:
-- Pending submission.
+- Final successful SLURM job: `10405141`
+- Dependency: `afterok:10405140`
+- Partition/account/qos: `training` / `<group>` / `training`
+- Resources: `--gres=gpu:1 --cpus-per-task=8 --mem=48G`
 
 ## Outputs
 - Metrics: `experiments/EXP-049_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_seed_2025/results/metrics.json`
@@ -51,9 +54,24 @@ Submitted on Gilbreth:
 - Provenance: `.../manifests/run_metadata.json`, `.../manifests/input_files_used.json`
 
 ## Results Summary
-- Pending execution.
-- Key checks after completion:
-  - source-test `R^2`
-  - target `R^2`
-  - target bootstrap `R^2` interval
-  - evaluation cohort sizes
+- Job `10405141` completed successfully.
+- Final evaluation sizes:
+  - source overlap rows after label filter: `6,241`
+  - target overlap rows after label filter: `3,271`
+  - source train: `4,993`
+  - source test: `1,248`
+  - target eval: `3,271`
+- Source holdout performance:
+  - `R^2 = 0.0866`
+  - `MAE(log1p) = 0.0726`
+  - `SMAPE = 40.11%`
+- Target transfer performance:
+  - `R^2 = -2.1030`
+  - `MAE(log1p) = 0.1727`
+  - `SMAPE = 109.05%`
+- Target bootstrap `R^2` interval:
+  - mean: `-2.1049`
+  - 95% CI: `[-2.3111, -1.9280]`
+- Interpretation:
+  - More overlap coverage did not help: despite a larger matched target cohort, target transfer collapsed badly and the bootstrap interval stayed far below zero.
+  - Across repeated seeds so far, the normalized matched-regime baseline is not yet stable enough for a publication claim.

@@ -36,12 +36,15 @@ Repeat the authoritative Anvil -> Conte transfer model under alternate random se
 
 ## Execution
 Planned repro command:
-```powershell
+```bash
 python scripts/model_transfer.py --config experiments/EXP-047_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_seed_2024/config/exp047_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_seed_2024.json
 ```
 
 Submitted on Gilbreth:
-- Pending submission.
+- Final successful SLURM job: `10405113`
+- Dependency: `afterok:10405112`
+- Partition/account/qos: `training` / `<group>` / `training`
+- Resources: `--gres=gpu:1 --cpus-per-task=8 --mem=48G`
 
 ## Outputs
 - Metrics: `experiments/EXP-047_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_seed_2024/results/metrics.json`
@@ -51,9 +54,24 @@ Submitted on Gilbreth:
 - Provenance: `.../manifests/run_metadata.json`, `.../manifests/input_files_used.json`
 
 ## Results Summary
-- Pending execution.
-- Key checks after completion:
-  - source-test `R^2`
-  - target `R^2`
-  - target bootstrap `R^2` interval
-  - evaluation cohort sizes
+- Job `10405113` completed successfully.
+- Final evaluation sizes:
+  - source overlap rows after label filter: `2,486`
+  - target overlap rows after label filter: `1,640`
+  - source train: `1,989`
+  - source test: `497`
+  - target eval: `1,640`
+- Source holdout performance:
+  - `R^2 = 0.0613`
+  - `MAE(log1p) = 0.0411`
+  - `SMAPE = 12.38%`
+- Target transfer performance:
+  - `R^2 = -0.0346`
+  - `MAE(log1p) = 0.0943`
+  - `SMAPE = 56.42%`
+- Target bootstrap `R^2` interval:
+  - mean: `-0.0399`
+  - 95% CI: `[-0.0741, -0.0063]`
+- Interpretation:
+  - The previously positive EXP-045 signal did not reproduce on this seed; target transfer turned slightly negative with a fully negative bootstrap interval.
+  - Across repeated seeds so far, the normalized matched-regime baseline is not yet stable enough for a publication claim.

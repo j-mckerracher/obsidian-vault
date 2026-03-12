@@ -110,8 +110,31 @@ Interpretation:
   - Conte queue names remain anonymized,
   - memory measurement semantics still differ across clusters.
 
+Repeated-seed validation runs then checked whether that positive split was stable:
+- `EXP-046` / `EXP-047` (seed `2024`)
+  - overlap AUC = `0.9394`
+  - target overlap coverage = `26.92%`
+  - target `R^2 = -0.0346`
+  - bootstrap 95% CI = `[-0.0741, -0.0063]`
+- `EXP-048` / `EXP-049` (seed `2025`)
+  - overlap AUC = `0.9073`
+  - target overlap coverage = `58.89%`
+  - target `R^2 = -2.1030`
+  - bootstrap 95% CI = `[-2.3111, -1.9280]`
+- `EXP-050` / `EXP-051` (seed `2026`)
+  - overlap AUC = `0.9271`
+  - target overlap coverage = `40.37%`
+  - target `R^2 = -0.2882`
+  - bootstrap 95% CI = `[-0.3788, -0.2020]`
+
+Updated interpretation:
+- EXP-045 is now best read as a promising single split, not a stable matched-regime result.
+- Higher overlap coverage alone did not guarantee transfer: the seed-2025 repeat widened overlap substantially but still produced the worst target `R^2`.
+- The normalized-label path remains the right direction, but the current sampled authoritative baseline is still too unstable for a publication claim.
+
 ## 9. Immediate next requirement
-The next high-value task is to validate and stress-test the new positive baseline:
-- repeat EXP-044/045 across additional seeds / splits,
-- run the same normalized-label design on other cluster pairs,
+The next high-value task is now to stabilize the normalized baseline before extending it:
+- increase authoritative sampling depth (or otherwise reduce row-group sampling variance) for the Anvil -> Conte normalized comparison,
+- determine whether the instability is driven primarily by sampled cohort composition versus the model itself,
+- only then run the same normalized-label design on other cluster pairs,
 - quantify sensitivity to the remaining measurement-semantics mismatch.
