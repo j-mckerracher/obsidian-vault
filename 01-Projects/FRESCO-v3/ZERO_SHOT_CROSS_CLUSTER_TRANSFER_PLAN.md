@@ -277,7 +277,8 @@ Predict:
 - [ ] Test explicit feature adaptation on the decoupled dense design (e.g. CORAL).
 - [x] Execute `EXP-062` plus the frozen-cohort modeling repeats (`EXP-063/065/067/069`) and confirm that the queue-time-free frozen design yields stable positive target transfer on the shared cohort.
 - [x] Quantify sensitivity to frozen-universe choice (for example, a second frozen sampling plan for the same regime).
-- [ ] Simplify or transform the remaining timing block on the frozen-universe design and re-test before broadening to new cluster pairs.
+- [x] Stage the reduced timing-block family `EXP-075..078` on both frozen universes, keeping only `ncores`, `nhosts`, and `runtime_sec`.
+- [ ] Execute the reduced timing-block family `EXP-075..078` on both frozen universes and re-test before broadening to new cluster pairs.
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---
@@ -330,9 +331,10 @@ Mitigation: map partitions into a **shared taxonomy** and use only taxonomy labe
 
 1. Record `EXP-062..069` as a **conditional** positive baseline on one frozen universe, not yet a general matched-regime success story.
 2. Use `EXP-070..074` as evidence that frozen-universe sensitivity remains large: the second universe produced a substantially different overlap cohort and target `R^2` reverted to zero/negative.
-3. Before extending to more cluster pairs, simplify or transform the remaining timing block (`timelimit_sec`, `runtime_sec`, `runtime_fraction`) and re-test on the frozen-universe framework.
-4. If that tighter timing design still fails, prioritize explicit adaptation on the normalized design rather than claiming robust zero-shot transfer.
-5. Only after that decision, continue the broader regime-matched v3 experiment plan:
+3. `EXP-075..078` are now staged as the next frozen-universe follow-up: `EXP-075/076` test the first frozen universe and `EXP-077/078` test the second while keeping only `ncores`, `nhosts`, and `runtime_sec`.
+4. Before extending to more cluster pairs, execute that reduced timing-block family on both universes and judge the design jointly rather than from a single favorable cohort.
+5. If that tighter timing design still fails, prioritize explicit adaptation on the normalized design rather than claiming robust zero-shot transfer.
+6. Only after that decision, continue the broader regime-matched v3 experiment plan:
    - Source: Conte (CPU)
    - Target: Anvil CPU partitions only
    - Model: regularized linear / GAM
