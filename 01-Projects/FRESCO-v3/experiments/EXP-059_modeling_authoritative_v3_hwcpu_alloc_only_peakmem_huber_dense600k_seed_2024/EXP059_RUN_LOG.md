@@ -41,7 +41,10 @@ python scripts/model_transfer.py --config experiments/EXP-059_modeling_authorita
 ```
 
 Submitted on Gilbreth:
-- Pending submission.
+- Final successful SLURM job: `10406152`
+- Dependency: `afterok:10406151`
+- Partition/account/qos: `training` / `<group>` / `training`
+- Resources: `--gres=gpu:1 --cpus-per-task=8 --mem=64G`
 
 ## Outputs
 - Metrics: `experiments/EXP-059_modeling_authoritative_v3_hwcpu_alloc_only_peakmem_huber_dense600k_seed_2024/results/metrics.json`
@@ -51,9 +54,26 @@ Submitted on Gilbreth:
 - Provenance: `.../manifests/run_metadata.json`, `.../manifests/input_files_used.json`
 
 ## Results Summary
-- Pending execution.
-- Key checks after completion:
-  - source-test `R^2`
-  - target `R^2`
-  - target bootstrap `R^2` interval
-  - whether the tracked run agrees with the ad hoc diagnostic trend
+- Job `10406152` completed successfully.
+- Final evaluation sizes:
+  - source overlap rows after label filter: `18,682`
+  - target overlap rows after label filter: `26,131`
+  - source train: `14,946`
+  - source test: `3,736`
+  - target eval: `26,131`
+- Source holdout performance:
+  - `R^2 = -0.0030`
+  - `MAE(log1p) = 0.0412`
+  - `SMAPE = 11.07%`
+- Target transfer performance:
+  - `R^2 = -1.4949`
+  - `MAE(log1p) = 0.1416`
+  - `SMAPE = 97.76%`
+- Target bootstrap `R^2` interval:
+  - mean: `-1.4933`
+  - 95% CI: `[-1.5563, -1.4371]`
+- Target calibration note:
+  - fitted target slope on log scale: `-0.7696`
+- Interpretation:
+  - The tracked alloc-only Huber run reproduced the same failure mode: broad overlap with nearly zero source signal and strongly negative target transfer.
+  - The negative target slope indicates the cross-cluster response relationship is still badly misspecified even after simplifying the feature set.

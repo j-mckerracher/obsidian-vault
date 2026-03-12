@@ -149,9 +149,26 @@ Dense-sampling interpretation:
 - On the original positive seed (`1337`), denser sampling actually pushed the target result decisively negative.
 - That makes it unlikely that the earlier instability was only a 300k/24-row-group sampling artifact.
 
+An alloc-only + Huber diagnosis then tested whether the remaining problem was still coming from timing-feature mismatch:
+- `EXP-056` / `EXP-057` (seed `1337`, overlap/model features = `ncores`, `nhosts`, `timelimit_sec`)
+  - overlap AUC = `0.8571`
+  - target overlap coverage = `82.52%`
+  - target `R^2 = -0.6492`
+  - bootstrap 95% CI = `[-0.6831, -0.6182]`
+- `EXP-058` / `EXP-059` (seed `2024`, same alloc-only + Huber design)
+  - overlap AUC = `0.8607`
+  - target overlap coverage = `83.03%`
+  - target `R^2 = -1.4949`
+  - bootstrap 95% CI = `[-1.5563, -1.4371]`
+
+Alloc-only diagnosis interpretation:
+- Simplifying the overlap feature set did reduce separability and dramatically widen target coverage, but it also collapsed source holdout signal (`source-test R^2` near `0`).
+- Within-overlap `timelimit_sec` mismatch remained large (`KS ≈ 0.60`) even after removing queue and runtime-derived features.
+- The tracked Huber runs therefore suggest the remaining failure is not just a queue-time artifact; the cross-cluster response relationship for normalized memory is still badly misspecified.
+
 ## 9. Immediate next requirement
-The next high-value task is now to diagnose why the normalized baseline remains unstable even after denser sampling:
-- test whether the remaining failure is driven more by model specification / feature set than by cohort sampling depth,
-- quantify how much `queue_time_sec` and `runtime_fraction` mismatch is still dominating the matched cohorts,
-- decide whether to revise the overlap feature set or the Phase 3 model before extending to other cluster pairs,
+The next high-value task is now to diagnose why normalized memory remains misspecified even under broad alloc-only overlap:
+- quantify whether the remaining failure is dominated by label / measurement semantics rather than overlap scarcity,
+- inspect source-vs-target calibration behavior (slope, intercept, bias) on the dense matched cohorts,
+- test whether a revised target definition or explicit calibration step is needed before extending to other cluster pairs,
 - keep the measurement-semantics caveat explicit while doing that diagnosis.

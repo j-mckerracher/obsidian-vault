@@ -37,7 +37,9 @@ python scripts/regime_matching.py --config experiments/EXP-058_regime_matching_a
 ```
 
 Submitted on Gilbreth:
-- Pending submission.
+- Final successful SLURM job: `10406151`
+- Partition/account/qos: `training` / `<group>` / `training`
+- Resources: `--gres=gpu:1 --cpus-per-task=8 --mem=64G`
 
 ## Outputs
 - Overlap report: `experiments/EXP-058_regime_matching_authoritative_v3_hwcpu_alloc_only_dense600k_seed_2024/results/overlap_report.json`
@@ -47,8 +49,23 @@ Submitted on Gilbreth:
 - Provenance: `.../manifests/run_metadata.json`, `.../manifests/input_files_used.json`
 
 ## Results Summary
-- Pending execution.
-- Key checks after completion:
-  - domain classifier AUC
-  - target overlap coverage
-  - whether alloc-only overlap lowers separability relative to the dense safe-feature runs
+- Job `10406151` completed successfully.
+- Final cohort sizes:
+  - source jobs: `29,107`
+  - target jobs: `31,792`
+  - source overlap jobs: `19,447`
+  - target overlap jobs: `26,398`
+- Overlap diagnostics:
+  - domain classifier AUC: `0.8607`
+  - target overlap coverage: `83.03%`
+- KS statistics on the full sampled cohorts:
+  - `ncores`: `0.4045`
+  - `nhosts`: `0.1228`
+  - `timelimit_sec`: `0.4316`
+- KS statistics within the overlap band:
+  - `ncores`: `0.1087`
+  - `nhosts`: `0.0000`
+  - `timelimit_sec`: `0.6097`
+- Interpretation:
+  - This repeat confirmed that alloc-only overlap can cover most Conte jobs, but it still leaves a severe `timelimit_sec` mismatch within the matched cohorts.
+  - Broader overlap alone did not imply a more transferable target regime.

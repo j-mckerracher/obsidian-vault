@@ -41,7 +41,10 @@ python scripts/model_transfer.py --config experiments/EXP-057_modeling_authorita
 ```
 
 Submitted on Gilbreth:
-- Pending submission.
+- Final successful SLURM job: `10406150`
+- Dependency: `afterok:10406149`
+- Partition/account/qos: `training` / `<group>` / `training`
+- Resources: `--gres=gpu:1 --cpus-per-task=8 --mem=64G`
 
 ## Outputs
 - Metrics: `experiments/EXP-057_modeling_authoritative_v3_hwcpu_alloc_only_peakmem_huber_dense600k_seed_1337/results/metrics.json`
@@ -51,9 +54,26 @@ Submitted on Gilbreth:
 - Provenance: `.../manifests/run_metadata.json`, `.../manifests/input_files_used.json`
 
 ## Results Summary
-- Pending execution.
-- Key checks after completion:
-  - source-test `R^2`
-  - target `R^2`
-  - target bootstrap `R^2` interval
-  - whether the tracked run agrees with the ad hoc diagnostic trend
+- Job `10406150` completed successfully.
+- Final evaluation sizes:
+  - source overlap rows after label filter: `19,121`
+  - target overlap rows after label filter: `25,939`
+  - source train: `15,297`
+  - source test: `3,824`
+  - target eval: `25,939`
+- Source holdout performance:
+  - `R^2 = -0.0046`
+  - `MAE(log1p) = 0.0411`
+  - `SMAPE = 11.51%`
+- Target transfer performance:
+  - `R^2 = -0.6492`
+  - `MAE(log1p) = 0.1190`
+  - `SMAPE = 93.00%`
+- Target bootstrap `R^2` interval:
+  - mean: `-0.6491`
+  - 95% CI: `[-0.6831, -0.6182]`
+- Target calibration note:
+  - fitted target slope on log scale: `-3.6942`
+- Interpretation:
+  - Dropping the timing/performance features and switching to Huber did not rescue transfer; instead, source holdout performance collapsed to ~0 and target transfer stayed strongly negative.
+  - The negative target slope indicates the cross-cluster response relationship is still badly misspecified even after simplifying the feature set.

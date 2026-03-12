@@ -55,8 +55,11 @@ The authoritative `chunks-v3` reruns are now complete enough to sharpen the plan
 - Denser-sampling stabilization attempts also stayed negative:
   - EXP-052/053 (seed `1337`, `max_rows=600000`, `sample_n_row_groups_per_file=128`): overlap AUC `0.9378`, coverage `37.36%`, target `R^2 = -0.8817`, bootstrap 95% CI `[-0.9372, -0.8255]`
   - EXP-054/055 (seed `2024`, same dense-sampling controls): overlap AUC `0.9536`, coverage `24.25%`, target `R^2 = -0.1047`, bootstrap 95% CI `[-0.1272, -0.0881]`
+- Simplifying to alloc-only overlap features plus Huber also failed:
+  - EXP-056/057 (seed `1337`): overlap AUC `0.8571`, coverage `82.52%`, target `R^2 = -0.6492`, bootstrap 95% CI `[-0.6831, -0.6182]`
+  - EXP-058/059 (seed `2024`): overlap AUC `0.8607`, coverage `83.03%`, target `R^2 = -1.4949`, bootstrap 95% CI `[-1.5563, -1.4371]`
 
-Conclusion: narrowing to safer overlap features alone was not enough, and adding recovered hardware metadata plus normalized `peak_memory_fraction` can produce a positive Anvil -> Conte split, but repeated-seed and denser-sampling validation both show that the current baseline is still too unstable for a claim.
+Conclusion: narrowing to safer overlap features alone was not enough, and adding recovered hardware metadata plus normalized `peak_memory_fraction` can produce a positive Anvil -> Conte split, but repeated-seed, denser-sampling, and alloc-only/Huber follow-ups all show that the current baseline is still too unstable for a claim.
 
 ---
 
@@ -239,7 +242,7 @@ Predict:
   - Phase 3 modeling (HuberRegressor): `experiments\\EXP-026_modeling_alloc_perf_nomem_band_01_09_huber\\`
     - Result: target R²=-867.12 on proxy label (still negative, but far less extreme vs Ridge).
 
-**Acceptance**: on regime‑matched cohorts, achieve Tier A success (R² > 0) with stable CI (not yet achieved: EXP-045 was positive on one split, but repeated-seed and denser-sampling follow-ups all returned negative target R² with fully negative bootstrap intervals).
+**Acceptance**: on regime‑matched cohorts, achieve Tier A success (R² > 0) with stable CI (not yet achieved: EXP-045 was positive on one split, but repeated-seed, denser-sampling, and alloc-only/Huber follow-ups all returned negative target R² with fully negative bootstrap intervals).
 
 ### Authoritative Phase 3 status
 - [x] Rerun authoritative overlap/modeling on the raw `chunks-v3` parquet.
@@ -249,7 +252,8 @@ Predict:
 - [x] Re-run Phase 2/3 on normalized memory targets after that metadata recovery.
 - [x] Repeat the normalized matched-regime baseline across additional seeds / splits and confirm whether it is stable.
 - [x] Increase authoritative sampling depth (or otherwise reduce sampling variance) and confirm whether that alone stabilizes the normalized baseline.
-- [ ] Diagnose whether model / feature mismatch is now the dominant source of failure on the dense cohorts.
+- [x] Diagnose whether simple feature/model simplification (alloc-only + Huber) is enough to rescue the dense cohorts.
+- [ ] Diagnose whether label / measurement semantics are now the dominant source of failure on the dense cohorts.
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---
