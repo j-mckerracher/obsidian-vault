@@ -60,8 +60,24 @@ ncores, nhosts, timelimit_sec, runtime_sec, queue_time_sec, runtime_fraction
 
 Do **not** include raw performance counters or memory columns in the overlap feature set for primary transfer claims.
 
-The next authoritative comparison pair is therefore:
+The authoritative safe-feature comparison pair is:
 - `EXP-042_regime_matching_authoritative_v3_safe_features_band_02_08`
 - `EXP-043_modeling_authoritative_v3_safe_features_band_02_08`
 
-Treat alloc+perf overlap runs such as EXP-040/041 as exploratory ablations, not the default publication path.
+Results from that pair:
+- EXP-042:
+  - domain AUC = `0.9369`
+  - target overlap coverage = `33.18%`
+- EXP-043:
+  - source-test `R^2 = 0.2282`
+  - target `R^2 = -4.2053`
+
+Interpretation:
+- Restricting to safe overlap features helps, but it does **not** make raw `value_memused_max` transfer viable across Anvil -> Conte.
+- Treat alloc+perf overlap runs such as EXP-040/041 as exploratory ablations, not the default publication path.
+- Treat EXP-042/043 as the current best proxy-only baseline, not a publication-ready transfer result.
+
+## 7. Immediate next requirement
+The next high-value task is to recover authoritative hardware metadata (at least `node_memory_gb`, `partition`, `node_type`, and `gpu_count_per_node`) so Phase 2/3 can:
+- define real workload regimes instead of GPU-activity proxies, and
+- evaluate the planned normalized label `peak_memory_fraction` rather than raw `value_memused_max`.
