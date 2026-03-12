@@ -1,7 +1,7 @@
 # PROD-20260203-v3 Run Log — FRESCO v3 Production Dataset Build
 
 **Run ID**: PROD-20260203-v3  
-**Date**: 2026-02-03 (submitted) / 2026-03-09 (executed) / 2026-03-11 (verified + finalized)
+**Date**: 2026-02-03 (submitted) / 2026-03-09 (executed) / 2026-03-11 (verified + finalized) / 2026-03-11 (archived)
 
 ## Objective
 
@@ -54,6 +54,7 @@ Build the authoritative FRESCO v3 unified parquet dataset from raw FRESCO shards
   - `validation/pip_freeze.txt`
   - `validation/conda_env.yml`
   - `validation/host_info.txt`
+- Archive root: `/depot/<group>/data/josh/FRESCO-Research/runs/PROD-20260203-v3`
 
 ## Results Summary
 
@@ -94,21 +95,31 @@ All three clusters present. Timestamp fields (`time`, `submit_time`, `start_time
 | 10387799 | **FAILED** (exit 1)  | `AttributeError: ParquetSchema has no .field()` — PyArrow API bug in script. Fixed in `scripts/verify_v3_output.py` (commit `af32734`). |
 | **10393102** | **COMPLETED** (exit 0) | Resubmitted after fix; verified cluster counts and timestamp field types successfully. |
 
+## Archive Status
+
+- Archive completed: ✅
+- Archive location: `/depot/<group>/data/josh/FRESCO-Research/runs/PROD-20260203-v3`
+- Archived bundle includes:
+  - `config/production_v3.json`
+  - `manifests/input_manifest.jsonl`
+  - `manifests/output_manifest.jsonl`
+  - `manifests/run_metadata.json`
+  - full `validation/` artifact bundle
+  - SLURM logs for production (`10387798`), failed verify (`10387799`), successful verify (`10393102`), and finalizer (`10404611`)
+- Archive verification: required records were checked after copy and all expected files were present.
+
 ## Known Issues / Caveats
 
 1. **Schema implementation gap**: The actual v3 parquet output uses raw FRESCO column names (`value_memused`, `value_gpu`, `value_cpuuser`, `value_nfs`, `value_block`, `queue`) rather than the normalized fields described in `docs/SCHEMA_AND_PROVENANCE.md` (`peak_memory_gb`, `partition`, etc.). Derived columns (`runtime_sec`, `queue_time_sec`, `runtime_fraction`, `peak_memory_fraction`) are not stored, so downstream analysis must either derive them post hoc or the production pipeline must be extended and rerun.
 
 2. **Sanity exceptions remain**: `validation/sanity_checks.json` reports `42` rows with negative queue time / submit-after-start and `402,365` rows with `runtime_fraction > 1.05`. These are now quantified, but still need interpretation as scheduler/accounting quirks vs. true data defects.
 
-3. **Archive missing**: No archive folder exists yet under `/depot/<group>/data/josh/FRESCO-Research/runs/PROD-20260203-v3`.
-
-4. **Research status**: Authoritative reruns now exist for `EXP-039` / `EXP-040` / `EXP-041`, but direct Anvil -> Conte transfer on raw `value_memused_max` still performs very poorly (`target R^2 = -11.8921`) even after overlap filtering.
+3. **Research status**: Authoritative reruns now exist for `EXP-039` / `EXP-040` / `EXP-041`, but direct Anvil -> Conte transfer on raw `value_memused_max` still performs very poorly (`target R^2 = -11.8921`) even after overlap filtering.
 
 ## Next Actions
 
-1. Archive the finalized production bundle now that manifests, validation reports, and reproducibility artifacts exist.
-2. Decide whether publication will rely on post hoc derived runtime/memory fields or on a rebuilt parquet that materializes the target canonical schema directly.
-3. Revisit the Phase 2/3 regime/label design, because the current authoritative activity-based overlap slice still leaves severe cross-cluster shift.
+1. Decide whether publication will rely on post hoc derived runtime/memory fields or on a rebuilt parquet that materializes the target canonical schema directly.
+2. Revisit the Phase 2/3 regime/label design, because the current authoritative activity-based overlap slice still leaves severe cross-cluster shift.
 
 ## Repro Steps
 
