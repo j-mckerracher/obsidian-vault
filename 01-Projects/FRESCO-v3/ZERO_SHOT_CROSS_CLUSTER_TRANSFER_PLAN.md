@@ -279,6 +279,7 @@ Predict:
 - [x] Quantify sensitivity to frozen-universe choice (for example, a second frozen sampling plan for the same regime).
 - [x] Stage the reduced timing-block family `EXP-075..078` on both frozen universes, keeping only `ncores`, `nhosts`, and `runtime_sec`.
 - [x] Execute the reduced timing-block family `EXP-075..078` on both frozen universes and re-test before broadening to new cluster pairs.
+- [x] Stage the explicit CORAL adaptation modeling pair `EXP-079/080` on the stronger frozen no-queue design so both frozen universes can be evaluated without changing the matched cohorts again.
 - [ ] Test explicit adaptation on the frozen-universe normalized design after the runtime-sec-only ablation failed cross-universe robustness.
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
@@ -295,6 +296,8 @@ Predict:
 - Train model on aligned source; evaluate on aligned target.
   - Proxy run: `experiments\\EXP-027_modeling_alloc_perf_nomem_band_01_09_coral\\`
     - Result: catastrophic negative target R² with severe numerical instability (proxy-only); see `...\\results\\metrics.json`.
+  - Staged authoritative follow-up: `experiments\\EXP-079_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral\\` and `experiments\\EXP-080_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral_plan2024\\`
+    - Design: reuse the frozen `EXP-062` and `EXP-070` overlap cohorts, keep the stronger five-feature no-queue model space, and turn on `adaptation.type = coral`.
 
 #### 4.3 Output distribution matching (unsupervised)
 - Fit a monotonic mapping on *predicted outputs* to match target’s predicted distribution to a reference distribution (careful: avoids using labels but can still distort semantics).
@@ -333,8 +336,8 @@ Mitigation: map partitions into a **shared taxonomy** and use only taxonomy labe
 1. Record `EXP-062..069` as a **conditional** positive baseline on one frozen universe, not yet a general matched-regime success story.
 2. Use `EXP-070..074` as evidence that frozen-universe sensitivity remains large: the second universe produced a substantially different overlap cohort and target `R^2` reverted to zero/negative.
 3. `EXP-075..078` have now completed: the runtime-sec-only ablation stayed weakly positive on the first frozen universe (`EXP-076` target `R^2 = 0.0502`) but collapsed to `EXP-078` target `R^2 = -1.6086` on the second, roughly `16x` worse than the prior worst second-universe result (`EXP-072`, `-0.0990`). `EXP-078` also lost `765 / 12526` source overlap jobs and `51 / 4626` target overlap jobs at the positive-label filter, versus `0 / 7504` source and only `34 / 6031` target jobs in EXP-076, so timing-only pruning is not a robust fix and the comparison should keep that label-availability caveat explicit.
-4. Before extending to more cluster pairs, shift the next corrective branch to explicit adaptation on the frozen-universe normalized design rather than another timing-only ablation.
-5. Only after that adaptation decision, continue the broader regime-matched v3 experiment plan:
+4. `EXP-079/080` are now staged as that next corrective branch: explicit CORAL adaptation on the stronger five-feature frozen no-queue design, evaluated on both frozen universes before any new cluster pairs or further pruning.
+5. Only after reviewing and, if approved, executing that adaptation pair, continue the broader regime-matched v3 experiment plan:
    - Source: Conte (CPU)
    - Target: Anvil CPU partitions only
    - Model: regularized linear / GAM

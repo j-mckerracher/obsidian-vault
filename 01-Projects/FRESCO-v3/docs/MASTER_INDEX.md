@@ -1,6 +1,6 @@
 # FRESCO v3: Master Index
 
-**Last Updated**: 2026-02-03  
+**Last Updated**: 2026-03-13
 
 ## Purpose
 This folder contains the **required documentation** to (1) produce the FRESCO v3 dataset and (2) publish a paper describing the process.
@@ -52,6 +52,8 @@ This folder contains the **required documentation** to (1) produce the FRESCO v3
 38. `experiments/EXP-036_modeling_stampede_to_anvil_band_02_08/` – Phase 5 single-month pair: Stampede→Anvil modeling
 39. `experiments/EXP-037_regime_matching_anvil_to_stampede_band_02_08/` – Phase 5 single-month pair: Anvil→Stampede overlap
 40. `experiments/EXP-038_modeling_anvil_to_stampede_band_02_08/` – Phase 5 single-month pair: Anvil→Stampede modeling
+41. `experiments/EXP-079_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral/` – staged authoritative CORAL adaptation model on the first frozen no-queue universe
+42. `experiments/EXP-080_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral_plan2024/` – staged authoritative CORAL adaptation model on the second frozen no-queue universe
 
 ## Quick Links
 - Planning: `../ZERO_SHOT_CROSS_CLUSTER_TRANSFER_PLAN.md`

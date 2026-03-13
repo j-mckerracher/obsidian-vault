@@ -222,4 +222,5 @@ The immediate next requirement is now to **shift from feature pruning to explici
 - `EXP-075..078` tested the cleanest remaining timing-only simplification that the current scripts support without code changes, and it still failed the cross-universe robustness test badly.
 - The first frozen universe stayed weakly positive, but the second frozen universe became dramatically worse, which means further timing-only pruning is no longer the most defensible next branch.
 - The next corrective experiment should therefore keep the frozen-universe methodology but test explicit adaptation on top of the normalized design rather than another timing-only ablation.
+- `EXP-079` and `EXP-080` are staged as that minimal next branch: they reuse the stronger five-feature no-queue model space from `EXP-063/071`, keep the frozen `EXP-062` and `EXP-070` overlap cohorts fixed, and turn on CORAL adaptation in Phase 3 only.
 - Keep the measurement-semantics caveat explicit while evaluating that adaptation branch.
