@@ -1,4 +1,4 @@
-# EXP-076 Run Log -- Planned runtime-sec-only frozen-universe follow-up
+# EXP-076 Run Log -- Completed runtime-sec-only modeling on the first frozen universe
 
 **Run ID**: EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only
 **Date**: 2026-03-12
@@ -26,23 +26,17 @@ If the first frozen-universe success only needed one duration-control variable, 
 ## Code & Environment
 - Script: `scripts\model_transfer.py`
 - Config: `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/config/exp076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only.json`
-- Git commit (pipeline): `TBD at execution time; stage and commit this scaffold before submission`
-- Git commit (analysis): `TBD at execution time`
-- Conda env: `TBD at execution time`
-- Python: `TBD at execution time`
+- Git commit (pipeline): `b85eea66f15f91024af7f660f4025b5b2a9e5f85`
+- Git commit (analysis): `b85eea66f15f91024af7f660f4025b5b2a9e5f85`
+- Conda env: `fresco_v2`
+- Python: `Python 3.10.19`
 - Package lock: `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/validation/pip_freeze.txt`
-
-## Notes
-- This model reuses the EXP-075 overlap cohort on the first frozen universe.
-- `scripts\model_transfer.py` applies `log1p` to configured feature columns before scaling and fitting, so this design effectively tests `log1p(runtime_sec)` without a pipeline code change.
-- A positive result here is not sufficient on its own; EXP-078 is the paired second-universe robustness check.
-- This run has not been submitted yet; metrics and job IDs are intentionally blank until execution completes.
 
 ## Execution
 - Cluster: Gilbreth
-- Submission command: `Planned repro command: python scripts\model_transfer.py --config experiments\EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only\config\exp076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only.json`
-- Job IDs: `Not assigned yet`
-- Start / end time (UTC): `N/A / N/A`
+- Submission command: `sbatch exp076_runtime_sec_u1_model.slurm`
+- Job IDs: `10407626`
+- Start / end time (UTC): `2026-03-12T23:30:46Z / 2026-03-12T23:32:23Z`
 
 ## Outputs
 - Output root: `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/results/`
@@ -50,18 +44,22 @@ If the first frozen-universe success only needed one duration-control variable, 
 - Validation reports: `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/validation/`
 
 ## Results Summary
-- Planned run only; no job has been submitted yet, so no overlap or modeling metrics exist.
-- Expected result artifacts, once executed, will be written under `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/results/` and must be cited before making any claim.
+- `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/results/metrics.json`: source-test `R^2 = 0.0401` and target `R^2 = 0.0502`.
+- `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/results/metrics.json`: bootstrap target `R^2` 95% CI = `[0.0260, 0.0708]` with bootstrap mean `0.0495`.
+- `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/results/metrics.json`: target slope = `1.7892`, target `bias_log = -0.0336`, and target `mae_log = 0.0904`.
+- `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/results/metrics.json`: this run reused the EXP-075 overlap cohort with `7504` matched source jobs and `5997` target evaluation jobs after the positive-label filter.
 
 ## Validation Summary
-- Not run yet. Validation artifacts will be produced under `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/validation/` after execution.
+- Job `10407626` completed with exit code `0` and wrote the expected metrics, prediction parquet files, manifests, and validation files (`experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/logs/slurm-10407626.out`).
+- Execution provenance was captured in `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/validation/git_commit.txt`, `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/validation/python_version.txt`, `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/validation/pip_freeze.txt`, and `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/validation/conda_env.yml`.
+- No runtime errors were reported in `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/logs/model_transfer.log`.
 
 ## Known Issues / Caveats
-- This log records a planned run only; nothing here should be interpreted as executed evidence until the job completes and the Results Summary is rewritten.
-- The reduced timing design keeps only `runtime_sec` as the duration-control feature because the report recommends collapsing the redundant timing trio to one transformed feature and the current scripts already apply `log1p` to every configured feature.
-- The design should be judged across both frozen universes together; a positive result on only one universe is not sufficient after EXP-070..074.
+- Although target `R^2` stayed positive on the first frozen universe, it weakened relative to the earlier no-queue baseline (`EXP-063` target `R^2 = 0.1070`), so pruning to `runtime_sec` alone did not improve the favorable universe.
+- `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/manifests/run_metadata.json` still leaves git/environment fields null because the remote pipeline directory was a synced snapshot, not a git checkout; use the validation files as the authoritative provenance record.
+- This run must be interpreted jointly with EXP-078; the design is not robust if it only works on the first frozen universe.
 
 ## Repro Steps
-1. Commit this scaffold before submission so the config used at runtime is pinned in git.
-2. Capture the execution environment into `experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/validation/` before or at job start.
-3. Run `python scripts\model_transfer.py --config experiments\EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only\config\exp076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only.json`.
+1. `source ~/anaconda3/bin/activate fresco_v2`
+2. `cd /home/<username>/Code/FRESCO-Pipeline && sbatch exp076_runtime_sec_u1_model.slurm`
+3. `python scripts/model_transfer.py --config experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/config/exp076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only.json`

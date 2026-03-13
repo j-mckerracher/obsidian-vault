@@ -1,4 +1,4 @@
-# EXP-078 Run Log -- Planned runtime-sec-only frozen-universe follow-up
+# EXP-078 Run Log -- Completed runtime-sec-only modeling on the second frozen universe
 
 **Run ID**: EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024
 **Date**: 2026-03-12
@@ -26,23 +26,17 @@ If the second-universe failure was mostly driven by `runtime_fraction` and `time
 ## Code & Environment
 - Script: `scripts\model_transfer.py`
 - Config: `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/config/exp078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024.json`
-- Git commit (pipeline): `TBD at execution time; stage and commit this scaffold before submission`
-- Git commit (analysis): `TBD at execution time`
-- Conda env: `TBD at execution time`
-- Python: `TBD at execution time`
+- Git commit (pipeline): `b85eea66f15f91024af7f660f4025b5b2a9e5f85`
+- Git commit (analysis): `b85eea66f15f91024af7f660f4025b5b2a9e5f85`
+- Conda env: `fresco_v2`
+- Python: `Python 3.10.19`
 - Package lock: `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/validation/pip_freeze.txt`
-
-## Notes
-- This model reuses the EXP-077 overlap cohort on the second frozen universe.
-- This is the paired robustness check for EXP-076; the design is only promising if both frozen universes stay interpretable.
-- If EXP-078 remains clearly negative despite cleaner overlap, the next corrective branch should shift to explicit adaptation instead of further feature-pruning alone.
-- This run has not been submitted yet; metrics and job IDs are intentionally blank until execution completes.
 
 ## Execution
 - Cluster: Gilbreth
-- Submission command: `Planned repro command: python scripts\model_transfer.py --config experiments\EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024\config\exp078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024.json`
-- Job IDs: `Not assigned yet`
-- Start / end time (UTC): `N/A / N/A`
+- Submission command: `sbatch exp078_runtime_sec_u2_model.slurm`
+- Job IDs: `10407627`
+- Start / end time (UTC): `2026-03-12T23:30:45Z / 2026-03-12T23:32:23Z`
 
 ## Outputs
 - Output root: `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/results/`
@@ -50,18 +44,23 @@ If the second-universe failure was mostly driven by `runtime_fraction` and `time
 - Validation reports: `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/validation/`
 
 ## Results Summary
-- Planned run only; no job has been submitted yet, so no overlap or modeling metrics exist.
-- Expected result artifacts, once executed, will be written under `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/results/` and must be cited before making any claim.
+- `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/results/metrics.json`: source-test `R^2 = 0.0479` and target `R^2 = -1.6086`.
+- `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/results/metrics.json`: bootstrap target `R^2` 95% CI = `[-1.7662, -1.4565]` with bootstrap mean `-1.6110`.
+- `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/results/metrics.json`: target slope = `-0.9409`, target `bias_log = -0.1017`, and target `mae_log = 0.1250`.
+- `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/results/metrics.json`: this run reused the EXP-077 overlap cohort with `11761` matched source jobs and `4575` target evaluation jobs after the positive-label filter, down from `12526` source and `4626` target jobs in `EXP-077/results/overlap_report.json`.
 
 ## Validation Summary
-- Not run yet. Validation artifacts will be produced under `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/validation/` after execution.
+- Job `10407627` completed with exit code `0` and wrote the expected metrics, prediction parquet files, manifests, and validation files (`experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/logs/slurm-10407627.out`).
+- Execution provenance was captured in `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/validation/git_commit.txt`, `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/validation/python_version.txt`, `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/validation/pip_freeze.txt`, and `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/validation/conda_env.yml`.
+- No runtime errors were reported in `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/logs/model_transfer.log`.
 
 ## Known Issues / Caveats
-- This log records a planned run only; nothing here should be interpreted as executed evidence until the job completes and the Results Summary is rewritten.
-- The reduced timing design keeps only `runtime_sec` as the duration-control feature because the report recommends collapsing the redundant timing trio to one transformed feature and the current scripts already apply `log1p` to every configured feature.
-- The design should be judged across both frozen universes together; a positive result on only one universe is not sufficient after EXP-070..074.
+- The runtime-sec-only pruning did not rescue the second frozen universe; target transfer became dramatically worse than the already-negative EXP-071 baseline and the fitted target slope flipped negative.
+- `scripts\model_transfer.py` filters `peak_memory_fraction` to non-null positive values before training; on this universe that removed `765 / 12526` source overlap jobs (`6.1%`) and `51 / 4626` target overlap jobs (`1.1%`). EXP-076 had no analogous source-side dropout (`7504 -> 7504`), so the cross-universe comparison carries a label-availability caveat if those dropped source jobs are not missing completely at random.
+- `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/manifests/run_metadata.json` still leaves git/environment fields null because the remote pipeline directory was a synced snapshot rather than a git checkout; use the validation files as the authoritative provenance record.
+- This result strongly suggests that further feature pruning alone is unlikely to be enough; the next corrective branch should shift toward explicit adaptation rather than another timing-only ablation.
 
 ## Repro Steps
-1. Commit this scaffold before submission so the config used at runtime is pinned in git.
-2. Capture the execution environment into `experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/validation/` before or at job start.
-3. Run `python scripts\model_transfer.py --config experiments\EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024\config\exp078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024.json`.
+1. `source ~/anaconda3/bin/activate fresco_v2`
+2. `cd /home/<username>/Code/FRESCO-Pipeline && sbatch exp078_runtime_sec_u2_model.slurm`
+3. `python scripts/model_transfer.py --config experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/config/exp078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024.json`

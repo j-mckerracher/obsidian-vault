@@ -148,6 +148,14 @@ Second frozen-universe sensitivity check (EXP-070..074):
 - `EXP-071` through `EXP-074` all moved target transfer back to zero or negative on this second universe: target `R^2 = -0.0639`, `-0.0990`, `-0.0909`, and `-0.0060`.
 - The corresponding bootstrap 95% intervals were mostly strictly negative (`[-0.1096, -0.0161]`, `[-0.1567, -0.0487]`, `[-0.1555, -0.0465]`) with the last split straddling zero (`[-0.0452, 0.0346]`), and target slopes collapsed to `0.41`-`0.52`.
 - Updated interpretation after EXP-070..074: removing `queue_time_sec` and freezing the sampled universe is necessary but not sufficient. The positive no-queue result does **not** generalize across frozen sampled universes, and the remaining timing block (`timelimit_sec`, `runtime_sec`, `runtime_fraction`) is still the main instability suspect.
+
+Runtime-sec-only follow-up (EXP-075..078):
+- `EXP-075` (`experiments/EXP-075_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_runtime_sec_only/results/overlap_report.json`) pruned the timing block down to `runtime_sec` alone on the first frozen universe: domain AUC = `0.8990`, target overlap coverage = `81.69%`, source overlap = `7504 / 12649`, target overlap = `6031 / 7383`.
+- `EXP-076` (`experiments/EXP-076_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only/results/metrics.json`) stayed positive on that first universe, but only weakly: target `R^2 = 0.0502` with bootstrap 95% CI `[0.0260, 0.0708]`, which is materially below the earlier `EXP-063` no-queue result (`0.1070`).
+- `EXP-077` (`experiments/EXP-077_regime_matching_authoritative_v3_hardware_cpu_standard_band_02_08_runtime_sec_only_plan2024/results/overlap_report.json`) produced similarly broad overlap on the second frozen universe (AUC = `0.8987`, target coverage = `75.39%`), but the single retained timing feature became dramatically mismatched inside the overlap band (`runtime_sec KS = 0.8092`).
+- `EXP-078` (`experiments/EXP-078_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_runtime_sec_only_plan2024/results/metrics.json`) then failed catastrophically on that second universe: target `R^2 = -1.6086`, bootstrap 95% CI `[-1.7662, -1.4565]`, and target slope `-0.9409`.
+- `EXP-078` also exposed a label-availability asymmetry: `model_transfer.py` dropped `765 / 12526` source overlap jobs (`6.1%`) and `51 / 4626` target overlap jobs (`1.1%`) because `peak_memory_fraction` must be present and positive before training, whereas EXP-076 kept all `7504` first-universe source overlap jobs and dropped only `34 / 6031` target overlap jobs (`0.56%`) at the same filter. That means the EXP-076 vs. EXP-078 comparison still points to a failed timing-only fix, but it should be read with an explicit label-filter caveat rather than as a perfectly like-for-like source-cohort comparison.
+- Updated interpretation after EXP-075..078: further timing-only pruning is **not** the rescue path. Broad overlap coverage alone can still be semantically broken, and reducing the feature set to `runtime_sec` alone made the second-universe transfer substantially worse rather than better even before considering the extra label-filter asymmetry.
 A denser-sampling stabilization attempt then tested whether the instability was mainly a row-group sampling artifact:
 - `EXP-052` / `EXP-053` (seed `1337`, `max_rows=600000`, `sample_n_row_groups_per_file=128`)
   - overlap AUC = `0.9378`
@@ -210,9 +218,8 @@ Decoupled-feature interpretation:
 - But both target slopes stayed negative and both target intervals remained fully below zero, so decoupling overlap and modeling features alone is still not enough.
 - The remaining issue now looks more like unresolved domain shift inside the feature geometry than simple overlap scarcity or an underpowered source model.
 ## 9. Immediate next requirement
-The immediate next requirement is now to **tighten the remaining timing block before extending to new cluster pairs**:
-- `EXP-062..069` established that a positive result exists on one frozen universe, but `EXP-070..074` showed that it is not robust to frozen-universe choice.
-- The strongest current evidence points back to the residual timing trio (`timelimit_sec`, `runtime_sec`, `runtime_fraction`), which became markedly worse on the failing second-universe overlap even after `queue_time_sec` was removed.
-- The next corrective experiment should therefore simplify or transform that remaining timing block while keeping the frozen-universe methodology, rather than immediately broadening to more cluster pairs.
-- If that tighter timing design still fails, the next fallback remains explicit feature-space adaptation on top of the normalized design.
-- Keep the measurement-semantics caveat explicit throughout either follow-up.
+The immediate next requirement is now to **shift from feature pruning to explicit adaptation before extending to new cluster pairs**:
+- `EXP-075..078` tested the cleanest remaining timing-only simplification that the current scripts support without code changes, and it still failed the cross-universe robustness test badly.
+- The first frozen universe stayed weakly positive, but the second frozen universe became dramatically worse, which means further timing-only pruning is no longer the most defensible next branch.
+- The next corrective experiment should therefore keep the frozen-universe methodology but test explicit adaptation on top of the normalized design rather than another timing-only ablation.
+- Keep the measurement-semantics caveat explicit while evaluating that adaptation branch.

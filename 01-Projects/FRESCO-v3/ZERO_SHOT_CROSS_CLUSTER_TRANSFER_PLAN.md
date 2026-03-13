@@ -259,7 +259,7 @@ Predict:
   - Phase 3 modeling (HuberRegressor): `experiments\\EXP-026_modeling_alloc_perf_nomem_band_01_09_huber\\`
     - Result: target R²=-867.12 on proxy label (still negative, but far less extreme vs Ridge).
 
-**Acceptance**: Tier A success has been demonstrated only conditionally. `EXP-063/065/067/069` were positive on the first frozen `EXP-062` universe, but the second frozen-universe check `EXP-071/072/073/074` returned target `R^2` from `-0.0990` to `-0.0060`, so the current no-queue result is not yet robust enough for a general matched-regime claim.
+**Acceptance**: Tier A success remains only conditional. `EXP-063/065/067/069` were positive on the first frozen `EXP-062` universe, `EXP-071/072/073/074` were negative or near-zero on the second frozen universe, and the reduced timing-only retry `EXP-076/078` split again (`+0.0502` on universe 1 vs. `-1.6086` on universe 2, roughly 16x worse than the prior worst second-universe result of `-0.0990`). The current evidence does not yet support a general matched-regime claim.
 
 ### Authoritative Phase 3 status
 - [x] Rerun authoritative overlap/modeling on the raw `chunks-v3` parquet.
@@ -278,7 +278,8 @@ Predict:
 - [x] Execute `EXP-062` plus the frozen-cohort modeling repeats (`EXP-063/065/067/069`) and confirm that the queue-time-free frozen design yields stable positive target transfer on the shared cohort.
 - [x] Quantify sensitivity to frozen-universe choice (for example, a second frozen sampling plan for the same regime).
 - [x] Stage the reduced timing-block family `EXP-075..078` on both frozen universes, keeping only `ncores`, `nhosts`, and `runtime_sec`.
-- [ ] Execute the reduced timing-block family `EXP-075..078` on both frozen universes and re-test before broadening to new cluster pairs.
+- [x] Execute the reduced timing-block family `EXP-075..078` on both frozen universes and re-test before broadening to new cluster pairs.
+- [ ] Test explicit adaptation on the frozen-universe normalized design after the runtime-sec-only ablation failed cross-universe robustness.
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---
@@ -331,10 +332,9 @@ Mitigation: map partitions into a **shared taxonomy** and use only taxonomy labe
 
 1. Record `EXP-062..069` as a **conditional** positive baseline on one frozen universe, not yet a general matched-regime success story.
 2. Use `EXP-070..074` as evidence that frozen-universe sensitivity remains large: the second universe produced a substantially different overlap cohort and target `R^2` reverted to zero/negative.
-3. `EXP-075..078` are now staged as the next frozen-universe follow-up: `EXP-075/076` test the first frozen universe and `EXP-077/078` test the second while keeping only `ncores`, `nhosts`, and `runtime_sec`.
-4. Before extending to more cluster pairs, execute that reduced timing-block family on both universes and judge the design jointly rather than from a single favorable cohort.
-5. If that tighter timing design still fails, prioritize explicit adaptation on the normalized design rather than claiming robust zero-shot transfer.
-6. Only after that decision, continue the broader regime-matched v3 experiment plan:
+3. `EXP-075..078` have now completed: the runtime-sec-only ablation stayed weakly positive on the first frozen universe (`EXP-076` target `R^2 = 0.0502`) but collapsed to `EXP-078` target `R^2 = -1.6086` on the second, roughly `16x` worse than the prior worst second-universe result (`EXP-072`, `-0.0990`). `EXP-078` also lost `765 / 12526` source overlap jobs and `51 / 4626` target overlap jobs at the positive-label filter, versus `0 / 7504` source and only `34 / 6031` target jobs in EXP-076, so timing-only pruning is not a robust fix and the comparison should keep that label-availability caveat explicit.
+4. Before extending to more cluster pairs, shift the next corrective branch to explicit adaptation on the frozen-universe normalized design rather than another timing-only ablation.
+5. Only after that adaptation decision, continue the broader regime-matched v3 experiment plan:
    - Source: Conte (CPU)
    - Target: Anvil CPU partitions only
    - Model: regularized linear / GAM
