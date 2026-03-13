@@ -54,6 +54,8 @@ This folder contains the **required documentation** to (1) produce the FRESCO v3
 40. `experiments/EXP-038_modeling_anvil_to_stampede_band_02_08/` – Phase 5 single-month pair: Anvil→Stampede modeling
 41. `experiments/EXP-079_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral/` – authoritative CORAL adaptation model on the first frozen no-queue universe
 42. `experiments/EXP-080_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral_plan2024/` – authoritative CORAL adaptation model on the second frozen no-queue universe
+43. `experiments/EXP-081_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral_reg1e3/` – staged higher-regularization CORAL sensitivity model on the first frozen no-queue universe
+44. `experiments/EXP-082_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral_reg1e3_plan2024/` – staged higher-regularization CORAL sensitivity model on the second frozen no-queue universe
 
 ## Quick Links
 - Planning: `../ZERO_SHOT_CROSS_CLUSTER_TRANSFER_PLAN.md`
