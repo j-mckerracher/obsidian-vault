@@ -259,7 +259,7 @@ Predict:
   - Phase 3 modeling (HuberRegressor): `experiments\\EXP-026_modeling_alloc_perf_nomem_band_01_09_huber\\`
     - Result: target R²=-867.12 on proxy label (still negative, but far less extreme vs Ridge).
 
-**Acceptance**: Tier A success remains only conditional. `EXP-063/065/067/069` were positive on the first frozen `EXP-062` universe, `EXP-071/072/073/074` were negative or near-zero on the second frozen universe, the reduced timing-only retry `EXP-076/078` split again (`+0.0502` on universe 1 vs. `-1.6086` on universe 2, roughly 16x worse than the prior worst second-universe result of `-0.0990`), and the first authoritative CORAL attempt `EXP-079/080` did not rescue the design (`-46520.6724` on universe 1 and `-0.0613` on universe 2). The current evidence does not yet support a general matched-regime claim.
+**Acceptance**: Tier A success remains only conditional. `EXP-063/065/067/069` were positive on the first frozen `EXP-062` universe, `EXP-071/072/073/074` were negative or near-zero on the second frozen universe, the reduced timing-only retry `EXP-076/078` split again (`+0.0502` on universe 1 vs. `-1.6086` on universe 2, roughly 16x worse than the prior worst second-universe result of `-0.0990`), the first authoritative CORAL attempt `EXP-079/080` did not rescue the design (`-46520.6724` on universe 1 and `-0.0613` on universe 2), and the higher-regularization retry `EXP-081/082` still failed (`-59.6547` on universe 1 and `-0.0633` on universe 2). The current evidence does not yet support a general matched-regime claim.
 
 ### Authoritative Phase 3 status
 - [x] Rerun authoritative overlap/modeling on the raw `chunks-v3` parquet.
@@ -282,7 +282,8 @@ Predict:
 - [x] Stage the explicit CORAL adaptation modeling pair `EXP-079/080` on the stronger frozen no-queue design so both frozen universes can be evaluated without changing the matched cohorts again.
 - [x] Test explicit adaptation on the frozen-universe normalized design after the runtime-sec-only ablation failed cross-universe robustness.
 - [x] Stage the higher-regularization CORAL sensitivity pair `EXP-081/082` on the same frozen no-queue cohorts with `reg = 1e-3`.
-- [ ] Test a higher-regularization CORAL sensitivity on both frozen universes before abandoning linear covariance adaptation entirely.
+- [x] Test a higher-regularization CORAL sensitivity on both frozen universes before abandoning linear covariance adaptation entirely.
+- [ ] Design and test a materially different adaptation family (or stop at the negative result) now that linear CORAL still fails on both frozen universes.
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---
@@ -303,6 +304,7 @@ Predict:
     - Result: `EXP-079` failed catastrophically on the previously positive first universe (`target R^2 = -46520.6724`), while `EXP-080` remained negative on the second universe (`target R^2 = -0.0613`, bootstrap CI fully below zero).
   - Staged regularization sensitivity: `experiments\\EXP-081_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral_reg1e3\\` and `experiments\\EXP-082_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral_reg1e3_plan2024\\`
     - Design: keep the same frozen cohorts and five-feature no-queue model space, but increase `adaptation.reg` from `1e-6` to `1e-3`.
+    - Result: `EXP-081` reduced the magnitude of the universe-1 blow-up but still remained catastrophically negative (`target R^2 = -59.6547`, slope `0.0091`), while `EXP-082` stayed effectively unchanged on the second universe (`target R^2 = -0.0633`).
 
 #### 4.3 Output distribution matching (unsupervised)
 - Fit a monotonic mapping on *predicted outputs* to match target’s predicted distribution to a reference distribution (careful: avoids using labels but can still distort semantics).
@@ -342,8 +344,9 @@ Mitigation: map partitions into a **shared taxonomy** and use only taxonomy labe
 2. Use `EXP-070..074` as evidence that frozen-universe sensitivity remains large: the second universe produced a substantially different overlap cohort and target `R^2` reverted to zero/negative.
 3. `EXP-075..078` have now completed: the runtime-sec-only ablation stayed weakly positive on the first frozen universe (`EXP-076` target `R^2 = 0.0502`) but collapsed to `EXP-078` target `R^2 = -1.6086` on the second, roughly `16x` worse than the prior worst second-universe result (`EXP-072`, `-0.0990`). `EXP-078` also lost `765 / 12526` source overlap jobs and `51 / 4626` target overlap jobs at the positive-label filter, versus `0 / 7504` source and only `34 / 6031` target jobs in EXP-076, so timing-only pruning is not a robust fix and the comparison should keep that label-availability caveat explicit.
 4. `EXP-079/080` have now completed, and the first authoritative CORAL attempt failed to rescue the frozen no-queue design: universe 1 collapsed catastrophically while universe 2 stayed negative.
-5. `EXP-081/082` are now staged as that **regularization-sensitivity follow-up**: the same frozen no-queue CORAL design, but with `reg = 1e-3` to test whether the first authoritative CORAL failure was driven by unstable low-regularization alignment.
-6. Only after reviewing and, if approved, executing that regularized adaptation branch, continue the broader regime-matched v3 experiment plan:
+5. `EXP-081/082` have now completed, and the higher-regularization CORAL retry still failed to rescue either frozen universe.
+6. The most defensible next step is now to **pivot away from linear CORAL entirely** (or stop at the negative result) rather than spending more runs on the same covariance-alignment family.
+7. Only after defining that different adaptation branch, continue the broader regime-matched v3 experiment plan:
    - Source: Conte (CPU)
    - Target: Anvil CPU partitions only
    - Model: regularized linear / GAM
