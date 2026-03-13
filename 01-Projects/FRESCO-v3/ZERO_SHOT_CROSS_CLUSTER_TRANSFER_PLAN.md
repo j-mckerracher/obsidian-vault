@@ -259,7 +259,7 @@ Predict:
   - Phase 3 modeling (HuberRegressor): `experiments\\EXP-026_modeling_alloc_perf_nomem_band_01_09_huber\\`
     - Result: target R²=-867.12 on proxy label (still negative, but far less extreme vs Ridge).
 
-**Acceptance**: Tier A success remains only conditional. `EXP-063/065/067/069` were positive on the first frozen `EXP-062` universe, `EXP-071/072/073/074` were negative or near-zero on the second frozen universe, the reduced timing-only retry `EXP-076/078` split again (`+0.0502` on universe 1 vs. `-1.6086` on universe 2, roughly 16x worse than the prior worst second-universe result of `-0.0990`), the first authoritative CORAL attempt `EXP-079/080` did not rescue the design (`-46520.6724` on universe 1 and `-0.0613` on universe 2), and the higher-regularization retry `EXP-081/082` still failed (`-59.6547` on universe 1 and `-0.0633` on universe 2). The current evidence does not yet support a general matched-regime claim.
+**Acceptance**: Tier A success remains only conditional. `EXP-063/065/067/069` were positive on the first frozen `EXP-062` universe, `EXP-071/072/073/074` were negative or near-zero on the second frozen universe, the reduced timing-only retry `EXP-076/078` split again (`+0.0502` on universe 1 vs. `-1.6086` on universe 2, roughly 16x worse than the prior worst second-universe result of `-0.0990`), the first authoritative CORAL attempt `EXP-079/080` did not rescue the design (`-46520.6724` on universe 1 and `-0.0613` on universe 2), the higher-regularization retry `EXP-081/082` still failed (`-59.6547` on universe 1 and `-0.0633` on universe 2), and the output-space quantile-matching follow-up `EXP-083/084` also failed to produce a general zero-label rescue (`-0.1026` on universe 1 and `-0.0285` on universe 2). The current evidence does not yet support a general matched-regime claim.
 
 ### Authoritative Phase 3 status
 - [x] Rerun authoritative overlap/modeling on the raw `chunks-v3` parquet.
@@ -284,7 +284,8 @@ Predict:
 - [x] Stage the higher-regularization CORAL sensitivity pair `EXP-081/082` on the same frozen no-queue cohorts with `reg = 1e-3`.
 - [x] Test a higher-regularization CORAL sensitivity on both frozen universes before abandoning linear covariance adaptation entirely.
 - [x] Stage a materially different adaptation family (`EXP-083/084` quantile-output matching) after linear CORAL failed on both frozen universes.
-- [ ] Test the staged quantile-output family `EXP-083/084` on the same frozen no-queue cohorts (or stop at the negative result).
+- [x] Test the staged quantile-output family `EXP-083/084` on the same frozen no-queue cohorts.
+- [ ] Decide whether the adaptation search should stop at the current negative result or justify a substantially different family with stronger guardrails than CORAL or direct quantile matching.
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---
@@ -309,9 +310,10 @@ Predict:
 
 #### 4.3 Output distribution matching (unsupervised)
 - Fit a monotonic mapping on *predicted outputs* to match target’s predicted distribution to a reference distribution (careful: avoids using labels but can still distort semantics).
-  - Staged authoritative follow-up: `experiments\\EXP-083_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_quantile_output\\` and `experiments\\EXP-084_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_quantile_output_plan2024\\`
+  - Authoritative follow-up: `experiments\\EXP-083_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_quantile_output\\` and `experiments\\EXP-084_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_quantile_output_plan2024\\`
     - Design: keep the frozen `EXP-062` and `EXP-070` overlap cohorts plus the stronger five-feature no-queue model space fixed, then apply `adaptation.type = quantile_output` with `n_quantiles = 100` as a post-prediction monotone correction.
-    - Status: staged locally after CORAL failure; not submitted yet.
+    - Result: `EXP-083` removed the catastrophic CORAL blow-up but still flipped the previously positive first universe negative (`target R^2 = -0.1026`, slope `0.8099`), while `EXP-084` improved the harder second universe relative to both no adaptation and CORAL (`target R^2 = -0.0285`, slope `0.6150`) but still remained fully below zero.
+    - Interpretation: direct quantile matching trades off between the two frozen universes and therefore still fails the cross-universe acceptance bar for a general zero-label adaptation.
 
 **Acceptance**: show measurable improvement over non‑adapted zero‑shot on matched cohorts; document failure modes clearly.
 
