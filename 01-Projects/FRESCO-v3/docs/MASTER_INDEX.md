@@ -56,6 +56,8 @@ This folder contains the **required documentation** to (1) produce the FRESCO v3
 42. `experiments/EXP-080_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral_plan2024/` – authoritative CORAL adaptation model on the second frozen no-queue universe
 43. `experiments/EXP-081_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral_reg1e3/` – higher-regularization CORAL sensitivity model on the first frozen no-queue universe
 44. `experiments/EXP-082_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_coral_reg1e3_plan2024/` – higher-regularization CORAL sensitivity model on the second frozen no-queue universe
+45. `experiments/EXP-083_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_quantile_output/` – staged authoritative quantile-output adaptation model on the first frozen no-queue universe
+46. `experiments/EXP-084_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_quantile_output_plan2024/` – staged authoritative quantile-output adaptation model on the second frozen no-queue universe
 
 ## Quick Links
 - Planning: `../ZERO_SHOT_CROSS_CLUSTER_TRANSFER_PLAN.md`

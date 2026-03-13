@@ -105,6 +105,38 @@ def _coral_matrix(x_src: np.ndarray, x_tgt: np.ndarray, reg: float) -> np.ndarra
     return _matrix_power(cs, -0.5) @ _matrix_power(ct, 0.5)
 
 
+def _quantile_output_correct(
+    y_ref_log: np.ndarray, y_pred_log: np.ndarray, n_quantiles: int
+) -> np.ndarray:
+    if len(y_ref_log) == 0 or len(y_pred_log) == 0:
+        return y_pred_log
+
+    n_quantiles = _effective_quantile_count(y_ref_log, y_pred_log, n_quantiles)
+    quantiles = np.linspace(0.0, 1.0, n_quantiles)
+    ref_q = np.quantile(y_ref_log, quantiles)
+    pred_q = np.quantile(y_pred_log, quantiles)
+    pred_unique, inverse_idx = np.unique(pred_q, return_inverse=True)
+    ref_unique = np.array(
+        [np.median(ref_q[inverse_idx == idx]) for idx in range(len(pred_unique))],
+        dtype=float,
+    )
+    if len(pred_unique) == 1:
+        return np.full_like(y_pred_log, ref_unique[0], dtype=float)
+    return np.interp(
+        y_pred_log,
+        pred_unique,
+        ref_unique,
+        left=ref_unique[0],
+        right=ref_unique[-1],
+    )
+
+
+def _effective_quantile_count(
+    y_ref_log: np.ndarray, y_pred_log: np.ndarray, n_quantiles: int
+) -> int:
+    return max(2, min(int(n_quantiles), len(y_ref_log), len(y_pred_log)))
+
+
 def _limitations(label_column: str, label_proxy: bool, no_data: bool) -> list[str]:
     notes = [
         "Model uses the feature set specified in the run config; treat this as an ablation baseline, not the final intended Phase 3 feature set."
@@ -328,6 +360,8 @@ def main() -> int:
     adaptation_applied = False
     adaptation_details: dict | None = None
     log(f"adaptation={adaptation_type}")
+    if adaptation_type not in {"none", "coral", "quantile_output"}:
+        raise ValueError(f"Unsupported adaptation.type: {adaptation_type}")
 
     if not no_data and adaptation_type == "coral":
         reg = float(adaptation_cfg.get("reg", 1e-6))
@@ -348,6 +382,15 @@ def main() -> int:
         )
         adaptation_applied = True
         adaptation_details = {"type": "coral", "reg": reg}
+    elif not no_data and adaptation_type == "quantile_output":
+        n_quantiles = int(adaptation_cfg.get("n_quantiles", 100))
+        if n_quantiles < 2:
+            raise ValueError("quantile_output requires n_quantiles >= 2")
+        adaptation_applied = True
+        adaptation_details = {
+            "type": "quantile_output",
+            "n_quantiles_requested": n_quantiles,
+        }
 
     if model_type == "huber":
         regressor = HuberRegressor(
@@ -410,6 +453,19 @@ def main() -> int:
     model.fit(X_src.iloc[train_idx], y_src[train_idx])
     y_src_pred = model.predict(X_src.iloc[test_idx])
     y_tgt_pred = model.predict(X_tgt)
+    if adaptation_type == "quantile_output":
+        y_src_train_pred = model.predict(X_src.iloc[train_idx])
+        n_quantiles_used = _effective_quantile_count(
+            y_src_train_pred,
+            y_tgt_pred,
+            int(adaptation_cfg.get("n_quantiles", 100)),
+        )
+        y_tgt_pred = _quantile_output_correct(
+            y_src_train_pred,
+            y_tgt_pred,
+            n_quantiles_used,
+        )
+        metrics["adaptation"]["config"]["n_quantiles_used"] = n_quantiles_used
 
     metrics["eval"] = {
         "source_test": _evaluate(y_src[test_idx], y_src_pred),

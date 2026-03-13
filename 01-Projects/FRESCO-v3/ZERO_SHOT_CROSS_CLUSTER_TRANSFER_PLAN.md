@@ -274,7 +274,7 @@ Predict:
 - [x] Test a decoupled-feature dense rerun: safer Phase 2 overlap features with richer Phase 3 modeling features.
 - [x] Stage (but do not submit) a no-queue-time matched-regime follow-up family as EXP-062..069 after confirming EXP-052..059 were already occupied by immutable historical runs.
 - [x] Freeze the EXP-044-equivalent `300k / 24` sampling universe and retrofit EXP-062..069 to use the shared sampling-plan artifact.
-- [ ] Test explicit feature adaptation on the decoupled dense design (e.g. CORAL).
+- [x] Test explicit feature adaptation on the decoupled dense design (e.g. CORAL).
 - [x] Execute `EXP-062` plus the frozen-cohort modeling repeats (`EXP-063/065/067/069`) and confirm that the queue-time-free frozen design yields stable positive target transfer on the shared cohort.
 - [x] Quantify sensitivity to frozen-universe choice (for example, a second frozen sampling plan for the same regime).
 - [x] Stage the reduced timing-block family `EXP-075..078` on both frozen universes, keeping only `ncores`, `nhosts`, and `runtime_sec`.
@@ -283,7 +283,8 @@ Predict:
 - [x] Test explicit adaptation on the frozen-universe normalized design after the runtime-sec-only ablation failed cross-universe robustness.
 - [x] Stage the higher-regularization CORAL sensitivity pair `EXP-081/082` on the same frozen no-queue cohorts with `reg = 1e-3`.
 - [x] Test a higher-regularization CORAL sensitivity on both frozen universes before abandoning linear covariance adaptation entirely.
-- [ ] Design and test a materially different adaptation family (or stop at the negative result) now that linear CORAL still fails on both frozen universes.
+- [x] Stage a materially different adaptation family (`EXP-083/084` quantile-output matching) after linear CORAL failed on both frozen universes.
+- [ ] Test the staged quantile-output family `EXP-083/084` on the same frozen no-queue cohorts (or stop at the negative result).
 - [ ] Extend the normalized matched-regime design to the other cluster pairs.
 
 ---
@@ -308,6 +309,9 @@ Predict:
 
 #### 4.3 Output distribution matching (unsupervised)
 - Fit a monotonic mapping on *predicted outputs* to match target’s predicted distribution to a reference distribution (careful: avoids using labels but can still distort semantics).
+  - Staged authoritative follow-up: `experiments\\EXP-083_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_quantile_output\\` and `experiments\\EXP-084_modeling_authoritative_v3_hardware_cpu_standard_peakmem_band_02_08_no_queuetime_quantile_output_plan2024\\`
+    - Design: keep the frozen `EXP-062` and `EXP-070` overlap cohorts plus the stronger five-feature no-queue model space fixed, then apply `adaptation.type = quantile_output` with `n_quantiles = 100` as a post-prediction monotone correction.
+    - Status: staged locally after CORAL failure; not submitted yet.
 
 **Acceptance**: show measurable improvement over non‑adapted zero‑shot on matched cohorts; document failure modes clearly.
 

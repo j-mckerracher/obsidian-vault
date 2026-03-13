@@ -218,12 +218,13 @@ Decoupled-feature interpretation:
 - But both target slopes stayed negative and both target intervals remained fully below zero, so decoupling overlap and modeling features alone is still not enough.
 - The remaining issue now looks more like unresolved domain shift inside the feature geometry than simple overlap scarcity or an underpowered source model.
 ## 9. Immediate next requirement
-The immediate next requirement is now to **tighten or replace the adaptation branch before extending to new cluster pairs**:
+The immediate next requirement is now to **replace the failed linear adaptation branch before extending to new cluster pairs**:
 - `EXP-075..078` tested the cleanest remaining timing-only simplification that the current scripts support without code changes, and it still failed the cross-universe robustness test badly.
 - The first frozen universe stayed weakly positive, but the second frozen universe became dramatically worse, which means further timing-only pruning is no longer the most defensible next branch.
 - `EXP-079` and `EXP-080` executed that first explicit-adaptation branch by reusing the stronger five-feature no-queue model space from `EXP-063/071`, keeping the frozen `EXP-062` and `EXP-070` overlap cohorts fixed, and turning on CORAL adaptation in Phase 3 only.
 - `EXP-079` then failed catastrophically on the previously positive first frozen universe (`target R^2 = -46520.6724`) even though source holdout signal stayed healthy (`source-test R^2 = 0.2081`), while target median absolute log error remained small (`mdae_log = 0.0816`). That combination strongly suggests a small number of extreme target failures or numerical outliers rather than a clean global calibration shift.
 - `EXP-080` did not rescue the harder universe either: target `R^2 = -0.0613` with bootstrap CI `[-0.1066, -0.0139]`, which is only a trivial change from the non-adapted `EXP-071` baseline (`-0.0639`).
 - `EXP-081` and `EXP-082` then completed that regularization-sensitivity branch. Raising CORAL regularization from `1e-6` to `1e-3` reduced the magnitude of the universe-1 blow-up (`-46520.6724 -> -59.6547`) but still left it catastrophically negative with target slope near zero (`0.0091`), while the second universe stayed essentially unchanged (`-0.0613 -> -0.0633`).
-- The next corrective experiment should therefore **pivot away from CORAL itself** (or stop at the negative result) rather than spend more runs on the same linear covariance-alignment family or return to more feature pruning.
-- Keep the measurement-semantics caveat explicit while evaluating that stricter adaptation branch.
+- `EXP-083` and `EXP-084` are now staged as the next corrective branch: they keep the same frozen cohorts and five-feature no-queue model space, but replace feature-space CORAL with a post-prediction monotone `quantile_output` correction that matches target predictions to the source-train prediction distribution without using target labels.
+- The next action is therefore to evaluate that staged quantile-output branch (or stop at the negative result), not to spend more jobs on additional CORAL tuning or more feature pruning.
+- Keep the measurement-semantics caveat explicit while evaluating that output-space adaptation branch.
