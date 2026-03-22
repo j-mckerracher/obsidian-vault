@@ -1,0 +1,64 @@
+# EXP-085 Run Log - repaired non-1337 output recalibration N=50 seed 2025 rerun
+
+**Run ID**: EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025
+**Date**: 2026-03-16
+
+## Objective
+Re-run the original non-1337 output recalibration with N=50 anvil -> conte hardware_cpu_standard cell on the frozen 1337 data/split universe so this point reflects only label-sampling variation.
+
+## Hypothesis (if experiment)
+Freezing `data_seed`/`split.seed` at 1337 should remove the original seed confound, and setting `few_shot.min_target_eval_rows=50` should prevent the original zero-eval failure mode while keeping this rerun on the same frozen overlap cohort as the valid 1337 cells.
+
+## Repair Context
+- Original main cell: `EXP-014_few_shot_main_output_recal_n50_seed2025`.
+- Original issue: Original main cell `EXP-014_few_shot_main_output_recal_n50_seed2025` was invalid: `results\exp003_main_few_shot_summary.csv` records `status=null_metrics` and `status_reason=no data after filters; metrics not computed`; related logs are `/home/<username>/Code/FRESCO-v4/experiments/sweep_logs/exp003_main_10409707_12.out` / `/home/<username>/Code/FRESCO-v4/experiments/sweep_logs/exp003_main_10409707_12.err`. That original config also used `split.seed=2025`, `random_seed=2025`, and `data_seed=unset` (`/home/<username>/Code/FRESCO-v4/experiments/EXP-014_few_shot_main_output_recal_n50_seed2025/config/EXP-014_few_shot_main_output_recal_n50_seed2025.json`).
+- Repair applied: Repair rerun `EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025` froze `data_seed=1337` and `split.seed=1337` and set `few_shot.min_target_eval_rows=50` in `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/config/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025.json`; parent array job is `10410106` and this run corresponds to task `10410106_8` via `/home/<username>/Code/FRESCO-v4/config/exp078_repair_non1337_config_paths.txt` and `/home/<username>/Code/FRESCO-v4/scripts/exp078_repair_non1337.slurm`.
+
+## Inputs
+- Dataset label: `chunks-v3-authoritative` (`/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/config/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025.json`)
+- Input manifest: `/depot/<group>/data/josh/FRESCO/chunks-v3/manifests/output_manifest.jsonl` (`/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/config/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025.json`)
+- Clusters: `anvil` -> `conte` (`/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/config/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025.json`)
+- Date range: not recorded in run-specific artifacts; this rerun uses the authoritative chunks-v3 snapshot referenced by `/depot/<group>/data/josh/FRESCO/chunks-v3/manifests/output_manifest.jsonl` (`/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/config/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025.json`)
+
+## Code & Environment
+- Script: `/home/<username>/Code/FRESCO-v4/scripts/few_shot_transfer.py` (`/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/manifests/run_metadata.json`)
+- Config: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/config/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025.json`
+- Git commit (pipeline): not recorded (`git_commit=null` in `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/manifests/run_metadata.json`)
+- Git commit (analysis): not separately recorded; same caveat as pipeline (`/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/manifests/run_metadata.json`)
+- Conda env: `fresco_v2` (`/home/<username>/Code/FRESCO-v4/scripts/exp078_repair_non1337.slurm`)
+- Python: `3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]` (`/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/validation/python_version.txt`)
+- Package lock: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/validation/pip_freeze.txt`
+
+## Execution
+- Cluster: Gilbreth
+- Submission command: `sbatch /home/<username>/Code/FRESCO-v4/scripts/exp078_repair_non1337.slurm` (`/home/<username>/Code/FRESCO-v4/scripts/exp078_repair_non1337.slurm`)
+- Job IDs: parent array `10410106`; task `10410106_8` with `state=COMPLETED` (`/home/<username>/Code/FRESCO-v4/config/exp078_repair_non1337_config_paths.txt`; `/home/<username>/Code/FRESCO-v4/experiments/sweep_logs/exp078_repair_10410106_8.out`)
+- Start / end time (UTC): `2026-03-16T22:21:48Z` / `2026-03-16T22:23:22Z` (`/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/logs/few_shot_transfer.log`)
+
+## Outputs
+- Output root: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/results/`
+- Manifests: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/manifests/`
+- Validation reports: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/validation/`
+- Predictions artifact: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/results/predictions_target.parquet`
+- Metrics artifact: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/results/metrics.json`
+- Relevant logs: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/logs/few_shot_transfer.log`; `/home/<username>/Code/FRESCO-v4/experiments/sweep_logs/exp078_repair_10410106_8.out`; `/home/<username>/Code/FRESCO-v4/experiments/sweep_logs/exp078_repair_10410106_8.err`
+
+## Results Summary
+- Source-test R-squared: `0.2091`; Target R-squared: `0.0091`; Target bootstrap 95% CI: `[-0.0371, 0.0340]`; Target MAE(log): `0.0922`; Target MdAE(log): `0.0778`; Target SMAPE: `68.10`; Target bias(log): `0.0034`; Target calibration slope: `1.1634`. Source: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/results/metrics.json`.
+- Calibration / evaluation counts: `actual_cal_n=50`, `actual_eval_n=173`, `matched_source_n=6995`, `matched_target_n=223`, `overflow_pred=false`. Source: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/results/metrics.json`.
+
+## Validation Summary
+- Runtime completed with `state=COMPLETED` / `exit_code=0:0` and materialized `results/metrics.json`, `predictions_target.parquet`, and `predictions_source_test.parquet`. Sources: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/results/metrics.json`; `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/results/predictions_target.parquet`; `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/results/predictions_source_test.parquet`.
+- Recorded split sizes: `actual_cal_n=50`, `actual_eval_n=173`, `min_target_eval_rows=50`, `min_target_eval_rows_satisfied=true`, `calibration_n_capped=false`. Sources: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/results/metrics.json`; `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/logs/few_shot_transfer.log`.
+- No standalone Level 0/1 validation report was emitted beyond environment capture files in `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/validation/python_version.txt` and `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/validation/pip_freeze.txt`, so treat this as runtime/metrics validation rather than a full archived validation sign-off.
+
+## Known Issues / Caveats
+- This is a repair rerun for original main cell `EXP-014_few_shot_main_output_recal_n50_seed2025`, not a net-new experiment. Sources: `/home/<username>/Code/FRESCO-v4/experiments/EXP-014_few_shot_main_output_recal_n50_seed2025/config/EXP-014_few_shot_main_output_recal_n50_seed2025.json`; `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/config/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025.json`.
+- Provenance caveat: `manifests/run_metadata.json` records `git_commit=null`, so the exact pipeline commit was not captured for this run. Source: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/manifests/run_metadata.json`.
+- Repair design caveat: the repaired config froze `data_seed=1337` / `split.seed=1337` and set `few_shot.min_target_eval_rows=50`. Source: `/home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/config/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025.json`.
+
+## Repro Steps
+1. `ssh <username>@gilbreth.rcac.purdue.edu && cd /home/<username>/Code/FRESCO-v4`
+2. `source /home/<username>/anaconda3/etc/profile.d/conda.sh && conda activate fresco_v2`
+3. `python /home/<username>/Code/FRESCO-v4/scripts/few_shot_transfer.py --config /home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/config/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025.json`
+4. `sed -n "8p" /home/<username>/Code/FRESCO-v4/config/exp078_repair_non1337_config_paths.txt && cat /home/<username>/Code/FRESCO-v4/experiments/EXP-085_few_shot_repair_non1337_output_recal_n50_seed2025/results/metrics.json`
