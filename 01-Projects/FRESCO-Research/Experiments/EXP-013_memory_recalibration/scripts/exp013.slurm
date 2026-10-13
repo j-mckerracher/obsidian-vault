@@ -11,7 +11,7 @@
 #SBATCH --partition=a30
 #SBATCH --account=<group>
 #SBATCH --qos=standby
-#SBATCH --mail-user=<username>@purdue.edu
+#SBATCH --mail-user=<redacted>@purdue.edu
 #SBATCH --mail-type=END,FAIL
 
 set -euo pipefail

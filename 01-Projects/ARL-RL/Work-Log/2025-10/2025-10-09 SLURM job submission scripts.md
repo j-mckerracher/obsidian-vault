@@ -93,7 +93,7 @@ Comprehensive documentation covering:
 ### For Quick Testing:
 ```bash
 # Connect to Gilbreth
-ssh username@gilbreth.rcac.purdue.edu
+ssh <username>@gilbreth.rcac.purdue.edu
 
 # Navigate to project
 cd /path/to/ARL-RL

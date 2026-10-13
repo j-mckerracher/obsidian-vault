@@ -216,7 +216,7 @@ Every SLURM script must include:
 #SBATCH --partition=<partition>       # a30, a100-40gb, a100-80gb, v100
 #SBATCH --account=<group>             # Lab account (find with: slist)
 #SBATCH --qos=<qos>                   # standby (≤4h, backfill) or normal (≤14d)
-#SBATCH --mail-user=<username>@purdue.edu
+#SBATCH --mail-user=<redacted>@purdue.edu
 #SBATCH --mail-type=END,FAIL          # Email on completion or failure
 ```
 
